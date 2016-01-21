@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CrystalBallWebSite", "http://localhost:50637", "{B1D3AF56-AF81-4C47-B29E-B6022766D873}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50637"
+		Debug.AspNetCompiler.PhysicalPath = "CrystalBallWebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50637\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50637"
+		Release.AspNetCompiler.PhysicalPath = "CrystalBallWebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50637\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "CrystalBallWebSite\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalBallSystem", "CrystalBallSystem\CrystalBallSystem.csproj", "{9B6AE348-C99E-446A-8F27-B7ECCC76466E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
