@@ -30,8 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,13 +50,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\Entities\Category.cs" />
+    <Compile Include="DAL\Entities\CompletedHighSchoolCours.cs" />
+    <Compile Include="DAL\Entities\CompletedProgram.cs" />
+    <Compile Include="DAL\CrystalBallContext.cs" />
+    <Compile Include="DAL\Entities\EntranceRequirement.cs" />
+    <Compile Include="DAL\Entities\HighSchoolCours.cs" />
+    <Compile Include="DAL\Entities\NaitCours.cs" />
+    <Compile Include="DAL\Entities\Program.cs" />
+    <Compile Include="DAL\Entities\ProgramType.cs" />
+    <Compile Include="DAL\Entities\Staff.cs" />
+    <Compile Include="DAL\Entities\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BLL\" />
     <Folder Include="DAL\DTOs\" />
-    <Folder Include="DAL\Entities\" />
     <Folder Include="DAL\POCOs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
