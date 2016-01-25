@@ -37,7 +37,7 @@ namespace CrystalBallSystem.DAL.Entities
 
         public virtual ICollection<CompletedProgram> CompletedPrograms { get; set; }
 
-        public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
+        public virtual ICollection<SubjectRequirement> SubjectRequirements { get; set; }
 
         public virtual ProgramType ProgramType { get; set; }
 

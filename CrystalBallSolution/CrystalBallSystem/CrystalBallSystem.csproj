@@ -61,6 +61,7 @@
     <Compile Include="DAL\Entities\ProgramType.cs" />
     <Compile Include="DAL\Entities\Staff.cs" />
     <Compile Include="DAL\Entities\Student.cs" />
+    <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

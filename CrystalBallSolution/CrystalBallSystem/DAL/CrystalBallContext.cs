@@ -25,6 +25,7 @@ namespace CrystalBallSystem.DAL
         public virtual DbSet<ProgramType> ProgramTypes { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -79,7 +80,7 @@ namespace CrystalBallSystem.DAL
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Program>()
-                .HasMany(e => e.EntranceRequirements)
+                .HasMany(e => e.SubjectRequirements)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
 

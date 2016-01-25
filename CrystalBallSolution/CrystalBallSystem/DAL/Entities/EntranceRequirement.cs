@@ -24,6 +24,6 @@ namespace CrystalBallSystem.DAL.Entities
 
         public virtual HighSchoolCours HighSchoolCours { get; set; }
 
-        public virtual Program Program { get; set; }
+        public virtual SubjectRequirement SubjectRequirement { get; set; }
     }
 }
