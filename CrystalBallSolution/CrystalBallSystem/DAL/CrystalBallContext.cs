@@ -16,11 +16,11 @@ namespace CrystalBallSystem.DAL
         }
 
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CompletedHighSchoolCours> CompletedHighSchoolCourses { get; set; }
+        public virtual DbSet<CompletedHighSchoolCourse> CompletedHighSchoolCourses { get; set; }
         public virtual DbSet<CompletedProgram> CompletedPrograms { get; set; }
         public virtual DbSet<EntranceRequirement> EntranceRequirements { get; set; }
-        public virtual DbSet<HighSchoolCours> HighSchoolCourses { get; set; }
-        public virtual DbSet<NaitCours> NaitCourses { get; set; }
+        public virtual DbSet<HighSchoolCourse> HighSchoolCourses { get; set; }
+        public virtual DbSet<NaitCourse> NaitCourses { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
         public virtual DbSet<ProgramType> ProgramTypes { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
@@ -38,30 +38,30 @@ namespace CrystalBallSystem.DAL
                 .WithMany(e => e.Categories)
                 .Map(m => m.ToTable("ProgramCategory").MapLeftKey("CategoryID").MapRightKey("ProgramID"));
 
-            modelBuilder.Entity<HighSchoolCours>()
+            modelBuilder.Entity<HighSchoolCourse>()
                 .Property(e => e.HighSchoolCourseName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<HighSchoolCours>()
+            modelBuilder.Entity<HighSchoolCourse>()
                 .HasMany(e => e.CompletedHighSchoolCourses)
-                .WithRequired(e => e.HighSchoolCours)
+                .WithRequired(e => e.HighSchoolCourse)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<HighSchoolCours>()
+            modelBuilder.Entity<HighSchoolCourse>()
                 .HasMany(e => e.EntranceRequirements)
-                .WithRequired(e => e.HighSchoolCours)
+                .WithRequired(e => e.HighSchoolCourse)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<NaitCours>()
+            modelBuilder.Entity<NaitCourse>()
                 .Property(e => e.CourseName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<NaitCours>()
+            modelBuilder.Entity<NaitCourse>()
                 .HasMany(e => e.Students)
                 .WithMany(e => e.NaitCourses)
                 .Map(m => m.ToTable("CompletedCourses").MapLeftKey("CourseID").MapRightKey("StudentID"));
 
-            modelBuilder.Entity<NaitCours>()
+            modelBuilder.Entity<NaitCourse>()
                 .HasMany(e => e.Programs)
                 .WithMany(e => e.NaitCourses)
                 .Map(m => m.ToTable("ProgramCourses").MapLeftKey("CourseID").MapRightKey("ProgramID"));

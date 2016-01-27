@@ -8,7 +8,7 @@ namespace CrystalBallSystem.DAL.Entities
 {
 
     [Table("CompletedHighSchoolCourses")]
-    public partial class CompletedHighSchoolCours
+    public partial class CompletedHighSchoolCourse
     {
         [Key]
         [Column(Order = 0)]
@@ -22,7 +22,7 @@ namespace CrystalBallSystem.DAL.Entities
 
         public double Mark { get; set; }
 
-        public virtual HighSchoolCours HighSchoolCours { get; set; }
+        public virtual HighSchoolCourse HighSchoolCourse { get; set; }
 
         public virtual Student Student { get; set; }
     }

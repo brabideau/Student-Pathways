@@ -22,10 +22,10 @@ namespace CrystalBallSystem.DAL.Entities
         [StringLength(32)]
         public string Password { get; set; }
     
-        public virtual ICollection<CompletedHighSchoolCours> CompletedHighSchoolCourses { get; set; }
+        public virtual ICollection<CompletedHighSchoolCourse> CompletedHighSchoolCourses { get; set; }
        
         public virtual ICollection<CompletedProgram> CompletedPrograms { get; set; }
 
-        public virtual ICollection<NaitCours> NaitCourses { get; set; }
+        public virtual ICollection<NaitCourse> NaitCourses { get; set; }
     }
 }

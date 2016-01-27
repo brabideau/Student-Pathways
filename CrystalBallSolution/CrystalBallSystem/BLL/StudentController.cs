@@ -52,7 +52,7 @@ namespace CrystalBallSystem.BLL
         #endregion
 
         #region course
-        public void AddCourse(NaitCours item)
+        public void AddCourse(NaitCourse item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {

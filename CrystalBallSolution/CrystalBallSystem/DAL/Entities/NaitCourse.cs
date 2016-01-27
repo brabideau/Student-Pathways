@@ -9,7 +9,7 @@ namespace CrystalBallSystem.DAL.Entities
     
 
     [Table("NaitCourses")]
-    public partial class NaitCours
+    public partial class NaitCourse
     {
 
         [Key]

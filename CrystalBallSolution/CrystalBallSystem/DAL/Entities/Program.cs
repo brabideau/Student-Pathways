@@ -43,7 +43,7 @@ namespace CrystalBallSystem.DAL.Entities
 
         public virtual ICollection<Category> Categories { get; set; }
 
-        public virtual ICollection<NaitCours> NaitCourses { get; set; }
+        public virtual ICollection<NaitCourse> NaitCourses { get; set; }
 
         public virtual ICollection<Staff> Staffs { get; set; }
     }
