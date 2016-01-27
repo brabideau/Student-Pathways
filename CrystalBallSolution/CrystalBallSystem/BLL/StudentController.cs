@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-#region Addtional namespace
+#region Additional namespace
 
 using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL;
+using System.ComponentModel;
+using CrystalBallSystem.DAL.POCOs;
 
 #endregion
 
@@ -51,7 +53,7 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
-        #region course
+        #region add nait course
         public void AddCourse(NaitCourse item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -63,18 +65,37 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
-        #region course
-        public void AddCourse(HighSchoolCourse item)
+        #region add high school course
+        public void AddHighSchoolCourse(CompletedHighSchoolCourse item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 // TODO: Validation rules...
-                var added = context.HighSchoolCourses.Add(item);
+                var added = context.CompletedHighSchoolCourses.Add(item);
                 context.SaveChanges();
             }
         }
         #endregion
 
+        #region list high school courses
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<StudentHighSchoolCourses> CompletedHighSchoolCourses(int studentID)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from row in context.CompletedHighSchoolCourses
+                              orderby row.HighSchoolCourseID
+                              where row.StudentID == studentID
+                              select new StudentHighSchoolCourses
+                              {
+                                  HighSchoolCourse = row.HighSchoolCourse.HighSchoolCourseName,
+                                  Mark = row.Mark
+                              };
+
+                return results.ToList();
+            }
+        }
+        #endregion
     }
 }
 
