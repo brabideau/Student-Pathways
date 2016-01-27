@@ -52,12 +52,12 @@ namespace CrystalBallSystem.BLL
         #endregion
 
         #region course
-        public void AddCourse(HighSchoolCours item)
+        public void AddCourse(NaitCours item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 // TODO: Validation rules...
-                var added = context.HighSchoolCourses.Add(item);
+                var added = context.NaitCourses.Add(item);
                 context.SaveChanges();
             }
         }
