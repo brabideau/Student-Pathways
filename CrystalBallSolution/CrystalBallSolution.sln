@@ -7,6 +7,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CrystalBallWebSite", "http:
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{9b6ae348-c99e-446a-8f27-b7eccc76466e}|CrystalBallSystem.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50637"
 		Debug.AspNetCompiler.PhysicalPath = "CrystalBallWebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50637\"
