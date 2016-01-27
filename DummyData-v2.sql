@@ -15,6 +15,21 @@ Drop table Category;
 Drop table Staff;
 */
 
+delete Category;
+delete CompletedCourses;
+delete CompletedHighSchoolCourses;
+delete CompletedProgram;
+delete EntranceRequirement;
+delete HighSchoolCourses;
+delete NaitCourses;
+delete Program;
+delete ProgramCategory;
+delete ProgramType;
+delete Staff;
+delete StaffProgram;
+delete Student;
+delete SubjectRequirement;
+
 insert into ProgramType (ProgramTypeID, ProgramTypeDescription) values (1, 'Youbridge');
 insert into ProgramType (ProgramTypeID, ProgramTypeDescription) values (2, 'Gabspot');
 insert into ProgramType (ProgramTypeID, ProgramTypeDescription) values (3, 'Eadel');
