@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\AdminController.cs" />
     <Compile Include="BLL\StudentController.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
     <Compile Include="DAL\Entities\CompletedHighSchoolCourse.cs" />
