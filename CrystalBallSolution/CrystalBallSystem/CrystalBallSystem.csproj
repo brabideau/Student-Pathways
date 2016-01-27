@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\StudentController.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
     <Compile Include="DAL\Entities\CompletedHighSchoolCours.cs" />
     <Compile Include="DAL\Entities\CompletedProgram.cs" />
@@ -65,7 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BLL\" />
     <Folder Include="DAL\DTOs\" />
     <Folder Include="DAL\POCOs\" />
   </ItemGroup>

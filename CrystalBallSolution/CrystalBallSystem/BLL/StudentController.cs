@@ -57,7 +57,7 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 // TODO: Validation rules...
-                var added = context.NaitCourses.Add(item);
+                var added = context.HighSchoolCourses.Add(item);
                 context.SaveChanges();
             }
         }
