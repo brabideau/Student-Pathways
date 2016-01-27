@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrystalBallSystem.DAL.POCOs
 {
-    class StudentHighSchoolCourses
+    public class StudentHighSchoolCourses
     {
         public string HighSchoolCourse { get; set; }
         public double Mark { get; set; }
