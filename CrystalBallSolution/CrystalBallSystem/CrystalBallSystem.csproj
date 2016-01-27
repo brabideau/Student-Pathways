@@ -64,11 +64,11 @@
     <Compile Include="DAL\Entities\Staff.cs" />
     <Compile Include="DAL\Entities\Student.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
+    <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAL\DTOs\" />
-    <Folder Include="DAL\POCOs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

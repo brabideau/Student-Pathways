@@ -17,6 +17,7 @@ using CrystalBallSystem.DAL.POCOs;
 
 namespace CrystalBallSystem.BLL
 {
+    [DataObject]
     public class StudentController
     {
         #region account setup
@@ -96,6 +97,23 @@ namespace CrystalBallSystem.BLL
             }
         }
         #endregion
+
+        //select method that will populate the drop down list allowing a user to select courses.
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<GetHSCourses>GetCourseList()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from course in context.HighSchoolCourses
+                              orderby course.HighSchoolCourseName
+                              select new GetHSCourses
+                              {
+                                  HighSchoolCourseID = course.HighSchoolCourseID,
+                                  HighSchoolCourseDescription = course.HighSchoolCourseName
+                              };
+                return results.ToList();
+            }
+        }
     }
 }
 
