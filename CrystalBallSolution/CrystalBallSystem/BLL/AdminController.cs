@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace CrystalBallSystem.BLL
 {
     public class AdminController
-
     {
+
     }
 }
