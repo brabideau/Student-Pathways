@@ -61,7 +61,18 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
+        #endregion
 
+        #region course
+        public void AddCourse(HighSchoolCourse item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                // TODO: Validation rules...
+                var added = context.HighSchoolCourses.Add(item);
+                context.SaveChanges();
+            }
+        }
         #endregion
 
     }
