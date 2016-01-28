@@ -14,6 +14,16 @@
         <asp:GridView ID="GV_Course" runat="server" AutoGenerateColumns="false" ShowFooter="true">
             <Columns>
                 <asp:TemplateField>
+                    <FooterTemplate>
+                        <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
+                            OnClick="Add_Btn_Click" CssClass="wizard-course-buttons hvr-ripple-out add-align"  
+                            CausesValidation="false"><i aria-hidden="true" class="glyphicon glyphicon-plus"></i></asp:LinkButton>
+            
+                        <asp:LinkButton ID="Remove_Btn" runat="server" Font-Underline="false"
+                            CausesValidation="false"
+                            CssClass="wizard-course-buttons hvr-ripple-out add-align"
+                            OnClick="Remove_Btn_Click"><i aria-hidden="true" class="glyphicon glyphicon-minus"></i></asp:LinkButton>
+                    </FooterTemplate>
                     <ItemTemplate>
 
                         <asp:DropDownList ID="DL_Course" runat="server" DataSourceID="CourseList" CssClass="form-control"
