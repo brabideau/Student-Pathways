@@ -1,11 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddCourse.aspx.cs" Inherits="AddCourse" MasterPageFile="~/Site.master" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
 
-    <div>
-    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID">
-    </asp:DropDownList>
-    <asp:Button ID="course" runat="server" Text="Add Course" />
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+    <div>    
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
     </div>
 
@@ -17,12 +17,7 @@
                     <FooterTemplate>
                         <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
                             OnClick="Add_Btn_Click" CssClass="wizard-course-buttons hvr-ripple-out add-align"  
-                            CausesValidation="false"><i aria-hidden="true" class="glyphicon glyphicon-plus"></i></asp:LinkButton>
-            
-                        <asp:LinkButton ID="Remove_Btn" runat="server" Font-Underline="false"
-                            CausesValidation="false"
-                            CssClass="wizard-course-buttons hvr-ripple-out add-align"
-                            OnClick="Remove_Btn_Click"><i aria-hidden="true" class="glyphicon glyphicon-minus"></i></asp:LinkButton>
+                            CausesValidation="false"><i aria-hidden="true" class="glyphicon glyphicon-plus"></i></asp:LinkButton>             
                     </FooterTemplate>
                     <ItemTemplate>
 
@@ -49,6 +44,15 @@
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                         <asp:LinkButton ID="Remove_Btn" runat="server" Font-Underline="false"
+                            CausesValidation="false"
+                            CssClass="wizard-course-buttons hvr-ripple-out add-align"
+                            OnClick="Remove_Btn_Click"><i aria-hidden="true" class="glyphicon glyphicon-minus"></i></asp:LinkButton>
+                    </ItemTemplate>                   
+                </asp:TemplateField>
+                
             </Columns>
         </asp:GridView>
 
