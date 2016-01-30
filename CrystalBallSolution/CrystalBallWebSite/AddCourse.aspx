@@ -11,8 +11,9 @@
 
     <div>
 
-        <asp:GridView ID="GV_Course" runat="server" AutoGenerateColumns="false" ShowFooter="true">
+        <asp:GridView ID="GV_Course" runat="server" AutoGenerateColumns="False" ShowFooter="True" OnRowDeleting="GVCourse_RowDeleting">            
             <Columns>
+                <asp:BoundField DataField="RowNumber" Visible="false"/>
                 <asp:TemplateField>
                     <FooterTemplate>
                         <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
@@ -30,8 +31,7 @@
 
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Enter Your Marks">
-                                
+                <asp:TemplateField HeaderText="Enter Your Marks">                                
                     <ItemTemplate>
                         <asp:TextBox ID="TB_EnterMarks" runat="server" CssClass="form-control ent-req-input"
                             Width="50px"></asp:TextBox>
@@ -44,14 +44,15 @@
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField>
+                <asp:TemplateField Visible="false">
                     <ItemTemplate>
                          <asp:LinkButton ID="Remove_Btn" runat="server" Font-Underline="false"
-                            CausesValidation="false"
+                            CausesValidation="false" Visible="false"
                             CssClass="wizard-course-buttons hvr-ripple-out add-align"
                             OnClick="Remove_Btn_Click"><i aria-hidden="true" class="glyphicon glyphicon-minus"></i></asp:LinkButton>
                     </ItemTemplate>                   
                 </asp:TemplateField>
+                <asp:CommandField ShowDeleteButton="True" />
                 
             </Columns>
         </asp:GridView>
