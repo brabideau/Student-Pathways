@@ -4,6 +4,10 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <br />
+    <br />
+    <br />
+    <br />
     <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <div>    
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
@@ -43,17 +47,8 @@
                         </div>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                </asp:TemplateField>
-                <asp:TemplateField Visible="false">
-                    <ItemTemplate>
-                         <asp:LinkButton ID="Remove_Btn" runat="server" Font-Underline="false"
-                            CausesValidation="false" Visible="false"
-                            CssClass="wizard-course-buttons hvr-ripple-out add-align"
-                            OnClick="Remove_Btn_Click"><i aria-hidden="true" class="glyphicon glyphicon-minus"></i></asp:LinkButton>
-                    </ItemTemplate>                   
-                </asp:TemplateField>
-                <asp:CommandField ShowDeleteButton="True" />
-                
+                </asp:TemplateField>               
+                <asp:CommandField ShowDeleteButton="True" />                
             </Columns>
         </asp:GridView>
 

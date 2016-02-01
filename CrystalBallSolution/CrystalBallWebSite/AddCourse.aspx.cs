@@ -45,55 +45,50 @@ public partial class AddCourse : System.Web.UI.Page
     {
         MessageUserControl.TryRun(() =>
         {
+            int i;
+            bool trigger = true;
             if (GV_Course.Rows.Count < 8)
-            {
-                AddNewRowToCourse();
-
+            {                
+                foreach (GridViewRow row in GV_Course.Rows)
+                {
+                    var course = row.FindControl("DL_Course") as DropDownList;
+                    var poQtyLabel = row.FindControl("TB_EnterMarks") as TextBox;
+                    if (string.IsNullOrEmpty((row.FindControl("TB_EnterMarks") as TextBox).Text))
+                    {
+                        MessageUserControl.ShowInfo("Must Enter a Quantity");
+                        trigger = false;
+                    }
+                    else
+                    {
+                        if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
+                        {
+                            MessageUserControl.ShowInfo("Quantity must be an integer");
+                            trigger = false;
+                        }
+                        else
+                        {
+                            if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
+                            {
+                                MessageUserControl.ShowInfo("Quantity must be greater than 0");
+                                trigger = false;
+                            }
+                            else
+                            {
+                                AddNewRowToCourse();
+                            }
+                        }
+                    }                    
+                }
+                //if (trigger == true)
+                //{
+                //    AddNewRowToCourse();
+                //}
             }
             else
             {
-                throw new Exception("You cannot enter more than 8 Courses-Marks each time.");
+                
             }
-
         });
-    }
-    protected void Remove_Btn_Click(object sender, EventArgs e)
-    {
-        //if (ViewState["CurrentTableCourse"] != null)
-        //{
-        //    //create new datatable, cast datatable of viewstate
-        //    DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
-        //    DataRow drCurrentRow = null;
-
-        //    int rowIndex = 0;
-
-        //    if (dtCurrentTable.Rows.Count > 1)
-        //    {
-        //        for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-        //        {
-        //            //extract the values
-        //            DropDownList courseList = (DropDownList)GV_Course.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-        //            TextBox marks = (TextBox)GV_Course.Rows[rowIndex].Cells[2].FindControl("TB_EnterMarks");
-
-        //            drCurrentRow = dtCurrentTable.NewRow();
-        //            drCurrentRow["RowNumberCourse"] = i;
-
-        //            dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.Text;
-        //            dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
-
-        //            rowIndex++;
-        //        }
-
-        //        dtCurrentTable.Rows[rowIndex - 1].Delete();
-
-        //        ViewState["CurrentTableCourse"] = dtCurrentTable;
-
-        //        GV_Course.DataSource = dtCurrentTable;
-        //        GV_Course.DataBind();
-        //    }
-        //}
-
-        //SetPreviousCourseData();
     }
     private void SetPreviousCourseData()
     {
