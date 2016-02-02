@@ -21,14 +21,12 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     private const string STR_TITLE_ICON_success = "glyphicon glyphicon-ok-sign";
     private const string STR_PANEL_success = "panel panel-success";
     #endregion
-
     #region Event Handlers
     protected void Page_Load(object sender, EventArgs e)
     {
         MessagePanel.Visible = false;
     }
     #endregion
-
     #region Public methods - show messages and process requests within try/catch
     /// <summary>
     /// Displays a message in the message panel with a general title of "Usage Instructions"
@@ -45,7 +43,7 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="message">Text to display as the message</param>
     public void ShowInfo(string title, string message)
     {
-        ShowInfo();
+        ShowInfo(message, title, STR_TITLE_ICON_info, STR_PANEL_info);
     }
     /// <summary>
     /// Processes a request through a callback delegate within a try/catch block. Distinguished Entity Framework exceptions from general exceptions.
@@ -64,7 +62,7 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     public void TryRun(ProcessRequest callback, string title, string successMessage)
     {
         if (TryCatch(callback))
-            ShowInfo();
+            ShowInfo(successMessage, title, STR_TITLE_ICON_success, STR_PANEL_success);
     }
     /// <summary>
     /// Checks for an exception from an ObjectDataSource event and handles it by showing the details of the exception.
@@ -84,7 +82,6 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
         }
     }
     #endregion
-
     #region Private methods - process details of messaging
     /// <summary>
     /// Processes a request through a callback delegate within a try/catch block. Distinguished Entity Framework exceptions from general exceptions.
@@ -150,7 +147,7 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     {
         MessageDetailsRepeater.DataSource = details;
         MessageDetailsRepeater.DataBind();
-        ShowInfo();
+        ShowInfo(messageText, messageTitle, titleIcon, panelClass);
     }
     /// <summary>
     /// Displays the message panel.
@@ -159,12 +156,12 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="messageTitle">Title for the panel</param>
     /// <param name="titleIcon">Icon to show in the panel title</param>
     /// <param name="panelClass">CSS Class to apply to the panel</param>
-    private void ShowInfo(/*string messageText, string messageTitle, string titleIcon, string panelClass*/)
+    private void ShowInfo(string messageText, string messageTitle, string titleIcon, string panelClass)
     {
-        //MessageLabel.Text = messageText;
-        //MessageTitle.Text = messageTitle;
-        //MessageTitleIcon.CssClass = titleIcon;
-        //MessagePanel.CssClass = panelClass;
+        MessageLabel.Text = messageText;
+        MessageTitle.Text = messageTitle;
+        MessageTitleIcon.CssClass = titleIcon;
+        MessagePanel.CssClass = panelClass;
         MessagePanel.Visible = true;
     }
     #endregion

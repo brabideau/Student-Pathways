@@ -53,36 +53,38 @@ public partial class AddCourse : System.Web.UI.Page
                 {
                     var course = row.FindControl("DL_Course") as DropDownList;
                     var poQtyLabel = row.FindControl("TB_EnterMarks") as TextBox;
+                    if (string.IsNullOrEmpty((row.FindControl("DL_Course") as DropDownList).Text))
+                    {
+                        MessageUserControl.ShowInfo("Must Enter a Quantity");
+                        trigger = false;
+                    }
                     if (string.IsNullOrEmpty((row.FindControl("TB_EnterMarks") as TextBox).Text))
                     {
                         MessageUserControl.ShowInfo("Must Enter a Quantity");
                         trigger = false;
                     }
+                    if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
+                    {
+                        MessageUserControl.ShowInfo("Quantity must be an integer");
+                        trigger = false;
+                    }
                     else
                     {
-                        if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
+                        if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
                         {
-                            MessageUserControl.ShowInfo("Quantity must be an integer");
+                            MessageUserControl.ShowInfo("Quantity must be greater than 0");
                             trigger = false;
                         }
                         else
                         {
-                            if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
-                            {
-                                MessageUserControl.ShowInfo("Quantity must be greater than 0");
-                                trigger = false;
-                            }
-                            else
-                            {
-                                AddNewRowToCourse();
-                            }
+                            MessageUserControl.ShowInfo("Yay");
                         }
                     }                    
                 }
-                //if (trigger == true)
-                //{
-                //    AddNewRowToCourse();
-                //}
+                if (trigger == true)
+                {
+                    AddNewRowToCourse();
+                }
             }
             else
             {
@@ -211,5 +213,10 @@ public partial class AddCourse : System.Web.UI.Page
             //grvStudentDetails.DataBind();
         }
         //SetPreviousData();
+    }
+
+    protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
+    {
+        MessageUserControl.HandleDataBoundException(e);
     }
 }

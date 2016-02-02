@@ -10,7 +10,7 @@
     <br />
     <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <div>    
-    <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" OnInserted="CheckForException"></asp:ObjectDataSource>
     </div>
 
     <div>
