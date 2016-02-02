@@ -53,33 +53,41 @@ public partial class AddCourse : System.Web.UI.Page
                 {
                     var course = row.FindControl("DL_Course") as DropDownList;
                     var poQtyLabel = row.FindControl("TB_EnterMarks") as TextBox;
-                    if (string.IsNullOrEmpty((row.FindControl("DL_Course") as DropDownList).Text))
+                    if (string.IsNullOrEmpty((row.FindControl("DL_Course") as DropDownList).SelectedValue))
                     {
-                        MessageUserControl.ShowInfo("Must Enter a Quantity");
-                        trigger = false;
-                    }
-                    if (string.IsNullOrEmpty((row.FindControl("TB_EnterMarks") as TextBox).Text))
-                    {
-                        MessageUserControl.ShowInfo("Must Enter a Quantity");
-                        trigger = false;
-                    }
-                    if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
-                    {
-                        MessageUserControl.ShowInfo("Quantity must be an integer");
+                        MessageUserControl.ShowInfo("Please make a course selection");
                         trigger = false;
                     }
                     else
                     {
-                        if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
+                        if (string.IsNullOrEmpty((row.FindControl("TB_EnterMarks") as TextBox).Text))
                         {
-                            MessageUserControl.ShowInfo("Quantity must be greater than 0");
+                            MessageUserControl.ShowInfo("Please enter a mark");
                             trigger = false;
                         }
                         else
                         {
-                            MessageUserControl.ShowInfo("Yay");
-                        }
-                    }                    
+                            if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
+                            {
+                                MessageUserControl.ShowInfo("mark must be a integer");
+                                trigger = false;
+                            }
+                            else
+                            {
+
+                                if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
+                                {
+                                    MessageUserControl.ShowInfo("mark must between 0 to 100.");
+                                    trigger = false;
+                                }
+                                else
+                                {
+                                    MessageUserControl.ShowInfo("Successed!");
+                                }
+                            }     
+                        }                        
+                    }
+                                   
                 }
                 if (trigger == true)
                 {
