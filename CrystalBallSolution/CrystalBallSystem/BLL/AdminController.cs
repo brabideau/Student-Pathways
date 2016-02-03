@@ -6,17 +6,57 @@ using System.Threading.Tasks;
 
 
 #region Additional namespace
-
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL;
-
+using System.ComponentModel;
 #endregion
 
 namespace CrystalBallSystem.BLL
 {
     public class AdminController
     {
-        #region program
+        #region Admin management
+
+        [DataObjectMethod(DataObjectMethodType.Select,false)]
+        public List<Category> Category_List()
+        {
+            using(CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.Categories.OrderBy(x => x.CategoryID).ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select,false)]
+        public List<HighSchoolCourse> HighSchoolCourse_List()
+        {
+            using(CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.HighSchoolCourses.OrderBy(x => x.HighSchoolCourseID).ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddCategory(Category item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                Category added = null;
+                added = context.Categories.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void UpdateCategory(Category item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                context.Entry<Category>(context.Categories.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
 
         public void AddProgram(Program item)
         {
