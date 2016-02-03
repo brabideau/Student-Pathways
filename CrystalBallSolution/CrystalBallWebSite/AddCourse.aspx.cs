@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -226,5 +227,28 @@ public partial class AddCourse : System.Web.UI.Page
     protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
     {
         MessageUserControl.HandleDataBoundException(e);
+    }
+
+    protected void search_Click(object sender, EventArgs e)
+    {
+        //clear the old cache
+        List<string> keys = new List<string>();
+        //retrieve application cache enumerator
+        IDictionaryEnumerator enumerator = Cache.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            keys.Add(enumerator.Key.ToString());
+        }
+        for (int k = 0; k < keys.Count; k++ )
+        {
+            Cache.Remove(keys[k]);
+        }
+        
+        //once cache is cleared, add new items to the cache
+        for (int i = 0; i < GV_Course.Rows.Count; i++)
+        {
+            //get the appropriate cell and read the value so it can be passed to the cache.
+            Cache.Insert(i.ToString(), GV_Course.Rows[i].Cells[1].ToString(), null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
+        }
     }
 }
