@@ -15,7 +15,7 @@ namespace CrystalBallSystem.DAL.Entities
         [StringLength(30)]
         public string SubjectDescription { get; set; }
 
-        public virtual EntranceRequirement EntranceRequirement { get; set; }
+        public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
 
     }
 }
