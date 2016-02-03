@@ -19,7 +19,7 @@ public partial class Pages_testPage : System.Web.UI.Page
 
     }
     protected void Button1_Click(object sender, EventArgs e)
-    {
+    { /*
         string email = TextBox1.Text;
         string password = TextBox2.Text;
         Label1.Text = email;
@@ -33,5 +33,7 @@ public partial class Pages_testPage : System.Web.UI.Page
         sc.Registration(item);
         TextBox1.Text = "";
         TextBox2.Text = "";
+
+        */
     }
 }

@@ -19,8 +19,6 @@ namespace CrystalBallSystem.DAL.Entities
         [StringLength(30)]
         public string HighSchoolCourseName { get; set; }
 
-        public virtual ICollection<CompletedHighSchoolCourse> CompletedHighSchoolCourses { get; set; }
-
         public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
     }
 }

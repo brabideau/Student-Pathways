@@ -16,17 +16,15 @@ namespace CrystalBallSystem.DAL
         }
 
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CompletedHighSchoolCourse> CompletedHighSchoolCourses { get; set; }
-        public virtual DbSet<CompletedProgram> CompletedPrograms { get; set; }
         public virtual DbSet<EntranceRequirement> EntranceRequirements { get; set; }
         public virtual DbSet<HighSchoolCourse> HighSchoolCourses { get; set; }
         public virtual DbSet<NaitCourse> NaitCourses { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
-        public virtual DbSet<ProgramType> ProgramTypes { get; set; }
-        public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
+        public virtual DbSet<PreferenceQuestion> PreferenceQuestions { get; set; }
+        public virtual DbSet<ProgramPreference> ProgramPreferences { get; set; }
 
+        /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
@@ -41,11 +39,6 @@ namespace CrystalBallSystem.DAL
             modelBuilder.Entity<HighSchoolCourse>()
                 .Property(e => e.HighSchoolCourseName)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<HighSchoolCourse>()
-                .HasMany(e => e.CompletedHighSchoolCourses)
-                .WithRequired(e => e.HighSchoolCourse)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<HighSchoolCourse>()
                 .HasMany(e => e.EntranceRequirements)
@@ -74,55 +67,13 @@ namespace CrystalBallSystem.DAL
                 .Property(e => e.ProgramLink)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Program>()
-                .HasMany(e => e.CompletedPrograms)
-                .WithRequired(e => e.Program)
-                .WillCascadeOnDelete(false);
+      
 
             modelBuilder.Entity<Program>()
                 .HasMany(e => e.SubjectRequirements)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Program>()
-                .HasMany(e => e.Staffs)
-                .WithMany(e => e.Programs)
-                .Map(m => m.ToTable("StaffProgram").MapLeftKey("ProgramID").MapRightKey("StaffID"));
-
-            modelBuilder.Entity<ProgramType>()
-                .Property(e => e.ProgramTypeDescription)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProgramType>()
-                .HasMany(e => e.Programs)
-                .WithRequired(e => e.ProgramType)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Staff>()
-                .Property(e => e.StaffEmail)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Staff>()
-                .Property(e => e.Password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Student>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Student>()
-                .Property(e => e.Password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Student>()
-                .HasMany(e => e.CompletedHighSchoolCourses)
-                .WithRequired(e => e.Student)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Student>()
-                .HasMany(e => e.CompletedPrograms)
-                .WithRequired(e => e.Student)
-                .WillCascadeOnDelete(false);
-        }
+        
+        } */
     }
 }

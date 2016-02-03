@@ -14,7 +14,7 @@ using CrystalBallSystem.DAL.POCOs;
 
 #endregion
 
-
+/*
 namespace CrystalBallSystem.BLL
 {
     [DataObject]
@@ -117,3 +117,4 @@ namespace CrystalBallSystem.BLL
     }
 }
 
+*/

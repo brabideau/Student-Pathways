@@ -24,8 +24,6 @@ namespace CrystalBallSystem.DAL.Entities
 
         public bool Active { get; set; }
      
-        public virtual ICollection<Student> Students { get; set; }
-
         public virtual ICollection<Program> Programs { get; set; }
     }
 }
