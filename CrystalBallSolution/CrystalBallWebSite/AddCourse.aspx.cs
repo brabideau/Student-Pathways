@@ -248,7 +248,10 @@ public partial class AddCourse : System.Web.UI.Page
         for (int i = 0; i < GV_Course.Rows.Count; i++)
         {
             //get the appropriate cell and read the value so it can be passed to the cache.
-            Cache.Insert(i.ToString(), GV_Course.Rows[i].Cells[1].ToString(), null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
+            DropDownList course = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
+            string courseID = course.SelectedValue;
+
+            Cache.Insert(i.ToString(), courseID, null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
         }
     }
 }
