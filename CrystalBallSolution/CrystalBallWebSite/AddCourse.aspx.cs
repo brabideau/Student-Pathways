@@ -248,10 +248,35 @@ public partial class AddCourse : System.Web.UI.Page
         for (int i = 0; i < GV_Course.Rows.Count; i++)
         {
             //get the appropriate cell and read the value so it can be passed to the cache.
+            /*
             DropDownList course = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
             string courseID = course.SelectedValue;
 
             Cache.Insert(i.ToString(), courseID, null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
+             */
+            //delete old cookies from the cache
+            HttpCookie test = new HttpCookie("DemoCookie");
+            test.Values["CourseID"] = GV_Course.Rows[i].FindControl("DL_Course").ToString(); // this is not pulling the value
+            test.Values["Mark"] = GV_Course.Rows[i].FindControl("TB_EnterMarks").ToString(); // this is not pulling the value
+            Response.Cookies.Add(test);
+
+            if (Request.Cookies["DemoCookie"] != null)
+            {
+                //get all the cookie data
+                string userSettings = "";
+                if (Request.Cookies["DemoCookie"]["CourseID"] != null)
+                { userSettings = Request.Cookies["DemoCookie"]["CourseID"]; }
+
+                //write the cookie data to the page
+                MessageUserControl.ShowInfo(userSettings);
+
+                //remove the cookie data
+                HttpCookie myCookie = new HttpCookie("DemoCookie");
+                myCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(myCookie);
+            }
+
+            
         }
     }
 }
