@@ -243,7 +243,8 @@ public partial class AddCourse : System.Web.UI.Page
         {
             Cache.Remove(keys[k]);
         }
-        
+
+        HttpCookie test = new HttpCookie("DemoCookie");
         //once cache is cleared, add new items to the cache
         for (int i = 0; i < GV_Course.Rows.Count; i++)
         {
@@ -254,26 +255,36 @@ public partial class AddCourse : System.Web.UI.Page
 
             Cache.Insert(i.ToString(), courseID, null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
              */
-            //delete old cookies from the cache
-            HttpCookie test = new HttpCookie("DemoCookie");
-            test.Values["CourseID"] = GV_Course.Rows[i].FindControl("DL_Course").ToString(); // this is not pulling the value
-            test.Values["Mark"] = GV_Course.Rows[i].FindControl("TB_EnterMarks").ToString(); // this is not pulling the value
+            //delete old cookies from the cache            
+            DropDownList courseID = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
+            TextBox mark = (TextBox)GV_Course.Rows[i].FindControl("TB_EnterMarks");          
+            test.Values["CourseID" + i] = courseID.SelectedValue;
+            test.Values["Mark" + i] = mark.Text;
             Response.Cookies.Add(test);
 
             if (Request.Cookies["DemoCookie"] != null)
             {
                 //get all the cookie data
-                string userSettings = "";
-                if (Request.Cookies["DemoCookie"]["CourseID"] != null)
-                { userSettings = Request.Cookies["DemoCookie"]["CourseID"]; }
+                string userCourses = "";
+                string userMarks = "";
+                int x = i;
+                if (Request.Cookies["DemoCookie"]["CourseID" + i] != null)                               
+                {
+                    while (x >= 0)
+                    {
+                        userCourses += Request.Cookies["DemoCookie"]["CourseID" + x];
+                        userMarks += Request.Cookies["DemoCookie"]["Mark" + x];
+                        x--;
+                    }
+                }
 
                 //write the cookie data to the page
-                MessageUserControl.ShowInfo(userSettings);
+                MessageUserControl.ShowInfo(userCourses + userMarks);
 
                 //remove the cookie data
-                HttpCookie myCookie = new HttpCookie("DemoCookie");
-                myCookie.Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies.Add(myCookie);
+                //HttpCookie myCookie = new HttpCookie("DemoCookie");
+                test.Expires = DateTime.Now.AddDays(5);
+                Response.Cookies.Add(test);
             }
 
             
