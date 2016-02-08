@@ -69,6 +69,7 @@
     <Compile Include="DAL\POCOs\GetProgramList.cs" />
     <Compile Include="DAL\POCOs\ProgramSummary.cs" />
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
+    <Compile Include="DAL\POCOs\StudentPreference.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
