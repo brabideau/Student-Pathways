@@ -48,6 +48,24 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
+
+        #region preference questions
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<PreferenceQuestion> GetQuestions()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from row in context.PreferenceQuestions
+                              orderby row.QuestionID
+                              select row;
+                return results.ToList();
+            }
+        }
+
+
+
+
+        #endregion
     }
 }
 
