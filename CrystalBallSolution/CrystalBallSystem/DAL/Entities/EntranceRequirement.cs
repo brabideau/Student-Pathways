@@ -12,6 +12,7 @@ namespace CrystalBallSystem.DAL.Entities
     {
         [Key]
         public int EntranceRequirementID { get; set; }
+<<<<<<< HEAD
 
         public int SubjectRequirementID { get; set; }
 
@@ -19,6 +20,18 @@ namespace CrystalBallSystem.DAL.Entities
 
         public int ProgramID { get; set; }
 
+=======
+        
+        [Required]
+        public int HighSchoolCourseID { get; set; }
+
+        [Required]
+        public int SubjectRequirementID { get; set; }
+
+        [Required]
+        public int ProgramID { get; set; }
+        
+>>>>>>> origin/master
         public int? RequiredMark { get; set; }
 
         public virtual Program Program { get; set; }
@@ -26,5 +39,7 @@ namespace CrystalBallSystem.DAL.Entities
         public virtual HighSchoolCours HighSchoolCours { get; set; }
 
         public virtual SubjectRequirement SubjectRequirement { get; set; }
+
+        public virtual Program Program { get; set; }
     }
 }

@@ -16,11 +16,18 @@ namespace CrystalBallSystem.DAL.Entities
         }
 
         public int SubjectRequirementID { get; set; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         [Required]
         [StringLength(30)]
         public string SubjectDescription { get; set; }
 
         public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     }
 }

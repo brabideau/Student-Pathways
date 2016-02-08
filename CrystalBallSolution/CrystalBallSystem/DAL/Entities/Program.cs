@@ -27,6 +27,7 @@ namespace CrystalBallSystem.DAL.Entities
         [StringLength(50)]
         public string ProgramName { get; set; }
 
+<<<<<<< HEAD
         [StringLength(500)]
         public string ProgramDescription { get; set; }
 
@@ -51,5 +52,32 @@ namespace CrystalBallSystem.DAL.Entities
         public virtual ICollection<Category> Categories { get; set; }
 
         public virtual ICollection<NaitCours> NaitCourses { get; set; }
+=======
+        [Required]
+        [StringLength(30)]
+        public string ProgramType { get; set; }
+
+        [Required]
+        public double TotalCredits { get; set; }
+
+        [Required]
+        public int ProgramLength { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+       [StringLength(150)]
+        public string ProgramLink { get; set; }
+
+
+
+
+        public virtual ICollection<SubjectRequirement> SubjectRequirements { get; set; }
+
+        public virtual ICollection<Category> Categories { get; set; }
+
+        public virtual ICollection<NaitCourse> NaitCourses { get; set; }
+
+>>>>>>> origin/master
     }
 }

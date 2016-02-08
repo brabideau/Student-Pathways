@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManageNaitCourses.aspx.cs" Inherits="Admin_ManageNaitCourses" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+<<<<<<< HEAD
     <style type="text/css">
         tr.myItem td{
             width:200px;
@@ -29,6 +30,16 @@
                     <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
                 </td>
                 <td class="auto-style2" colspan="2">
+=======
+    <div runat="server" align="center">
+        <h1>Manage Nait Courses</h1>
+        <table style="width: 70%">
+            <tr align="center">
+                <td style="width: 863px">
+                    <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
+                </td>
+                <td>
+>>>>>>> origin/master
                     <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
                                       DataTextField="CategoryDescription" 
@@ -36,6 +47,7 @@
                                       AppendDataBoundItems="true">
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                     </asp:DropDownList>
+<<<<<<< HEAD
                     <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
                 </td>
             </tr>
@@ -214,6 +226,14 @@
                 <asp:ControlParameter ControlID="CategoryDropdownList" DefaultValue="0" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
+=======
+                </td>
+            </tr>
+        </table>
+        <asp:ListView ID="NaitCoursesListView" runat="server"></asp:ListView>
+        <asp:ObjectDataSource ID="ODSCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ODSNaitCourses" runat="server"></asp:ObjectDataSource>
+>>>>>>> origin/master
     </div>
 </asp:Content>
 

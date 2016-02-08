@@ -1407,6 +1407,8 @@ pre code {
 table {
   max-width: 100%;
   background-color: transparent;
+    margin-left: 0px;
+    margin-right: 560px;
 }
 
 th {

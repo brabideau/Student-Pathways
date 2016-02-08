@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -45,55 +46,60 @@ public partial class AddCourse : System.Web.UI.Page
     {
         MessageUserControl.TryRun(() =>
         {
+            int i;
+            bool trigger = true;
             if (GV_Course.Rows.Count < 8)
-            {
-                AddNewRowToCourse();
+            {                
+                foreach (GridViewRow row in GV_Course.Rows)
+                {
+                    var course = row.FindControl("DL_Course") as DropDownList;
+                    var poQtyLabel = row.FindControl("TB_EnterMarks") as TextBox;
+                    if (string.IsNullOrEmpty((row.FindControl("DL_Course") as DropDownList).SelectedValue))
+                    {
+                        MessageUserControl.ShowInfo("Please make a course selection");
+                        trigger = false;
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty((row.FindControl("TB_EnterMarks") as TextBox).Text))
+                        {
+                            MessageUserControl.ShowInfo("Please enter a mark");
+                            trigger = false;
+                        }
+                        else
+                        {
+                            if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
+                            {
+                                MessageUserControl.ShowInfo("mark must be a integer");
+                                trigger = false;
+                            }
+                            else
+                            {
 
+                                if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
+                                {
+                                    MessageUserControl.ShowInfo("mark must between 0 to 100.");
+                                    trigger = false;
+                                }
+                                else
+                                {
+                                    MessageUserControl.ShowInfo("Successed!");
+                                }
+                            }     
+                        }                        
+                    }
+                                   
+                }
+                if (trigger == true)
+                {
+                    AddNewRowToCourse();
+                }
             }
             else
             {
-                throw new Exception("You cannot enter more than 8 Courses-Marks each time.");
+                
             }
-
         });
-    }
-    protected void Remove_Btn_Click(object sender, EventArgs e)
-    {
-        //if (ViewState["CurrentTableCourse"] != null)
-        //{
-        //    //create new datatable, cast datatable of viewstate
-        //    DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
-        //    DataRow drCurrentRow = null;
-
-        //    int rowIndex = 0;
-
-        //    if (dtCurrentTable.Rows.Count > 1)
-        //    {
-        //        for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-        //        {
-        //            //extract the values
-        //            DropDownList courseList = (DropDownList)GV_Course.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-        //            TextBox marks = (TextBox)GV_Course.Rows[rowIndex].Cells[2].FindControl("TB_EnterMarks");
-
-        //            drCurrentRow = dtCurrentTable.NewRow();
-        //            drCurrentRow["RowNumberCourse"] = i;
-
-        //            dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.Text;
-        //            dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
-
-        //            rowIndex++;
-        //        }
-
-        //        dtCurrentTable.Rows[rowIndex - 1].Delete();
-
-        //        ViewState["CurrentTableCourse"] = dtCurrentTable;
-
-        //        GV_Course.DataSource = dtCurrentTable;
-        //        GV_Course.DataBind();
-        //    }
-        //}
-
-        //SetPreviousCourseData();
     }
     private void SetPreviousCourseData()
     {
@@ -216,5 +222,72 @@ public partial class AddCourse : System.Web.UI.Page
             //grvStudentDetails.DataBind();
         }
         //SetPreviousData();
+    }
+
+    protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
+    {
+        MessageUserControl.HandleDataBoundException(e);
+    }
+
+    protected void search_Click(object sender, EventArgs e)
+    {
+        //clear the old cache
+        List<string> keys = new List<string>();
+        //retrieve application cache enumerator
+        IDictionaryEnumerator enumerator = Cache.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            keys.Add(enumerator.Key.ToString());
+        }
+        for (int k = 0; k < keys.Count; k++ )
+        {
+            Cache.Remove(keys[k]);
+        }
+
+        HttpCookie test = new HttpCookie("DemoCookie");
+        //once cache is cleared, add new items to the cache
+        for (int i = 0; i < GV_Course.Rows.Count; i++)
+        {
+            //get the appropriate cell and read the value so it can be passed to the cache.
+            /*
+            DropDownList course = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
+            string courseID = course.SelectedValue;
+
+            Cache.Insert(i.ToString(), courseID, null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
+             */
+            //delete old cookies from the cache            
+            DropDownList courseID = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
+            TextBox mark = (TextBox)GV_Course.Rows[i].FindControl("TB_EnterMarks");          
+            test.Values["CourseID" + i] = courseID.SelectedValue;
+            test.Values["Mark" + i] = mark.Text;
+            Response.Cookies.Add(test);
+
+            if (Request.Cookies["DemoCookie"] != null)
+            {
+                //get all the cookie data
+                string userCourses = "";
+                string userMarks = "";
+                int x = i;
+                if (Request.Cookies["DemoCookie"]["CourseID" + i] != null)                               
+                {
+                    while (x >= 0)
+                    {
+                        userCourses += Request.Cookies["DemoCookie"]["CourseID" + x];
+                        userMarks += Request.Cookies["DemoCookie"]["Mark" + x];
+                        x--;
+                    }
+                }
+
+                //write the cookie data to the page
+                MessageUserControl.ShowInfo(userCourses + userMarks);
+
+                //remove the cookie data
+                //HttpCookie myCookie = new HttpCookie("DemoCookie");
+                test.Expires = DateTime.Now.AddDays(5);
+                Response.Cookies.Add(test);
+            }
+
+            
+        }
     }
 }

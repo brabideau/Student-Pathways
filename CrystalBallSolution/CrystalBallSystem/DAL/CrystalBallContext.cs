@@ -15,15 +15,24 @@ namespace CrystalBallSystem.DAL
         }
 
         public virtual DbSet<Category> Categories { get; set; }
+<<<<<<< HEAD
         public virtual DbSet<CredentialType> CredentialTypes { get; set; }
+=======
+>>>>>>> origin/master
         public virtual DbSet<EntranceRequirement> EntranceRequirements { get; set; }
         public virtual DbSet<HighSchoolCours> HighSchoolCourses { get; set; }
         public virtual DbSet<NaitCours> NaitCourses { get; set; }
         public virtual DbSet<PreferenceQuestion> PreferenceQuestions { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
+<<<<<<< HEAD
         public virtual DbSet<ProgramPreference> ProgramPreferences { get; set; }
+=======
+>>>>>>> origin/master
         public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
+        public virtual DbSet<PreferenceQuestion> PreferenceQuestions { get; set; }
+        public virtual DbSet<ProgramPreference> ProgramPreferences { get; set; }
 
+        /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
@@ -39,6 +48,7 @@ namespace CrystalBallSystem.DAL
                 .Property(e => e.CredentialTypeName)
                 .IsUnicode(false);
 
+<<<<<<< HEAD
             modelBuilder.Entity<CredentialType>()
                 .HasMany(e => e.Programs)
                 .WithRequired(e => e.CredentialType)
@@ -49,6 +59,9 @@ namespace CrystalBallSystem.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<HighSchoolCours>()
+=======
+            modelBuilder.Entity<HighSchoolCourse>()
+>>>>>>> origin/master
                 .HasMany(e => e.EntranceRequirements)
                 .WithRequired(e => e.HighSchoolCours)
                 .WillCascadeOnDelete(false);
@@ -79,9 +92,13 @@ namespace CrystalBallSystem.DAL
                 .Property(e => e.ProgramDescription)
                 .IsUnicode(false);
 
+<<<<<<< HEAD
             modelBuilder.Entity<Program>()
                 .Property(e => e.ProgramLength)
                 .IsUnicode(false);
+=======
+      
+>>>>>>> origin/master
 
             modelBuilder.Entity<Program>()
                 .Property(e => e.ProgramLink)
@@ -91,6 +108,7 @@ namespace CrystalBallSystem.DAL
                 .HasMany(e => e.EntranceRequirements)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
+<<<<<<< HEAD
 
             modelBuilder.Entity<Program>()
                 .HasMany(e => e.ProgramPreferences)
@@ -106,5 +124,9 @@ namespace CrystalBallSystem.DAL
                 .WithRequired(e => e.SubjectRequirement)
                 .WillCascadeOnDelete(false);
         }
+=======
+        
+        } */
+>>>>>>> origin/master
     }
 }

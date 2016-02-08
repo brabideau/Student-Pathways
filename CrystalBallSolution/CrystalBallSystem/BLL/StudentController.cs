@@ -20,7 +20,38 @@ namespace CrystalBallSystem.BLL
     [DataObject]
     public class StudentController
     {
+<<<<<<< HEAD
 
+=======
+        #region add nait course
+        public void AddCourse(NaitCourse item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                // TODO: Validation rules...
+                var added = context.NaitCourses.Add(item);
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+        //select method that will populate the drop down list allowing a user to select courses.
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<GetHSCourses>GetCourseList()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from course in context.HighSchoolCourses
+                              orderby course.HighSchoolCourseName
+                              select new GetHSCourses
+                              {
+                                  HighSchoolCourseID = course.HighSchoolCourseID,
+                                  HighSchoolCourseDescription = course.HighSchoolCourseName
+                              };
+                return results.ToList();
+            }
+        }
+>>>>>>> origin/master
     }
 }
 

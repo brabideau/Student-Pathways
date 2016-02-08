@@ -31,4 +31,5 @@ var prog = from row in Programs
 			join sr in subreqs on row.ProgramID equals sr.SubjectRequirement.ProgramID
 			select row;
 			
-			prog.Dump();
+			
+prog.Dump();
