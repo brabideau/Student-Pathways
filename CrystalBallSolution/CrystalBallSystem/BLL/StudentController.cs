@@ -48,6 +48,18 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public int GetProgramList(int courseID, int mark)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = (from entrance in context.EntranceRequirements
+                              orderby entrance.EntranceRequirementID
+                              where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
+                              select entrance.EntranceRequirementID).FirstOrDefault();
+                return results;
+            }
+        }
     }
 }
 

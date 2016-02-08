@@ -64,6 +64,7 @@
     <Compile Include="DAL\Entities\ReportingData.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetHSCourses.cs" />
+    <Compile Include="DAL\POCOs\GetProgramList.cs" />
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

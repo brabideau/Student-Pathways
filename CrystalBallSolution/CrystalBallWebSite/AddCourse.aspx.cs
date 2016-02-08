@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalBallSystem.BLL;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -257,7 +258,7 @@ public partial class AddCourse : System.Web.UI.Page
              */
             //delete old cookies from the cache            
             DropDownList courseID = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
-            TextBox mark = (TextBox)GV_Course.Rows[i].FindControl("TB_EnterMarks");          
+            TextBox mark = (TextBox)GV_Course.Rows[i].FindControl("TB_EnterMarks");
             test.Values["CourseID" + i] = courseID.SelectedValue;
             test.Values["Mark" + i] = mark.Text;
             Response.Cookies.Add(test);
@@ -286,8 +287,30 @@ public partial class AddCourse : System.Web.UI.Page
                 test.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(test);
             }
+            //call the query method in the controller to access the database for a list of results
+            //needs to receive the required mark for each program and loop through to ensure parameters are met
+            //for each row in the gridview log the courseid and mark
+            StudentController sysmgr = new StudentController();
+            List<int> entranceID = new List<int>();
+            foreach (GridViewRow row in GV_Course.Rows)
+            {
+                //loop through each row and query the db, logging each result to a list
+                var listData = row.FindControl("DL_Course") as DropDownList;
+                var markBox = row.FindControl("TB_EnterMarks") as TextBox;
+                int tempInt = Convert.ToInt32(listData.SelectedValue);
+                int tempMark = Convert.ToInt32(markBox.Text);
+                int temp = sysmgr.GetProgramList(tempInt, tempMark);
+                entranceID.Add(temp);
+            }
+            //log the EntranceRequirementID to a table or listview
+            entranceID.ToArray();
+            foreach (int a in entranceID)
+            {
+                demoList.DataTextField = entranceID[a].ToString();
+                demoList.DataValueField = entranceID[a].ToString();
+                demoList.DataBind();
+            }            
 
-            
         }
     }
 }

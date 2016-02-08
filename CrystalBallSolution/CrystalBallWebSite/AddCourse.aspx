@@ -53,6 +53,7 @@
     </div>
     <div>
         <asp:Button ID="search" runat="server" Text="Search" OnClick="search_Click" />
+        <asp:DropDownList ID="demoList" runat="server"></asp:DropDownList>
     </div>
 
 </asp:Content>
