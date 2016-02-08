@@ -7,18 +7,20 @@
         }
 
         body {
-          -webkit-background-size: cover;
-          -moz-background-size: cover;
-          -o-background-size: cover;
           background-size: cover;
         }
 
         div.polaroid {
           margin-top:100px;
-          width: 250px;
-          margin-left:50px;
+          width: 200px;
+          height:200px;
+          margin-left:30px;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           text-align: center;
+        }
+
+        div.polaroid img{
+            margin-top:15px;
         }
 
         div.container {
@@ -32,12 +34,13 @@
            color:gray;
            text-align:center;
         }
+
   </style>
 
     
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="polaroid">
-                <a href="ManageCategory.aspx"><img src="../images/managethree.png" alt="add"> 
+                <a href="ManageCategory.aspx"><img src="../images/managethree.png" alt="Manage Category"> 
                 </a>
                 
             </div>
@@ -45,24 +48,34 @@
                     <p>Manage Category</p>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
                 <div class="polaroid">
-                    <a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="add"> 
+                    <a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="Manage Nait Courses"> 
                     </a>   
                 </div>
             <div class="container">
                 <p>Manage Course</p>
             </div>
        </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
                 <div class="polaroid">
-                    <a href="InsertProgram.aspx"><img src="../images/add.png" alt="add"> 
+                    <a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> 
                     </a>   
                 </div>
             <div class="container">
                 <p>Insert Program</p>
             </div>
        </div>
+        <div class="col-md-3">
+                <div class="polaroid">
+                    <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="update program"> 
+                    </a>   
+                </div>
+            <div class="container">
+                <p>Update Program</p>
+            </div>
+       </div>
+      
 
 </asp:Content>
 

@@ -2,7 +2,6 @@ using System;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-
 using CrystalBallSystem.DAL.Entities;
 
 namespace CrystalBallSystem.DAL
@@ -16,15 +15,17 @@ namespace CrystalBallSystem.DAL
         }
 
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<CredentialType> CredentialTypes { get; set; }
+
         public virtual DbSet<EntranceRequirement> EntranceRequirements { get; set; }
-        public virtual DbSet<HighSchoolCourse> HighSchoolCourses { get; set; }
-        public virtual DbSet<NaitCourse> NaitCourses { get; set; }
-        public virtual DbSet<Program> Programs { get; set; }
-        public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
+        public virtual DbSet<HighSchoolCours> HighSchoolCourses { get; set; }
+        public virtual DbSet<NaitCours> NaitCourses { get; set; }
         public virtual DbSet<PreferenceQuestion> PreferenceQuestions { get; set; }
+        public virtual DbSet<Program> Programs { get; set; }
+        public virtual DbSet<ReportingData> ReportingData { get; set; }
+        public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
         public virtual DbSet<ProgramPreference> ProgramPreferences { get; set; }
 
-        /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
@@ -36,44 +37,76 @@ namespace CrystalBallSystem.DAL
                 .WithMany(e => e.Categories)
                 .Map(m => m.ToTable("ProgramCategory").MapLeftKey("CategoryID").MapRightKey("ProgramID"));
 
-            modelBuilder.Entity<HighSchoolCourse>()
+            modelBuilder.Entity<CredentialType>()
+                .Property(e => e.CredentialTypeName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CredentialType>()
+                .HasMany(e => e.Programs)
+                .WithRequired(e => e.CredentialType)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<HighSchoolCours>()
                 .Property(e => e.HighSchoolCourseName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<HighSchoolCourse>()
+            modelBuilder.Entity<HighSchoolCours>()
                 .HasMany(e => e.EntranceRequirements)
-                .WithRequired(e => e.HighSchoolCourse)
+                .WithRequired(e => e.HighSchoolCours)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<NaitCourse>()
+            modelBuilder.Entity<NaitCours>()
                 .Property(e => e.CourseName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<NaitCourse>()
-                .HasMany(e => e.Students)
-                .WithMany(e => e.NaitCourses)
-                .Map(m => m.ToTable("CompletedCourses").MapLeftKey("CourseID").MapRightKey("StudentID"));
-
-            modelBuilder.Entity<NaitCourse>()
+            modelBuilder.Entity<NaitCours>()
                 .HasMany(e => e.Programs)
                 .WithMany(e => e.NaitCourses)
                 .Map(m => m.ToTable("ProgramCourses").MapLeftKey("CourseID").MapRightKey("ProgramID"));
+
+            modelBuilder.Entity<PreferenceQuestion>()
+                .Property(e => e.Description)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PreferenceQuestion>()
+                .HasMany(e => e.ProgramPreferences)
+                .WithRequired(e => e.PreferenceQuestion)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Program>()
                 .Property(e => e.ProgramName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Program>()
+                .Property(e => e.ProgramDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Program>()
+                .Property(e => e.ProgramLength)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Program>()
                 .Property(e => e.ProgramLink)
                 .IsUnicode(false);
 
-      
-
             modelBuilder.Entity<Program>()
-                .HasMany(e => e.SubjectRequirements)
+                .HasMany(e => e.EntranceRequirements)
                 .WithRequired(e => e.Program)
                 .WillCascadeOnDelete(false);
-        
-        } */
+
+            modelBuilder.Entity<Program>()
+                .HasMany(e => e.ProgramPreferences)
+                .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SubjectRequirement>()
+                .Property(e => e.SubjectDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SubjectRequirement>()
+                .HasMany(e => e.EntranceRequirements)
+                .WithRequired(e => e.SubjectRequirement)
+                .WillCascadeOnDelete(false);        
+        }
     }
 }

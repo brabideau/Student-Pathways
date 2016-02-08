@@ -6,13 +6,17 @@ using System.Data.Entity.Spatial;
 
 namespace CrystalBallSystem.DAL.Entities
 {
-    
+   
     [Table("HighSchoolCourses")]
-    public partial class HighSchoolCourse
+    public partial class HighSchoolCours
     {
+     
+        public HighSchoolCours()
+        {
+            EntranceRequirements = new HashSet<EntranceRequirement>();
+        }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int HighSchoolCourseID { get; set; }
 
         [Required]

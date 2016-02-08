@@ -7,22 +7,19 @@ using System.Data.Entity.Spatial;
 namespace CrystalBallSystem.DAL.Entities
 {
     
-
-    [Table("Category")]
-    public partial class Category
+    [Table("CredentialType")]
+    public partial class CredentialType
     {
-       
-        public Category()
+        public CredentialType()
         {
             Programs = new HashSet<Program>();
         }
 
-        [Key]
-        public int CategoryID { get; set; }
+        public int CredentialTypeID { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string CategoryDescription { get; set; }
+        [StringLength(20)]
+        public string CredentialTypeName { get; set; }
 
         public virtual ICollection<Program> Programs { get; set; }
     }

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using CrystalBallSystem.DAL.Entities;
+using CrystalBallSystem.DAL.POCOs;
+using CrystalBallSystem.DAL.DTOs;
 using CrystalBallSystem.DAL;
 using System.ComponentModel;
 #endregion
@@ -29,7 +31,8 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select,false)]
-        public List<HighSchoolCourse> HighSchoolCourse_List()
+
+        public List<HighSchoolCours> HighSchoolCourse_List()
         {
             using(CrystalBallContext context = new CrystalBallContext())
             {
@@ -58,6 +61,63 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Program> GetProgramByCategory(int categoryID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                //var results = from row in context.Programs.Where(s => s.Categories.Any(c => c.CategoryID == categoryID))
+                              //from s in context.Programs
+                              //from c in s.Categories
+                              //where c.CategoryID == categoryID
+                return context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == categoryID)).ToList();
+                              
+                //var results = from row in context.Categories
+                //              where row.CategoryID == categoryID
+                //              select new
+                //              {
+
+                //                  Programs = from info in row.Programs
+                //                              where info.Active == true
+                //                              select new ProgramSummary()
+                //                              {
+                //                                  ProgramName = info.ProgramName,
+                //                                  EntranceSummary = info.ProgramDescription,
+                //                                  CompetitiveEntrance = info.CompetitiveAdvantage,
+                //                                  TotalCredits = info.TotalCredits,
+                //                                  ProgramLink = info.ProgramLink
+
+                //                              }
+
+                //              };
+            
+                //return results.Cast<ProgramSummary>().ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void Program_Update(Program item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                Program data = new Program()
+                {
+                    ProgramID = item.ProgramID,
+                    ProgramName = item.ProgramName,
+                    ProgramDescription = item.ProgramDescription,
+                    ProgramLength = item.ProgramLength,
+                    ProgramLink = item.ProgramLink,
+                    Active = item.Active,
+                    CompetitiveAdvantage = item.CompetitiveAdvantage,
+                    TotalCredits = item.TotalCredits,
+                    CredentialTypeID = item.CredentialTypeID
+                };
+
+                context.Entry<Program>(context.Programs.Attach(data)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+
+        }
         public void AddProgram(Program item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -68,23 +128,23 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        public void DeleteProgram(Program item)
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<NaitCours> GetCoursesByProgram(int programID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                var existing = context.Programs.Find(item.ProgramID);
-                context.Programs.Remove(existing);
-                context.SaveChanges();
+
+                return context.NaitCourses.Where(c => c.Programs.Any(p => p.ProgramID == programID)).ToList();
             }
         }
 
         #endregion
 
         #region requirement
-        
+
         #endregion
         #region report
-        
+
         #endregion
     }
 }

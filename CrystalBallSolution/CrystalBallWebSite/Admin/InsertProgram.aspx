@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td class="auto-style3">
-                <asp:Label ID="Label1" runat="server" Text="Program Nmae:"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Program Name:"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="ProgramName" runat="server"></asp:TextBox>

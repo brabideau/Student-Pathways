@@ -21,7 +21,7 @@ namespace CrystalBallSystem.BLL
     public class StudentController
     {
         #region add nait course
-        public void AddCourse(NaitCourse item)
+        public void AddCourse(NaitCours item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
@@ -48,6 +48,7 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
+<<<<<<< HEAD
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int GetProgramList(int courseID, int mark)
         {
@@ -60,6 +61,26 @@ namespace CrystalBallSystem.BLL
                 return results;
             }
         }
+=======
+
+        #region preference questions
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<PreferenceQuestion> GetQuestions()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from row in context.PreferenceQuestions
+                              orderby row.QuestionID
+                              select row;
+                return results.ToList();
+            }
+        }
+
+
+
+
+        #endregion
+>>>>>>> origin/master
     }
 }
 

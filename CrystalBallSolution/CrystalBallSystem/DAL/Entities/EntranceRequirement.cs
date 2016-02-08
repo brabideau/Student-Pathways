@@ -24,10 +24,10 @@ namespace CrystalBallSystem.DAL.Entities
         
         public int? RequiredMark { get; set; }
 
-        public virtual HighSchoolCourse HighSchoolCourse { get; set; }
+        public virtual Program Program { get; set; }
+
+        public virtual HighSchoolCours HighSchoolCours { get; set; }
 
         public virtual SubjectRequirement SubjectRequirement { get; set; }
-
-        public virtual Program Program { get; set; }
     }
 }
