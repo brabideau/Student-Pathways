@@ -52,25 +52,23 @@
   <ItemGroup>
     <Compile Include="BLL\AdminController.cs" />
     <Compile Include="BLL\StudentController.cs" />
+    <Compile Include="DAL\DTOs\CategoryProgram.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
-    <Compile Include="DAL\Entities\CompletedHighSchoolCourse.cs" />
-    <Compile Include="DAL\Entities\CompletedProgram.cs" />
+    <Compile Include="DAL\Entities\CredentialType.cs" />
     <Compile Include="DAL\CrystalBallContext.cs" />
     <Compile Include="DAL\Entities\EntranceRequirement.cs" />
-    <Compile Include="DAL\Entities\HighSchoolCourse.cs" />
-    <Compile Include="DAL\Entities\NaitCourse.cs" />
-    <Compile Include="DAL\Entities\Program.cs" />
-    <Compile Include="DAL\Entities\ProgramType.cs" />
-    <Compile Include="DAL\Entities\Staff.cs" />
-    <Compile Include="DAL\Entities\Student.cs" />
-    <Compile Include="DAL\Entities\SubjectRequirement.cs" />
+    <Compile Include="DAL\Entities\HighSchoolCours.cs" />
+    <Compile Include="DAL\Entities\NaitCours.cs" />
     <Compile Include="DAL\POCOs\GetHSCourses.cs" />
+    <Compile Include="DAL\POCOs\ProgramSummary.cs" />
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
+    <Compile Include="DAL\Entities\PreferenceQuestion.cs" />
+    <Compile Include="DAL\Entities\Program.cs" />
+    <Compile Include="DAL\Entities\ProgramPreference.cs" />
+    <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\DTOs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

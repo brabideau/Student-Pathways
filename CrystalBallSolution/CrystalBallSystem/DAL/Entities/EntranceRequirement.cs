@@ -11,18 +11,19 @@ namespace CrystalBallSystem.DAL.Entities
     public partial class EntranceRequirement
     {
         [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProgramID { get; set; }
+        public int EntranceRequirementID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int SubjectRequirementID { get; set; }
+
         public int HighSchoolCourseID { get; set; }
+
+        public int ProgramID { get; set; }
 
         public int? RequiredMark { get; set; }
 
-        public virtual HighSchoolCourse HighSchoolCourse { get; set; }
+        public virtual Program Program { get; set; }
+
+        public virtual HighSchoolCours HighSchoolCours { get; set; }
 
         public virtual SubjectRequirement SubjectRequirement { get; set; }
     }

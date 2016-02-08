@@ -6,24 +6,24 @@ using System.Data.Entity.Spatial;
 
 namespace CrystalBallSystem.DAL.Entities
 {
-
-    [Table("CompletedProgram")]
-    public partial class CompletedProgram
+    
+    [Table("ProgramPreference")]
+    public partial class ProgramPreference
     {
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProgramID { get; set; }
+        public int QuestionID { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int StudentID { get; set; }
+        public int ProgramID { get; set; }
 
-        public double StudentGPA { get; set; }
+        public int Quantity { get; set; }
+
+        public virtual PreferenceQuestion PreferenceQuestion { get; set; }
 
         public virtual Program Program { get; set; }
-
-        public virtual Student Student { get; set; }
     }
 }

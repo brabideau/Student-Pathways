@@ -6,22 +6,20 @@ using System.Data.Entity.Spatial;
 
 namespace CrystalBallSystem.DAL.Entities
 {
-
-    [Table("Staff")]
-    public partial class Staff
+    
+    [Table("CredentialType")]
+    public partial class CredentialType
     {
-        [Key]
-        public int StaffID { get; set; }
+        public CredentialType()
+        {
+            Programs = new HashSet<Program>();
+        }
+
+        public int CredentialTypeID { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string StaffEmail { get; set; }
-
-        public int EmployeeID { get; set; }
-
-        [Required]
-        [StringLength(32)]
-        public string Password { get; set; }
+        [StringLength(20)]
+        public string CredentialTypeName { get; set; }
 
         public virtual ICollection<Program> Programs { get; set; }
     }

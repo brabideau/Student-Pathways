@@ -9,22 +9,26 @@ namespace CrystalBallSystem.DAL.Entities
     
 
     [Table("NaitCourses")]
-    public partial class NaitCourse
+    public partial class NaitCours
     {
+        public NaitCours()
+        {
+            Programs = new HashSet<Program>();
+        }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CourseID { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(10)]
+        public string CourseCode { get; set; }
+        [Required]
+        [StringLength(100)]
         public string CourseName { get; set; }
 
         public double CourseCredits { get; set; }
 
         public bool Active { get; set; }
-     
-        public virtual ICollection<Student> Students { get; set; }
 
         public virtual ICollection<Program> Programs { get; set; }
     }
