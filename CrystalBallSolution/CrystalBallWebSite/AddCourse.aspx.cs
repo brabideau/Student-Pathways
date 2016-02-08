@@ -303,11 +303,13 @@ public partial class AddCourse : System.Web.UI.Page
                 entranceID.Add(temp);
             }
             //log the EntranceRequirementID to a table or listview
-            entranceID.ToArray();
-            foreach (int a in entranceID)
+            int[] entranceIDArray = entranceID.ToArray();
+            int demodemo = entranceIDArray.Length;
+
+            for (int a = 0; a < entranceIDArray.Length; a++)
             {
-                demoList.DataTextField = entranceID[a].ToString();
-                demoList.DataValueField = entranceID[a].ToString();
+                demoList.DataTextField = entranceIDArray[a].ToString();
+                demoList.DataValueField = entranceIDArray[a].ToString();
                 demoList.DataBind();
             }            
 
