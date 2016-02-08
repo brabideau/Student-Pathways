@@ -287,30 +287,29 @@ public partial class AddCourse : System.Web.UI.Page
                 test.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(test);
             }
-            //call the query method in the controller to access the database for a list of results
-            //needs to receive the required mark for each program and loop through to ensure parameters are met
-            //for each row in the gridview log the courseid and mark
-            StudentController sysmgr = new StudentController();
-            List<int> entranceID = new List<int>();
-            foreach (GridViewRow row in GV_Course.Rows)
-            {
-                //loop through each row and query the db, logging each result to a list
-                var listData = row.FindControl("DL_Course") as DropDownList;
-                var markBox = row.FindControl("TB_EnterMarks") as TextBox;
-                int tempInt = Convert.ToInt32(listData.SelectedValue);
-                int tempMark = Convert.ToInt32(markBox.Text);
-                int temp = sysmgr.GetProgramList(tempInt, tempMark);
-                entranceID.Add(temp);
-            }
-            //log the EntranceRequirementID to a table or listview
-            entranceID.ToArray();
-            foreach (int a in entranceID)
-            {
-                demoList.DataTextField = entranceID[a].ToString();
-                demoList.DataValueField = entranceID[a].ToString();
-                demoList.DataBind();
-            }            
-
         }
+        //call the query method in the controller to access the database for a list of results
+        //needs to receive the required mark for each program and loop through to ensure parameters are met
+        //for each row in the gridview log the courseid and mark
+        StudentController sysmgr = new StudentController();
+        List<int> entranceID = new List<int>();
+        foreach (GridViewRow row in GV_Course.Rows)
+        {
+            //loop through each row and query the db, logging each result to a list
+            var listData = row.FindControl("DL_Course") as DropDownList;
+            var markBox = row.FindControl("TB_EnterMarks") as TextBox;
+            int tempInt = Convert.ToInt32(listData.SelectedValue);
+            int tempMark = Convert.ToInt32(markBox.Text);
+            int temp = sysmgr.GetProgramList(tempInt, tempMark);
+            entranceID.Add(temp);
+        }
+        //log the EntranceRequirementID to a table or listview
+        int[] entranceIDArray = entranceID.ToArray();
+
+        for (int a = 0; a < entranceIDArray.Length; a++)
+        {
+            ListItem item = new ListItem(entranceIDArray[a].ToString());
+            demoList.Items.Add(item);
+        }  
     }
 }
