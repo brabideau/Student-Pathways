@@ -52,26 +52,23 @@
   <ItemGroup>
     <Compile Include="BLL\AdminController.cs" />
     <Compile Include="BLL\StudentController.cs" />
-    <Compile Include="DAL\DTOs\CategoryProgram.cs" />
-    <Compile Include="DAL\Entities\CredentialType.cs" />
-    <Compile Include="DAL\Entities\HighSchoolCours.cs" />
-    <Compile Include="DAL\Entities\NaitCours.cs" />
     <Compile Include="BusinessRuleException.cs" />
+    <Compile Include="DAL\DTOs\CategoryProgram.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
     <Compile Include="DAL\CrystalBallContext.cs" />
+    <Compile Include="DAL\Entities\CredentialType.cs" />
     <Compile Include="DAL\Entities\EntranceRequirement.cs" />
+    <Compile Include="DAL\Entities\HighSchoolCours.cs" />
+    <Compile Include="DAL\Entities\NaitCours.cs" />
+    <Compile Include="DAL\Entities\PreferenceQuestion.cs" />
     <Compile Include="DAL\Entities\Program.cs" />
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
     <Compile Include="DAL\Entities\ReportingData.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetHSCourses.cs" />
-<<<<<<< HEAD
     <Compile Include="DAL\POCOs\GetProgramList.cs" />
-=======
     <Compile Include="DAL\POCOs\ProgramSummary.cs" />
->>>>>>> origin/master
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
-    <Compile Include="DAL\Entities\PreferenceQuestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -34,7 +34,7 @@ namespace CrystalBallSystem.BLL
 
         //select method that will populate the drop down list allowing a user to select courses.
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetHSCourses>GetCourseList()
+        public List<GetHSCourses> GetCourseList()
         {
             using (var context = new CrystalBallContext())
             {
@@ -48,39 +48,17 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-<<<<<<< HEAD
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int GetProgramList(int courseID, int mark)
         {
             using (var context = new CrystalBallContext())
             {
                 var results = (from entrance in context.EntranceRequirements
-                              orderby entrance.EntranceRequirementID
-                              where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
-                              select entrance.EntranceRequirementID).FirstOrDefault();
+                               orderby entrance.EntranceRequirementID
+                               where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
+                               select entrance.EntranceRequirementID).FirstOrDefault();
                 return results;
             }
         }
-=======
-
-        #region preference questions
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<PreferenceQuestion> GetQuestions()
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = from row in context.PreferenceQuestions
-                              orderby row.QuestionID
-                              select row;
-                return results.ToList();
-            }
-        }
-
-
-
-
-        #endregion
->>>>>>> origin/master
     }
 }
-
