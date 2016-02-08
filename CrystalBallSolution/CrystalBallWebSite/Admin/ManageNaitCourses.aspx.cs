@@ -5,18 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-<<<<<<< HEAD
+
 using CrystalBallSystem.BLL;
 
-=======
->>>>>>> origin/master
+
 public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
-<<<<<<< HEAD
 
     //protected void ProgramList_ItemDataBound(object sender, ListViewItemEventArgs e)
     //{
@@ -50,6 +48,4 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
     {
         NaitCoursesListViewByProgram.DataBind();
     }
-=======
->>>>>>> origin/master
 }

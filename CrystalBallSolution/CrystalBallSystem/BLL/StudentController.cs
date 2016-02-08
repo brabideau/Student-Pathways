@@ -20,11 +20,8 @@ namespace CrystalBallSystem.BLL
     [DataObject]
     public class StudentController
     {
-<<<<<<< HEAD
-
-=======
         #region add nait course
-        public void AddCourse(NaitCourse item)
+        public void AddCourse(NaitCours item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
@@ -51,7 +48,6 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
->>>>>>> origin/master
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManageNaitCourses.aspx.cs" Inherits="Admin_ManageNaitCourses" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-<<<<<<< HEAD
+
     <style type="text/css">
         tr.myItem td{
             width:200px;
@@ -12,17 +12,17 @@
             width: 100%;
         }
         .auto-style2 {
-            width: 530px;
+            width: 35%;
         }
         .auto-style3 {
-            width: 415px;
+            width: 235px;
         }
         .auto-style4 {
             height: 400px;
-            width: 415px;
+            width: 235px;
         }
     </style>
-    <div runat="server">
+    <div runat="server" align="center">
         <h1 align="center">Manage Nait Courses</h1>
         <table class="auto-style1">
             <tr>
@@ -30,16 +30,6 @@
                     <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
                 </td>
                 <td class="auto-style2" colspan="2">
-=======
-    <div runat="server" align="center">
-        <h1>Manage Nait Courses</h1>
-        <table style="width: 70%">
-            <tr align="center">
-                <td style="width: 863px">
-                    <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
-                </td>
-                <td>
->>>>>>> origin/master
                     <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
                                       DataTextField="CategoryDescription" 
@@ -47,16 +37,15 @@
                                       AppendDataBoundItems="true">
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                     </asp:DropDownList>
-<<<<<<< HEAD
                     <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
                 </td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td align="center" style="background-color:Highlight"><h4>Program</h4></td>
+                <td align="center" style="background-color:Highlight" class="auto-style3"><h4>Program</h4></td>
                 <td align="center" style="background-color:Highlight"><h4>Courses</h4></td>
             </tr>
             <tr>
@@ -103,13 +92,7 @@
                                 <td>
                                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                    </asp:LinkButton>
-                                </td>
-                            </tr>
-                        </SelectedItemTemplate>
-                    </asp:ListView>
-                </td>
-                <td colspan="2" align="center">
+                                    </asp:LinkButton></td></tr></SelectedItemTemplate></asp:ListView></td><td colspan="2" align="center">
                     <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" DataSourceID="ODSNaitCourses"><AlternatingItemTemplate>
                             <tr style="background-color:#efefef; color: #284775;">
                                 <td><asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' /></td>
@@ -140,10 +123,7 @@
                         <EmptyDataTemplate>
                             <table runat="server" style="">
                                 <tr>
-                                    <td>No data was returned.</td>
-                                </tr>
-                            </table>
-                        </EmptyDataTemplate><InsertItemTemplate>
+                                    <td>No data was returned.</td></tr></table></EmptyDataTemplate><InsertItemTemplate>
                             <tr style="">
                                 <td>
                                     <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
@@ -226,14 +206,7 @@
                 <asp:ControlParameter ControlID="CategoryDropdownList" DefaultValue="0" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-=======
-                </td>
-            </tr>
-        </table>
-        <asp:ListView ID="NaitCoursesListView" runat="server"></asp:ListView>
-        <asp:ObjectDataSource ID="ODSCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="ODSNaitCourses" runat="server"></asp:ObjectDataSource>
->>>>>>> origin/master
+
     </div>
 </asp:Content>
 

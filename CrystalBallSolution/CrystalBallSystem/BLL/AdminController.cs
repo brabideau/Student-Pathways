@@ -31,41 +31,14 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select,false)]
-<<<<<<< HEAD
+
         public List<HighSchoolCours> HighSchoolCourse_List()
-=======
-        public List<HighSchoolCourse> HighSchoolCourse_List()
->>>>>>> origin/master
         {
             using(CrystalBallContext context = new CrystalBallContext())
             {
                 return context.HighSchoolCourses.OrderBy(x => x.HighSchoolCourseID).ToList();
             }
         }
-<<<<<<< HEAD
-=======
-
-        [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddCategory(Category item)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                Category added = null;
-                added = context.Categories.Add(item);
-                context.SaveChanges();
-            }
-        }
-
-        [DataObjectMethod(DataObjectMethodType.Update, false)]
-        public void UpdateCategory(Category item)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                context.Entry<Category>(context.Categories.Attach(item)).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
->>>>>>> origin/master
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void AddCategory(Category item)

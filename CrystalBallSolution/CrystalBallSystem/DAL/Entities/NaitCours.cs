@@ -29,11 +29,7 @@ namespace CrystalBallSystem.DAL.Entities
         public double CourseCredits { get; set; }
 
         public bool Active { get; set; }
-<<<<<<< HEAD:CrystalBallSolution/CrystalBallSystem/DAL/Entities/NaitCours.cs
 
-=======
-     
->>>>>>> origin/master:CrystalBallSolution/CrystalBallSystem/DAL/Entities/NaitCourse.cs
         public virtual ICollection<Program> Programs { get; set; }
     }
 }
