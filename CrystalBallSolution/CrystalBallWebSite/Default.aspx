@@ -109,7 +109,7 @@
     <div class="jumbotron">
         <div class="col-md-6">
             <div class="circle-button hvr-grow-shadow">
-                <a href="LearnerPathway.aspx"><img src="images/nait-student5.png" alt="learner pathway" /> 
+                <a href="User/UserMenuCategory.aspx"><img src="images/nait-student5.png" alt="learner pathway" /> 
                     <h4>NAIT Student</h4>    
                 </a>
             </div>
