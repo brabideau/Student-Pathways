@@ -3,24 +3,32 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <h1>Select NAIT Course</h1>
     <div>
-        <label>Please select a program</label>
-        <br />
-        <asp:DropDownList runat="server" ID="ProgramDropDownList" DataSourceID="SelectProgramODB" DataTextField="ProgramName" DataValueField="ProgramID">
-            <asp:ListItem Text="text1" />
-            <asp:ListItem Text="text2" />
-        </asp:DropDownList>
-    </div>
-    <div>
+        <div style="width: 350px;float:left" >
+            <label>Please select a program</label>
+            <br />
+            <asp:DropDownList runat="server" ID="ProgramDropDownList" 
+                              DataSourceID="SelectProgramODB" 
+                              DataTextField="ProgramName" 
+                              DataValueField="ProgramID"
+                              AppendDataBoundItems="true" >
+                <asp:ListItem  Value=0 Text="[Select All]" />
 
-        <asp:Label ID="Label1" runat="server" Text="Please search the NAIT course you want."></asp:Label>
-        <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:Button ID="Search" runat="server" Text="Search" />
+            </asp:DropDownList>
+        </div>
+        <div style="width: 350px;float:left">
+
+            <label >Please search the NAIT course you want.</label>
+            <br />
+            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:Button ID="Search" runat="server" Text="Search" />
+        </div>
+        <div style="clear:both"></div>
     </div>
     <br />
     <div>
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
+        <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
             width="80%" Align="Center">
             <Columns>
-                <asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" />
+                <asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" Visible="false"/>
                 <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" SortExpression="CourseCode" />
                 <asp:BoundField DataField="CourseName" HeaderText="CourseName" SortExpression="CourseName" />
                 <asp:BoundField DataField="CourseCredits" HeaderText="CourseCredits" SortExpression="CourseCredits" />

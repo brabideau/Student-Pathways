@@ -43,23 +43,60 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                var result1 = (from x in context.Programs
-                              where x.ProgramID == programID
-                              select x.NaitCourses).FirstOrDefault();
-                //where(y.CourseName.Contains(SearchInfo))
-                //              || (y.CourseCode.Contains(SearchInfo))
-                var results = from y in result1
-                              where(y.CourseName.Contains(SearchInfo))
-                              || (y.CourseCode.Contains(SearchInfo))
-                              select new NAITCourse
-                              {
-                                  CourseID = y.CourseID,
-                                  CourseCode = y.CourseCode,
-                                  CourseName = y.CourseName,
-                                  CourseCredits = y.CourseCredits,
+                if (programID != 0)
+                {
+                    var result1 = (from x in context.Programs
+                                   where x.ProgramID == programID
+                                   select x.NaitCourses).FirstOrDefault();
+                    //where(y.CourseName.Contains(SearchInfo))
+                    //              || (y.CourseCode.Contains(SearchInfo))
+                    var results = SearchInfo != null ? (from y in result1
+                                                        where (y.CourseName.Contains(SearchInfo))
+                                                        || (y.CourseCode.Contains(SearchInfo))
+                                                        select new NAITCourse
+                                                        {
+                                                            CourseID = y.CourseID,
+                                                            CourseCode = y.CourseCode,
+                                                            CourseName = y.CourseName,
+                                                            CourseCredits = y.CourseCredits
 
-                              };
-                return results.ToList();
+                                                        }) : 
+                                                        from y in result1
+                                                        select new NAITCourse
+                                                             {
+                                                                 CourseID = y.CourseID,
+                                                                 CourseCode = y.CourseCode,
+                                                                 CourseName = y.CourseName,
+                                                                 CourseCredits = y.CourseCredits
+
+                                                             };
+                    return results.ToList();
+                }
+                else
+                {
+                    var results =SearchInfo != null ?
+                                  from z in context.NaitCourses
+                                  where (z.CourseName.Contains(SearchInfo)) || (z.CourseCode.Contains(SearchInfo))
+                                  select new NAITCourse
+                                    {
+                                        CourseID = z.CourseID,
+                                        CourseCode = z.CourseCode,
+                                        CourseName = z.CourseName,
+                                        CourseCredits = z.CourseCredits
+                                    }:
+                                    from z in context.NaitCourses
+                                    select new NAITCourse
+                                    {
+                                        CourseID = z.CourseID,
+                                        CourseCode = z.CourseCode,
+                                        CourseName = z.CourseName,
+                                        CourseCredits = z.CourseCredits
+
+                                    }
+                                    ;
+                    return results.ToList();
+                }
+                
             }
         }
     }
