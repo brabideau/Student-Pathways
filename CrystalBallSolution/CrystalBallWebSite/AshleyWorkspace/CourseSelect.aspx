@@ -85,7 +85,7 @@
         <div class="clear"></div>
         <div class="button">
             <div class="col-md-3"></div>
-            <asp:Button ID="Button1" runat="server" Text="Submit Courses" />
+            <asp:Button ID="submitCourseButton" runat="server" Text="Submit Courses" OnClick="submitCourseButton_Click" />
         </div>
         <br />
         <asp:ObjectDataSource ID="EnglishListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetEnglishCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>

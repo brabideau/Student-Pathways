@@ -12,6 +12,7 @@ public partial class AshleyWorkspace_CourseSelect : System.Web.UI.Page
     {
 
     }
+
     protected void submitCourseButton_Click(object sender, EventArgs e)
     {
         //clear the old cache
@@ -30,10 +31,30 @@ public partial class AshleyWorkspace_CourseSelect : System.Web.UI.Page
 
         for (int count = 0; count < EnglishList.Items.Count; count++)
         {
-            if(EnglishList.Items[count].Selected)
+            if (EnglishList.Items[count].Selected)
             {
-                test.Values["Courses"]
+                test.Values["Courses" + count] = EnglishList.Items[count].Text;
                 Response.Cookies.Add(test);
+            }
+
+            //get all the cookie data
+            if (Request.Cookies["DemoCookie"] != null)
+            {
+                string userCourses = "";
+                int x = count;
+                if (Request.Cookies["DemoCookie"]["Courses" + x] != null)
+                {
+                    while (x >= 0)
+                    {
+                        userCourses += Request.Cookies["DemoCookie"]["Courses" + x];
+                        x--;
+                    }
+                }
+
+                //remove the cookie data
+                //HttpCookie myCookie = new HttpCookie("DemoCookie");
+                test.Expires = DateTime.Now.AddDays(5);
+               Response.Cookies.Add(test);
             }
         }
     }
