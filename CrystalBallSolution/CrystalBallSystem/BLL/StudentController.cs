@@ -79,25 +79,7 @@ namespace CrystalBallSystem.BLL
 
         #endregion
 
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<NAITCourse> SearchNaitCourses(string SearchInfo)
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = from NaitCourse in context.NaitCourses
-                              where (NaitCourse.CourseName.Contains(SearchInfo))
-                              || (NaitCourse.CourseCode.Contains(SearchInfo))
-                              select new NAITCourse
-                              {
-                                  CourseID = NaitCourse.CourseID,
-                                  CourseCode = NaitCourse.CourseCode,
-                                  CourseName = NaitCourse.CourseName,
-                                  CourseCredits = NaitCourse.CourseCredits,
-
-                              };
-                return results.ToList();
-            }
-        }
+        
     
     }
 }
