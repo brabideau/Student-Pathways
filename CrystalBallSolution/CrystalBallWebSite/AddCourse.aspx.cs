@@ -300,7 +300,7 @@ public partial class AddCourse : System.Web.UI.Page
             var markBox = row.FindControl("TB_EnterMarks") as TextBox;
             int tempInt = Convert.ToInt32(listData.SelectedValue);
             int tempMark = Convert.ToInt32(markBox.Text);
-            int temp = sysmgr.GetProgramList(tempInt, tempMark);
+            int temp = sysmgr.GetEntranceList(tempInt, tempMark);
             entranceID.Add(temp);
         }
         //log the EntranceRequirementID to a table or listview
@@ -310,6 +310,36 @@ public partial class AddCourse : System.Web.UI.Page
         {
             ListItem item = new ListItem(entranceIDArray[a].ToString());
             demoList.Items.Add(item);
-        }  
+        }
+        /* LOG SHIT TO ARRAY AND SEND IT TO LINQ FOR DB ACCESS
+         * List<int> courses = new List<int>();
+         * 
+         * for (int p = 0; p < demoCheckBox.Items.Count; p++)
+         * {
+         *      if(demoCheckBox.GetItemCheckState(p) == CheckState.Checked)
+         *      {
+         *          int tempCourse = Convert.ToInt32(demoCheckBox.Items[p].Value);
+         *          courses.Add(tempCourse);
+         *      }
+         *      else
+         *      {
+         *      
+         *      }
+         * }
+         * int[] courseArray = courses.ToArray();
+         * int[] entranceArray = sysmgr.GetDEMOList(courseArray);
+         * int[] programArray = sysmgr.GETPROGRAMLIST(entranceArray);
+         * //SEND LIST OF PROGRAMS TO THE DB TO BE PUSHED TO A GRIDVIEW - DISPLAY PROGRAM NAME, COMPETITIVE ENTRANCE,
+         * //LIST OF COURSES(?), AND LINK TO PROGRAM WEBSITE. NOTE: WILL ONLY DISPLAY IF THE PROGRAM IS SET TO ACTIVE
+         * //POPULATE A GRIDVIEW FOR EACH ITEM IN THE ARRAY, QUERYING THE DATABASE EACH TIME TO GET RELEVANT DATA
+         * for (int q = 0; q < programArray.Length; q++)
+         * {
+         *      //CREATE ROW IN GRIDVIEW (OR NEW TABLE FOR EACH?) FOR EACH ITEM IN THE ARRAY
+         *      DataTable dt;
+         *      DataRow dr;
+         *      demoGV.Rows.Add();
+         *      dt.NewRow();
+         * }
+         */
     }
 }
