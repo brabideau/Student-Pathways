@@ -38,5 +38,23 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<NAITCourse> SelectedNaitCourses(int courseID)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var result = from x in context.NaitCourses
+                             where x.CourseID == courseID
+                             select new NAITCourse
+                             {
+                                 CourseID = x.CourseID,
+                                 CourseCode = x.CourseCode,
+                                 CourseName = x.CourseName,
+                                 CourseCredits = x.CourseCredits
+                             };
+                return result.ToList();
+            }
+        }
     }
 }

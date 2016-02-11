@@ -32,6 +32,7 @@
                 <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" SortExpression="CourseCode" />
                 <asp:BoundField DataField="CourseName" HeaderText="CourseName" SortExpression="CourseName" />
                 <asp:BoundField DataField="CourseCredits" HeaderText="CourseCredits" SortExpression="CourseCredits" />
+                <asp:CommandField ShowSelectButton="True" />
             </Columns>
             <EmptyDataTemplate>
                 No data found.
@@ -39,7 +40,21 @@
         </asp:GridView>
     </div>
     <div>
-        
+        <asp:Repeater  runat="server">
+            <HeaderTemplate>
+                <table>
+            </HeaderTemplate>
+                <ItemTemplate>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </ItemTemplate>
+            <FooterTemplate>
+                </table>
+            </FooterTemplate>
+        </asp:Repeater>
     </div>
     
     <div>
@@ -48,6 +63,11 @@
             <SelectParameters>
                 <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="ProgramDropDownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="SelectedCourseODB" runat="server" SelectMethod="SelectedNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="CourseGridView" Name="courseID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
     </div>
