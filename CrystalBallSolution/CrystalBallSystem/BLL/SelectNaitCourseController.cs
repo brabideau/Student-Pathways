@@ -43,9 +43,9 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                var result1 = from x in context.Programs
+                var result1 = (from x in context.Programs
                               where x.ProgramID == programID
-                              select x.NaitCourses;
+                              select x.NaitCourses).FirstOrDefault();
                 //where(y.CourseName.Contains(SearchInfo))
                 //              || (y.CourseCode.Contains(SearchInfo))
                 var results = from y in result1
