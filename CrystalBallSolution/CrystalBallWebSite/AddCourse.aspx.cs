@@ -332,6 +332,14 @@ public partial class AddCourse : System.Web.UI.Page
          * //SEND LIST OF PROGRAMS TO THE DB TO BE PUSHED TO A GRIDVIEW - DISPLAY PROGRAM NAME, COMPETITIVE ENTRANCE,
          * //LIST OF COURSES(?), AND LINK TO PROGRAM WEBSITE. NOTE: WILL ONLY DISPLAY IF THE PROGRAM IS SET TO ACTIVE
          * //POPULATE A GRIDVIEW FOR EACH ITEM IN THE ARRAY, QUERYING THE DATABASE EACH TIME TO GET RELEVANT DATA
+         * for (int q = 0; q < programArray.Length; q++)
+         * {
+         *      //CREATE ROW IN GRIDVIEW (OR NEW TABLE FOR EACH?) FOR EACH ITEM IN THE ARRAY
+         *      DataTable dt;
+         *      DataRow dr;
+         *      demoGV.Rows.Add();
+         *      dt.NewRow();
+         * }
          */
     }
 }
