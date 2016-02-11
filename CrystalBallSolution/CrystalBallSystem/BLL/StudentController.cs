@@ -66,6 +66,8 @@ namespace CrystalBallSystem.BLL
             List<int> returnArray = new List<int>();
             using (var context = new CrystalBallContext())
             {
+                //create a list inside a list that can be cast as an array down the line and will contain
+                //the program id and relevant return variables including program name etc etc
                 for (int i = 0; i < entranceID.Length; i++)
                 {
                     var results = (from program in context.EntranceRequirements
