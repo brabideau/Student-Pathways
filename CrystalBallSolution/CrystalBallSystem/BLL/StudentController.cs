@@ -49,7 +49,7 @@ namespace CrystalBallSystem.BLL
             }
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public int GetProgramList(int courseID, int mark)
+        public int GetEntranceList(int courseID, int mark)
         {
             using (var context = new CrystalBallContext())
             {
@@ -59,6 +59,23 @@ namespace CrystalBallSystem.BLL
                                select entrance.EntranceRequirementID).FirstOrDefault();
                 return results;
             }
+        }
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public int[] GetPrograms(int[] entranceID)
+        {
+            List<int> returnArray = new List<int>();
+            using (var context = new CrystalBallContext())
+            {
+                for (int i = 0; i < entranceID.Length; i++)
+                {
+                    var results = (from program in context.EntranceRequirements
+                                  where program.EntranceRequirementID == entranceID[i] && program.Program.Active == true
+                                  select program.ProgramID).First();
+                    returnArray.Add(results);
+                }
+            }
+            int[] newArray = returnArray.ToArray();
+            return newArray;
         }
 
         #region preference questions
