@@ -11,6 +11,8 @@ using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL;
 using System.ComponentModel;
 using CrystalBallSystem.DAL.POCOs;
+using System.Data;
+using System.Data.SqlClient;
 
 #endregion
 
@@ -98,7 +100,36 @@ namespace CrystalBallSystem.BLL
 
         #endregion
 
+
+        #region briand playspace
+
         
-    
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        static public DataTable FindProgramMatches(DataTable myCourses)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var param = new SqlParameter("@CourseList", myCourses);
+                param.TypeName = "CourseIDs";
+                var result = context.Database
+                    .SqlQuery<int>("FindPrograms @CourseList", param)
+                    .ToList();
+
+
+                DataTable progMatches = new DataTable();
+                progMatches.Columns.Add("ProgramID");
+                foreach (var item in result)
+                {
+                    var row = progMatches.NewRow();
+                    row["ProgramID"] = item;
+                    progMatches.Rows.Add(row);
+                }
+                return progMatches;
+            }
+        }
+        
+        #endregion
+
+
     }
 }
