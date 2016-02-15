@@ -84,7 +84,6 @@
             <br />
         <div class="clear"></div>
         <div class="button">
-            <div class="col-md-3"></div>
             <asp:Button ID="submitCourseButton" runat="server" Text="Submit Courses" OnClick="submitCourseButton_Click" />
         </div>
         <br />

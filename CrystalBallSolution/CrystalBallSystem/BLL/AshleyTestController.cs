@@ -12,6 +12,7 @@ namespace CrystalBallSystem.BLL
     [DataObject]
     public class AshleyTestController
     {
+        #region List High School Courses
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<GetHSCourses> GetEnglishCourseList()
         {
@@ -105,5 +106,24 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
+        #endregion
+
+        #region List Preference Questions
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<GetPreferenceQuestions> GetQuestions()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from question in context.PreferenceQuestions
+                              orderby question.QuestionID
+                              select new GetPreferenceQuestions
+                              {
+                                  QuestionID = question.QuestionID,
+                                  Question = question.Description
+                              };
+                return results.ToList();
+            }
+        }
+        #endregion
     }
 }
