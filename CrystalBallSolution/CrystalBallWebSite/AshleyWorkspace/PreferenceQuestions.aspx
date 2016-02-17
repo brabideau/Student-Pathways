@@ -24,7 +24,7 @@
             <asp:LinkButton ID="ButtonAlmost2" runat="server" OnClick="ButtonAlmost2_Click">Next</asp:LinkButton>
         </div>
         <div runat="server" id="step2" visible="false">            
-            <asp:GridView ID="QuestionGridview" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionODS" BorderStyle="None" GridLines="Horizontal">
+            <asp:GridView ID="QuestionGridview" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionODS" BorderStyle="None" GridLines="Horizontal" ShowHeader="False">
                 <Columns>
                     <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID" Visible="True" />
                     <asp:BoundField DataField="Question" HeaderText="Question" SortExpression="Question" />

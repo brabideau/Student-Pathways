@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalBallSystem.BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -46,31 +47,45 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
     
     protected void Button2_Click(object sender, EventArgs e)
     {
+        List<int> questionIDs = new List<int>();
+        List<bool> questionAnswers = new List<bool>();
+
+        //Test getting correct data
         MessageUserControl.TryRun(() =>
         {
             string y = "", z = "";
             bool check;
-            List<String> questionIDs = new List<String>();
-            List<bool> questionAnswers = new List<bool>();
+            
             foreach (GridViewRow row in QuestionGridview.Rows)
             {
-                var questionID = row.Cells[0].Text;
+                var questionID = int.Parse(row.Cells[0].Text);
                 var isChecked = row.FindControl("Check") as CheckBox;
                 check = isChecked.Checked;
                 questionIDs.Add(questionID);
                 questionAnswers.Add(check);
             }  
 
+            ////test - display results
+            //foreach (int x in questionIDs)
+            //{
+            //    y += x;
+            //}
+            //foreach (bool a in questionAnswers)
+            //{
+            //    z += a;
+            //}
+            //MessageUserControl.ShowInfo(y + z);
+            
+            AshleyTestController sysmgr = new AshleyTestController();
+            List<int> tally = sysmgr.QuestionTally(questionIDs, questionAnswers);
             //test - display results
-            foreach (string x in questionIDs)
+            foreach (int x in tally)
             {
                 y += x;
             }
-            foreach (bool a in questionAnswers)
-            {
-                z += a;
-            }
-            MessageUserControl.ShowInfo(y + z);
+            MessageUserControl.ShowInfo(y);
         });
+
+
     }
 }

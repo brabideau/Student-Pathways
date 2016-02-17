@@ -21,7 +21,7 @@ namespace CrystalBallSystem.DAL.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProgramID { get; set; }
 
-        public int Quantity { get; set; }
+        public bool Answer { get; set; }
 
         public virtual PreferenceQuestion PreferenceQuestion { get; set; }
 
