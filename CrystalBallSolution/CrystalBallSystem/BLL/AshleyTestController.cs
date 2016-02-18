@@ -139,8 +139,8 @@ namespace CrystalBallSystem.BLL
                                   orderby program.ProgramID
                                   select program.ProgramID).FirstOrDefault();
 
-                var endPoint = (from program in context.Programs
-                               where program.ProgramID == (from max in context.Programs select max.ProgramID).Max()
+                var endPoint = (from program in context.ProgramPreferences
+                               where program.ProgramID == (from max in context.ProgramPreferences select max.ProgramID).Max()
                                select program.ProgramID).FirstOrDefault();
 
                 var distinctIDs = (from program in context.ProgramPreferences
@@ -179,7 +179,7 @@ namespace CrystalBallSystem.BLL
                             matches++;
                         }
                         questionID++;
-                        while (questionID != questionDistinctIDs.ElementAt(count + 1))
+                        while (questionID <= questionEndPoint && questionID != questionDistinctIDs.ElementAt(count + 1))
                         {
                             questionID++;
                         }
@@ -187,7 +187,8 @@ namespace CrystalBallSystem.BLL
                     }
                     questionMatches.Add(matches);
                     programID++;
-                    while (programID != distinctIDs.ElementAt(count + 1))
+                    count = 0;
+                    while (programID <= endPoint && programID != distinctIDs.ElementAt(count + 1))
                     {
                         programID++;
                     }
