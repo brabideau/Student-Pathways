@@ -112,7 +112,7 @@ namespace CrystalBallSystem.BLL
                 var param = new SqlParameter("@CourseList", myCourses);
                 param.TypeName = "CourseIDs";
                 var result = context.Database
-                    .SqlQuery<int>("FindPrograms @CourseList", param)
+                    .SqlQuery<int>("FindProgramsB @CourseList", param)
                     .ToList();
 
 
