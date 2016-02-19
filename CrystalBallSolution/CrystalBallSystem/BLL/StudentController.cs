@@ -106,6 +106,7 @@ namespace CrystalBallSystem.BLL
         
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         static public DataTable FindProgramMatches(DataTable myCourses)
+            // Input datatable should have one column, listing courseIDs
         {
             using (var context = new CrystalBallContext())
             {
@@ -127,7 +128,53 @@ namespace CrystalBallSystem.BLL
                 return progMatches;
             }
         }
-        
+
+
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        static public DataTable FindPreferenceMatches(DataTable myPrefs)
+            // the input datatable should have 2 columns
+            // first column is the questionID, second column is the answer
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var param = new SqlParameter("@S_Prefs", myPrefs);
+                param.TypeName = "StudentPrefs";
+                var result = context.Database
+                    .SqlQuery<int>("PreferenceMatching @S_Prefs", param)
+                    .ToList();
+
+
+                DataTable progMatches = new DataTable();
+                progMatches.Columns.Add("ProgramID");
+                foreach (var item in result)
+                {
+                    var row = progMatches.NewRow();
+                    row["ProgramID"] = item;
+                    progMatches.Rows.Add(row);
+                }
+                return progMatches;
+            }
+        }
+
+
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        static public void ReportingTally(int? progID, int questionID, int? semester, bool? change, bool answer)
+        {
+            // TODO: finish this part
+            
+            using (var context = new CrystalBallContext())
+            {
+                            
+                var program = new SqlParameter("@progID", progID);
+                var question = new SqlParameter("@questionID", questionID);
+                var sem = new SqlParameter("@semester", semester);
+                var changeProgram = new SqlParameter("@change", change);
+                var studentAns = new SqlParameter("@answer", answer);
+
+            }
+        }
         #endregion
 
 
