@@ -10,22 +10,22 @@ namespace CrystalBallSystem.DAL.Entities
     public class ReportingData
     {
         [Key]
-        public int ReportingDataID { get; set; }
+        public int ReportingID { get; set; }
 
         public int? ProgramID { get; set; }
 
         public int? Semester { get; set; }
 
-        public bool? ChangePrograms { get; set; }
-        
-        [Required]
-        public int QuestionID { get; set; }
+        public bool? ChangeProgram { get; set; }
 
-        [Required]
-        public int answer { get; set; }
+        //[Required]
+        public int? QuestionID { get; set; }
 
-        [Required]
-        public int quantity { get; set; }
+        //[Required]
+        public bool? StudentAnswer { get; set; }
+
+        //[Required]
+        //public int quantity { get; set; }
 
 
         public virtual Program Program { get; set; }

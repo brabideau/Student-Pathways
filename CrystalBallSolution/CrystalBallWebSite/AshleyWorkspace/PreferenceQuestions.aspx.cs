@@ -43,18 +43,41 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
     {
         stepAlmost2.Visible = false;
         step2.Visible = true;
+        int programid;
+        int semester;
+        bool switchProgram;
+        if (CurrentStudent.Checked == true)
+        {
+            programid = int.Parse(ProgramDropDown.SelectedValue);
+            semester = int.Parse(SemesterDropDown.SelectedValue);
+            if (ChangeProgram.Checked == true)
+            {
+                switchProgram = true;
+            }
+            else
+            {
+                switchProgram = false;
+            }
+            AshleyTestController sysmgr = new AshleyTestController();
+            int reportid = sysmgr.ReportingDataAddProgramInfo(programid, semester, switchProgram);
+            ReportLabel.Text = reportid.ToString();
+        }
+
+        
     }
     
     protected void Button2_Click(object sender, EventArgs e)
     {
         List<int> questionIDs = new List<int>();
-        List<bool> questionAnswers = new List<bool>();
+        List<bool> questionAnswers = new List<bool>();        
 
         //Test getting correct data
         MessageUserControl.TryRun(() =>
         {
-            string y = "", z = "";
+            string y = "";
             bool check;
+            int reportid = int.Parse(ReportLabel.Text);
+            AshleyTestController sysmgr = new AshleyTestController();
             
             foreach (GridViewRow row in QuestionGridview.Rows)
             {
@@ -63,6 +86,7 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
                 check = isChecked.Checked;
                 questionIDs.Add(questionID);
                 questionAnswers.Add(check);
+                sysmgr.ReportingDataAddQuestionInfo(questionID, check, reportid);
             }  
 
             ////test - display results
@@ -76,7 +100,6 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
             //}
             //MessageUserControl.ShowInfo(y + z);
             
-            AshleyTestController sysmgr = new AshleyTestController();
             List<int> tally = sysmgr.QuestionTally(questionIDs, questionAnswers);
             //test - display results
             foreach (int x in tally)

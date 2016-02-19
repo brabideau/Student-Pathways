@@ -197,5 +197,43 @@ namespace CrystalBallSystem.BLL
             }
         }
         #endregion
+
+        #region Insert Into ReportingData
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public int ReportingDataAddProgramInfo(int programID, int semester, bool changingProgram)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                ReportingData newReport = new ReportingData()
+                {
+                    ProgramID = programID,
+                    Semester = semester,
+                    ChangeProgram = changingProgram,
+                    QuestionID = null,
+                    StudentAnswer = null
+                };
+                context.ReportingData.Add(newReport);
+                
+                int reportID = newReport.ReportingID;
+                context.SaveChanges();
+                return reportID;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void ReportingDataAddQuestionInfo(int questionID, bool answerMatch, int reportID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var results = (from report in context.ReportingData
+                              where report.ReportingID == reportID
+                              select report).FirstOrDefault();
+
+                results.QuestionID = questionID;
+                results.StudentAnswer = answerMatch;
+                context.SaveChanges();
+            }
+        }
+        #endregion
     }
 }
