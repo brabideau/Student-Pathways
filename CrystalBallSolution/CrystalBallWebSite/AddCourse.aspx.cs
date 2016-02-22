@@ -232,6 +232,7 @@ public partial class AddCourse : System.Web.UI.Page
 
     protected void search_Click(object sender, EventArgs e)
     {
+        /*
         //clear the old cache
         List<string> keys = new List<string>();
         //retrieve application cache enumerator
@@ -250,12 +251,10 @@ public partial class AddCourse : System.Web.UI.Page
         for (int i = 0; i < GV_Course.Rows.Count; i++)
         {
             //get the appropriate cell and read the value so it can be passed to the cache.
-            /*
             DropDownList course = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
             string courseID = course.SelectedValue;
 
             Cache.Insert(i.ToString(), courseID, null, System.Web.Caching.Cache.NoAbsoluteExpiration, new TimeSpan(14,0,0,0));
-             */
             //delete old cookies from the cache            
             DropDownList courseID = (DropDownList)GV_Course.Rows[i].FindControl("DL_Course");
             TextBox mark = (TextBox)GV_Course.Rows[i].FindControl("TB_EnterMarks");
@@ -288,9 +287,58 @@ public partial class AddCourse : System.Web.UI.Page
                 Response.Cookies.Add(test);
             }
         }
+         END OF CACHE TESTING */
+
+        //Loop through table and log courseIDs into an array that will be passed to the results page
+        //create an array of ints that will contain the courseIDs and pass that to results page
+        //need to create a list first and convert to an array
+        List<int> courseIds = new List<int>();
+        foreach (GridViewRow row in GV_Course.Rows)
+        {
+            var listData = row.FindControl("DL_Course") as DropDownList;
+            int tempInt = Convert.ToInt32(listData.SelectedValue);
+        }
+        int[] courseIdsArray = courseIds.ToArray();
+        DataTable dt = new DataTable();
+        dt.Columns.Add(new DataColumn("CourseID", typeof(int)));
+
+        for (int count = 0; count < courseIdsArray.Length; count++)
+        {
+            dt.Rows.Add(courseIdsArray[count]);
+        }
+
+        Session["CourseArray"] = dt;
+        Response.Redirect("KyleWorkspace/Results.aspx");
+
+        //asdfasfdsdafsadf
+        /*
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add(new DataColumn("CourseID", typeof(int)));
+
+        for (int count = 0; count < DL_Course.Items.Count; count++)
+        {
+            if (DL_Course.Items[count].Selected)
+            {
+                dr = dt.NewRow();
+                dr["CourseID"] = DL_Course.Items[count].Value;
+                dt.Rows.Add(dr);
+            }
+        }
+
+
+        StudentController something = new StudentController();
+
+        DataTable matches = StudentController.FindProgramMatches(dt);
+
+        ResultsView.DataSource = matches;
+        ResultsView.DataBind();
+
+         */
         //call the query method in the controller to access the database for a list of results
         //needs to receive the required mark for each program and loop through to ensure parameters are met
         //for each row in the gridview log the courseid and mark
+        /*
         StudentController sysmgr = new StudentController();
         List<int> entranceID = new List<int>();
         foreach (GridViewRow row in GV_Course.Rows)
