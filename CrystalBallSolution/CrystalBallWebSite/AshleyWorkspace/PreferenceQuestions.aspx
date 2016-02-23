@@ -3,15 +3,116 @@
 <%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <div runat="server">
+     <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        body
+        {
+            width: 964px;
+            margin: 0 auto;
+        }
+        .start
+        {
+            margin-top: 50px;
+        }
+        .box
+        {
+            width:160px;
+            height: 350px;
+            margin:10px;
+            float:left;
+            border-right: 1px solid rgba(128, 128, 128, 0.76);
+        }
+        .box2
+        {
+            width:220px;
+            margin:10px;
+            float:left;
+        }
+        .clear
+        {
+            clear: both;
+        }
+        .button
+        {            
+            float:right;
+            margin-right: 40px;
+        }
+        h2
+        {
+            margin-left: 20px;
+        }
+        h1
+        {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        label
+        {
+            font-weight: normal;
+        }
+        table
+        {
+            margin-right: 0;
+        }
+    </style>
+
+    <div id="start" runat="server">
         <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-        <h2>Preference Questions</h2>
-        <!--Check if student will answer questions-->
+        <div runat="server" id="programLevel">
+            <p>Select Desired Certification Level: 
+    <asp:DropDownList ID="CertificationDropDown" runat="server" DataSourceID="CredentialODS" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>*High School Courses are not required if aiming for a degree</p>
+            <asp:LinkButton ID="CredentialButton" runat="server" OnClick="Credential_Click">Next</asp:LinkButton>
+        </div>
+
+        <!-- Enter Courses Taken-->
+        <div runat="server" id="enterCourses" visible="false"> 
+            <!--HS Courses-->          
+            <h1>Select the Courses You've Taken</h1>                
+            <div class="box">
+                <h2>English</h2>
+                <asp:CheckBoxList ID="EnglishList" runat="server" DataSourceID="EnglishListODS" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID">
+                </asp:CheckBoxList>
+            </div>
+            <div class="box">
+                <h2>Math</h2>
+                <asp:CheckBoxList ID="MathList" runat="server" DataSourceID="MathListODS" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID">
+                </asp:CheckBoxList>
+            </div>
+            <div class="box">
+                <h2>Science</h2>
+                <asp:CheckBoxList ID="ScienceList" runat="server" DataSourceID="ScienceListODS" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID">
+                </asp:CheckBoxList>
+            </div>
+            <div class="box">
+                <h2>Social</h2>
+                <asp:CheckBoxList ID="SocialList" runat="server" DataSourceID="SocialListODS" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID">
+                </asp:CheckBoxList>
+            </div>
+            <div class="box2">
+                <h2>Other</h2>
+                <asp:CheckBoxList ID="OtherList" runat="server" DataSourceID="OtherListODS" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID">
+                </asp:CheckBoxList>
+            </div>
+                <br />
+                <br />
+            <div class="clear"></div>
+            <div class="button">
+                <asp:Button ID="submitCourseButton" runat="server" Text="Submit Courses" OnClick="submitCourseButton_Click" />
+            </div>
+            <br />
+        </div>  
         <div runat="server" id="step1">
+            <h2>Preference Questions</h2>
+            <!--Check if student will answer questions-->
+       
             <p>By answering the following questions, your results can be further narrowed down to display results that better suit your interests.</p>
             <p>Answer questions?<span style="margin-right: 15px;"></span><asp:CheckBox ID="AnswerQuestions" runat="server" checked="true"/></p>
             <asp:LinkButton ID="Button1" runat="server" OnClick="Button1_Click">Next</asp:LinkButton>
-        </div>
+        </div>        
+        <!--Get desired program level-->
+
 
         <!--Get student's program information-->
         <div runat="server" id="stepAlmost2" visible="false">
@@ -49,8 +150,14 @@
                 </Columns>
             </asp:GridView>            
             <asp:LinkButton ID="Button2" runat="server" OnClick="Button2_Click">Next</asp:LinkButton>
+            
         </div>
-
+        <asp:ObjectDataSource ID="CredentialODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCredentialLevels" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="EnglishListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetEnglishCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="MathListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetMathCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ScienceListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetScienceCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="SocialListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetSocialCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="OtherListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetOtherCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="QuestionODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetQuestions" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource> 
         <asp:ObjectDataSource ID="CategoryODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="ProgramODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController">

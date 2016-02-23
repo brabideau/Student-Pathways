@@ -18,14 +18,14 @@ namespace CrystalBallSystem.DAL.Entities
 
         public bool? ChangeProgram { get; set; }
 
-        //[Required]
+        [Required]
         public int? QuestionID { get; set; }
 
-        //[Required]
+        [Required]
         public bool? StudentAnswer { get; set; }
 
-        //[Required]
-        //public int quantity { get; set; }
+        [Required]
+        public int quantity { get; set; }
 
 
         public virtual Program Program { get; set; }

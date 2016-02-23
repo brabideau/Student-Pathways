@@ -198,6 +198,23 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
+        #region List Credential Levels
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<GetCredentials> GetCredentialLevels()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from level in context.CredentialTypes
+                              orderby level.CredentialTypeID
+                              select new GetCredentials
+                              {
+                                  CredentialTypeID = level.CredentialTypeID,
+                                  CredentialTypeName = level.CredentialTypeName
+                              };
+                return results.ToList();
+            }
+        }
+        #endregion
         #region Insert Into ReportingData
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public int ReportingDataAddProgramInfo(int programID, int semester, bool changingProgram)
