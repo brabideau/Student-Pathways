@@ -20,20 +20,57 @@ namespace CrystalBallSystem.BLL
     public class SelectNaitCourseController
     {
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<NAITCourse> SearchNaitCourses(string SearchInfo)
+        public List<NAITCourse> SearchNaitCourses(string SearchInfo,int programID)
         {
             using (var context = new CrystalBallContext())
             {
-                var results = from NaitCourse in context.NaitCourses
-                              where (NaitCourse.CourseName.Contains(SearchInfo))
-                              || (NaitCourse.CourseCode.Contains(SearchInfo))
-                              select new NAITCourse
-                              {
-                                  CourseID = NaitCourse.CourseID,
-                                  CourseCode = NaitCourse.CourseCode,
-                                  CourseName = NaitCourse.CourseName,
-                                  CourseCredits = NaitCourse.CourseCredits,
+                if (programID == 0)
+                {
+                    var result = from Ncourse in context.NaitCourses
+                                  where (Ncourse.CourseName.Contains(SearchInfo))
+                                  || (Ncourse.CourseCode.Contains(SearchInfo)) 
+                                  select new NAITCourse
+                                  {
+                                      CourseID = Ncourse.CourseID,
+                                      CourseCode = Ncourse.CourseCode,
+                                      CourseName = Ncourse.CourseName,
+                                      CourseCredits = Ncourse.CourseCredits,
 
+                                  };
+                    return result.ToList();
+                }
+                else
+                {
+                    
+
+                    //var result1 = from Ncourse in result
+                    //              where (Ncourse.CourseName.Contains(SearchInfo))
+                    //             || (Ncourse.CourseCode.Contains(SearchInfo)) 
+                    //             && (Ncourse.)
+                    //              select new NAITCourse
+                    //              {
+                    //                  CourseID = NaitCourse.CourseID,
+                    //                  CourseCode = NaitCourse.CourseCode,
+                    //                  CourseName = NaitCourse.CourseName,
+                    //                  CourseCredits = NaitCourse.CourseCredits,
+
+                    //              };
+                    //return results.ToList();
+                }
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<ProgramNameID> GetProgram()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from x in context.Programs
+                              orderby x.ProgramName
+                              select new ProgramNameID
+                              {
+                                  ProgramID = x.ProgramID,
+                                  ProgramName = x.ProgramName
                               };
                 return results.ToList();
             }
