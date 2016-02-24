@@ -10,7 +10,7 @@
                               DataSourceID="SelectProgramODB" 
                               DataTextField="ProgramName" 
                               DataValueField="ProgramID"
-                              AppendDataBoundItems="true" >
+                              AppendDataBoundItems="True" >
                 <asp:ListItem  Value=0 Text="[Select All]" />
 
             </asp:DropDownList>
@@ -26,7 +26,7 @@
     <br />
     <div>
         <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            width="80%" Align="Center">
+            width="80%" Align="Center" DataKeyNames="CourseCode">
             <Columns>
                 <asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" Visible="false"/>
                 <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" SortExpression="CourseCode" />
@@ -58,7 +58,7 @@
     </div>
     
     <div>
-        <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="Program_List" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="NaitCourseODB" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
             <SelectParameters>
                 <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />

@@ -24,38 +24,97 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
+                //searchinfo upper lower case
                 if (programID == 0)
                 {
-                    var result = from Ncourse in context.NaitCourses
-                                  where (Ncourse.CourseName.Contains(SearchInfo))
-                                  || (Ncourse.CourseCode.Contains(SearchInfo)) 
-                                  select new NAITCourse
-                                  {
-                                      CourseID = Ncourse.CourseID,
-                                      CourseCode = Ncourse.CourseCode,
-                                      CourseName = Ncourse.CourseName,
-                                      CourseCredits = Ncourse.CourseCredits,
+                    if (SearchInfo == null)
+                    {
+                        var result = from Ncourse in context.NaitCourses
+                                     select new NAITCourse
+                                     {
+                                         CourseID = Ncourse.CourseID,
+                                         CourseCode = Ncourse.CourseCode,
+                                         CourseName = Ncourse.CourseName,
+                                         CourseCredits = Ncourse.CourseCredits,
 
-                                  };
-                    return result.ToList();
+                                     };
+                        return result.ToList();
+                    }
+                    else
+                    {
+                        var result = from Ncourse in context.NaitCourses
+                                     where (Ncourse.CourseName.Contains(SearchInfo))
+                                     || (Ncourse.CourseCode.Contains(SearchInfo))
+                                     select new NAITCourse
+                                     {
+                                         CourseID = Ncourse.CourseID,
+                                         CourseCode = Ncourse.CourseCode,
+                                         CourseName = Ncourse.CourseName,
+                                         CourseCredits = Ncourse.CourseCredits,
+
+                                     };
+                        return result.ToList();
+                    }
                 }
                 else
                 {
+
                     
+                    if (SearchInfo == null)
+                    {
+                        List<NAITCourse> CourseLIst = new List<NAITCourse>();
 
-                    //var result1 = from Ncourse in result
-                    //              where (Ncourse.CourseName.Contains(SearchInfo))
-                    //             || (Ncourse.CourseCode.Contains(SearchInfo)) 
-                    //             && (Ncourse.)
-                    //              select new NAITCourse
-                    //              {
-                    //                  CourseID = NaitCourse.CourseID,
-                    //                  CourseCode = NaitCourse.CourseCode,
-                    //                  CourseName = NaitCourse.CourseName,
-                    //                  CourseCredits = NaitCourse.CourseCredits,
+                        var a = from x in context.Programs
+                                where x.ProgramID == programID
+                                select x.NaitCourses;
+                        foreach (var i in a)
+                        {
+                            var results = (from Ncourse in i
+                                          select new NAITCourse
+                                          {
+                                              CourseID = Ncourse.CourseID,
+                                              CourseCode = Ncourse.CourseCode,
+                                              CourseName = Ncourse.CourseName,
+                                              CourseCredits = Ncourse.CourseCredits,
 
-                    //              };
-                    //return results.ToList();
+                                          });
+                            foreach (var result in results)
+                            {
+                                CourseLIst.Add(result);
+                            }
+                            
+                        }
+                        return CourseLIst;
+                    }
+                    else
+                    {
+                        List<NAITCourse> CourseLIst = new List<NAITCourse>();
+
+                        var a = from x in context.Programs
+                                where x.ProgramID == programID
+                                select x.NaitCourses;
+                        foreach (var i in a)
+                        {
+                            var results = (from Ncourse in i
+                                          where (Ncourse.CourseName.Contains(SearchInfo))
+                                      || (Ncourse.CourseCode.Contains(SearchInfo))
+                                          select new NAITCourse
+                                          {
+                                              CourseID = Ncourse.CourseID,
+                                              CourseCode = Ncourse.CourseCode,
+                                              CourseName = Ncourse.CourseName,
+                                              CourseCredits = Ncourse.CourseCredits,
+
+                                          });
+
+                            foreach(var result in results)
+                            {
+                                CourseLIst.Add(result);
+                            }
+                        }
+                        return CourseLIst;
+                    }
+                    
                 }
             }
         }
