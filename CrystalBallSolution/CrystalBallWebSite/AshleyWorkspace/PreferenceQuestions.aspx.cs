@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,8 +21,9 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
     }
 
     protected void Credential_Click(object sender, EventArgs e)
-    {
+    {        
         enterCourses.Visible = true;
+        programLevel.Visible = false;
         if (int.Parse(CertificationDropDown.SelectedValue) == 3)
         {
             EnglishList.Enabled = false;
@@ -29,6 +31,7 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
             ScienceList.Enabled = false;
             SocialList.Enabled = false;
             OtherList.Enabled = false;
+            degree.Visible = true;
         }
         else
         {
@@ -37,6 +40,22 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
             ScienceList.Enabled = true;
             SocialList.Enabled = true;
             OtherList.Enabled = true;
+            degree.Visible = false;
+            EnglishList.DataBind();
+
+            //RETRIEVE FROM CACHE
+            for (int count = 0; count < EnglishList.Items.Count; count++)
+            {
+                //get all the cookie data
+                if (Request.Cookies["EnglishCookie"] != null)
+                {
+                    int x = count;
+                    if (Request.Cookies["EnglishCookie"]["Courses" + x] != null)
+                    {
+                        EnglishList.Items[count].Selected = true;
+                    }
+                }
+            }
         }        
     }
 
@@ -54,7 +73,7 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
         {
             Cache.Remove(keys[k]);
         }
-        HttpCookie test = new HttpCookie("DemoCookie");
+        HttpCookie test = new HttpCookie("EnglishCookie");
 
         for (int count = 0; count < EnglishList.Items.Count; count++)
         {
@@ -63,27 +82,38 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
                 test.Values["Courses" + count] = EnglishList.Items[count].Text;
                 Response.Cookies.Add(test);
             }
-
+        }
+        //string[] courseArray = keys.ToArray();
+        //DataTable dt = new DataTable();
+        //dt.Columns.Add(new DataColumn("CourseName", typeof(string)));
+        //for (int count = 0; count < courseArray.Length; count++)
+        //{
+        //    dt.Rows.Add(courseArray[count]);
+        //}
+        //Session["CourseArray"] = dt;
+        
+        //CHECK CACHE
+        string userCourses = "";
+        for (int count = 0; count < EnglishList.Items.Count; count++)
+        {
             //get all the cookie data
-            if (Request.Cookies["DemoCookie"] != null)
-            {
-                string userCourses = "";
+            if (Request.Cookies["EnglishCookie"] != null)
+            {               
                 int x = count;
-                if (Request.Cookies["DemoCookie"]["Courses" + x] != null)
+                if (Request.Cookies["EnglishCookie"]["Courses" + x] != null)
                 {
-                    while (x >= 0)
-                    {
-                        userCourses += Request.Cookies["DemoCookie"]["Courses" + x];
-                        x--;
-                    }
+                    userCourses += Request.Cookies["EnglishCookie"]["Courses" + x];
                 }
-
-                //remove the cookie data
-                //HttpCookie myCookie = new HttpCookie("DemoCookie");
-                test.Expires = DateTime.Now.AddDays(5);
-                Response.Cookies.Add(test);
             }
         }
+        MessageUserControl.ShowInfo(userCourses);
+
+        //remove the cookie data                
+        test.Expires = DateTime.Now.AddDays(5);
+        Response.Cookies.Add(test);
+
+        step1.Visible = true;
+        enterCourses.Visible = false;
     }
 
     protected void Button1_Click(object sender, EventArgs e)

@@ -30,10 +30,6 @@
             margin:10px;
             float:left;
         }
-        .clear
-        {
-            clear: both;
-        }
         .button
         {            
             float:right;
@@ -97,13 +93,19 @@
             </div>
                 <br />
                 <br />
-            <div class="clear"></div>
+            <div runat='server' style="clear:both" id="degree">
+                 <p>Select Type of Degree/Diploma You Have: 
+                     <asp:DropDownList ID="DiplomaCategoryDropdown" runat="server" DataSourceID="DiplomaCategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList></p>
+                 <p>Enter Your GPA: 
+                     <asp:TextBox ID="GPAText" runat="server"></asp:TextBox></p>
+            </div>
+            <div style="clear:both"></div>
             <div class="button">
                 <asp:Button ID="submitCourseButton" runat="server" Text="Submit Courses" OnClick="submitCourseButton_Click" />
             </div>
             <br />
         </div>  
-        <div runat="server" id="step1">
+        <div runat="server" id="step1" visible="false">
             <h2>Preference Questions</h2>
             <!--Check if student will answer questions-->
        
@@ -153,6 +155,7 @@
             
         </div>
         <asp:ObjectDataSource ID="CredentialODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCredentialLevels" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="DiplomaCategoryODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="EnglishListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetEnglishCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="MathListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetMathCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="ScienceListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetScienceCourseList" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
