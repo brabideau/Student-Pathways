@@ -73,6 +73,7 @@
     <Compile Include="DAL\POCOs\GetProgramList.cs" />
     <Compile Include="DAL\POCOs\NAITCourse.cs" />
     <Compile Include="DAL\POCOs\ProgramNameID.cs" />
+    <Compile Include="DAL\POCOs\ProgramResult.cs" />
     <Compile Include="DAL\POCOs\ProgramSummary.cs" />
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="DAL\POCOs\StudentPreference.cs" />

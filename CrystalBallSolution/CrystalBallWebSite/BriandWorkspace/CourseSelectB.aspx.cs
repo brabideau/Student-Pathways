@@ -19,27 +19,23 @@ public partial class BriandWorkspace_CourseSelectB : System.Web.UI.Page
     protected void submitCourseButton_Click(object sender, EventArgs e)
     {
 
-        DataTable dt = new DataTable();
-        DataRow dr = null;
-        dt.Columns.Add(new DataColumn("CourseID", typeof(int)));
+        List<int> myCourses = new List<int> { };
 
         for (int count = 0; count < CB_CourseList.Items.Count; count++)
         {
             if (CB_CourseList.Items[count].Selected)
             {
-                dr = dt.NewRow();
-                dr["CourseID"] = CB_CourseList.Items[count].Value;
-                dt.Rows.Add(dr);
+
+                myCourses.Add(Convert.ToInt32(CB_CourseList.Items[count].Value));
+
             }
         }
 
 
-        StudentController something = new StudentController();
 
-        DataTable matches = StudentController.FindProgramMatches(dt);
-
-        ResultsView.DataSource = matches;
-        ResultsView.DataBind();
+        Session["CourseArray"] = myCourses;
+        Response.Redirect("../KyleWorkspace/Results.aspx");
+        
 
 
     }

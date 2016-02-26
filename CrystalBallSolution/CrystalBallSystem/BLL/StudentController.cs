@@ -102,11 +102,13 @@ namespace CrystalBallSystem.BLL
 
 
         #region briand playspace
-
-        
+        /*
+         // Input datatable should have one column, listing courseIDs
+         * 
+         * 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         static public DataTable FindProgramMatches(DataTable myCourses)
-            // Input datatable should have one column, listing courseIDs
+           
         {
             using (var context = new CrystalBallContext())
             {
@@ -129,7 +131,29 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        */
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        static public List<ProgramResult> FindProgramMatches(List<int> myCourses)
+            // Input datatable should have one column, listing courseIDs
+        {
+            using (var context = new CrystalBallContext())
+            {
+                
+                var results = from p in context.Programs
+			    where p.Active == true && p.EntranceRequirements.All(e => e.SubjectRequirement.EntranceRequirements.Any(er => myCourses.Contains(er.HighSchoolCourseID)))
+			    select new ProgramResult 
+                {
+                    ProgramID = p.ProgramID,
+                    ProgramName = p.ProgramName,
+                    ProgramDescription = p.ProgramDescription,
+                    ProgramLink = p.ProgramLink
+                };
+
+
+                return results.ToList();
+            }
+        }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         static public DataTable FindPreferenceMatches(DataTable myPrefs)
@@ -159,22 +183,6 @@ namespace CrystalBallSystem.BLL
 
 
 
-        [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        static public void ReportingTally(int? progID, int questionID, int? semester, bool? change, bool answer)
-        {
-            // TODO: finish this part
-            
-            using (var context = new CrystalBallContext())
-            {
-                            
-                var program = new SqlParameter("@progID", progID);
-                var question = new SqlParameter("@questionID", questionID);
-                var sem = new SqlParameter("@semester", semester);
-                var changeProgram = new SqlParameter("@change", change);
-                var studentAns = new SqlParameter("@answer", answer);
-
-            }
-        }
         #endregion
 
 

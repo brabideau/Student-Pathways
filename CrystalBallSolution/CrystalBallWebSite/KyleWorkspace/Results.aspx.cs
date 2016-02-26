@@ -11,10 +11,13 @@ public partial class KyleWorkspace_Results : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //get datatable from previous page and use it to load results
-        DataTable dt = (DataTable)Session["CourseArray"];
+        //get list from previous page and use it to load results
+        List<int> myCourses = (List<int>)Session["CourseArray"];
 
-        //pass the datatable to the database and get results
-        StudentController.FindProgramMatches(dt);
+        //pass the list to the database and get results
+        var myMatches = StudentController.FindProgramMatches(myCourses);
+
+        ResultsView.DataSource = myMatches;
+        ResultsView.DataBind();
     }
 }
