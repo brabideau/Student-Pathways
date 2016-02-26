@@ -102,40 +102,10 @@ namespace CrystalBallSystem.BLL
 
 
         #region briand playspace
-        /*
-         // Input datatable should have one column, listing courseIDs
-         * 
-         * 
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public DataTable FindProgramMatches(DataTable myCourses)
-           
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var param = new SqlParameter("@CourseList", myCourses);
-                param.TypeName = "CourseIDs";
-                var result = context.Database
-                    .SqlQuery<int>("FindProgramsB @CourseList", param)
-                    .ToList();
 
-
-                DataTable progMatches = new DataTable();
-                progMatches.Columns.Add("ProgramID");
-                foreach (var item in result)
-                {
-                    var row = progMatches.NewRow();
-                    row["ProgramID"] = item;
-                    progMatches.Rows.Add(row);
-                }
-                return progMatches;
-            }
-        }
-
-        */
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         static public List<ProgramResult> FindProgramMatches(List<int> myCourses)
-            // Input datatable should have one column, listing courseIDs
         {
             using (var context = new CrystalBallContext())
             {
