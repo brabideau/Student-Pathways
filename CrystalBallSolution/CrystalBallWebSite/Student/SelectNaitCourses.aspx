@@ -26,12 +26,36 @@
     <br />
     <div>
         <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            width="80%" Align="Center" DataKeyNames="CourseCode">
+            width="80%" Align="Center" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
             <Columns>
-                <asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" Visible="false"/>
+                <asp:TemplateField HeaderText="CourseID" Visible ="false">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseID" Text='<%# Eval("CourseID") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="CourseCode">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseCode" Text='<%# Eval("CourseCode") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="CourseName" >
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseName" Text='<%# Eval("CourseName") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="CourseCredits" >
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseCredits" Text='<%# Eval("CourseCredits") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <%--<asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" Visible="false"/>
                 <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" SortExpression="CourseCode" />
                 <asp:BoundField DataField="CourseName" HeaderText="CourseName" SortExpression="CourseName" />
-                <asp:BoundField DataField="CourseCredits" HeaderText="CourseCredits" SortExpression="CourseCredits" />
+                <asp:BoundField DataField="CourseCredits" HeaderText="CourseCredits" SortExpression="CourseCredits" />--%>
                 <asp:CommandField ShowSelectButton="True" />
             </Columns>
             <EmptyDataTemplate>
@@ -40,14 +64,14 @@
         </asp:GridView>
     </div>
     <div>
-        <asp:Repeater  runat="server">
+        <asp:Repeater id ="CourseRepeater" runat="server">
             <HeaderTemplate>
                 <table>
             </HeaderTemplate>
                 <ItemTemplate>
                     <tr>
                         <td>
-                            
+                            <asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -56,6 +80,8 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
+    <%--<asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>--%>
+
     
     <div>
         <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>

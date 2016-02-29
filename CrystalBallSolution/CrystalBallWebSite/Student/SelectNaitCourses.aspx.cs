@@ -12,4 +12,10 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
 
     }
 
+    protected void SelectCourses(object sender, GridViewSelectEventArgs e)
+    {
+        GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
+        string id = (row.FindControl("CourseCode") as Label).Text;
+        //CourseRepeater.CourseCodeLabel.Text = id;
+    }
 }
