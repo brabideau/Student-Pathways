@@ -25,6 +25,6 @@ namespace CrystalBallSystem.DAL.Entities
         public int? Semester {get; set;}
 
         public virtual Program Program { get; set; }
-        public virtual NaitCours NaitCours { get; set; }
+        public virtual NaitCours NaitCourse { get; set; }
     }
 }

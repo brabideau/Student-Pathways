@@ -15,7 +15,6 @@ namespace CrystalBallSystem.DAL.Entities
             EntranceRequirements = new HashSet<EntranceRequirement>();
             ProgramPreferences = new HashSet<ProgramPreference>();
             Categories = new HashSet<Category>();
-            NaitCourses = new HashSet<NaitCours>();
         }
 
         [Key]
@@ -50,6 +49,10 @@ namespace CrystalBallSystem.DAL.Entities
 
         public virtual ICollection<Category> Categories { get; set; }
 
-        public virtual ICollection<NaitCours> NaitCourses { get; set; }
+        public virtual ICollection<ProgramCourse> ProgramCourses { get; set; }
+
+        public virtual ICollection<ProgramCourse> DegreeEntranceRequirements { get; set; }
+
+        public virtual ICollection<ProgramCourse> CourseEquivalencies { get; set; }
     }
 }

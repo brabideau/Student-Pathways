@@ -25,12 +25,20 @@ namespace CrystalBallSystem.DAL
         public virtual DbSet<ReportingData> ReportingData { get; set; }
         public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
         public virtual DbSet<ProgramPreference> ProgramPreferences { get; set; }
+        public virtual DbSet<ProgramCourse> ProgramCourses { get; set; }
+        public virtual DbSet<CourseEquivalency> CourseEquivalencies { get; set; }
+        public virtual DbSet<DegreeEntranceRequirement> DegreeEntranceRequirements { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
                 .Property(e => e.CategoryDescription)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(e => e.DegreeEntranceRequirements)
+                .WithRequired(e => e.Category)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.Programs)
@@ -40,6 +48,11 @@ namespace CrystalBallSystem.DAL
             modelBuilder.Entity<CredentialType>()
                 .Property(e => e.CredentialTypeName)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<CredentialType>()
+                .HasMany(e => e.DegreeEntranceRequirements)
+                .WithRequired(e => e.CredentialType)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CredentialType>()
                 .HasMany(e => e.Programs)
@@ -60,9 +73,21 @@ namespace CrystalBallSystem.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<NaitCours>()
-                .HasMany(e => e.Programs)
-                .WithMany(e => e.NaitCourses)
-                .Map(m => m.ToTable("ProgramCourses").MapLeftKey("CourseID").MapRightKey("ProgramID"));
+                .HasMany(e => e.CourseEquivalencies)
+                .WithRequired(e => e.NaitCourse)
+                .HasForeignKey(e => e.CourseID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NaitCours>()
+                .HasMany(e => e.CourseEquivalencies)
+                .WithRequired(e => e.DestinationCourse)
+                .HasForeignKey(e => e.DestinationCourseID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NaitCours>()
+                .HasMany(e => e.ProgramCourses)
+                .WithRequired(e => e.NaitCourse)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<PreferenceQuestion>()
                 .Property(e => e.Description)
@@ -88,6 +113,21 @@ namespace CrystalBallSystem.DAL
             modelBuilder.Entity<Program>()
                 .Property(e => e.ProgramLink)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Program>()
+                .HasMany(e => e.CourseEquivalencies)
+                .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Program>()
+                .HasMany(e => e.DegreeEntranceRequirements)
+                .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Program>()
+                .HasMany(e => e.ProgramCourses)
+                .WithRequired(e => e.Program)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Program>()
                 .HasMany(e => e.EntranceRequirements)

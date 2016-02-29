@@ -11,10 +11,7 @@ namespace CrystalBallSystem.DAL.Entities
     [Table("NaitCourses")]
     public partial class NaitCours
     {
-        public NaitCours()
-        {
-            Programs = new HashSet<Program>();
-        }
+        
 
         [Key]
         public int CourseID { get; set; }
@@ -30,6 +27,9 @@ namespace CrystalBallSystem.DAL.Entities
 
         public bool Active { get; set; }
 
-        public virtual ICollection<Program> Programs { get; set; }
+        public virtual ICollection<ProgramCourse> ProgramCourses { get; set; }
+
+        public virtual ICollection<CourseEquivalency> CourseEquivalencies { get; set; }
+
     }
 }

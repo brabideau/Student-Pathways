@@ -25,5 +25,7 @@ namespace CrystalBallSystem.DAL.Entities
         public string CategoryDescription { get; set; }
 
         public virtual ICollection<Program> Programs { get; set; }
+
+        public virtual ICollection<DegreeEntranceRequirement> DegreeEntranceRequirements { get; set; }
     }
 }

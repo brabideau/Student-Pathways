@@ -58,12 +58,15 @@
     <Compile Include="DAL\DTOs\CategoryProgram.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
     <Compile Include="DAL\CrystalBallContext.cs" />
+    <Compile Include="DAL\Entities\CourseEquivalency.cs" />
     <Compile Include="DAL\Entities\CredentialType.cs" />
+    <Compile Include="DAL\Entities\DegreeEntranceRequirement.cs" />
     <Compile Include="DAL\Entities\EntranceRequirement.cs" />
     <Compile Include="DAL\Entities\HighSchoolCours.cs" />
     <Compile Include="DAL\Entities\NaitCours.cs" />
     <Compile Include="DAL\Entities\PreferenceQuestion.cs" />
     <Compile Include="DAL\Entities\Program.cs" />
+    <Compile Include="DAL\Entities\ProgramCourse.cs" />
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
     <Compile Include="DAL\Entities\ReportingData.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
