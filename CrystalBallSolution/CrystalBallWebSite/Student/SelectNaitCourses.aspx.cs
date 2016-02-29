@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class User_SelectNaitCourses : System.Web.UI.Page
 {
+    DataTable CoursesSelected = new DataTable();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -18,17 +19,18 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
         string CCode = (row.FindControl("CourseCode") as Label).Text;
         int id = int.Parse((row.FindControl("CourseID") as Label).Text);
+        double CCredits = double.Parse((row.FindControl("CourseCredits") as Label).Text);
         //CourseRepeater.CourseCodeLabel.Text = id;
-        MultiSelect(CCode,id);
+        MultiSelect(CCode, id, CCredits);
 
     }
-    public void MultiSelect(string courseCode ,int courseId)
+    public void MultiSelect(string courseCode ,int courseId, double courseCredits)
     {
 
-        DataTable CoursesSelected = new DataTable();
+        
         DataColumn CourseID;
         DataColumn CourseCode;
-
+        DataColumn CourseCredits;
 
         DataRow row;
 
@@ -45,7 +47,12 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             CourseCode.ColumnName = "CourseCode";
             CourseCode.Caption = "CourseCode";
             CoursesSelected.Columns.Add(CourseCode);
-            
+
+            CourseCredits = new DataColumn();
+            CourseCredits.DataType = System.Type.GetType("System.double");
+            CourseCredits.ColumnName = "CourseCredits";
+            CourseCredits.Caption = "CourseCredits";
+            CoursesSelected.Columns.Add(CourseCredits);
             //DataColumn CrsCode = new DataColumn("CrsCode");
             //CrsCode.DataType = Type.GetType("System.String");
             //CoursesSelected.Columns.Add(CrsCode);
@@ -64,6 +71,7 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         row = CoursesSelected.NewRow();
         row["CourseID"] = courseId;
         row["CourseCode"] = courseCode;
+        row["CourseCredits"] = courseCredits;
         // delete duplicate value
         if (!CoursesSelected.Rows.Contains(courseId))
         {
@@ -79,7 +87,11 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         {
             CourseCodeLabel.Text += " " + row1[1].ToString();
         }
-            
+        double credit = 0;
+        foreach (DataRow row1 in CoursesSelected.Rows)
+        {
+            credit =credit + double.Parse(row1[2].ToString());
+        }
         
         //CourseCodeLabel.Text += " " + CoursesSelected.Rows.ToString();
 
