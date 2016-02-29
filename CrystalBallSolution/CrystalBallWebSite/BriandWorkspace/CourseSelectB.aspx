@@ -52,7 +52,7 @@
         }
 
     </style>
-<div class="body">
+<div class="selectCourses">
     <h1>Select the Courses You've Taken</h1>
 
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5">

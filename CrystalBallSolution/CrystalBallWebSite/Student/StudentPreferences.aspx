@@ -1,8 +1,47 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="StudentPreferences.aspx.cs" Inherits="Student_StudentPreferences" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <style type="text/css">
+    .radioButtonList { list-style:none; margin: 0; padding: 0;}
+    .radioButtonList.horizontal li { display: inline;}
 
-        <div runat="server" align="center">
+    .radioButtonList label{
+      display:inline;
+     }
+    </style>
+
+    <!--Get student's program information-->
+        <div runat="server" id="stepOne" visible="true">
+            <p>Are you a current NAIT student?<span style="margin-right: 15px;"></span><asp:CheckBox ID="CurrentStudent" runat="server" OnCheckedChanged="CurrentStudent_CheckedChanged" autopostback="true" Checked="true"/></p>
+            
+            <div runat="server" id="chooseProgram">
+                <p>Select Program Category: 
+        <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true"></asp:DropDownList>
+                    <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+                </p>
+                <p>Select Current Program: 
+        <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID"></asp:DropDownList>
+                    <asp:ObjectDataSource ID="GetProgram" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="CategoryDropDown" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
+                </p>
+                <p>Select Which Semester You Are In: 
+        <asp:DropDownList ID="SemesterDropDown" runat="server">
+            <asp:ListItem Text="First" Value="1" />
+            <asp:ListItem Text="Second" Value="2" />
+            <asp:ListItem Text="Third" Value="3" />
+            <asp:ListItem Text="Fourth" Value="4" />
+            <asp:ListItem Text="Other" Value="5" />
+        </asp:DropDownList></p>
+                <p>Are you considering switching programs?<span style="margin-right: 15px;"></span><asp:CheckBox ID="ChangeProgram" runat="server" /></p>
+            </div>
+            <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click">Next</asp:LinkButton>
+        </div>
+
+    <!-- get student preference questions -->
+        <div runat="server" id="step2" align="center" visible="false">
         <h1 align="center">Your Preferences</h1>
 
           
@@ -12,16 +51,21 @@
                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:DropDownList ID="DL_StudentPreference" runat="server">
+                           <!-- <asp:DropDownList ID="DL_StudentPreference" runat="server">
                                 <asp:ListItem Value="">(no preference)</asp:ListItem>
                                 <asp:ListItem Value ="True">Yes</asp:ListItem>
                                 <asp:ListItem Value ="False">No</asp:ListItem>
-                            </asp:DropDownList>
+                            </asp:DropDownList> -->
+                            <asp:RadioButtonList ID="RBL_YN" runat="server" CssClass="radioButtonList">
+                                <asp:ListItem Value="1" Selected="True">Yes</asp:ListItem>
+                                <asp:ListItem Value="0">No</asp:ListItem>
+                            </asp:RadioButtonList>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:Button ID="SubmitPrefs" runat="server" Text="Submit" />
+            <asp:LinkButton ID="previous" runat="server" OnClick="onPreviousClick">Previous</asp:LinkButton>
+            <asp:LinkButton ID="stepTwoNext" runat="server">Next</asp:LinkButton>
             </div>
 
 
@@ -31,6 +75,31 @@
                 SelectMethod="GetQuestions"
                 TypeName="crystalBallSystem.BLL.StudentController"
                 runat="server" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+
+    <!-- student course selection section -->
+    <div id="stepThree" runat="server" visible="false">
+    <h1>Select the Courses You've Taken</h1>
+
+        <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5">
+        </asp:CheckBoxList>
+
+            <br />
+            <br />
+        <div class="clear"></div>
+        <div class="button">
+            <div class="col-md-3"></div>
+            <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click">Previous</asp:LinkButton>
+            <asp:Button ID="submit" runat="server" Text="Submit Courses" OnClick="SubmitPrefs_Click" />
+
+            
+        <asp:GridView ID="ResultsView" runat="server"></asp:GridView>
+
+
+        </div>
+        <br />
+          <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
+
+</div>
 
 </asp:Content>
 
