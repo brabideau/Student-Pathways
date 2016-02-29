@@ -260,7 +260,7 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                var results = from equivalency in context.CourseEquivalency
+                var results = from equivalency in context.CourseEquivalencies
                               select new CourseEquivalency
                               {
                                   ProgramID = equivalency.ProgramID,
@@ -271,16 +271,16 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddEquivalency(Category item)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                CourseEquivalency added = null;
-                added = context.Categories.Add(item);
-                context.SaveChanges();
-            }
-        }
+        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
+        //public void AddEquivalency(Category item)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
+        //        CourseEquivalency added = null;
+        //        added = context.CourseEquivalencies.Add(item)
+        //        context.SaveChanges();
+        //    }
+        //}
         #endregion
     }
 }
