@@ -51,8 +51,8 @@ namespace CrystalBallSystem.DAL.Entities
 
         public virtual ICollection<ProgramCourse> ProgramCourses { get; set; }
 
-        public virtual ICollection<ProgramCourse> DegreeEntranceRequirements { get; set; }
+        public virtual ICollection<DegreeEntranceRequirement> DegreeEntranceRequirements { get; set; }
 
-        public virtual ICollection<ProgramCourse> CourseEquivalencies { get; set; }
+        public virtual ICollection<CourseEquivalency> CourseEquivalencies { get; set; }
     }
 }

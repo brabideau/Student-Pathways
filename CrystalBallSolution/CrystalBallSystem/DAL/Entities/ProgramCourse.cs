@@ -17,7 +17,7 @@ namespace CrystalBallSystem.DAL.Entities
         public int CourseID { get; set; }
 
         [Key]
-        [Column(Order = 0)]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProgramID { get; set; }
 
