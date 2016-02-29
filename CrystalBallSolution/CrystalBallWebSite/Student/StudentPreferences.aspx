@@ -14,8 +14,8 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="DL_StudentPreference" runat="server">
                                 <asp:ListItem Value="">(no preference)</asp:ListItem>
-                                <asp:ListItem>Yes</asp:ListItem>
-                                <asp:ListItem>No</asp:ListItem>
+                                <asp:ListItem Value ="True">Yes</asp:ListItem>
+                                <asp:ListItem Value ="False">No</asp:ListItem>
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>

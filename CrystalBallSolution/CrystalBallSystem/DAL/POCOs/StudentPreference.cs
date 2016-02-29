@@ -10,5 +10,11 @@ namespace CrystalBallSystem.DAL.POCOs
     {
         public int QuestionID { get; set; }
         public int Answer { get; set; }
+
+        public StudentPreference(Int32 q, Int32 ans)
+        {
+            QuestionID = q;
+            Answer = ans;
+        }
     }
 }

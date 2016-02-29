@@ -126,28 +126,33 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public DataTable FindPreferenceMatches(DataTable myPrefs)
-            // the input datatable should have 2 columns
-            // first column is the questionID, second column is the answer
+        static public List<ProgramResult> FindPreferenceMatches(List<StudentPreference> myPrefs)
+            //  returns programs where the program and student have answered at least one question the same way
+            // and have not given conflicting answers to any questions
+            // unanswered questions are ignored
         {
             using (var context = new CrystalBallContext())
             {
-                var param = new SqlParameter("@S_Prefs", myPrefs);
-                param.TypeName = "StudentPrefs";
-                var result = context.Database
-                    .SqlQuery<int>("PreferenceMatching @S_Prefs", param)
-                    .ToList();
+                var programList = ((from q in context.ProgramPreferences.AsEnumerable()
+                                from sq in myPrefs
+
+                                where (q.QuestionID == sq.QuestionID && Convert.ToInt32(q.Answer) == sq.Answer)
+                                select q.Program).Distinct()).Except((from q in context.ProgramPreferences.AsEnumerable()
+                                                                      from sq in myPrefs
+                                                                      where (q.QuestionID == sq.QuestionID && Convert.ToInt32(q.Answer) != sq.Answer)
+                                                                      select q.Program).Distinct());
+
+                var result = from p in programList
+                             select new ProgramResult
+                                {
+                                    ProgramID = p.ProgramID,
+                                    ProgramName = p.ProgramName,
+                                    ProgramDescription = p.ProgramDescription,
+                                    ProgramLink = p.ProgramLink
+                                };
 
 
-                DataTable progMatches = new DataTable();
-                progMatches.Columns.Add("ProgramID");
-                foreach (var item in result)
-                {
-                    var row = progMatches.NewRow();
-                    row["ProgramID"] = item;
-                    progMatches.Rows.Add(row);
-                }
-                return progMatches;
+                return result.ToList();
             }
         }
 
