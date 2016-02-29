@@ -215,6 +215,7 @@ namespace CrystalBallSystem.BLL
             }
         }
         #endregion
+
         #region Insert Into ReportingData
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public int ReportingDataAddProgramInfo(int programID, int semester, bool changingProgram)
@@ -248,6 +249,35 @@ namespace CrystalBallSystem.BLL
 
                 results.QuestionID = questionID;
                 results.StudentAnswer = answerMatch;
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Equivalency Page
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<CourseEquivalency> GetEquivalencies()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from equivalency in context.CourseEquivalency
+                              select new CourseEquivalency
+                              {
+                                  ProgramID = equivalency.ProgramID,
+                                  CourseID = equivalency.CourseID,
+                                  DestinationCourseID = equivalency.DestinationCourseID
+                              };
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddEquivalency(Category item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                CourseEquivalency added = null;
+                added = context.Categories.Add(item);
                 context.SaveChanges();
             }
         }

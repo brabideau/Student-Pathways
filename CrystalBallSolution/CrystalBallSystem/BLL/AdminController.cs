@@ -16,6 +16,7 @@ using System.ComponentModel;
 
 namespace CrystalBallSystem.BLL
 {
+    [DataObject]
     public class AdminController
     {
         #region Admin management
