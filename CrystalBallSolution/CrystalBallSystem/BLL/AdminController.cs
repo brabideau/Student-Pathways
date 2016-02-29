@@ -166,8 +166,12 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-
-                return context.NaitCourses.Where(c => c.Programs.Any(p => p.ProgramID == programID)).ToList();
+                var result = from x in context.ProgramCourses
+                             where x.ProgramID == programID
+                             select x.NaitCourse;
+                return result.ToList();
+                //
+               // return context.NaitCourses.Where(c => c.Programs.Any(p => p.ProgramID == programID)).ToList();
             }
         }
 
@@ -177,6 +181,7 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 NaitCours added = null;
+                ProgramCourse addedprogramlink = null;
 
                 var newCourse = new NaitCours();
                 int newCourseID = newCourse.CourseID;
@@ -196,32 +201,41 @@ namespace CrystalBallSystem.BLL
 
                 }
 
-                Program newProgram = new Program { ProgramID = programid };
-                context.Programs.Add(newProgram);
-                context.Programs.Attach(newProgram);
-                added.Programs.Add(newProgram);
+                foreach (var item in courses)
+                {
+                    addedprogramlink = context.ProgramCourses.Add(new ProgramCourse()
+                    {
+                        ProgramID = programid,
+                        CourseID = newCourseID,
+                        Semester = 1
+                    });
+                }
+                //Program newProgram = new Program { ProgramID = programid };
+                //context.Programs.Add(newProgram);
+                //context.Programs.Attach(newProgram);
+                //added.Programs.Add(newProgram);
 
                 context.SaveChanges();
             }
         }
 
-        [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddCourse(NaitCours item, int programID)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                NaitCours added = null;
+        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
+        //public void AddCourse(NaitCours item, int programID)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
+        //        NaitCours added = null;
 
-                added = context.NaitCourses.Add(item);
+        //        added = context.NaitCourses.Add(item);
 
-                Program newProgram = new Program { ProgramID = programID };
-                context.Programs.Add(newProgram);
-                context.Programs.Attach(newProgram);
-                added.Programs.Add(newProgram);
+        //        Program newProgram = new Program { ProgramID = programID };
+        //        context.Programs.Add(newProgram);
+        //        context.Programs.Attach(newProgram);
+        //        added.Program.Add(newProgram);
 
-                context.SaveChanges();
-            }
-        }
+        //        context.SaveChanges();
+        //    }
+        //}
 
         [DataObjectMethod(DataObjectMethodType.Update, false)]
         public void UpdateNaitCourse(NaitCours item)
