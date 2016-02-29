@@ -20,12 +20,17 @@
 
                 </td>
                 <td>
-                    <asp:LinkButton ID="SearchButton" runat="server">Search</asp:LinkButton>
+                    <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
                 </td>
             </tr>
         </table>
 
-        <asp:ListView ID="ProgramListView" runat="server" DataSourceID="ODSProgramByCategory" align="center" DataKeyNames="ProgramID">
+        <asp:ListView ID="ProgramListView" runat="server" 
+                      align="center" 
+                      DataKeyNames="ProgramID"
+                      ItemType="CrystalBallSystem.DAL.Entities.Program"
+                      OnItemCanceling="ProgramListView_ItemCanceling" 
+                      OnItemEditing="ProgramListView_ItemEditing" OnItemUpdating="ProgramListView_ItemUpdating">
             <AlternatingItemTemplate>
                 <tr style="background-color:#efefef; color: #284775; align-content:center">
                     <td>
@@ -62,37 +67,88 @@
             </AlternatingItemTemplate>
             <EditItemTemplate>
                 <tr style=" ">
-                    <td>
-                        <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
-                    </td>
-                    <td align="center">
-                        <asp:TextBox ID="ProgramIDTextBox" runat="server" Text='<%# Bind("ProgramID") %>' />
-                    </td>
-                    <td align="center">
-                        <asp:TextBox ID="CredentialTypeIDTextBox" runat="server" Text='<%# Bind("CredentialTypeID") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramNameTextBox" runat="server" Text='<%# Bind("ProgramName") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramDescriptionTextBox" runat="server" Text='<%# Bind("ProgramDescription") %>' />
-                    </td>
-                    <td align="center">
-                        <asp:TextBox ID="TotalCreditsTextBox" runat="server" Text='<%# Bind("TotalCredits") %>' />
-                    </td>
-                    <td align="center">
-                        <asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />
-                    </td>
-                    <td align="center">
-                        <asp:TextBox ID="CompetitiveAdvantageTextBox" runat="server" Text='<%# Bind("CompetitiveAdvantage") %>' />
-                    </td>
-                    <td>
-                        <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramLinkTextBox" runat="server" Text='<%# Bind("ProgramLink") %>' />
-                    </td>
+                    <td colspan="10">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    ProgramID: 
+                                                </th>
+                                                <td>
+                                                    <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Bind("ProgramID") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Credential Type: 
+
+                                                </th>
+                                                <td>
+                                                    <%--<asp:TextBox ID="CredentialTypeIDTextBox" runat="server" Text='<%# Bind("CredentialTypeID") %>' />--%>
+                                                    <asp:DropDownList ID="CredentialTypeDropdownList" runat="server" 
+                                                          DataSourceID="ODSCredentialType" 
+                                                          DataTextField="CredentialTypeName" 
+                                                          DataValueField="CredentialTypeID"
+                                                    />                                                 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Program Name: 
+
+                                                </th>
+                                                <td>
+                                                    <asp:TextBox ID="ProgramNameTextBox" runat="server" Text='<%# Bind("ProgramName") %>' />
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Entrance Requirement:
+                                                </th>
+                                                <td>
+                                                    <asp:TextBox ID="EntranceRequirementTextBox" runat="server" TextMode="multiline" Columns="20" Rows="3" Text='<%# Bind("ProgramDescription") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total Credits:</th>
+                                                <td>
+                                                    <asp:TextBox ID="TotalCreditsTextBox" runat="server" Text='<%# Bind("TotalCredits") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Program Length:</th>
+                                                <td>
+                                                    <asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Competive Advantage:</th>
+                                                <td>
+                                                    <asp:TextBox ID="CompetiveAdvantageTextBox" runat="server" Text='<%# Bind("CompetitiveAdvantage") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Active:</th>
+                                                <td>
+                                                    <asp:CheckBox ID="ActiveCheckBox" runat="server" Text='<%# Bind("Active") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Program Link:</th>
+                                                <td>
+                                                    <asp:TextBox ID="ProgramLinkTextBox" runat="server" Text='<%# Bind("ProgramLink") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+                                                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                                                </td>
+                                            </tr>
+                                  </tbody>
+                        </table>
                 </tr>
             </EditItemTemplate>
             <EmptyDataTemplate>
@@ -102,41 +158,7 @@
                     </tr>
                 </table>
             </EmptyDataTemplate>
-            <InsertItemTemplate>
-                <tr style="">
-                    <td>
-                        <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
-                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramIDTextBox" runat="server" Text='<%# Bind("ProgramID") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="CredentialTypeIDTextBox" runat="server" Text='<%# Bind("CredentialTypeID") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramNameTextBox" runat="server" Text='<%# Bind("ProgramName") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramDescriptionTextBox" runat="server" Text='<%# Bind("ProgramDescription") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="TotalCreditsTextBox" runat="server" Text='<%# Bind("TotalCredits") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="CompetitiveAdvantageTextBox" runat="server" Text='<%# Bind("CompetitiveAdvantage") %>' />
-                    </td>
-                    <td>
-                        <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ProgramLinkTextBox" runat="server" Text='<%# Bind("ProgramLink") %>' />
-                    </td>
-                </tr>
-            </InsertItemTemplate>
+            
             <ItemTemplate>
                 <tr style=" ">
                     <td>
@@ -243,11 +265,9 @@
         </asp:ListView>
 
         <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="ODSProgramByCategory" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.Program" OldValuesParameterFormatString="original_{0}" UpdateMethod="Program_Update">
-            <SelectParameters>
-                <asp:ControlParameter ControlID="CategoryDropdownList" Name="categoryID" PropertyName="SelectedValue" Type="Int32" DefaultValue="" />
-            </SelectParameters>
-        </asp:ObjectDataSource>
+        
+        
+        <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
         
         
      </div>

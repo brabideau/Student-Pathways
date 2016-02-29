@@ -10,34 +10,40 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL.POCOs;
-using CrystalBallSystem.DAL.DTOs;
 using CrystalBallSystem.DAL;
 using System.ComponentModel;
 #endregion
 
 namespace CrystalBallSystem.BLL
 {
-    [DataObject]
     public class AdminController
     {
         #region Admin management
 
-        [DataObjectMethod(DataObjectMethodType.Select,false)]
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<Category> Category_List()
         {
-            using(CrystalBallContext context = new CrystalBallContext())
+            using (CrystalBallContext context = new CrystalBallContext())
             {
                 return context.Categories.OrderBy(x => x.CategoryID).ToList();
             }
         }
 
-        [DataObjectMethod(DataObjectMethodType.Select,false)]
-
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<HighSchoolCours> HighSchoolCourse_List()
         {
-            using(CrystalBallContext context = new CrystalBallContext())
+            using (CrystalBallContext context = new CrystalBallContext())
             {
                 return context.HighSchoolCourses.OrderBy(x => x.HighSchoolCourseID).ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<CredentialType> CredentialType_List()
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.CredentialTypes.OrderBy(x => x.CredentialTypeID).ToList();
             }
         }
 
@@ -68,11 +74,11 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 //var results = from row in context.Programs.Where(s => s.Categories.Any(c => c.CategoryID == categoryID))
-                              //from s in context.Programs
-                              //from c in s.Categories
-                              //where c.CategoryID == categoryID
+                //from s in context.Programs
+                //from c in s.Categories
+                //where c.CategoryID == categoryID
                 return context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == categoryID)).ToList();
-                              
+
                 //var results = from row in context.Categories
                 //              where row.CategoryID == categoryID
                 //              select new
@@ -91,7 +97,7 @@ namespace CrystalBallSystem.BLL
                 //                              }
 
                 //              };
-            
+
                 //return results.Cast<ProgramSummary>().ToList();
             }
         }
@@ -119,6 +125,8 @@ namespace CrystalBallSystem.BLL
             }
 
         }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void AddProgram(Program item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -139,6 +147,79 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddNaitCourse(List<NaitCours> courses, int programid)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                NaitCours added = null;
+
+                var newCourse = new NaitCours();
+                int newCourseID = newCourse.CourseID;
+
+                //added = context.NaitCourses.Add(item);
+                foreach (var item in courses)
+                {
+                    added = context.NaitCourses.Add(new NaitCours()
+                    {
+                        CourseID = newCourseID,
+                        CourseCode = item.CourseCode,
+                        CourseName = item.CourseName,
+                        CourseCredits = item.CourseCredits,
+                        Active = item.Active
+                    });
+
+
+                }
+
+                Program newProgram = new Program { ProgramID = programid };
+                context.Programs.Add(newProgram);
+                context.Programs.Attach(newProgram);
+                added.Programs.Add(newProgram);
+
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddCourse(NaitCours item, int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                NaitCours added = null;
+
+                added = context.NaitCourses.Add(item);
+
+                Program newProgram = new Program { ProgramID = programID };
+                context.Programs.Add(newProgram);
+                context.Programs.Attach(newProgram);
+                added.Programs.Add(newProgram);
+
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void UpdateNaitCourse(NaitCours item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                NaitCours data = new NaitCours()
+                {
+                    CourseID = item.CourseID,
+                    CourseCode = item.CourseCode,
+                    CourseName = item.CourseName,
+                    CourseCredits = item.CourseCredits,
+                    Active = item.Active,
+
+                };
+
+                context.Entry<NaitCours>(context.NaitCourses.Attach(data)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+
         #endregion
 
         #region requirement
@@ -147,5 +228,6 @@ namespace CrystalBallSystem.BLL
         #region report
 
         #endregion
+
     }
 }

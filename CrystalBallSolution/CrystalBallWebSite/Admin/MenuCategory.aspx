@@ -22,7 +22,6 @@
         div.polaroid img{
             margin-top:15px;
         }
-
         div.container {
           padding: 10px;
           width:auto;
@@ -75,7 +74,7 @@
                 <p>Update Program</p>
             </div>
        </div>
-      
+        
 
 </asp:Content>
 
