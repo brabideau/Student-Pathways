@@ -53,7 +53,7 @@
                     </a>   
                 </div>
             <div class="container">
-                <p>Manage Course</p>
+                <p>Manage Nait Course</p>
             </div>
        </div>
         <div class="col-md-3">
@@ -72,6 +72,15 @@
                 </div>
             <div class="container">
                 <p>Update Program</p>
+            </div>
+       </div>
+        <div class="col-md-3">
+                <div class="polaroid">
+                    <a href="ManageHighSchoolCourses.aspx"><img src="../images/course_logo.png" alt="update high shool courses"> 
+                    </a>   
+                </div>
+            <div class="container">
+                <p>Manage High School Courses</p>
             </div>
        </div>
         

@@ -127,12 +127,36 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddProgram(Program item)
+        public void AddProgram(List<Program> program, int categoryid)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                // TODO: Validation rules...
-                var added = context.Programs.Add(item);
+                Program added = null;
+
+                var newProgram = new Program();
+                int newProgramID = newProgram.ProgramID;
+
+                foreach (var item in program)
+                {
+                    added = context.Programs.Add(new Program()
+                    {
+                        ProgramID = newProgramID,
+                        CredentialTypeID = item.CredentialTypeID,
+                        ProgramName = item.ProgramName,
+                        ProgramDescription = item.ProgramDescription,
+                        TotalCredits = item.TotalCredits,
+                        ProgramLength = item.ProgramLength,
+                        CompetitiveAdvantage = item.CompetitiveAdvantage,
+                        Active = item.Active,
+                        ProgramLink = item.ProgramLink
+                    });
+                }
+
+                Category newCategory = new Category { CategoryID = categoryid };
+                context.Categories.Add(newCategory);
+                context.Categories.Attach(newCategory);
+                added.Categories.Add(newCategory);
+
                 context.SaveChanges();
             }
         }
@@ -219,6 +243,33 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void HighSchoolCourse_Update(HighSchoolCours item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                HighSchoolCours data = new HighSchoolCours()
+                {
+                    HighSchoolCourseID = item.HighSchoolCourseID,
+                    HighSchoolCourseName = item.HighSchoolCourseName
+                };
+
+                context.Entry<HighSchoolCours>(context.HighSchoolCourses.Attach(data)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddHighSchoolCourse(HighSchoolCours item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                // TODO: Validation rules...
+                var added = context.HighSchoolCourses.Add(item);
+                context.SaveChanges();
+            }
+        }
 
         #endregion
 

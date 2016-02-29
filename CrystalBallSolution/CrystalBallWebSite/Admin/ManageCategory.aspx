@@ -6,7 +6,7 @@
         <AlternatingItemTemplate>
             <tr style="background-color:#efefef; color: #284775;">
                 <td>
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons" />
                 </td>
                 <td>
                     <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
@@ -19,8 +19,8 @@
         <EditItemTemplate>
             <tr>
                 <td>
-                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="listview-buttons"/>
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="listview-buttons"/>
                 </td>
                 <td>
                     <asp:TextBox ID="CategoryIDTextBox" runat="server" Text='<%# Bind("CategoryID") %>' />
@@ -40,8 +40,8 @@
         <InsertItemTemplate>
             <tr style="">
                 <td>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="listview-buttons"/>
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="listview-buttons"/>
                 </td>
                 <td>
                     <asp:TextBox ID="CategoryIDTextBox" runat="server" Text='<%# Bind("CategoryID") %>' />
@@ -54,7 +54,7 @@
         <ItemTemplate>
             <tr>
                 <td>
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
                 </td>
                 <td>
                     <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
@@ -83,7 +83,9 @@
                     <td runat="server" style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;">
                         <asp:DataPager ID="DataPager1" runat="server">
                             <Fields>
-                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowLastPageButton="True" ButtonCssClass="listview-buttons"/>
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
+                                <asp:NumericPagerField />
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
                             </Fields>
                         </asp:DataPager>
                     </td>
@@ -93,7 +95,7 @@
         <SelectedItemTemplate>
             <tr style="background-color:#E2DED6; font-weight: bold;color: #333333;">
                 <td>
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
                 </td>
                 <td>
                     <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
