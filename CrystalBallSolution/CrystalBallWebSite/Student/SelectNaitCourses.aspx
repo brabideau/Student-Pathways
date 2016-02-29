@@ -64,7 +64,7 @@
         </asp:GridView>
     </div>
     <div>
-        <asp:Repeater id ="CourseRepeater" runat="server">
+        <%--<asp:Repeater id ="CourseRepeater" runat="server">
             <HeaderTemplate>
                 <table>
             </HeaderTemplate>
@@ -78,9 +78,13 @@
             <FooterTemplate>
                 </table>
             </FooterTemplate>
-        </asp:Repeater>
+        </asp:Repeater>--%>
     </div>
-    <%--<asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>--%>
+    <br />
+    <br />
+    <div>
+       <asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>
+    </div>
 
     
     <div>
