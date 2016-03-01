@@ -133,7 +133,10 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                var programList = ((from q in context.ProgramPreferences.AsEnumerable()
+               /*  
+                * ----------  Strict Preference Matching
+                * 
+                * var programList = ((from q in context.ProgramPreferences.AsEnumerable()
                                 from sq in myPrefs
 
                                 where (q.QuestionID == sq.QuestionID && Convert.ToInt32(q.Answer) == sq.Answer)
@@ -150,14 +153,62 @@ namespace CrystalBallSystem.BLL
                                     ProgramDescription = p.ProgramDescription,
                                     ProgramLink = p.ProgramLink
                                 };
+                */
 
+
+                // -------------Less strict preference matching
+
+
+                var result = ((from q in context.ProgramPreferences.AsEnumerable()
+                                from sq in myPrefs
+                               where q.Program.ProgramPreferences.Any(pq => sq.QuestionID == q.QuestionID && sq.Answer == Convert.ToInt32(q.Answer))
+                                select new ProgramResult {
+                                    ProgramID = q.Program.ProgramID,
+                                    ProgramName = q.Program.ProgramName,
+                                    ProgramDescription = q.Program.ProgramDescription,
+                                    ProgramLink = q.Program.ProgramLink
+                                }).Distinct());
 
                 return result.ToList();
             }
         }
 
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        static public List<ProgramResult> EntranceReq_Pref_Match(List<ProgramResult> myPrefs, List<ProgramResult> myMatches)
+        {
+            // Compares the results from two lists of programs and returns the programs common to each
+            
+            var results = (from p in myMatches
+				from s in myPrefs
+				where s.ProgramID == p.ProgramID
+				select p).Distinct();
 
+                return results.ToList();
+            
+        }
+
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        static public List<NaitCours> Prefill_Courses(int programID, int semester)
+        {
+            using (var context = new CrystalBallContext())
+            {
+
+                var results = from c in context.ProgramCourses
+                              where c.ProgramID == programID && c.Semester <= semester
+                              select new NaitCours {
+                                  CourseID = c.NaitCourse.CourseID,
+                                  CourseCode = c.NaitCourse.CourseCode,
+                                  CourseName = c.NaitCourse.CourseName,
+                                  CourseCredits = c.NaitCourse.CourseCredits
+                                  Active = c.NaitCourse.Active
+                              };
+
+
+                return results.ToList();
+            }
+        }
         #endregion
 
 
