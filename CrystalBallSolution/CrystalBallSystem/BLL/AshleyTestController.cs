@@ -256,12 +256,12 @@ namespace CrystalBallSystem.BLL
 
         #region Equivalency Page
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<CourseEquivalency> GetEquivalencies()
+        public List<GetEquivalencies> GetEquivalencies()
         {
             using (var context = new CrystalBallContext())
             {
                 var results = from equivalency in context.CourseEquivalencies
-                              select new CourseEquivalency
+                              select new GetEquivalencies
                               {
                                   ProgramID = equivalency.ProgramID,
                                   CourseID = equivalency.CourseID,
@@ -271,16 +271,42 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
-        //public void AddEquivalency(Category item)
-        //{
-        //    using (CrystalBallContext context = new CrystalBallContext())
-        //    {
-        //        CourseEquivalency added = null;
-        //        added = context.CourseEquivalencies.Add(item)
-        //        context.SaveChanges();
-        //    }
-        //}
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public NAITCourse GetCourseName(string courseCode)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = (from equivalency in context.NaitCourses
+                               where equivalency.CourseCode == courseCode
+                               select new NAITCourse
+                               {
+                                   CourseID = equivalency.CourseID,
+                                   CourseCode = equivalency.CourseCode,
+                                   CourseName = equivalency.CourseName,
+                                   CourseCredits = equivalency.CourseCredits
+                               }).FirstOrDefault();
+                return results;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddEquivalency(int programID, int courseID, int destinationCourseID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                //var courseID = (from course in context.NaitCourses
+                //                where course.CourseCode == courseCode
+                //                select course.CourseID).FirstOrDefault();
+
+                //var destinationCourseID = (from course in context.NaitCourses
+                //                where course.CourseCode == destinationCourseCode
+                //                select course.CourseID).FirstOrDefault();
+
+                CourseEquivalency added = null;
+                added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, CourseID = courseID, DestinationCourseID = destinationCourseID });
+                context.SaveChanges();
+            }
+        }
         #endregion
     }
 }
