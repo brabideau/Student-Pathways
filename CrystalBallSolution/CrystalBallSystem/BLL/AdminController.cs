@@ -294,6 +294,55 @@ namespace CrystalBallSystem.BLL
         #region report
 
         #endregion
+        #region Preference Questions
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<PreferenceQuestion> Question_List()
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.PreferenceQuestions.OrderBy(x => x.QuestionID).ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void UpdatePreferenceQuestion(PreferenceQuestion item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                context.Entry<PreferenceQuestion>(context.PreferenceQuestions.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddPreferenceQuestion(PreferenceQuestion item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                PreferenceQuestion added = null;
+                added = context.PreferenceQuestions.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void PreferenceQuestion_Delete(PreferenceQuestion item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                //lookup the instance and record if found (set pointer to instance)
+                PreferenceQuestion existing = context.PreferenceQuestions.Find(item.QuestionID);
+
+                //setup the command to execute the delete
+                context.PreferenceQuestions.Remove(existing);
+                //command is not executed until it is actually saved.
+                context.SaveChanges();
+            }
+        }
+
+
+        #endregion
     }
 }

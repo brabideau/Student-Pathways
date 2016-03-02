@@ -83,6 +83,15 @@
                 <p>Manage High School Courses</p>
             </div>
        </div>
+        <div class="col-md-3">
+                <div class="polaroid">
+                    <a href="ManagePreferenceQuestion.aspx"><img src="../images/question.png" alt="Manage preference questions"> 
+                    </a>   
+                </div>
+            <div class="container">
+                <p>Manage Preference Questions</p>
+            </div>
+       </div>
         
 
 </asp:Content>
