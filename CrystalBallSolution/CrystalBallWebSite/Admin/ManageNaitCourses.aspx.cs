@@ -42,6 +42,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 
         NaitCoursesListViewByProgram.DataSource = courseData;
         NaitCoursesListViewByProgram.DataBind();
+        
         ProgramList.DataBind();
         BindList();
 
@@ -61,10 +62,19 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         BindList();
     }
 
+    protected void NewButton2_Click(object sender, EventArgs e)
+    {
+        NaitCoursesListViewByProgram.EditIndex = -1;
+        NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.LastItem;
+        ((LinkButton)sender).Visible = false;
+        BindList();
+        ((LinkButton)NaitCoursesListViewByProgram.FindControl("NewButton")).Visible = false;
+    }
+
     protected void SearchButton_Click(object sender, EventArgs e)
     {
         NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
-        NaitCoursesListViewByProgram.DataBind();
+        NaitCoursesListViewByProgram.DataSource = null;
     }
 
 
@@ -143,6 +153,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 
         BindList();
     }
+
     protected void NaitCoursesListViewByProgram_ItemCanceling(object sender, ListViewCancelEventArgs e)
     {
         if (e.CancelMode == ListViewCancelMode.CancelingInsert)

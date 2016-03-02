@@ -40,6 +40,7 @@
                 <td align="center" style="background-color:Highlight"><h4>Courses</h4></td>
             </tr>
       </table>
+        
             <div class="col-md-4">
                     <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
                                                                   OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
@@ -62,11 +63,7 @@
                                 <td style="width:90%">
                                         <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                        </asp:LinkButton>
-                                </td>
-                            </tr>
-                        </ItemTemplate>
-                        <LayoutTemplate>
+                                        </asp:LinkButton></td></tr></ItemTemplate><LayoutTemplate>
                             <table runat="server">
                                 <tr runat="server">
                                     <td runat="server">
@@ -157,7 +154,9 @@
                         <EmptyDataTemplate>
                             <table runat="server" style="">
                                 <tr>
-                                    <td>No data was returned.</td></tr></table></EmptyDataTemplate><InsertItemTemplate>
+                                    <td>No data was returned.</td></tr><tr runat="server">
+                                    <td runat="server" style="text-align:left">
+                                        <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click"></asp:LinkButton></td></tr></table></EmptyDataTemplate><InsertItemTemplate>
                             <tr style="">
                                 <td colspan="6">
                                     <table>
@@ -195,7 +194,9 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" ></asp:LinkButton><asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel"></asp:LinkButton></td></tr></tbody></table></td></tr></InsertItemTemplate><ItemTemplate>
+                                                    <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" >
+                                                    </asp:LinkButton><asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel">
+                                                    </asp:LinkButton></td></tr></tbody></table></td></tr></InsertItemTemplate><ItemTemplate>
                             <tr style="">
                                 <td>
                                     <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
@@ -249,7 +250,7 @@
                         </SelectedItemTemplate>
                     </asp:ListView>
             </div>
-        
+    
         <asp:ObjectDataSource ID="ODSCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="ODSNaitCourses" runat="server" SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}" DataObjectTypeName="CrystalBallSystem.DAL.Entities.NaitCours" InsertMethod="AddCourse" UpdateMethod="UpdateNaitCourse">
             <SelectParameters>

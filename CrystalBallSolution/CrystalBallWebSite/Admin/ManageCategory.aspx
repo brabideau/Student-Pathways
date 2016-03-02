@@ -9,9 +9,6 @@
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons" />
                 </td>
                 <td>
-                    <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
-                </td>
-                <td>
                     <asp:Label ID="CategoryDescriptionLabel" runat="server" Text='<%# Eval("CategoryDescription") %>' />
                 </td>
             </tr>
@@ -22,9 +19,7 @@
                     <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="listview-buttons"/>
                     <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="listview-buttons"/>
                 </td>
-                <td>
-                    <asp:TextBox ID="CategoryIDTextBox" runat="server" Text='<%# Bind("CategoryID") %>' />
-                </td>
+             
                 <td>
                     <asp:TextBox ID="CategoryDescriptionTextBox" runat="server" Text='<%# Bind("CategoryDescription") %>' />
                 </td>
@@ -44,9 +39,6 @@
                     <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="listview-buttons"/>
                 </td>
                 <td>
-                    <asp:TextBox ID="CategoryIDTextBox" runat="server" Text='<%# Bind("CategoryID") %>' />
-                </td>
-                <td>
                     <asp:TextBox ID="CategoryDescriptionTextBox" runat="server" Text='<%# Bind("CategoryDescription") %>' />
                 </td>
             </tr>
@@ -55,9 +47,6 @@
             <tr>
                 <td>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
-                </td>
-                <td>
-                    <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
                 </td>
                 <td>
                     <asp:Label ID="CategoryDescriptionLabel" runat="server" Text='<%# Eval("CategoryDescription") %>' />
@@ -71,7 +60,6 @@
                         <table id="itemPlaceholderContainer" runat="server" border="0" class="table align-fix">
                             <tr runat="server" class="listview-heading align-fix">
                                 <th runat="server"></th>
-                                <th runat="server">CategoryID</th>
                                 <th runat="server">Category Name</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server">

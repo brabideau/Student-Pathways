@@ -5,11 +5,11 @@
         <h1>Manage HighSchool Courses</h1>
     <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
         <AlternatingItemTemplate>
-            <tr style="background-color:#efefef; color: #284775;">
+            <tr style="background-color:#efefef; color: #284775;" align="center">
                 <td>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
-                <td>
+                <td style="align-content:center">
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
                 </td>
             </tr>
@@ -44,7 +44,7 @@
             </tr>
         </InsertItemTemplate>
         <ItemTemplate>
-            <tr style="">
+            <tr style="" align="center">
                 <td>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
@@ -60,7 +60,7 @@
                         <table id="itemPlaceholderContainer" runat="server" border="0" class="table align-fix">
                             <tr runat="server" class="listview-heading align-fix">
                                 <th runat="server"></th>
-                                <th runat="server">High School CourseName</th>
+                                <th runat="server">High School Course Name</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server">
                             </tr>
