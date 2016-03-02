@@ -159,15 +159,19 @@ namespace CrystalBallSystem.BLL
                 // -------------Less strict preference matching
 
 
-                var result = ((from q in context.ProgramPreferences.AsEnumerable()
+                var programList = ((from q in context.ProgramPreferences.AsEnumerable()
                                 from sq in myPrefs
                                where q.Program.ProgramPreferences.Any(pq => sq.QuestionID == q.QuestionID && sq.Answer == Convert.ToInt32(q.Answer))
-                                select new ProgramResult {
-                                    ProgramID = q.Program.ProgramID,
-                                    ProgramName = q.Program.ProgramName,
-                                    ProgramDescription = q.Program.ProgramDescription,
-                                    ProgramLink = q.Program.ProgramLink
-                                }).Distinct());
+                                select q.Program).Distinct());
+
+                var result = from p in programList
+                             select new ProgramResult
+                                {
+                                    ProgramID = p.ProgramID,
+                                    ProgramName = p.ProgramName,
+                                    ProgramDescription = p.ProgramDescription,
+                                    ProgramLink = p.ProgramLink
+                                };
 
                 return result.ToList();
             }

@@ -22,6 +22,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     protected void Submit_Click(object sender, EventArgs e)
     {
         int? programCategoryID, programID, programChange, semester;
+        StudentController sysmgr = new StudentController();
         //gather the question ids and answer values for each value on the page and send it
         //to the database for evaluation (packaged with the initial questions)
         //hide previous steps and do requisite computations to get results
@@ -53,18 +54,29 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                        Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
                             ));
         }
+        //send preferences to the BLL for initial results
+        List<ProgramResult> preferenceResults = new List<ProgramResult>();
+        preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
+
         //step 3 - student courses - use method near the bottom of student controller entrancereq-prefmatch
         //for each option selected in the check box field, add that to a list
-        List<StudentHighSchoolCourses> hsCourses = new List<StudentHighSchoolCourses>();
+        List<int> hsCourses = new List<int>();
         foreach (ListItem item in CB_CourseList.Items)
         {
             if(item.Selected)
             {
-                
+                hsCourses.Add(Convert.ToInt32(item.Value));
             }
         }
+        //send information to BLL for processing and narrow down possible results
+        List<ProgramResult> programResults = new List<ProgramResult>();
+        programResults = StudentController.FindProgramMatches(hsCourses);
 
+        List<ProgramResult> finalResults = new List<ProgramResult>();
+        finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
         //display results once queries are complete
+        ResultsView.DataSource = finalResults;
+        ResultsView.DataBind();
         results.Visible = true;
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
