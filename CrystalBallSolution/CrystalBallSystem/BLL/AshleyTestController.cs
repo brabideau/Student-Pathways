@@ -256,18 +256,35 @@ namespace CrystalBallSystem.BLL
 
         #region Equivalency Page
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetEquivalencies> GetEquivalencies()
+        public List<GetEquivalencies> GetEquivalencies(int programID)
         {
             using (var context = new CrystalBallContext())
             {
-                var results = from equivalency in context.CourseEquivalencies
-                              select new GetEquivalencies
-                              {
-                                  ProgramID = equivalency.ProgramID,
-                                  CourseID = equivalency.CourseID,
-                                  DestinationCourseID = equivalency.DestinationCourseID
-                              };
-                return results.ToList();
+                if (programID != -5)
+                {
+                    var results = from equivalency in context.CourseEquivalencies
+                                  where equivalency.ProgramID == programID
+                                  select new GetEquivalencies
+                                  {
+                                      CourseEquivalencyID = equivalency.CourseEquivalencyID,
+                                      ProgramID = equivalency.ProgramID,
+                                      CourseID = equivalency.CourseID,
+                                      DestinationCourseID = equivalency.DestinationCourseID
+                                  };
+                    return results.ToList();
+                }
+                else
+                {
+                    var results = from equivalency in context.CourseEquivalencies
+                                  select new GetEquivalencies
+                                  {
+                                      CourseEquivalencyID = equivalency.CourseEquivalencyID,
+                                      ProgramID = equivalency.ProgramID,
+                                      CourseID = equivalency.CourseID,
+                                      DestinationCourseID = equivalency.DestinationCourseID
+                                  };
+                    return results.ToList();
+                }                
             }
         }
 
@@ -294,14 +311,6 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                //var courseID = (from course in context.NaitCourses
-                //                where course.CourseCode == courseCode
-                //                select course.CourseID).FirstOrDefault();
-
-                //var destinationCourseID = (from course in context.NaitCourses
-                //                where course.CourseCode == destinationCourseCode
-                //                select course.CourseID).FirstOrDefault();
-
                 CourseEquivalency added = null;
                 added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, CourseID = courseID, DestinationCourseID = destinationCourseID });
                 context.SaveChanges();

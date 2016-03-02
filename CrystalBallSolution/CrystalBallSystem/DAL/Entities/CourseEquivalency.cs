@@ -26,7 +26,7 @@ namespace CrystalBallSystem.DAL.Entities
 
         public virtual NaitCours NaitCourse { get; set; }
 
-        public virtual NaitCours DestinationCourse { get; set; }
+        //public virtual NaitCours DestinationCourse { get; set; }
         
     }
 }

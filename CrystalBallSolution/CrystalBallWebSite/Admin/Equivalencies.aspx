@@ -7,14 +7,16 @@
                                 DataSourceID="CategoryODS" 
                                 DataTextField="CategoryDescription" 
                                 DataValueField="CategoryID"
-                                AppendDataBoundItems="True">
-            <asp:ListItem Value="-3">[Select Category]</asp:ListItem>
+                                AppendDataBoundItems="True" 
+                                OnSelectedIndexChanged="Populate_Program" 
+                                AutoPostBack="true">
+            <asp:ListItem Value="-3">All</asp:ListItem>
         </asp:DropDownList>
         <asp:LinkButton ID="CategoryButton" runat="server">Next</asp:LinkButton>  
         <br />
         <asp:Label ID="Label2" runat="server" Text="Select a Program: "></asp:Label>
-        <asp:DropDownList ID="ProgramDropdownList" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID">
-            <asp:ListItem Value="-3">[Select Program]</asp:ListItem>
+        <asp:DropDownList ID="ProgramDropdownList" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
+            <asp:ListItem Value="-5">[All]</asp:ListItem>
         </asp:DropDownList>
         <asp:LinkButton ID="ProgramButton" runat="server">Next</asp:LinkButton>    
     
@@ -53,6 +55,10 @@
             <asp:ControlParameter ControlID="CategoryDropdownList" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="EquivalencyGridODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetEquivalencies" TypeName="CrystalBallSystem.BLL.AshleyTestController"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="EquivalencyGridODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetEquivalencies" TypeName="CrystalBallSystem.BLL.AshleyTestController">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="ProgramDropdownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
 </asp:Content>
 

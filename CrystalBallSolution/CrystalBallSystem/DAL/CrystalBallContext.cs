@@ -78,11 +78,11 @@ namespace CrystalBallSystem.DAL
                 .HasForeignKey(e => e.CourseID)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<NaitCours>()
-                .HasMany(e => e.CourseEquivalencies)
-                .WithRequired(e => e.DestinationCourse)
-                .HasForeignKey(e => e.DestinationCourseID)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<NaitCours>()
+            //    .HasMany(e => e.CourseEquivalencies)
+            //    .WithRequired(e => e.DestinationCourse)
+            //    .HasForeignKey(e => e.DestinationCourseID)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NaitCours>()
                 .HasMany(e => e.ProgramCourses)

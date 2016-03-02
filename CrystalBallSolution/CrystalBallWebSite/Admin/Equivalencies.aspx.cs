@@ -15,9 +15,19 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
         
     }
 
+    protected void Populate_Program(object sender, EventArgs e)
+    {
+        //get the value of the selected value in the drop down list and populate the program
+        //list data source based on that value
+        AdminController sysmgr = new AdminController();
+        int category = Convert.ToInt32(CategoryDropdownList.SelectedValue);
+        ProgramDropdownList.DataSource = sysmgr.GetProgramByCategory(category);
+        ProgramDropdownList.DataBind();
+    }
+
     protected void AddNew_Click(object sender, EventArgs e)
     {
-        //equivalencyInformation.Visible = false;
+        equivalencyInformation.Visible = false;
         addNewEquivalency.Visible = true;
     }
     protected void CheckIDs_Click(object sender, EventArgs e)
