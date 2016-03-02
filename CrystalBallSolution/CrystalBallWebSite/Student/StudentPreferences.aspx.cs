@@ -11,22 +11,61 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        //AdminController sysmgr = new AdminController();
+        //CategoryDropDown.DataSource = sysmgr.Category_List();
+        //CategoryDropDown.DataBind();
+        //CategoryDropDown.SelectedIndex = 0;
+        //int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
+        //ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
+        //ProgramDropDown.DataBind();
     }
-    protected void SubmitPrefs_Click(object sender, EventArgs e)
+    protected void Submit_Click(object sender, EventArgs e)
     {
+        int? programCategoryID, programID, programChange, semester;
         //gather the question ids and answer values for each value on the page and send it
         //to the database for evaluation (packaged with the initial questions)
-        List<StudentPreference> myPreferences = new List<StudentPreference> { };
+        //hide previous steps and do requisite computations to get results
+        stepThree.Visible = false;
+        //log entries from steps 1-3 and then use those entries to query the database
+        //step 1 - program information - metrics gather stuff - use program and semester to pull back courses - use method in student controller (prefill courses)
 
+        //add exception handling for program stream not being selected - also have category auto refresh based on first value in the category DDL
+        if (CurrentStudent.Checked == false)
+        {
+            programCategoryID = null;
+            programID = null;
+            programChange = null;
+            semester = null;
+        }
+        else
+        {
+            programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
+            programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
+            programChange = Convert.ToInt32(ChangeProgram.Checked);
+            semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
+        }
+        //step 2 - preference questions
+        List<StudentPreference> myPreferences = new List<StudentPreference>();
         foreach (GridViewRow row in PrefQuestions.Rows)
         {
-                myPreferences.Add(new StudentPreference(
-                           Convert.ToInt32(row.Cells[0].Text),
-                           Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
-
-                                ));
+            myPreferences.Add(new StudentPreference(
+                       Convert.ToInt32(row.Cells[0].Text),
+                       Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
+                            ));
         }
+        //step 3 - student courses - use method near the bottom of student controller entrancereq-prefmatch
+        //for each option selected in the check box field, add that to a list
+        List<StudentHighSchoolCourses> hsCourses = new List<StudentHighSchoolCourses>();
+        foreach (ListItem item in CB_CourseList.Items)
+        {
+            if(item.Selected)
+            {
+                
+            }
+        }
+
+        //display results once queries are complete
+        results.Visible = true;
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
@@ -83,5 +122,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         stepThree.Visible = false;
         step2.Visible = true;
+    }
+    protected void stepTwoNext_Click(object sender, EventArgs e)
+    {
+        step2.Visible = false;
+        stepThree.Visible = true;
     }
 }

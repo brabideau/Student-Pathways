@@ -11,12 +11,14 @@
     </style>
 
     <!--Get student's program information-->
-        <div runat="server" id="stepOne" visible="true">
+        <div runat="server" id="stepOne" visible="true" align="center">
             <p>Are you a current NAIT student?<span style="margin-right: 15px;"></span><asp:CheckBox ID="CurrentStudent" runat="server" OnCheckedChanged="CurrentStudent_CheckedChanged" autopostback="true" Checked="true"/></p>
             
             <div runat="server" id="chooseProgram">
                 <p>Select Program Category: 
-        <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true"></asp:DropDownList>
+        <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true" AppendDataBoundItems="True">
+            <asp:ListItem Selected="True" Value="0">[Select a Program]</asp:ListItem>
+                    </asp:DropDownList>
                     <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
                 </p>
                 <p>Select Current Program: 
@@ -65,7 +67,7 @@
                 </Columns>
             </asp:GridView>
             <asp:LinkButton ID="previous" runat="server" OnClick="onPreviousClick">Previous</asp:LinkButton>
-            <asp:LinkButton ID="stepTwoNext" runat="server">Next</asp:LinkButton>
+            <asp:LinkButton ID="stepTwoNext" runat="server" OnClick="stepTwoNext_Click">Next</asp:LinkButton>
             </div>
 
 
@@ -77,7 +79,7 @@
                 runat="server" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
 
     <!-- student course selection section -->
-    <div id="stepThree" runat="server" visible="false">
+    <div id="stepThree" runat="server" visible="false" align="center">
     <h1>Select the Courses You've Taken</h1>
 
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5">
@@ -89,16 +91,21 @@
         <div class="button">
             <div class="col-md-3"></div>
             <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click">Previous</asp:LinkButton>
-            <asp:Button ID="submit" runat="server" Text="Submit Courses" OnClick="SubmitPrefs_Click" />
+            <asp:Button ID="submit" runat="server" Text="Submit Courses" OnClick="Submit_Click" />
 
             
-        <asp:GridView ID="ResultsView" runat="server"></asp:GridView>
+        
 
 
         </div>
         <br />
           <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
+        <div id="results" runat="server" visible="false" align="center">
+            <h1>Results</h1>
+            <asp:GridView ID="ResultsView" runat="server"></asp:GridView>
 
+        </div>
+        
 </div>
 
 </asp:Content>
