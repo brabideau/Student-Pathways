@@ -44,6 +44,7 @@
                     <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
                                                                   OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
                                                                   DataKeyNames="ProgramID"
+                                                                  
                                                                   >
                         
                         <EmptyDataTemplate>
@@ -54,21 +55,24 @@
                             </table>
                         </EmptyDataTemplate>
                         <ItemTemplate>
-                            <tr style="height:30px;">
-                                <td>
+                            <tr style="width:100%">
+                                <td style="width:10%">
                                     <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
                                 </td>
-                                <td>
+                                <td style="width:90%">
                                         <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                        </asp:LinkButton></td></tr></ItemTemplate><LayoutTemplate>
+                                        </asp:LinkButton>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                        <LayoutTemplate>
                             <table runat="server">
                                 <tr runat="server">
                                     <td runat="server">
-                                        <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                        <table id="itemPlaceholderContainer" runat="server" border="0" style="width:350px">
                                             <tr runat="server" style="" hidden="hidden">
-                                                <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server">
-                                            </tr>
+                                                <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server"></tr>
                                         </table>
                                     </td>
                                 </tr>
@@ -83,13 +87,7 @@
                                 <td>
                                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                    </asp:LinkButton>
-                                </td>
-                            </tr>
-                        </SelectedItemTemplate>
-                    </asp:ListView>
-            </div>
-        <div class="col-md-8" align="center">
+                                    </asp:LinkButton></td></tr></SelectedItemTemplate></asp:ListView></div><div class="col-md-8" align="center">
                     <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" 
                                   ItemType="CrystalBallSystem.DAL.Entities.NaitCours" 
                                   InsertItemPosition="LastItem" 

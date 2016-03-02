@@ -32,7 +32,8 @@
                       ItemType="CrystalBallSystem.DAL.Entities.Program"
                       OnItemCanceling="ProgramListView_ItemCanceling" 
                       OnItemEditing="ProgramListView_ItemEditing" 
-                      OnItemUpdating="ProgramListView_ItemUpdating" OnItemInserting="ProgramListView_ItemInserting">
+                      OnItemUpdating="ProgramListView_ItemUpdating" 
+                      OnItemInserting="ProgramListView_ItemInserting">
             <AlternatingItemTemplate>
                 <tr style="background-color:#efefef; color: #284775; align-content:center">
                     <td>
@@ -73,7 +74,7 @@
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <th>
+                                                <th style="visibility:hidden">
                                                     ProgramID: 
                                                 </th>
                                                 <td>

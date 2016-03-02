@@ -35,7 +35,15 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
 
     protected void ProgramListView_ItemCanceling(object sender, ListViewCancelEventArgs e)
     {
-        ProgramListView.EditIndex = -1;
+        if (e.CancelMode == ListViewCancelMode.CancelingInsert)
+        {
+            CloseInsert();
+        }
+        else
+        {
+            ProgramListView.EditIndex = -1;
+        }
+
         BindList();
     }
 
