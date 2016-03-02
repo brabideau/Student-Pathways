@@ -67,11 +67,11 @@
        </div>
         <div class="col-md-3">
                 <div class="polaroid">
-                    <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="update program"> 
+                    <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="manage program"> 
                     </a>   
                 </div>
             <div class="container">
-                <p>Update Program</p>
+                <p>Manage Program</p>
             </div>
        </div>
         <div class="col-md-3">
