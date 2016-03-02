@@ -201,7 +201,7 @@ namespace CrystalBallSystem.BLL
                                   CourseID = c.NaitCourse.CourseID,
                                   CourseCode = c.NaitCourse.CourseCode,
                                   CourseName = c.NaitCourse.CourseName,
-                                  CourseCredits = c.NaitCourse.CourseCredits
+                                  CourseCredits = c.NaitCourse.CourseCredits,
                                   Active = c.NaitCourse.Active
                               };
 
