@@ -72,6 +72,7 @@
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetCredentials.cs" />
     <Compile Include="DAL\POCOs\GetEquivalencies.cs" />
+    <Compile Include="DAL\POCOs\GetEquivalencyNames.cs" />
     <Compile Include="DAL\POCOs\GetHSCourses.cs" />
     <Compile Include="DAL\POCOs\GetPreferenceQuestions.cs" />
     <Compile Include="DAL\POCOs\GetProgramList.cs" />

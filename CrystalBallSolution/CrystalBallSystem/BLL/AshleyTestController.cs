@@ -256,7 +256,7 @@ namespace CrystalBallSystem.BLL
 
         #region Equivalency Page
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetEquivalencies> GetEquivalencies(int programID, int categoryID)
+        public List<GetEquivalencyNames> GetEquivalencies(int programID, int categoryID)
         {
             using (var context = new CrystalBallContext())
             {
@@ -264,24 +264,26 @@ namespace CrystalBallSystem.BLL
                 {
                     var results = from equivalency in context.CourseEquivalencies
                                   where equivalency.ProgramID == programID
-                                  select new GetEquivalencies
+                                  select new GetEquivalencyNames
                                   {
                                       CourseEquivalencyID = equivalency.CourseEquivalencyID,
-                                      ProgramID = equivalency.ProgramID,
-                                      CourseID = equivalency.CourseID,
-                                      DestinationCourseID = equivalency.DestinationCourseID
+                                      CourseCode = equivalency.NaitCourse.CourseCode,
+                                      CourseName = equivalency.NaitCourse.CourseName,
+                                      DestinationCourseCode = equivalency.NaitCourse.CourseCode,
+                                      DestinationCourseName = equivalency.NaitCourse.CourseName
                                   };
                     return results.ToList();
                 }
                 else
                 {
                     var results = from equivalency in context.CourseEquivalencies
-                                  select new GetEquivalencies
+                                  select new GetEquivalencyNames
                                   {
                                       CourseEquivalencyID = equivalency.CourseEquivalencyID,
-                                      ProgramID = equivalency.ProgramID,
-                                      CourseID = equivalency.CourseID,
-                                      DestinationCourseID = equivalency.DestinationCourseID
+                                      CourseCode = equivalency.NaitCourse.CourseCode,
+                                      CourseName = equivalency.NaitCourse.CourseName,
+                                      DestinationCourseCode = equivalency.NaitCourse.CourseCode,
+                                      DestinationCourseName = equivalency.NaitCourse.CourseName
                                   };
                     return results.ToList();
                 }                

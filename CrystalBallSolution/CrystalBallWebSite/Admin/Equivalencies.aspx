@@ -22,18 +22,12 @@
                             OnSelectedIndexChanged="Populate_EquivalenciesGrid" 
                             AutoPostBack="true">
         </asp:DropDownList>
-        <asp:LinkButton ID="ProgramButton" runat="server">Next</asp:LinkButton>    
      
-        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid" ItemType="eToolSystem.DAL.POCOs.GetEquivalencyNames">
+        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames">
             <Columns>
                 <asp:TemplateField HeaderText="CourseEquivalencyID">
                     <ItemTemplate>
                         <asp:Label ID="CourseEquivalencyID" runat="server" Text='<%# Item.CourseEquivalencyID %>' />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="ProgramID">
-                    <ItemTemplate>
-                        <asp:Label ID="ProgramID" runat="server" Text='<%# Item.ProgramID %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="CourseCode">
