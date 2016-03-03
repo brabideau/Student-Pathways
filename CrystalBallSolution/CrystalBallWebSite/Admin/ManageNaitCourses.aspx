@@ -15,13 +15,9 @@
     </style>
     <div runat="server">
         <h1 align="center">Manage Nait Courses</h1>
-        <table class="auto-style1">
-            <tr>
-                <td class="auto-style3" align="center">
-                    <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
-                </td>
-                <td class="auto-style2" colspan="2">
-                    <asp:DropDownList ID="CategoryDropdownList" runat="server" 
+
+        <div class="search-bar">
+            <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
                                       DataTextField="CategoryDescription" 
                                       DataValueField="CategoryID"
@@ -29,18 +25,11 @@
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                     </asp:DropDownList>
                     <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center"<%-- style="background-color:Highlight"--%>><h4>Program</h4></td>
-                <td align="center"<%-- style="background-color:Highlight"--%>><h4>Courses</h4></td>
-            </tr>
-      </table>
-        
+        </div>
+
+
+        <div class="programs-column">
+                <h4>Programs</h4>
             <div class="col-md-4">
                     <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
                                                                   OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
@@ -90,6 +79,17 @@
                         </SelectedItemTemplate>
                     </asp:ListView>
             </div>
+        </div>
+
+        <div class="courses-column">
+            <h4>Courses</h4>
+
+
+        
+
+
+
+            
         <div class="col-md-8" align="center">
                     <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" 
                                   ItemType="CrystalBallSystem.DAL.Entities.NaitCours" 
@@ -255,6 +255,7 @@
                             </tr>
                         </SelectedItemTemplate>
                     </asp:ListView>
+            </div>
             </div>
     
         <asp:ObjectDataSource ID="ODSCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>

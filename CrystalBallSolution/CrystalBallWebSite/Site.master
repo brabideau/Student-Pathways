@@ -75,10 +75,10 @@
                 </nav>
             </div>
 
-        <div class="container body-content">
+        <div class="container body-content clearfix">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
+            
 <%--            <footer>
                 <p></p>
             </footer>--%>

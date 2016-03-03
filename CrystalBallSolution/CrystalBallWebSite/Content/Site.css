@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: 'Coda', Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
-  margin-bottom: .5em;
+  margin: .5em 0;
 }
 
 /* Move down content because we have a fixed navbar that is 50px tall */
@@ -123,13 +123,76 @@ nav a:focus {
 
 .body-content {
     background-color: rgba(255,255,255,.9);
+    background-image: url("../images/corner-starburst.svg");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: 0% 100%;
     padding: 15px;
     margin: 60px;
+}
 
+h1 {
+    font-size: 2em;
+    color: #1363a8;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.4em;
 }
 
 
+.search-bar {
+    text-align: center;
+}
 
+  a {
+      text-decoration: none;
+      color: #003D7E;
+      
+  }
+
+  a:hover {
+      color: #1363a8;
+  }
+
+  input[type="submit"] {
+      border: 1px solid #ffffff;
+      border-radius: 5px;
+      background-color: #ffffff;
+      padding: 3px 8px;
+  }
+
+   input[type="submit"]:hover {
+      border: 1px solid #003D7E;
+      border-radius: 5px;
+      background-color: #e5f2ff;
+      padding: 3px 8px;
+  }
+
+  /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
+
+  table {
+      margin: 5px 0px;
+      font-size: .94em;
+  }
+
+  td {
+      padding: 3px 10px;
+  }
+
+  th {
+      padding: 5px 10px;
+      font-family: 'Coda', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+  }
 
 
 /*----------------------  FOOTER-------------------*/
@@ -141,15 +204,27 @@ footer {
 
 
 
+/*-----------------------MANAGE NAIT COURSES----------------------*/
 
+.programs-column, {
+    width: 30%;
+    float: left;
+}
+
+.courses-column {
+    width: 60%;
+    float: right;
+}
+
+.courses-column h4, .programs-column h4 {
+    text-align: center;
+    margin-bottom: 0px;
+}
 
    /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
 .program-search-results {
     border: none;
-    
-
-
-}
+ }
 
 .program-search-results tr:first-child {
     display: none;
