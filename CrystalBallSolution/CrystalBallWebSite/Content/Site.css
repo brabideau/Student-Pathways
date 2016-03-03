@@ -27,3 +27,52 @@ textarea {
         padding: 0;
     }
 }
+
+.program-search-results {
+    border: none;
+    
+
+
+}
+
+.program-search-results tr:first-child {
+    display: none;
+}
+
+.program-search-results tr {
+    background-color: rgba(255,255,255,.8);
+    display: inline-block;
+    margin: 2%;  
+    border: 1px solid #aaaaaa;
+    box-shadow: 8px 8px 5px rgba(0,0,0,.3);
+    float: left;
+    width: 46%;
+    min-width: 300px;
+    height: 400px;
+}
+
+
+
+
+
+
+.program-search-results td {
+    padding: 15px;
+    border: none;
+    display: block;
+}
+
+.program-search-results td:first-child {
+    display: none;
+}
+
+.program-search-results td:nth-child(2){
+    font-family: 'Coda';
+    font-size: 1.8em;
+}
+
+/*.program-search-results:nth-child(2)::after {
+  content: " ";
+  display: table-row;
+  background-color: blue;
+}*/
