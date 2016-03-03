@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrystalBallSystem.DAL.Entities
 {
-    [Table("ProgramPreference")]
+    [Table("ProgramPreferences")]
     public partial class ProgramPreference
     {
         [Key]
