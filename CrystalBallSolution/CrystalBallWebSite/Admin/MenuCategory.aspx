@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="MenuCategory.aspx.cs" Inherits="Admin_MenuCategory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <style type="text/css">
+    <%--<style type="text/css">
         html {
             height:100%;
         }
@@ -34,7 +34,7 @@
            text-align:center;
         }
 
-  </style>
+  </style>--%>
 
     
         <div class="col-md-3">
