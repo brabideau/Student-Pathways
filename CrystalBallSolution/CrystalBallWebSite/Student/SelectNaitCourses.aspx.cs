@@ -8,34 +8,18 @@ using System.Web.UI.WebControls;
 
 public partial class User_SelectNaitCourses : System.Web.UI.Page
 {
-    DataTable CoursesSelected = new DataTable();
+    //DataTable CoursesSelected = new DataTable();
     protected void Page_Load(object sender, EventArgs e)
     {
-
-    }
-
-    protected void SelectCourses(object sender, GridViewSelectEventArgs e)
-    {
-        GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
-        string CCode = (row.FindControl("CourseCode") as Label).Text;
-        int id = int.Parse((row.FindControl("CourseID") as Label).Text);
-        double CCredits = double.Parse((row.FindControl("CourseCredits") as Label).Text);
-        //CourseRepeater.CourseCodeLabel.Text = id;
-        MultiSelect(CCode, id, CCredits);
-
-    }
-    public void MultiSelect(string courseCode ,int courseId, double courseCredits)
-    {
-
         
-        DataColumn CourseID;
-        DataColumn CourseCode;
-        DataColumn CourseCredits;
-
-        DataRow row;
-
-        if (Session["CoursesSelected"] == null)
+        if (!IsPostBack)
         {
+            DataColumn CourseID;
+            DataColumn CourseCode;
+            DataColumn CourseCredits;
+            DataTable CoursesSelected = new DataTable();
+            //if (Session["CoursesSelected"] == null)
+            //{
             CourseID = new DataColumn();
             CourseID.DataType = System.Type.GetType("System.Int32");
             CourseID.ColumnName = "CourseID";
@@ -49,7 +33,7 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             CoursesSelected.Columns.Add(CourseCode);
 
             CourseCredits = new DataColumn();
-            CourseCredits.DataType = System.Type.GetType("System.double");
+            CourseCredits.DataType = System.Type.GetType("System.Double");
             CourseCredits.ColumnName = "CourseCredits";
             CourseCredits.Caption = "CourseCredits";
             CoursesSelected.Columns.Add(CourseCredits);
@@ -59,15 +43,57 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             DataColumn[] pCol = new DataColumn[1];
             pCol[0] = CourseID;
             CoursesSelected.PrimaryKey = pCol;
+            ViewState["CoursesSelected"] = CoursesSelected;
+            //}
+            //else
+            //{
+            //    CoursesSelected = (DataTable)Session["CoursesSelected"];
+            //    Session["CoursesSelected"] = null;
+            //    //CourseCodeLabel.Text = CoursesSelected.Rows.ToString();
+            //}
+            //Session["table"] = CoursesSelected;
+            rptCourse.DataSource = CoursesSelected;
+            rptCourse.DataBind();
         }
-        else
+    }
+
+    protected void SelectCourses(object sender, GridViewSelectEventArgs e)
+    {
+        GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
+        string CCode = (row.FindControl("CourseCode") as Label).Text;
+        int  id = int.Parse((row.FindControl("CourseID") as Label).Text);
+        double CCredits = double.Parse((row.FindControl("CourseCredits") as Label).Text);
+        //CourseRepeater.CourseCodeLabel.Text = id;
+        //MultiSelect(CCode, id, CCredits);
+        DataRow dtrow;
+        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        dtrow = CoursesSelected.NewRow();
+        dtrow["CourseID"] = id;
+        dtrow["CourseCode"] = CCode;
+        dtrow["CourseCredits"] = CCredits;
+        
+        // delete duplicate value
+        
+        CoursesSelected.Rows.Add(dtrow);
+       
+        double credit = 0;
+        foreach (DataRow row1 in CoursesSelected.Rows)
         {
-            CoursesSelected = (DataTable)Session["CoursesSelected"];
-            Session["CoursesSelected"] = null;
-            //CourseCodeLabel.Text = CoursesSelected.Rows.ToString();
+            credit =credit + double.Parse(row1[2].ToString());
+
         }
+        Label1.Text = credit + "";
+        ViewState["CoursesSelected"] = CoursesSelected;
 
+        rptCourse.DataSource = CoursesSelected;
+        rptCourse.DataBind();
 
+    }
+    public void MultiSelect(string courseCode ,int courseId, double courseCredits)
+    {
+
+        DataRow row;
+        DataTable CoursesSelected = (DataTable)ViewState["table"];
         row = CoursesSelected.NewRow();
         row["CourseID"] = courseId;
         row["CourseCode"] = courseCode;
@@ -87,12 +113,18 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         {
             CourseCodeLabel.Text += " " + row1[1].ToString();
         }
-        double credit = 0;
+        //double credit = 0;
+        int count = 0;
         foreach (DataRow row1 in CoursesSelected.Rows)
         {
-            credit =credit + double.Parse(row1[2].ToString());
+            //credit =credit + double.Parse(row1[2].ToString());
+            count++;
         }
-        
+        Label1.Text = count + "";
+        ViewState["table"] = CoursesSelected;
+
+        rptCourse.DataSource = CoursesSelected;
+        rptCourse.DataBind();
         //CourseCodeLabel.Text += " " + CoursesSelected.Rows.ToString();
 
         //Session["CoursesSelected"] = CoursesSelected;
@@ -112,3 +144,4 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         //}  
     }
 }
+//problem feed back not using ispostback so that everytime it creat a new datatable

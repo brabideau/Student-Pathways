@@ -65,26 +65,25 @@
         </asp:GridView>
     </div>
     <div>
-        <%--<asp:Repeater id ="CourseRepeater" runat="server">
-            <HeaderTemplate>
-                <table>
-            </HeaderTemplate>
-                <ItemTemplate>
-                    <tr>
-                        <td>
-                            <asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            <FooterTemplate>
-                </table>
-            </FooterTemplate>
-        </asp:Repeater>--%>
+        <asp:Repeater ID="rptCourse" runat="server">
+        <ItemTemplate>
+                <table cellpadding="2" cellspacing="0" border="1">               
+                <tr>
+                    <td>
+                        <b>Course code: </b><%# Eval("CourseCode") %></span><br />
+                        <b>Course credit: </b><%# Eval("CourseCredits") %></span><br />
+                    </td>
+                </tr>
+            </table>
+        </ItemTemplate>
+    </asp:Repeater>
     </div>
     <br />
     <br />
     <div>
        <asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>
+        <hr />
+         <asp:Label id ="Label1" Text="this is count" runat="server" Visible="true"></asp:Label>
     </div>
 
     
