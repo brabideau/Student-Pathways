@@ -91,12 +91,21 @@
         <div class="button">
             <div class="col-md-3"></div>
             <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click">Previous</asp:LinkButton>
-            <asp:Button ID="submit" runat="server" Text="Submit Courses" OnClick="Submit_Click" />
+            <!--<asp:Button ID="submit" runat="server" Text="Submit" OnClick="Submit_Click" />
+            <script type="text/javascript">
+                $("#submit").click(function (e){
+                    e.preventDefault();
+                });
+            </script>-->        
+
+
+            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Submit_Click">Submit</asp:LinkButton>
 
             
         
 
 
+        </div>
         </div>
         <br />
           <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
@@ -106,7 +115,7 @@
 
         </div>
         
-</div>
+
 
 </asp:Content>
 
