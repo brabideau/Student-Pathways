@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-379 231 400 100" style="enable-background:new -379 231 400 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#XMLID_5_);}
+	.st1{fill:url(#XMLID_6_);}
+	.st2{fill:url(#XMLID_7_);}
+	.st3{fill:url(#XMLID_8_);}
+	.st4{fill:url(#XMLID_9_);}
+</style>
+<linearGradient id="XMLID_5_" gradientUnits="userSpaceOnUse" x1="-179" y1="327" x2="-179" y2="227" gradientTransform="matrix(1 0 0 1 0 4)">
+	<stop  offset="0" style="stop-color:#0A4981"/>
+	<stop  offset="1" style="stop-color:#0764B2"/>
+</linearGradient>
+<rect id="XMLID_1_" x="-379" y="231" class="st0" width="400" height="100"/>
+<linearGradient id="XMLID_6_" gradientUnits="userSpaceOnUse" x1="-280.3333" y1="327" x2="-280.3333" y2="227" gradientTransform="matrix(1 0 0 1 0 4)">
+	<stop  offset="0" style="stop-color:#142580;stop-opacity:0.2"/>
+	<stop  offset="1" style="stop-color:#142580;stop-opacity:0"/>
+</linearGradient>
+<polygon id="XMLID_11_" class="st1" points="-379,331 -379,231 -181.7,331 "/>
+<linearGradient id="XMLID_7_" gradientUnits="userSpaceOnUse" x1="-2306.4167" y1="327" x2="-2306.4167" y2="227" gradientTransform="matrix(-1 0 0 1 -2460.6667 4)">
+	<stop  offset="0" style="stop-color:#4196DE;stop-opacity:0.2"/>
+	<stop  offset="1" style="stop-color:#142580;stop-opacity:0"/>
+</linearGradient>
+<polygon id="XMLID_12_" class="st2" points="-28.2,331 -139.7,231 -280.3,331 "/>
+<linearGradient id="XMLID_8_" gradientUnits="userSpaceOnUse" x1="-69.75" y1="327" x2="-69.75" y2="227" gradientTransform="matrix(1 0 0 1 0 4)">
+	<stop  offset="0" style="stop-color:#142580;stop-opacity:0.2"/>
+	<stop  offset="1" style="stop-color:#142580;stop-opacity:0"/>
+</linearGradient>
+<polygon id="XMLID_2_" class="st3" points="-160.5,331 21,231 21,331 "/>
+<linearGradient id="XMLID_9_" gradientUnits="userSpaceOnUse" x1="-232.8333" y1="162.5" x2="-81.9524" y2="313.381" gradientTransform="matrix(-1 0 0 1 -370 0)">
+	<stop  offset="0" style="stop-color:#132D6E;stop-opacity:0"/>
+	<stop  offset="0.9519" style="stop-color:#132D6E;stop-opacity:0.2"/>
+</linearGradient>
+<polygon id="XMLID_3_" class="st4" points="-342.7,231 -314,287.4 -68.7,231 "/>
+</svg>

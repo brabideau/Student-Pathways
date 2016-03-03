@@ -59,6 +59,10 @@ html {
 
 body {
   margin: 0;
+  margin-top: 20px;
+  background-image: url("../images/corner-starburst-2.svg");
+  background-repeat: no-repeat;
+  background-position: bottom left;
 }
 
 a:focus {
@@ -157,6 +161,7 @@ legend {
   padding: 0;
   border: 0;
 }
+
 
 button,
 input,
@@ -310,12 +315,14 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
   background-color: #ffffff;
+
 }
 
 input,
@@ -335,7 +342,7 @@ textarea {
 }
 
 a {
-  color: #428bca;
+  color: #ebf3f9;
   text-decoration: none;
 }
 
@@ -473,7 +480,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Coda', Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
 }
@@ -761,6 +768,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+
 }
 
 .container:before,
@@ -1670,7 +1678,7 @@ input[type="search"] {
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
+  margin: 4px 10px;
   margin-top: 1px \9;
   /* IE8-9 */
 
@@ -2404,6 +2412,8 @@ input[type="button"].btn-block {
   src: url('../fonts/glyphicons-halflings-regular.eot');
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
+
+
 
 .glyphicon {
   position: relative;
@@ -3823,13 +3833,21 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  height: 40px;
+  padding: 0px 20px;
+  margin-top: 15px;
+
+  /*padding: 10px 15px;*/
+  border: 2px solid transparent;
 }
 
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  border: 2px solid #ebf3f9;
+  color: #ebf3f9;
+  font-weight: bold;
+  /*background-color: #eeeeee;*/
 }
 
 .nav > li.disabled > a {
@@ -4030,10 +4048,19 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   z-index: 1000;
-  min-height: 50px;
+  min-height: 70px;
   margin-bottom: 20px;
   border: 1px solid transparent;
+  background-image: url("../images/navbar-tile.png");
+  background-repeat: repeat-x;
+
 }
+
+footer {
+    height: 100px;
+    background-image: url("../images/footer-tile.png");
+}
+
 
 .navbar:before,
 .navbar:after {
@@ -4158,6 +4185,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .container > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
+    
   }
 }
 
@@ -4177,6 +4205,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   right: 0;
   left: 0;
   border-width: 0 0 1px;
+
+
 }
 
 @media (min-width: 768px) {
@@ -4245,6 +4275,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-nav {
   margin: 7.5px -15px;
+
 }
 
 .navbar-nav > li > a {
@@ -4280,13 +4311,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-nav {
     float: left;
     margin: 0;
+
   }
   .navbar-nav > li {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+
+    border-radius: 8px;
   }
 }
 
@@ -4420,8 +4452,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #555555;
-  background-color: #e7e7e7;
+    border: 2px solid #ebf3f9;
+  /*color: #555555;
+  background-color: #e7e7e7;*/
 }
 
 .navbar-default .navbar-nav > .disabled > a,
