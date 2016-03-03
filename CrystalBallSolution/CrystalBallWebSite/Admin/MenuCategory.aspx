@@ -43,7 +43,7 @@
                 </a>
                 
             </div>
-            <div class="container">
+            <div class="box">
                     <p>Manage Category</p>
             </div>
         </div>
@@ -52,7 +52,7 @@
                     <a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="Manage Nait Courses"> 
                     </a>   
                 </div>
-            <div class="container">
+            <div class="box">
                 <p>Manage Nait Course</p>
             </div>
        </div>
@@ -61,7 +61,7 @@
                     <a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> 
                     </a>   
                 </div>
-            <div class="container">
+            <div class="box">
                 <p>Insert Program</p>
             </div>
        </div>
@@ -70,7 +70,7 @@
                     <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="manage program"> 
                     </a>   
                 </div>
-            <div class="container">
+            <div class="box">
                 <p>Manage Program</p>
             </div>
        </div>
@@ -79,7 +79,7 @@
                     <a href="ManageHighSchoolCourses.aspx"><img src="../images/course_logo.png" alt="update high shool courses"> 
                     </a>   
                 </div>
-            <div class="container">
+            <div class="box">
                 <p>Manage High School Courses</p>
             </div>
        </div>
@@ -88,7 +88,7 @@
                     <a href="ManagePreferenceQuestion.aspx"><img src="../images/question.png" alt="Manage preference questions"> 
                     </a>   
                 </div>
-            <div class="container">
+            <div class="box">
                 <p>Manage Preference Questions</p>
             </div>
        </div>
