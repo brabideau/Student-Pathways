@@ -5,11 +5,11 @@
         <h1>Manage HighSchool Courses</h1>
     <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
         <AlternatingItemTemplate>
-            <tr style="background-color:#efefef; color: #284775;" align="center">
+            <tr <%--style="background-color:#efefef; color: #284775;" align="center"--%>>
                 <td>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
-                <td style="align-content:center">
+                <td <%--style="align-content:center"--%>>
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
                 </td>
             </tr>
@@ -68,7 +68,7 @@
                     </td>
                 </tr>
                 <tr runat="server">
-                    <td runat="server" style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;">
+                    <td runat="server" <%--style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;"--%>>
                         <asp:DataPager ID="DataPager1" runat="server" align="center">
                             <Fields>
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
@@ -81,7 +81,7 @@
             </table>
         </LayoutTemplate>
         <SelectedItemTemplate>
-            <tr style="background-color:#E2DED6; font-weight: bold;color: #333333;">
+            <tr <%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>>
                 <td>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
