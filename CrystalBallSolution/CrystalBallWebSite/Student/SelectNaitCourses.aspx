@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <h1>Select NAIT Course</h1>
     <div>
-        <div style="width: 350px;float:left" >
+        <div class="search-bar" >
             <label>Please select a program</label>
             <br />
             <asp:DropDownList runat="server" ID="ProgramDropDownList" 
@@ -15,7 +15,7 @@
 
             </asp:DropDownList>
         </div>
-        <div style="width: 350px;float:left">
+        <div class="search-bar">
 
             <label >Please search the NAIT course you want.</label>
             <br />
@@ -26,7 +26,7 @@
     <br />
     <div>
         <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            width="80%" Align="Center" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
+            CssClass="CGV" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
                     <ItemTemplate>
@@ -64,25 +64,24 @@
             </EmptyDataTemplate>
         </asp:GridView>
     </div>
-    <div>
-        <asp:Repeater ID="rptCourse" runat="server">
+    <div class ="rpt_div">
+        <asp:Repeater ID="rptCourse" runat="server" >
         <ItemTemplate>    
-            <div width="200px" height="100px" float:"left">
+            <div  >
                 <b>Course code: </b><%# Eval("CourseCode") %></span>
-                <b>Course credit: </b><%# Eval("CourseCredits") %></span>   
+                <b>Course credit: </b><%# Eval("CourseCredits") %></span>
+                <asp:Button ID="Delete" runat="server" Text="Delete" />  
             </div>      
         </ItemTemplate>
     </asp:Repeater>
     </div>
     <br />
     <br />
-    <div>
-       <asp:Label id ="CourseCodeLabel" Text="" runat="server" Visible="true"></asp:Label>
+     
         <hr />
-         <asp:Label id ="Label1" Text="this is count" runat="server" Visible="true"></asp:Label>
-    </div>
-
-    
+    <div>
+        <asp:Button ID="Next" runat="server" Text="Next" OnClick="Next_Click" />
+    </div>    
     <div>
         <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="NaitCourseODB" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">

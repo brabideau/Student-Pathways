@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class User_SelectNaitCourses : System.Web.UI.Page
 {
-    //DataTable CoursesSelected = new DataTable();
+    DataTable CoursesSelected;
     protected void Page_Load(object sender, EventArgs e)
     {
         
@@ -17,7 +17,7 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             DataColumn CourseID;
             DataColumn CourseCode;
             DataColumn CourseCredits;
-            DataTable CoursesSelected = new DataTable();
+            CoursesSelected = new DataTable();
             //if (Session["CoursesSelected"] == null)
             //{
             CourseID = new DataColumn();
@@ -72,62 +72,27 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         dtrow["CourseCode"] = CCode;
         dtrow["CourseCredits"] = CCredits;
         
-        // delete duplicate value
-        
-        CoursesSelected.Rows.Add(dtrow);
-       
+        //how to delete duplicate value
+        DataRow findRow = CoursesSelected.Rows.Find(id);
+        if (findRow==null)
+        {
+            CoursesSelected.Rows.Add(dtrow);
+        }
+        else
+        {
+            CoursesSelected.Rows.Find(id).Delete();
+            CoursesSelected.Rows.Add(dtrow);
+        }
         double credit = 0;
         foreach (DataRow row1 in CoursesSelected.Rows)
         {
             credit =credit + double.Parse(row1[2].ToString());
 
-        }
-        Label1.Text = credit + "";
+        }        
         ViewState["CoursesSelected"] = CoursesSelected;
 
         rptCourse.DataSource = CoursesSelected;
         rptCourse.DataBind();
-
-    }
-    public void MultiSelect(string courseCode ,int courseId, double courseCredits)
-    {
-
-        DataRow row;
-        DataTable CoursesSelected = (DataTable)ViewState["table"];
-        row = CoursesSelected.NewRow();
-        row["CourseID"] = courseId;
-        row["CourseCode"] = courseCode;
-        row["CourseCredits"] = courseCredits;
-        // delete duplicate value
-        if (!CoursesSelected.Rows.Contains(courseId))
-        {
-            CoursesSelected.Rows.Add(row);
-        }
-        else
-        {
-            CoursesSelected.Rows.Find(courseId).Delete();
-        }
-
-        
-        foreach(DataRow row1 in CoursesSelected.Rows)
-        {
-            CourseCodeLabel.Text += " " + row1[1].ToString();
-        }
-        //double credit = 0;
-        int count = 0;
-        foreach (DataRow row1 in CoursesSelected.Rows)
-        {
-            //credit =credit + double.Parse(row1[2].ToString());
-            count++;
-        }
-        Label1.Text = count + "";
-        ViewState["table"] = CoursesSelected;
-
-        rptCourse.DataSource = CoursesSelected;
-        rptCourse.DataBind();
-        //CourseCodeLabel.Text += " " + CoursesSelected.Rows.ToString();
-
-        //Session["CoursesSelected"] = CoursesSelected;
 
         //for (int i = 0; i < CourseGridView.Rows.Count; i++)
         //{
@@ -142,6 +107,12 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         //        }
         //    }
         //}  
+
+    }
+    protected void Next_Click(object sender, EventArgs e)
+    {
+        Session["CoursesSelected"] = CoursesSelected;
+        Response.Redirect("../Student/testpage.aspx");
     }
 }
 //problem feed back not using ispostback so that everytime it creat a new datatable
