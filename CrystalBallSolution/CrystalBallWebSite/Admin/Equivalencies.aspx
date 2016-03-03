@@ -24,7 +24,7 @@
         </asp:DropDownList>
         <asp:LinkButton ID="ProgramButton" runat="server">Next</asp:LinkButton>    
     
-        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid">
             <Columns>
                 <asp:BoundField DataField="CourseEquivalencyID" HeaderText="CourseEquivalencyID" SortExpression="CourseEquivalencyID" />
                 <asp:BoundField DataField="ProgramID" HeaderText="ProgramID" SortExpression="ProgramID" />
@@ -38,7 +38,7 @@
         </asp:GridView>    
     </div>
           
-    <div runat="server" id="addNewEquivalency" visible="false">
+    <div runat="server" id="addNewEquivalency" visible="false"  CssClass="add-equivalency-block">
         <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID: "></asp:Label>
         <asp:TextBox ID="EmptyCurrentTextBox" runat="server"></asp:TextBox>
         <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
