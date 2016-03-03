@@ -148,6 +148,9 @@ h4 {
     font-size: 1.4em;
 }
 
+p {
+    margin: .5em 0;
+}
 
 .search-bar {
     text-align: center;
@@ -182,6 +185,7 @@ h4 {
   table {
       margin: 5px 0px;
       font-size: .94em;
+      margin-bottom: 15px;
   }
 
   td {
@@ -195,7 +199,7 @@ h4 {
   }
 
 
-/*----------------------  FOOTER-------------------*/
+/*----------------------  FOOTER  -------------------*/
 
 footer {
     height: 100px;
@@ -204,9 +208,25 @@ footer {
 
 
 
+/*------------------------------- STUDENT PREFERENCES ----------------------------------*/
+
+.prefQuestionsCSS {
+    
+}
+
+.prefQuestionsCSS tr:first-child  {
+    display: none;
+}
+
+.prefQuestionsCSS td:first-child  {
+    display: none;
+}
+
+
+
 /*-----------------------MANAGE NAIT COURSES----------------------*/
 
-.programs-column, {
+.programs-column {
     width: 30%;
     float: left;
 }
@@ -226,7 +246,7 @@ footer {
     border: none;
  }
 
-.program-search-results tr:first-child {
+.program-search-results tr:first-child .program-search-results td:first-child  {
     display: none;
 }
 
@@ -246,10 +266,6 @@ footer {
     padding: 15px;
     border: none;
     display: block;
-}
-
-.program-search-results td:first-child {
-    display: none;
 }
 
 .program-search-results td:nth-child(2){
