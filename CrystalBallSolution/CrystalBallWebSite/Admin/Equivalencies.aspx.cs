@@ -20,9 +20,25 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
         //get the value of the selected value in the drop down list and populate the program
         //list data source based on that value
         AdminController sysmgr = new AdminController();
+        AshleyTestController sys = new AshleyTestController();
         int category = Convert.ToInt32(CategoryDropdownList.SelectedValue);
+        int program = -5;
         ProgramDropdownList.DataSource = sysmgr.GetProgramByCategory(category);
         ProgramDropdownList.DataBind();
+        EquivalenciesGrid.DataSource = sys.GetEquivalencies(program, category);
+        EquivalenciesGrid.DataBind();
+
+    }
+
+    protected void Populate_EquivalenciesGrid(object sender, EventArgs e)
+    {
+        //get the value of the selected value in the drop down list and populate the program
+        //list data source based on that value
+        AshleyTestController sysmgr = new AshleyTestController();
+        int program = Convert.ToInt32(ProgramDropdownList.SelectedValue);
+        int category = Convert.ToInt32(CategoryDropdownList.SelectedValue);
+        EquivalenciesGrid.DataSource = sysmgr.GetEquivalencies(program, category);
+        EquivalenciesGrid.DataBind();
     }
 
     protected void AddNew_Click(object sender, EventArgs e)

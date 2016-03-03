@@ -256,11 +256,11 @@ namespace CrystalBallSystem.BLL
 
         #region Equivalency Page
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetEquivalencies> GetEquivalencies(int programID)
+        public List<GetEquivalencies> GetEquivalencies(int programID, int categoryID)
         {
             using (var context = new CrystalBallContext())
             {
-                if (programID != -5)
+                if (categoryID != -3 && programID != -5)
                 {
                     var results = from equivalency in context.CourseEquivalencies
                                   where equivalency.ProgramID == programID

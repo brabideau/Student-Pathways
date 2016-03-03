@@ -3,24 +3,28 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <div runat="server" id="equivalencyInformation">
         <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
-        <asp:DropDownList ID="CategoryDropdownList" runat="server" 
+        <asp:DropDownList ID="CategoryDropdownList" 
+                                runat="server" 
                                 DataSourceID="CategoryODS" 
                                 DataTextField="CategoryDescription" 
                                 DataValueField="CategoryID"
                                 AppendDataBoundItems="True" 
                                 OnSelectedIndexChanged="Populate_Program" 
                                 AutoPostBack="true">
-            <asp:ListItem Value="-3">All</asp:ListItem>
+            <asp:ListItem Value="-3">[All]</asp:ListItem>
         </asp:DropDownList>
-        <asp:LinkButton ID="CategoryButton" runat="server">Next</asp:LinkButton>  
         <br />
         <asp:Label ID="Label2" runat="server" Text="Select a Program: "></asp:Label>
-        <asp:DropDownList ID="ProgramDropdownList" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
-            <asp:ListItem Value="-5">[All]</asp:ListItem>
+        <asp:DropDownList ID="ProgramDropdownList" 
+                            runat="server" 
+                            DataTextField="ProgramName" 
+                            DataValueField="ProgramID" 
+                            OnSelectedIndexChanged="Populate_EquivalenciesGrid" 
+                            AutoPostBack="true">
         </asp:DropDownList>
         <asp:LinkButton ID="ProgramButton" runat="server">Next</asp:LinkButton>    
     
-        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False" DataSourceID="EquivalencyGridODS">
+        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False">
             <Columns>
                 <asp:BoundField DataField="CourseEquivalencyID" HeaderText="CourseEquivalencyID" SortExpression="CourseEquivalencyID" />
                 <asp:BoundField DataField="ProgramID" HeaderText="ProgramID" SortExpression="ProgramID" />
@@ -49,7 +53,7 @@
         <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click" />
     </div>
 
-    <asp:ObjectDataSource ID="CategoryODS" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="CategoryODS" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="ProgramODS" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
             <asp:ControlParameter ControlID="CategoryDropdownList" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
