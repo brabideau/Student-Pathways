@@ -269,7 +269,9 @@ namespace CrystalBallSystem.BLL
                                       CourseEquivalencyID = equivalency.CourseEquivalencyID,
                                       CourseCode = equivalency.NaitCourse.CourseCode,
                                       CourseName = equivalency.NaitCourse.CourseName,
-                                      DestinationCourseCode = equivalency.NaitCourse.CourseCode,
+                                      DestinationCourseCode = (from dest in equivalency.NaitCourse.CourseCode
+                                                                where (equivalency.DestinationCourseID.Equals(equivalency.NaitCourse.CourseID))
+                                                                select dest).FirstOrDefault().ToString(),
                                       DestinationCourseName = equivalency.NaitCourse.CourseName
                                   };
                     return results.ToList();
