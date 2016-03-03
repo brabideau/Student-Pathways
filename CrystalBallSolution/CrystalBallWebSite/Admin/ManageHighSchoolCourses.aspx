@@ -5,7 +5,7 @@
         <h1>Manage HighSchool Courses</h1>
     <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
         <AlternatingItemTemplate>
-            <tr <%--style="background-color:#efefef; color: #284775;" align="center"--%>>
+            <tr <%--style="background-color:#efefef; color: #284775;" --%> align="center">
                 <td>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>

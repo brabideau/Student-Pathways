@@ -82,14 +82,7 @@
         </div>
 
         <div class="courses-column">
-            <h4>Courses</h4>
-
-
-        
-
-
-
-            
+            <h4>Courses</h4>       
         <div class="col-md-8" align="center">
                     <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" 
                                   ItemType="CrystalBallSystem.DAL.Entities.NaitCours" 
@@ -200,9 +193,15 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" >
-                                                    </asp:LinkButton><asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel">
-                                                    </asp:LinkButton></td></tr></tbody></table></td></tr></InsertItemTemplate><ItemTemplate>
+                                                    <asp:Button ID="InsertButton" CommandName="Insert" runat="server" Text="Save" >
+                                                    </asp:Button><asp:Button ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel">
+                                                    </asp:Button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>                                                                                                                                                                                    </InsertItemTemplate><ItemTemplate>
                             <tr style="">
                                 <td>
                                     <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
