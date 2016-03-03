@@ -214,16 +214,26 @@ footer {
     
 }
 
-.prefQuestionsCSS tr:first-child  {
-    display: none;
-}
+
+
 
 .prefQuestionsCSS td:first-child  {
     display: none;
 }
 
 
+    .prefQuestionsCSS tr:first-child {
+        display: none;
+    }
 
+
+ .radioButtonList td:first-child {
+     display: table-cell;
+                  }
+
+  .radioButtonList tr:first-child {
+     display: table-cell;
+                  }
 /*-----------------------MANAGE NAIT COURSES----------------------*/
 
 .programs-column {
