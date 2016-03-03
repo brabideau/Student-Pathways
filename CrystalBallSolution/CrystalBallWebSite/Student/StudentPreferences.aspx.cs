@@ -94,6 +94,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
     protected void stepOneNext_Click(object sender, EventArgs e)
     {
+        while (ProgramDropDown.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("You must select a program");
+        }
         stepOne.Visible = false;
         step2.Visible = true;
         int programid;
