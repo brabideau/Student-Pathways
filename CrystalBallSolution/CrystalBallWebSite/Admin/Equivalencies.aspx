@@ -23,13 +23,39 @@
                             AutoPostBack="true">
         </asp:DropDownList>
         <asp:LinkButton ID="ProgramButton" runat="server">Next</asp:LinkButton>    
-    
-        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid">
+     
+        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid" ItemType="eToolSystem.DAL.POCOs.GetEquivalencyNames">
             <Columns>
-                <asp:BoundField DataField="CourseEquivalencyID" HeaderText="CourseEquivalencyID" SortExpression="CourseEquivalencyID" />
-                <asp:BoundField DataField="ProgramID" HeaderText="ProgramID" SortExpression="ProgramID" />
-                <asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" />
-                <asp:BoundField DataField="DestinationCourseID" HeaderText="DestinationCourseID" SortExpression="DestinationCourseID" />
+                <asp:TemplateField HeaderText="CourseEquivalencyID">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseEquivalencyID" runat="server" Text='<%# Item.CourseEquivalencyID %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ProgramID">
+                    <ItemTemplate>
+                        <asp:Label ID="ProgramID" runat="server" Text='<%# Item.ProgramID %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CourseCode">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseCode" runat="server" Text='<%# Item.CourseCode %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CourseName">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseName" runat="server" Text='<%# Item.CourseName %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>    
+                <asp:TemplateField HeaderText="DestinationCourseCode">
+                    <ItemTemplate>
+                        <asp:Label ID="DestinationCourseCode" runat="server" Text='<%# Item.DestinationCourseCode %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="DestinationCourseName">
+                    <ItemTemplate>
+                        <asp:Label ID="DestinationCourseName" runat="server" Text='<%# Item.DestinationCourseName %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>               
             </Columns>
             <EmptyDataTemplate>
                 No Existing Equivalencies.
