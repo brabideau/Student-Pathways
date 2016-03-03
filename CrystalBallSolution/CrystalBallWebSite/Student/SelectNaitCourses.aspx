@@ -66,15 +66,11 @@
     </div>
     <div>
         <asp:Repeater ID="rptCourse" runat="server">
-        <ItemTemplate>
-                <table cellpadding="2" cellspacing="0" border="1">               
-                <tr>
-                    <td>
-                        <b>Course code: </b><%# Eval("CourseCode") %></span><br />
-                        <b>Course credit: </b><%# Eval("CourseCredits") %></span><br />
-                    </td>
-                </tr>
-            </table>
+        <ItemTemplate>    
+            <div width="200px" height="100px" float:"left">
+                <b>Course code: </b><%# Eval("CourseCode") %></span>
+                <b>Course credit: </b><%# Eval("CourseCredits") %></span>   
+            </div>      
         </ItemTemplate>
     </asp:Repeater>
     </div>
