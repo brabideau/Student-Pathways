@@ -102,7 +102,7 @@
                                   OnPagePropertiesChanging ="NaitCoursesListViewByProgram_PagePropertiesChanging" 
                                   OnItemInserting="NaitCoursesListViewByProgram_ItemInserting">
                         <AlternatingItemTemplate>
-                            <tr <%--style="background-color:#efefef; color: #284775;"--%>>
+                            <tr> <%--style="background-color:#efefef; color: #284775;"--%>
                                 <td><asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
                                 <td><asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' /></td>
                                 <td><asp:Label ID="CourseNameLabel" runat="server" Text='<%# Eval("CourseName") %>' /></td>
@@ -228,9 +228,9 @@
                                     </td>
                                 </tr>
                                 <tr runat="server">
-                                    <td runat="server" <%--style="text-align:left"--%>>
+                                    <td runat="server"> <%--style="text-align:left"--%>
                                         <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click"></asp:LinkButton></td></tr><tr runat="server">
-                                    <td runat="server" <%--style="font-family: Verdana, Arial, Helvetica, sans-serif;color: #00ccff; text-align:center"--%>>
+                                    <td runat="server"> <%--style="font-family: Verdana, Arial, Helvetica, sans-serif;color: #00ccff; text-align:center"--%>
                                         <asp:DataPager ID="DataPager1" runat="server" PageSize="10">
                                             <Fields>
                                                 <asp:NextPreviousPagerField ButtonType="Link" ShowFirstPageButton="False" ShowNextPageButton="False" ShowPreviousPageButton="true" />
@@ -243,7 +243,7 @@
                             </table>
                         </LayoutTemplate>
                         <SelectedItemTemplate>
-                            <tr <%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>>
+                            <tr>  <%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
                                 <td>
                                     <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
                                 <td>
