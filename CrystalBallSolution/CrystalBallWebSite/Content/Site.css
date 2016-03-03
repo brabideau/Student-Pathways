@@ -1,4 +1,95 @@
-﻿/* Move down content because we have a fixed navbar that is 50px tall */
+﻿
+/*---------------------GENERAL STYLING ------------------------*/
+
+.navbar li {
+	float: left;
+	text-align: center;
+	display: inline-block;
+	margin: 0px 10px;	
+}
+
+/*-------------------------HEADER -----------------------------*/
+body {
+  margin: 0;
+  margin-top: 20px;
+  background-image: url("../images/corner-starburst-2.svg");
+  background-repeat: no-repeat;
+  background-position: bottom left;
+}
+
+.navbar {
+  position: relative;
+  z-index: 1000;
+  min-height: 70px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  background-image: url("../images/navbar-tile.png");
+  background-repeat: repeat-x;
+
+}
+
+.navbar-collapse {
+  max-height: 340px;
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow-x: visible;
+  border-top: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.nav > li {
+  position: relative;
+  display: block;
+}
+
+.nav > li > a {
+  position: relative;
+  display: block;
+  height: 40px;
+  padding: 0px 20px;
+  margin-top: 15px;
+
+  /*padding: 10px 15px;*/
+  border: 2px solid transparent;
+}
+
+
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  border: 2px solid #ebf3f9;
+  color: #ebf3f9;
+  font-weight: bold;
+  /*background-color: #eeeeee;*/
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Coda', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+footer {
+    height: 100px;
+    background-image: url("../images/footer-tile.png");
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -27,7 +118,7 @@ textarea {
         padding: 0;
     }
 }
-
+   /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
 .program-search-results {
     border: none;
     
@@ -51,11 +142,6 @@ textarea {
     height: 400px;
 }
 
-
-
-
-
-
 .program-search-results td {
     padding: 15px;
     border: none;
@@ -71,8 +157,3 @@ textarea {
     font-size: 1.8em;
 }
 
-/*.program-search-results:nth-child(2)::after {
-  content: " ";
-  display: table-row;
-  background-color: blue;
-}*/

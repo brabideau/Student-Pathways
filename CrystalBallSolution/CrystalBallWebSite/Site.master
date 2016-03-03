@@ -14,6 +14,7 @@
     </asp:PlaceHolder>
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href='Content/reset.css' rel='stylesheet' type='text/css'>
     <link href='Content/Site.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -24,7 +25,7 @@
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="bootstrap" />
+<%--                <asp:ScriptReference Name="bootstrap" />--%>
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
@@ -39,9 +40,8 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-fixed-top">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -49,8 +49,6 @@
                     </button>
                     <img src="/images/nait-logo-small.png" alt="NAIT logo" />
                     <a class="navbar-brand" runat="server" href="~/">Pathways</a>
-                </div>
-                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
