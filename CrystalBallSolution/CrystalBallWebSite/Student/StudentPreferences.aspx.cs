@@ -60,6 +60,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
         //step 3 - student courses - use method near the bottom of student controller entrancereq-prefmatch
         //for each option selected in the check box field, add that to a list
+        //**ATTEMPT TO ADD FUNCTIONALITY TO AUTO CHECK PREVIOUS COURSES IF A HIGHER LEVEL COURSE IS SELECTED**
         List<int> hsCourses = new List<int>();
         foreach (ListItem item in CB_CourseList.Items)
         {
