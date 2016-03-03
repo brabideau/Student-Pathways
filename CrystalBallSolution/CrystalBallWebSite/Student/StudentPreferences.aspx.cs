@@ -141,4 +141,18 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         step2.Visible = false;
         stepThree.Visible = true;
     }
+    protected void searchAgain_Click(object sender, EventArgs e)
+    {
+        results.Visible = false;
+        stepOne.Visible = true;
+        //add code to reset all fields for steps 1 -3
+        foreach (GridViewRow row in PrefQuestions.Rows)
+        {
+            (row.FindControl("RBL_YN") as RadioButtonList).SelectedValue = "1";
+        }
+        foreach (ListItem item in CB_CourseList.Items)
+        {
+            item.Selected = false;
+        }
+    }
 }

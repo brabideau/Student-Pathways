@@ -112,7 +112,7 @@
         <div id="results" runat="server" visible="false" align="center">
             <h1>Results</h1>
             <asp:GridView ID="ResultsView" runat="server" CssClass="resultsCSS"></asp:GridView>
-
+            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click">Search Again</asp:LinkButton>
         </div>
         
 
