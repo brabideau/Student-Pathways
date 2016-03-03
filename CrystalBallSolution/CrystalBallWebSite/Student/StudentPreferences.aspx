@@ -47,7 +47,7 @@
         <h1 align="center">Your Preferences</h1>
 
           
-            <asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource">
+            <asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
                 <Columns>
                     <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID"></asp:BoundField>
                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
@@ -82,7 +82,7 @@
     <div id="stepThree" runat="server" visible="false" align="center">
     <h1>Select the Courses You've Taken</h1>
 
-        <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5">
+        <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5" CssClass="courseCSS">
         </asp:CheckBoxList>
 
             <br />
@@ -102,7 +102,7 @@
           <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
         <div id="results" runat="server" visible="false" align="center">
             <h1>Results</h1>
-            <asp:GridView ID="ResultsView" runat="server"></asp:GridView>
+            <asp:GridView ID="ResultsView" runat="server" CssClass="resultsCSS"></asp:GridView>
 
         </div>
         
