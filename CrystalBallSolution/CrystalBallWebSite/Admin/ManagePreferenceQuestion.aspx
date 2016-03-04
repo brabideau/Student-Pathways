@@ -10,7 +10,7 @@
                     <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" />
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
-                <td>
+                <td align="center">
                     <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
                 </td>
                 <td>
@@ -59,7 +59,7 @@
                     <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" />
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
-                <td>
+                <td align="center">
                     <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
                 </td>
                 <td>
@@ -82,7 +82,7 @@
                         </table>
                     </td>
                 </tr>
-                <tr runat="server">  <%--style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;"--%>
+                <tr runat="server" align="center">  <%--style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;"--%>
                     <td runat="server">
                         <asp:DataPager ID="DataPager1" runat="server">
                             <Fields>
