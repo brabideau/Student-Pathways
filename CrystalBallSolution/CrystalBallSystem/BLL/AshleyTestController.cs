@@ -260,35 +260,51 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                if (categoryID != -3 && programID != -5)
-                {
-                    var results = from equivalency in context.CourseEquivalencies
-                                  where equivalency.ProgramID == programID
+                //if (categoryID != -3 && programID != -5)
+                //{
+                    var results = from ce in context.CourseEquivalencies
+                                  from p in context.Programs
+                                  from nc in context.NaitCourses
+                                  where p.ProgramCourses.Any(pc => pc.CourseID == ce.DestinationCourseID)
+                                                  && ce.ProgramID == programID && ce.DestinationCourseID == nc.CourseID
                                   select new GetEquivalencyNames
                                   {
-                                      CourseEquivalencyID = equivalency.CourseEquivalencyID,
-                                      CourseCode = equivalency.NaitCourse.CourseCode,
-                                      CourseName = equivalency.NaitCourse.CourseName,
-                                      DestinationCourseCode = (from dest in equivalency.NaitCourse.CourseCode
-                                                                where (equivalency.DestinationCourseID.Equals(equivalency.NaitCourse.CourseID))
-                                                                select dest).FirstOrDefault().ToString(),
-                                      DestinationCourseName = equivalency.NaitCourse.CourseName
+                                      CourseEquivalencyID = ce.CourseEquivalencyID,
+                                      CourseCode = ce.NaitCourse.CourseCode,
+                                      CourseName = ce.NaitCourse.CourseName,
+                                      DestinationCourseCode = nc.CourseCode,
+                                      DestinationCourseName = nc.CourseName
+
+
                                   };
-                    return results.ToList();
-                }
-                else
-                {
-                    var results = from equivalency in context.CourseEquivalencies
-                                  select new GetEquivalencyNames
-                                  {
-                                      CourseEquivalencyID = equivalency.CourseEquivalencyID,
-                                      CourseCode = equivalency.NaitCourse.CourseCode,
-                                      CourseName = equivalency.NaitCourse.CourseName,
-                                      DestinationCourseCode = equivalency.NaitCourse.CourseCode,
-                                      DestinationCourseName = equivalency.NaitCourse.CourseName
-                                  };
-                    return results.ToList();
-                }                
+
+
+                //    var results = from equivalency in context.CourseEquivalencies
+                //                  where equivalency.ProgramID == programID
+                //                  select new GetEquivalencyNames
+                //                  {
+                //                      CourseEquivalencyID = equivalency.CourseEquivalencyID,
+                //                      CourseCode = equivalency.NaitCourse.CourseCode,
+                //                      CourseName = equivalency.NaitCourse.CourseName,
+                //                      DestinationCourseCode = equivalency.DestinationCourse.CourseCode,
+                //                      DestinationCourseName = equivalency.DestinationCourse.CourseName
+                //                  };
+                //    return results.ToList();
+                //}
+                //else
+                //{
+                //    var results = from equivalency in context.CourseEquivalencies
+                //                  select new GetEquivalencyNames
+                //                  {
+                //                      CourseEquivalencyID = equivalency.CourseEquivalencyID,
+                //                      CourseCode = equivalency.NaitCourse.CourseCode,
+                //                      CourseName = equivalency.NaitCourse.CourseName,
+                //                      DestinationCourseCode = equivalency.DestinationCourse.CourseCode,
+                //                      DestinationCourseName = equivalency.DestinationCourse.CourseName
+                //                  };
+                    
+                //}
+                return results.ToList();
             }
         }
 
