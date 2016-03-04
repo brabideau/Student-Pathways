@@ -1,96 +1,58 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="MenuCategory.aspx.cs" Inherits="Admin_MenuCategory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <%--<style type="text/css">
-        html {
-            height:100%;
-        }
-
-        body {
-          background-size: cover;
-        }
-
-        div.polaroid {
-          margin-top:100px;
-          width: 200px;
-          height:200px;
-          margin-left:30px;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          text-align: center;
-        }
-
-        div.polaroid img{
-            margin-top:15px;
-        }
-        div.container {
-          padding: 10px;
-          width:auto;
-        }
-
-        div.container p{
-           font-size:16px;
-           font-weight:bold;
-           color:gray;
-           text-align:center;
-        }
-
-  </style>--%>
+   
 
     
-        <div class="col-md-3">
-            <div class="polaroid">
-                <a href="ManageCategory.aspx"><img src="../images/managethree.png" alt="Manage Category"> 
-                </a>
-                
+        <div class="cat-box">
+
+            <div class="cat-img"><a href="ManageCategory.aspx"><img src="../images/managethree.png" alt="Manage Category"> </a>
             </div>
-            <div class="box">
-                    <p>Manage Category</p>
-            </div>
+            <h5>Manage Category</h5>
         </div>
-        <div class="col-md-3">
-                <div class="polaroid">
-                    <a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="Manage Nait Courses"> 
-                    </a>   
-                </div>
-            <div class="box">
-                <p>Manage Nait Course</p>
-            </div>
+
+
+        <div class="cat-box">
+
+             <div class="cat-img"><a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="Manage Nait Courses"> </a>  </div> 
+
+             <h5>Manage Nait Course</h5>
        </div>
-        <div class="col-md-3">
-                <div class="polaroid">
-                    <a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> 
-                    </a>   
-                </div>
-            <div class="box">
-                <p>Insert Program</p>
+
+
+        <div class="cat-box">
+
+             <div class="cat-img"><a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> </a>
             </div>
+             <h5>Insert Program</h5>
+
        </div>
-        <div class="col-md-3">
-                <div class="polaroid">
+
+
+        <div class="cat-box">
+            <div class="cat-img">
                     <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="manage program"> 
                     </a>   
-                </div>
-            <div class="box">
-                <p>Manage Program</p>
-            </div>
+           </div>
+            <h5>Manage Program</h5>
        </div>
-        <div class="col-md-3">
-                <div class="polaroid">
-                    <a href="ManageHighSchoolCourses.aspx"><img src="../images/course_logo.png" alt="update high shool courses"> 
-                    </a>   
-                </div>
-            <div class="box">
-                <p>Manage High School Courses</p>
+
+
+        <div class="cat-box">
+            <div class="cat-img">
+                <a href="ManageHighSchoolCourses.aspx"><img src="../images/course_logo.png" alt="update high shool courses"> 
+                </a>   
             </div>
-       </div>
-        <div class="col-md-3">
-                <div class="polaroid">
-                    <a href="ManagePreferenceQuestion.aspx"><img src="../images/question.png" alt="Manage preference questions"> 
-                    </a>   
-                </div>
-            <div class="box">
-                <p>Manage Preference Questions</p>
+            <h5>Manage High School Courses</h5>
+        </div>
+
+
+        <div class="cat-box">
+            <div class="cat-img">
+                <a href="ManagePreferenceQuestion.aspx"><img src="../images/question.png" alt="Manage preference questions"> 
+                </a>   
             </div>
+            <h5>Manage Preference Questions</h5>
        </div>
         
 

@@ -5,11 +5,11 @@
         <h1>Manage HighSchool Courses</h1>
     <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
         <AlternatingItemTemplate>
-            <tr <%--style="background-color:#efefef; color: #284775;" --%> align="center">
+            <tr>
                 <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
                 </td>
-                <td <%--style="align-content:center"--%>>
+                <td >
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
                 </td>
             </tr>
@@ -17,8 +17,8 @@
         <EditItemTemplate>
             <tr style="">
                 <td>
-                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" class="button"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" class="button" />
                 </td>
                 <td>
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
@@ -26,17 +26,17 @@
             </tr>
         </EditItemTemplate>
         <EmptyDataTemplate>
-            <table runat="server" style="">
+            <table runat="server">
                 <tr>
                     <td>No data was returned.</td>
                 </tr>
             </table>
         </EmptyDataTemplate>
         <InsertItemTemplate>
-            <tr style="">
+            <tr>
                 <td>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" class="button"/>
+                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" class="button"/>
                 </td>
                 <td>
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
@@ -44,9 +44,9 @@
             </tr>
         </InsertItemTemplate>
         <ItemTemplate>
-            <tr style="" align="center">
+            <tr>
                 <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" class="button"/>
                 </td>
                 <td>
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
@@ -54,11 +54,11 @@
             </tr>
         </ItemTemplate>
         <LayoutTemplate>
-            <table runat="server">
+            <table runat="server" class="center">
                 <tr runat="server">
                     <td runat="server">
-                        <table id="itemPlaceholderContainer" runat="server" border="0" class="table align-fix">
-                            <tr runat="server" class="listview-heading align-fix">
+                        <table id="itemPlaceholderContainer" runat="server">
+                            <tr runat="server">
                                 <th runat="server"></th>
                                 <th runat="server">High School Course Name</th>
                             </tr>
@@ -68,8 +68,8 @@
                     </td>
                 </tr>
                 <tr runat="server">
-                    <td runat="server" ><%--style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;"--%>
-                        <asp:DataPager ID="DataPager1" runat="server" align="center">
+                    <td runat="server" >
+                        <asp:DataPager ID="DataPager1" runat="server">
                             <Fields>
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
                                 <asp:NumericPagerField />
@@ -83,7 +83,7 @@
         <SelectedItemTemplate>
             <tr ><%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
                 <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" class="button" />
                 </td>
                 <td>
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />

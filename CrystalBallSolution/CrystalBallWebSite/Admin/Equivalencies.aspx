@@ -13,7 +13,6 @@
                                 AutoPostBack="true">
             <asp:ListItem Value="-3">[All]</asp:ListItem>
         </asp:DropDownList>
-        <br />
         <asp:Label ID="Label2" runat="server" Text="Select a Program: "></asp:Label>
         <asp:DropDownList ID="ProgramDropdownList" 
                             runat="server" 
@@ -53,7 +52,7 @@
             </Columns>
             <EmptyDataTemplate>
                 No Existing Equivalencies.
-                <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click"/>
+                <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click" CssClass="button"/>
             </EmptyDataTemplate>
         </asp:GridView>    
     </div>
@@ -69,8 +68,8 @@
         <asp:Label ID="EquivalentCourseName" runat="server"></asp:Label>
         <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
         <br />
-        <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" />
-        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click" />
+        <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button" />
+        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button"/>
     </div>
 
     <asp:ObjectDataSource ID="CategoryODS" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>

@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <h1>Select NAIT Course</h1>
-    <div>
+
         <div class="search-bar" >
             <label>Please select a program</label>
             <br />
@@ -21,12 +21,9 @@
             <br />
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:Button ID="Search" runat="server" Text="Search" />
         </div>
-        <div style="clear:both"></div>
-    </div>
-    <br />
-    <div>
+
         <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            CssClass="CGV" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
+            CssClass="Gridview" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
                     <ItemTemplate>
@@ -63,26 +60,25 @@
 
             </EmptyDataTemplate>
         </asp:GridView>
-    </div>
+
     <div class ="rpt_div clearfix">
         <asp:Repeater ID="rptCourse" runat="server" >
         <ItemTemplate>    
             <div class="inner-rpt-div">
-                <span><b>Course code: </b><%# Eval("CourseCode") %></span>
-                <span><b>Course credit: </b><%# Eval("CourseCredits") %></span>
+                <span>Course code: <%# Eval("CourseCode") %></span>
+                <span>Course credit: <%# Eval("CourseCredits") %></span>
                 <span><asp:Button ID="Delete" runat="server" Text="Delete" /> </span>
             </div>      
         </ItemTemplate>
-    </asp:Repeater>
+        </asp:Repeater>
     </div>
-    <br />
-    <br />
+
      
         <hr />
-    <div>
-        <asp:Button ID="Next" runat="server" Text="Next" OnClick="Next_Click" />
-    </div>    
-    <div>
+
+        <asp:Button ID="Next" runat="server" Text="Next" OnClick="Next_Click" CssClass="button next" />
+  
+
         <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="NaitCourseODB" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
             <SelectParameters>
@@ -95,6 +91,6 @@
                 <asp:ControlParameter ControlID="CourseGridView" Name="courseID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-    </div>
+
 </asp:Content>
 

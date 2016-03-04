@@ -20,6 +20,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin: .5em 0;
 }
 
+.center {
+    text-align: center;
+}
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 /*body {
     padding-top: 50px;
@@ -148,6 +152,10 @@ h4 {
     font-size: 1.4em;
 }
 
+h5 {
+    font-size: 1.2em;
+}
+
 p {
     margin: .5em 0;
 }
@@ -179,6 +187,67 @@ p {
       background-color: #e5f2ff;
       padding: 3px 8px;
   }
+
+
+
+
+
+   /*  ---------------------------------------------  HOME PAGE  -----------------------------------------  */
+        .home {
+           
+        }
+
+        .home h1 {
+            font-size:60px;
+            color: #92c3ff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+            text-align:center;
+        }
+
+
+        .home-col {
+            float: left;
+            width: 40%;
+            min-width: 300px;
+            margin: 30px 5%;
+        }
+
+
+        .circle-button {
+            border-radius: 50%;
+            width: 280px;
+            height: 280px;
+            line-height: 280px;
+            background: rgba(255, 255, 255, 0.75);
+            margin: 0 auto;
+            -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow:    4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+            box-shadow:         4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+            text-align:center;
+
+        }
+
+
+        .circle-button img {
+            line-height: 280px;
+            vertical-align: middle;
+            width: 80%;
+        }
+        
+
+        .circle-button:hover {
+            background: rgba(255, 255, 255, 1);
+            -webkit-box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow:    0px 0px 17px 0px rgba(0, 0, 0, 0.75);
+            box-shadow:         0px 0px 17px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .circle-button:hover img{
+            width: 87%;
+        }
+
+
+
 
   /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
@@ -306,32 +375,33 @@ footer {
 
 /* ------------------Management Menu -----------------------*/
 
-.polaroid {
-          margin-top:100px;
-          width: 200px;
-          height:200px;
-          margin-left:30px;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          text-align: center;
+.cat-box {
+    width: 27%;
+    min-width: 200px;
+    height: 270px;
+    float: left;
+    margin: 3%;
+    text-align: center;
+    color: #555555;
+    position: relative;
 }
 
-.box {
-          padding: 10px;
-          width:auto;
-        }
+.cat-img {
+    height: 200px;
+    width: 200px;
+    line-height: 200px;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    display: inline-block;
 
-.box p{
-           font-size:16px;
-           font-weight:bold;
-           color:gray;
-           text-align:center;
-        }
-
-.polaroid img{
-            margin-top:15px;
-        }
-
-.col-md-3{
-    width:25%;
-    float:left;
 }
+
+.cat-img img {
+    vertical-align: middle;
+
+}
+
+
+
+

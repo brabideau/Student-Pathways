@@ -1,16 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManagePreferenceQuestion.aspx.cs" Inherits="Admin_ManagePreferenceQuestion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <div runat="server" align="center">
+
     <h1>Manage Preference Question</h1>
     <asp:ListView ID="QuestionList" runat="server" DataSourceID="ODSQuestions" InsertItemPosition="LastItem" DataKeyNames="QuestionID">
         <AlternatingItemTemplate>
-            <tr <%--style="background-color:#efefef; color: #284775;"--%>>
+            <tr >
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" />
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
                 </td>
-                <td align="center">
+                <td>
                     <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
                 </td>
                 <td>
@@ -19,10 +19,10 @@
             </tr>
         </AlternatingItemTemplate>
         <EditItemTemplate>
-            <tr style="">
+            <tr>
                 <td>
-                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="button"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="button"/>
                 </td>
                 <td>
                     <asp:TextBox ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
@@ -33,17 +33,17 @@
             </tr>
         </EditItemTemplate>
         <EmptyDataTemplate>
-            <table runat="server" style="">
+            <table runat="server">
                 <tr>
                     <td>No data was returned.</td>
                 </tr>
             </table>
         </EmptyDataTemplate>
         <InsertItemTemplate>
-            <tr style="">
+            <tr>
                 <td>
-                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="button"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="button"/>
                 </td>
                 <td>
                     <asp:Label ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
@@ -54,12 +54,12 @@
             </tr>
         </InsertItemTemplate>
         <ItemTemplate>
-            <tr style="">
+            <tr>
                 <td>
                     <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" />
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
-                <td align="center">
+                <td>
                     <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
                 </td>
                 <td>
@@ -71,8 +71,8 @@
             <table runat="server">
                 <tr runat="server">
                     <td runat="server">
-                        <table id="itemPlaceholderContainer" runat="server" border="0" class="table align-fix">
-                            <tr runat="server" class="listview-heading align-fix">
+                        <table id="itemPlaceholderContainer" runat="server">
+                            <tr runat="server">
                                 <th runat="server"></th>
                                 <th runat="server">QuestionID</th>
                                 <th runat="server">Description</th>
@@ -110,7 +110,7 @@
             </tr>
         </SelectedItemTemplate>
     </asp:ListView>
-    </div>
+
     <asp:ObjectDataSource ID="ODSQuestions" runat="server" 
                           DataObjectTypeName="CrystalBallSystem.DAL.Entities.PreferenceQuestion" 
                           DeleteMethod="PreferenceQuestion_Delete" 

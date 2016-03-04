@@ -1,20 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManageNaitCourses.aspx.cs" Inherits="Admin_ManageNaitCourses" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <style type="text/css">
-        tr.myItem td{
-            width:200px;
-            height:20px;
-            border:2px solid;
-        }
-        .auto-style1 {
-            width: 100%;
-        }
+
         
-        
-    </style>
-    <div runat="server">
-        <h1 align="center">Manage Nait Courses</h1>
+
+
+        <h1>Manage Nait Courses</h1>
 
         <div class="search-bar">
             <asp:DropDownList ID="CategoryDropdownList" runat="server" 
@@ -24,13 +15,13 @@
                                       AppendDataBoundItems="true">
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
+                    <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
         </div>
 
 
         <div class="programs-column">
                 <h4>Programs</h4>
-            <div class="col-md-4">
+
                     <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
                                                                   OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
                                                                   DataKeyNames="ProgramID"
@@ -38,18 +29,18 @@
                                                                   >
                         
                         <EmptyDataTemplate>
-                            <table runat="server" style="">
+                            <table runat="server">
                                 <tr>
-                                    <td align="center">No data was returned.</td>
+                                    <td>No data was returned.</td>
                                 </tr>
                             </table>
                         </EmptyDataTemplate>
                         <ItemTemplate>
-                            <tr style="width:100%">
-                                <td style="width:10%">
+                            <tr>
+                                <td>
                                     <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
                                 </td>
-                                <td style="width:90%">
+                                <td>
                                         <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
                                         </asp:LinkButton></td></tr></ItemTemplate><LayoutTemplate>
@@ -66,7 +57,7 @@
                             </table>
                         </LayoutTemplate>
                         <SelectedItemTemplate>
-                            <tr style="">
+                            <tr>
                                 <td>
                                     <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
                                 </td>
@@ -78,12 +69,12 @@
                             </tr>
                         </SelectedItemTemplate>
                     </asp:ListView>
-            </div>
+
         </div>
 
         <div class="courses-column">
             <h4>Courses</h4>       
-        <div class="col-md-8" align="center">
+        <div>
                     <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" 
                                   ItemType="CrystalBallSystem.DAL.Entities.NaitCours" 
                                   InsertItemPosition="LastItem" 
@@ -95,8 +86,8 @@
                                   OnPagePropertiesChanging ="NaitCoursesListViewByProgram_PagePropertiesChanging" 
                                   OnItemInserting="NaitCoursesListViewByProgram_ItemInserting">
                         <AlternatingItemTemplate>
-                            <tr> <%--style="background-color:#efefef; color: #284775;"--%>
-                                <td><asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
+                            <tr>
+                                <td><asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/></td>
                                 <td><asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' /></td>
                                 <td><asp:Label ID="CourseNameLabel" runat="server" Text='<%# Eval("CourseName") %>' /></td>
                                 <td align="center"><asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' /></td>
@@ -104,7 +95,7 @@
                             </tr>
                         </AlternatingItemTemplate>
                         <EditItemTemplate>
-                            <tr style="">
+                            <tr>
                                 <td colspan="6">
                                     <table>
                                         <tbody>
@@ -141,8 +132,9 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                                                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                                                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="button"/>
+                                                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="button"/>
+                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -156,7 +148,7 @@
                                     <td>No data was returned.</td></tr><tr runat="server">
                                     <td runat="server" style="text-align:left">
                                         <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click"></asp:LinkButton></td></tr></table></EmptyDataTemplate><InsertItemTemplate>
-                            <tr style="">
+                            <tr>
                                 <td colspan="6">
                                     <table>
                                         <tbody>
@@ -202,14 +194,14 @@
                                     </table>
                                 </td>
                             </tr>                                                                                                                                                                                    </InsertItemTemplate><ItemTemplate>
-                            <tr style="">
+                            <tr>
                                 <td>
                                     <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
                                 <td>
                                     <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' /></td>
                                 <td>
                                     <asp:Label ID="CourseNameLabel" runat="server" Text='<%# Eval("CourseName") %>' /></td>
-                                <td align="center"><asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' /></td>
+                                <td ><asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' /></td>
 
                                 <td><asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false" /></td>
                             </tr>
@@ -218,7 +210,7 @@
                             <table runat="server">
                                 <tr runat="server">
                                     <td runat="server">
-                                        <table id="itemPlaceholderContainer" runat="server" border="0" class="table align-fix">
+                                        <table id="itemPlaceholderContainer" runat="server">
                                             <tr runat="server" class="listview-heading align-fix">
                                                 <th></th>
                                                 <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th runat="server">Active</th></tr><tr id="itemPlaceholder" runat="server">
@@ -227,9 +219,9 @@
                                     </td>
                                 </tr>
                                 <tr runat="server">
-                                    <td runat="server"> <%--style="text-align:left"--%>
+                                    <td runat="server">
                                         <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click"></asp:LinkButton></td></tr><tr runat="server">
-                                    <td runat="server"> <%--style="font-family: Verdana, Arial, Helvetica, sans-serif;color: #00ccff; text-align:center"--%>
+                                    <td runat="server"> 
                                         <asp:DataPager ID="DataPager1" runat="server" PageSize="10">
                                             <Fields>
                                                 <asp:NextPreviousPagerField ButtonType="Link" ShowFirstPageButton="False" ShowNextPageButton="False" ShowPreviousPageButton="true" />
@@ -242,7 +234,7 @@
                             </table>
                         </LayoutTemplate>
                         <SelectedItemTemplate>
-                            <tr>  <%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
+                            <tr> 
                                 <td>
                                     <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
                                 <td>
@@ -268,6 +260,6 @@
                 <asp:ControlParameter ControlID="CategoryDropdownList" DefaultValue="0" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-    </div>
+
 </asp:Content>
 
