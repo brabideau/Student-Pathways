@@ -64,13 +64,13 @@
             </EmptyDataTemplate>
         </asp:GridView>
     </div>
-    <div class ="rpt_div">
+    <div class ="rpt_div clearfix">
         <asp:Repeater ID="rptCourse" runat="server" >
         <ItemTemplate>    
-            <div  >
-                <b>Course code: </b><%# Eval("CourseCode") %></span>
-                <b>Course credit: </b><%# Eval("CourseCredits") %></span>
-                <asp:Button ID="Delete" runat="server" Text="Delete" />  
+            <div class="inner-rpt-div">
+                <span><b>Course code: </b><%# Eval("CourseCode") %></span>
+                <span><b>Course credit: </b><%# Eval("CourseCredits") %></span>
+                <span><asp:Button ID="Delete" runat="server" Text="Delete" /> </span>
             </div>      
         </ItemTemplate>
     </asp:Repeater>

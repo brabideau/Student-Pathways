@@ -59,12 +59,10 @@ nav li {
 }
 
 nav {
-  min-height: 70px;
-  margin-bottom: 20px;
-  padding: 5px 0px;
-  border: 1px solid transparent;
+  height: 70px;
   background-image: url("../images/navbar-tile.png");
   background-repeat: repeat-x;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.2);
 }
 
 .navbar-collapse {
@@ -129,11 +127,13 @@ nav a:focus {
     background-position: 0% 100%;
     padding: 15px;
     margin: 60px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.3);
 }
 
 h1 {
     font-size: 2em;
     color: #1363a8;
+    text-align: center;
 }
 
 h2 {
@@ -233,6 +233,28 @@ footer {
   .radioButtonList tr:first-child {
      display: table-cell;
                   }
+
+
+
+  /* ---------------------------------SELECT NAIT COURSE-------------------------------- */
+
+  .inner-rpt-div {
+      display: inline-block;
+      float: left;
+      margin: 10px;
+      background-color: #1363a8;
+      color: #ebf3f9;
+      padding: 5px 15px;
+      width: 220px;
+  }
+
+  .inner-rpt-div span {
+      display: block;
+  }
+
+
+
+
 /*-----------------------MANAGE NAIT COURSES----------------------*/
 
 .programs-column {
