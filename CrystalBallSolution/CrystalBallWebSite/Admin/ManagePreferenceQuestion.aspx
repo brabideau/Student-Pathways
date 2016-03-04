@@ -46,7 +46,7 @@
                     <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
                 </td>
                 <td>
-                    <asp:TextBox ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
+                    <asp:Label ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
                 </td>
                 <td>
                     <asp:TextBox ID="DescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
