@@ -47,20 +47,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>--%>
-                    
+                    <a href="http://www.nait.ca/">
+                    <img src="/images/nait-logo-small.png" alt="NAIT logo" class="logo"/>
+                    </a>
                     <ul class="left-menu">
-
-                        <li><img src="/images/nait-logo-small.png" alt="NAIT logo" /></li>
-                        <li><a runat="server" href="~/">Learner Pathways</a></li>
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="~/" class="nav-link">Learner Pathways</a></li>
+                        <li><a runat="server" href="~/About" class="nav-link">About</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="right-menu">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <li><a runat="server" href="~/Account/Register" class="nav-link">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login" class="nav-link">Log in</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>

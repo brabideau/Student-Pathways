@@ -24,14 +24,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: center;
 }
 
-/* Move down content because we have a fixed navbar that is 50px tall */
-/*body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}*/
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -65,6 +57,9 @@ textarea {
     color: #003D7E;
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);    
 }
+
+
+
 
 .button::after {
     content: '';
@@ -123,20 +118,59 @@ textarea {
  }
 /*------------------------- HEADER -----------------------------*/
 
+nav {
+  height: 70px;
+  padding: 0px 90px;
+  background-image: url("../images/navbar-tile.png");
+  background-repeat: repeat-x;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+}
+
+nav .logo {
+    float: left;
+    margin-top: 5px;
+}
 
 nav li {
 	float: left;
 	text-align: center;
 	display: inline-block;
-	margin: 0px 5px;
-    line-height: 70px;	
+    line-height: 30px;	
+    display: block;
+    margin-top: 20px;
+
 }
 
-nav {
-  height: 70px;
-  background-image: url("../images/navbar-tile.png");
-  background-repeat: repeat-x;
-  box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+.nav-link {
+  color: #ebf3f9;
+  text-decoration: none;
+  color: #ebf3f9;
+  padding: 10px;
+
+} 
+
+
+.nav-link:hover,
+.nav-link:focus {
+  font-weight: bold;
+  color: #ebf3f9;
+}
+
+
+.nav-link::after {
+    content: '';
+    display: block;
+    height: 4px;
+    width: 0;
+    margin: 0 auto;
+    background-color: transparent;
+    transition: .25s linear;
+
+}
+
+.nav-link:hover:after {
+    width: 100%;
+    background-color: #ebf3f9;
 }
 
 .navbar-collapse {
@@ -161,34 +195,9 @@ nav .right-menu {
     float: right;
 }
 
-nav > li {
-  position: relative;
-  display: block;
-  height: 40px;
-  padding: 0px 20px;
-
-  color: #ebf3f9;
-}
-
-nav a {
-
-  text-decoration: none;
-  color: #ebf3f9;
-  padding: 10px 15px;
-  border: 2px solid transparent;
-  border-radius: 8px;
-}
 
 
 
-nav a:hover,
-nav a:focus {
-  text-decoration: none;
-  border: 2px solid #ebf3f9;
-  color: #ebf3f9;
-  font-weight: bold;
-  /*background-color: #eeeeee;*/
-}
 
 
 /*----------------------------- BODY ---------------------------------*/
@@ -199,9 +208,10 @@ nav a:focus {
     background-repeat: no-repeat;
     background-size: 50%;
     background-position: 0% 100%;
-    padding: 15px;
-    margin: 60px;
+    padding: 30px;
+    margin: 60px 90px;
     box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+    min-height: 300px;
 }
 
 h1 {
@@ -323,7 +333,7 @@ p {
   /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
   table {
-      margin: 5px 0px;
+      margin: 0 auto;
       font-size: .94em;
       margin-bottom: 15px;
   }

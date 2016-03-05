@@ -13,12 +13,17 @@
             <div runat="server" id="chooseProgram" class="clearfix">
                 <p>Select Program Category: 
         <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true" AppendDataBoundItems="True">
-            <asp:ListItem Selected="True" Value="0">[Select a Program]</asp:ListItem>
+
+            
+            <asp:ListItem Selected="True" Value="0">[Select a Category] </asp:ListItem>
                     </asp:DropDownList>
                     <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
                 </p>
+
                 <p>Select Current Program: 
-        <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID"></asp:DropDownList>
+        <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
+            
+        </asp:DropDownList>
                     <asp:ObjectDataSource ID="GetProgram" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="CategoryDropDown" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
