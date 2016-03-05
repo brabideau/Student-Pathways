@@ -7,10 +7,10 @@
 
 
     <!--Get student's program information-->
-        <div runat="server" id="stepOne" visible="true" class="centered">
+        <div runat="server" id="stepOne" visible="true" class="center clearfix">
             <p>Are you a current NAIT student?<asp:CheckBox ID="CurrentStudent" runat="server" OnCheckedChanged="CurrentStudent_CheckedChanged" autopostback="true" Checked="true"/></p>
             
-            <div runat="server" id="chooseProgram">
+            <div runat="server" id="chooseProgram" class="clearfix">
                 <p>Select Program Category: 
         <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true" AppendDataBoundItems="True">
             <asp:ListItem Selected="True" Value="0">[Select a Program]</asp:ListItem>

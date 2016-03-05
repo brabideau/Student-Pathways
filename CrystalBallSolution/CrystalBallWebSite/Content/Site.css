@@ -51,7 +51,77 @@ textarea {
     }
 }
 
-/*-------------------------HEADER -----------------------------*/
+
+/* ------------------------------------- BUTTONS --------------------------------- */
+
+.button {
+    display: block;
+    width: 90px;
+    height: 40px;
+    background-color: #ffffff;
+    line-height: 40px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #003D7E;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);    
+}
+
+.button::after {
+    content: '';
+    display: block;
+    height: 4px;
+    width: 0;
+    background-color: transparent;
+    transition: .3s linear;
+}
+
+.button:hover {
+    background-color: #ebf3f9;
+}
+
+.button:hover:after {
+    background-color: #1363a8;
+    width: 100%;
+}
+
+.next {
+    float: right;
+}
+
+.next:hover:after {
+    width: 100%;
+    
+}
+
+
+.submit {
+    margin: 0 auto;
+}
+
+
+.submit:after {
+    margin: 0 auto;
+}
+
+
+.back {
+    float: left;
+}
+
+
+.back:after {
+    margin-left: 100%;
+}
+
+
+.back:hover:after {
+      margin-left: 0px;
+}
+
+ .listview-buttons {
+
+ }
+/*------------------------- HEADER -----------------------------*/
 
 
 nav li {
@@ -174,7 +244,7 @@ p {
       color: #1363a8;
   }
 
-  input[type="submit"] {
+  /*input[type="submit"] {
       border: 1px solid #ffffff;
       border-radius: 5px;
       background-color: #ffffff;
@@ -186,7 +256,7 @@ p {
       border-radius: 5px;
       background-color: #e5f2ff;
       padding: 3px 8px;
-  }
+  }*/
 
 
 
@@ -224,7 +294,7 @@ p {
             -moz-box-shadow:    4px 4px 5px 0px rgba(0, 0, 0, 0.75);
             box-shadow:         4px 4px 5px 0px rgba(0, 0, 0, 0.75);
             text-align:center;
-
+            transition: box-shadow .15s linear;
         }
 
 
@@ -232,6 +302,7 @@ p {
             line-height: 280px;
             vertical-align: middle;
             width: 80%;
+            transition: width .15s linear;
         }
         
 
