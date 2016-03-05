@@ -12,7 +12,7 @@
  
                     <h2>Nait Student</h2>
                     <p>
-                        Choosing this option will allow NAIT Student to start building a profile, giving students calculated suggestions as to what academic programs they can take or translate.
+                        Answer some quick questions and find the perfect program for you!
                     </p>   
         </div>
 
@@ -22,7 +22,7 @@
 
                 <h2>Administrator</h2>
                 <p>
-                    Choosing this option will take new Student to our category search, and find the program they're looking for.
+                    Log in to access administrator options.
                 </p>
                 
         </div>

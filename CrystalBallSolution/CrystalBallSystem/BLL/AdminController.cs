@@ -291,9 +291,7 @@ namespace CrystalBallSystem.BLL
         #region requirement
 
         #endregion
-        #region report
 
-        #endregion
         #region Preference Questions
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]

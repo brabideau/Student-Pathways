@@ -23,6 +23,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         int? programCategoryID, programID, programChange, semester;
         StudentController sysmgr = new StudentController();
+        int tempInt;
         //gather the question ids and answer values for each value on the page and send it
         //to the database for evaluation (packaged with the initial questions)
         //hide previous steps and do requisite computations to get results
@@ -31,20 +32,21 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         //step 1 - program information - metrics gather stuff - use program and semester to pull back courses - use method in student controller (prefill courses)
 
         //add exception handling for program stream not being selected - also have category auto refresh based on first value in the category DDL
-        if (CurrentStudent.Checked == false)
-        {
-            programCategoryID = null;
-            programID = null;
-            programChange = null;
-            semester = null;
-        }
-        else
+        if (CurrentStudent.Checked == true && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
         {
             programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
             programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
             programChange = Convert.ToInt32(ChangeProgram.Checked);
             semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
         }
+        else
+        {
+            programCategoryID = null;
+            programID = null;
+            programChange = null;
+            semester = null;
+        }
+        
         //step 2 - preference questions
         List<StudentPreference> myPreferences = new List<StudentPreference>();
         foreach (GridViewRow row in PrefQuestions.Rows)
@@ -104,7 +106,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         int semester;
         bool switchProgram;
 
-        if (CurrentStudent.Checked == true)
+        if (CurrentStudent.Checked == true && int.TryParse(ProgramDropDown.SelectedValue, out programid) && int.TryParse(SemesterDropDown.SelectedValue, out semester))
         {
             programid = int.Parse(ProgramDropDown.SelectedValue);
             semester = int.Parse(SemesterDropDown.SelectedValue);

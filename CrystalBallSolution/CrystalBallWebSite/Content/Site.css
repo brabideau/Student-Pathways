@@ -48,8 +48,8 @@ textarea {
 
 .button {
     display: block;
-    width: 90px;
     height: 40px;
+    width: 100px;
     background-color: #ffffff;
     line-height: 40px;
     font-size: 1.2em;
@@ -85,7 +85,6 @@ textarea {
 
 .next:hover:after {
     width: 100%;
-    
 }
 
 
@@ -114,8 +113,12 @@ textarea {
 }
 
  .listview-buttons {
-
+     border: 2px outset #4087c4;
+     border-radius: 8px;
+     background-color: #dae8fa;
  }
+
+
 /*------------------------- HEADER -----------------------------*/
 
 nav {
@@ -129,38 +132,36 @@ nav {
 nav .logo {
     float: left;
     margin-top: 5px;
+    margin-right: 15px;
 }
 
 nav li {
 	float: left;
 	text-align: center;
-	display: inline-block;
-    line-height: 30px;	
-    display: block;
-    margin-top: 20px;
-
+    margin-top: 18px;
 }
 
 .nav-link {
+  display: block;
   color: #ebf3f9;
   text-decoration: none;
   color: #ebf3f9;
-  padding: 10px;
-
+  padding: 0px 10px;
+  line-height: 30px;	
 } 
 
 
 .nav-link:hover,
 .nav-link:focus {
-  font-weight: bold;
   color: #ebf3f9;
+  background-color: rgba(235,243,249,.25);
 }
 
 
-.nav-link::after {
+nav li::after, nav li::before {
     content: '';
     display: block;
-    height: 4px;
+    height: 2px;
     width: 0;
     margin: 0 auto;
     background-color: transparent;
@@ -168,7 +169,7 @@ nav li {
 
 }
 
-.nav-link:hover:after {
+nav li:hover:after, nav li:hover:before {
     width: 100%;
     background-color: #ebf3f9;
 }
@@ -203,7 +204,7 @@ nav .right-menu {
 /*----------------------------- BODY ---------------------------------*/
 
 .body-content {
-    background-color: rgba(255,255,255,.9);
+    background-color: rgba(255,255,255,.85);
     background-image: url("../images/corner-starburst.svg");
     background-repeat: no-repeat;
     background-size: 50%;
@@ -336,6 +337,7 @@ p {
       margin: 0 auto;
       font-size: .94em;
       margin-bottom: 15px;
+      text-align: center;
   }
 
   td {

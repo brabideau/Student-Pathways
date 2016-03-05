@@ -3,13 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <div runat="server" align="center">
     <h1>Manage Program</h1>
-    <div>
-        <table style="width: 70%; margin:5px">
-            <tr>
-                <td align="center">
+    <div class="search-bar">
+        
                     <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
-                </td>
-                <td>
+                
                     <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategoryList" 
                                       DataTextField="CategoryDescription" 
@@ -18,12 +15,9 @@
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                     </asp:DropDownList>
 
-                </td>
-                <td>
+               
                     <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
-                </td>
-            </tr>
-        </table>
+        </div>
 
         <asp:ListView ID="ProgramListView" runat="server" 
                       align="center" 
@@ -35,14 +29,14 @@
                       OnItemUpdating="ProgramListView_ItemUpdating" 
                       OnItemInserting="ProgramListView_ItemInserting">
             <AlternatingItemTemplate>
-                <tr <%--style="background-color:#efefef; color: #284775; align-content:center"--%>>
+                <tr>
                     <td>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons" />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="CredentialTypeIDLabel" runat="server" Text='<%# Eval("CredentialTypeID") %>' />
                     </td>
                     <td>
@@ -51,13 +45,13 @@
                     <td>
                         <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="TotalCreditsLabel" runat="server" Text='<%# Eval("TotalCredits") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="ProgramLengthLabel" runat="server" Text='<%# Eval("ProgramLength") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="CompetitiveAdvantageLabel" runat="server" Text='<%# Eval("CompetitiveAdvantage") %>' />
                     </td>
                     <td>
@@ -249,14 +243,14 @@
                             </tr>
                         </InsertItemTemplate>
             <ItemTemplate>
-                <tr style=" ">
+                <tr>
                     <td>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-button" />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="CredentialTypeIDLabel" runat="server" Text='<%# Eval("CredentialTypeID") %>' />
                     </td>
                     <td>
@@ -265,13 +259,13 @@
                     <td>
                         <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="TotalCreditsLabel" runat="server" Text='<%# Eval("TotalCredits") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="ProgramLengthLabel" runat="server" Text='<%# Eval("ProgramLength") %>' />
                     </td>
-                    <td align="center">
+                    <td>
                         <asp:Label ID="CompetitiveAdvantageLabel" runat="server" Text='<%# Eval("CompetitiveAdvantage") %>' />
                     </td>
                     <td>
@@ -310,7 +304,7 @@
                         </td>
                     </tr>
                     <tr runat="server">
-                        <td runat="server" align="center"> <%--style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;"--%>
+                        <td runat="server">
                             <asp:DataPager ID="DataPager1" runat="server">
                                 <Fields>
                                     <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
