@@ -280,7 +280,7 @@
                 <table runat="server">
                     <tr runat="server">
                         <td runat="server">
-                            <table id="itemPlaceholderContainer" runat="server" border="0" class="table align-fix">
+                            <table id="itemPlaceholderContainer" runat="server">
                                 <tr runat="server" style="">
                                     <th runat="server"></th>
                                     <th runat="server">ProgramID</th>

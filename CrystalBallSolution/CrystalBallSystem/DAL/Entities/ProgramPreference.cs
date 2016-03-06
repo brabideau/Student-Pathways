@@ -26,6 +26,8 @@ namespace CrystalBallSystem.DAL.Entities
         public virtual PreferenceQuestion PreferenceQuestion { get; set; }
 
         public virtual Program Program { get; set; }
+
+
     }
 
 }

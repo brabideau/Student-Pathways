@@ -7,7 +7,7 @@
 
         <div class="center home-col">
             <div class="circle-button">
-                <a href="User/UserMenuCategory.aspx"><img src="images/nait-student5.png" alt="learner pathway" /> </a>
+                <a href="Student/StudentPreferences"><img src="images/nait-student5.png" alt="learner pathway" /> </a>
              </div>
  
                     <h2>Nait Student</h2>

@@ -24,6 +24,9 @@ namespace CrystalBallSystem.DAL.Entities
         public string Description { get; set; }
 
         public virtual ICollection<ProgramPreference> ProgramPreferences { get; set; }
+
+        public virtual ICollection<CurrentStudentData> CurrentStudentDatas { get; set; }
+        public virtual ICollection<NewStudentData> NewStudentDatas { get; set; }
         
     }
 }

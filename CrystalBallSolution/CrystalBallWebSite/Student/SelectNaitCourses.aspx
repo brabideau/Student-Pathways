@@ -76,8 +76,8 @@
      
         <hr />
 
-        <asp:Button ID="Next" runat="server" Text="Next" OnClick="Next_Click" CssClass="button next" />
-  
+        <asp:LinkButton ID="Next" runat="server" OnClick="Next_Click" CssClass="button next" >Next</asp:LinkButton>
+
 
         <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="NaitCourseODB" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">

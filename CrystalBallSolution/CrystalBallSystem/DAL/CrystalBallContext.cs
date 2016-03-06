@@ -28,6 +28,8 @@ namespace CrystalBallSystem.DAL
         public virtual DbSet<ProgramCourse> ProgramCourses { get; set; }
         public virtual DbSet<CourseEquivalency> CourseEquivalencies { get; set; }
         public virtual DbSet<DegreeEntranceRequirement> DegreeEntranceRequirements { get; set; }
+        public virtual DbSet<NewStudentData> NewStudentDatas { get; set; }
+        public virtual DbSet<CurrentStudentData> CurrentStudentDatas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

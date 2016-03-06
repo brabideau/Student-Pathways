@@ -9,6 +9,7 @@ body {
   background-attachment: fixed;
   font-family: Helvetica, Arial, sans-serif;
   height: 100%;
+  line-height: 1.2em;
 }
 
 
@@ -112,11 +113,36 @@ textarea {
       margin-left: 0px;
 }
 
- .listview-buttons {
-     border: 2px outset #4087c4;
-     border-radius: 8px;
-     background-color: #dae8fa;
- }
+/*.listview-buttons  {
+    width: 60px;
+    height: 25px;
+    border: none;
+    background: url(images/listview-button.png) no-repeat top;
+}*/
+
+
+   /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
+
+  table {
+      margin: 0 auto;
+      font-size: .94em;
+      margin-bottom: 15px;
+      text-align: center;
+  }
+
+  td {
+      padding: 3px 10px;
+  }
+
+  th {
+      padding: 5px 10px;
+      font-family: 'Coda', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+  }
+
+  .table tr:hover {
+      background-color: rgba(80, 153, 216, .2);
+  }
 
 
 /*------------------------- HEADER -----------------------------*/
@@ -172,6 +198,7 @@ nav li::after, nav li::before {
 nav li:hover:after, nav li:hover:before {
     width: 100%;
     background-color: #ebf3f9;
+    color: #
 }
 
 .navbar-collapse {
@@ -243,6 +270,7 @@ p {
 
 .search-bar {
     text-align: center;
+    margin: 20px 0px;
 }
 
   a {
@@ -301,9 +329,9 @@ p {
             line-height: 280px;
             background: rgba(255, 255, 255, 0.75);
             margin: 0 auto;
-            -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow:    4px 4px 5px 0px rgba(0, 0, 0, 0.75);
-            box-shadow:         4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+            -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow:    4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+            box-shadow:         4px 4px 5px 0px rgba(0, 0, 0, 0.3);
             text-align:center;
             transition: box-shadow .15s linear;
         }
@@ -331,24 +359,7 @@ p {
 
 
 
-  /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
-  table {
-      margin: 0 auto;
-      font-size: .94em;
-      margin-bottom: 15px;
-      text-align: center;
-  }
-
-  td {
-      padding: 3px 10px;
-  }
-
-  th {
-      padding: 5px 10px;
-      font-family: 'Coda', Helvetica, Arial, sans-serif;
-      font-weight: bold;
-  }
 
 /*----------------------  FOOTER  -------------------*/
 

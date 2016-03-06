@@ -61,10 +61,12 @@
     <Compile Include="DAL\CrystalBallContext.cs" />
     <Compile Include="DAL\Entities\CourseEquivalency.cs" />
     <Compile Include="DAL\Entities\CredentialType.cs" />
+    <Compile Include="DAL\Entities\CurrentStudentData.cs" />
     <Compile Include="DAL\Entities\DegreeEntranceRequirement.cs" />
     <Compile Include="DAL\Entities\EntranceRequirement.cs" />
     <Compile Include="DAL\Entities\HighSchoolCours.cs" />
     <Compile Include="DAL\Entities\NaitCours.cs" />
+    <Compile Include="DAL\Entities\NewStudentData.cs" />
     <Compile Include="DAL\Entities\PreferenceQuestion.cs" />
     <Compile Include="DAL\Entities\Program.cs" />
     <Compile Include="DAL\Entities\ProgramCourse.cs" />
@@ -78,11 +80,13 @@
     <Compile Include="DAL\POCOs\GetPreferenceQuestions.cs" />
     <Compile Include="DAL\POCOs\GetProgramList.cs" />
     <Compile Include="DAL\POCOs\NAITCourse.cs" />
+    <Compile Include="DAL\POCOs\StudentPreferenceSummary.cs" />
     <Compile Include="DAL\POCOs\ProgramNameID.cs" />
     <Compile Include="DAL\POCOs\ProgramResult.cs" />
     <Compile Include="DAL\POCOs\ProgramSummary.cs" />
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="DAL\POCOs\StudentPreference.cs" />
+    <Compile Include="DAL\POCOs\StudentsDroppingSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
