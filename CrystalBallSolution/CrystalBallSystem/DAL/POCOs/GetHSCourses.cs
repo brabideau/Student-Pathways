@@ -10,5 +10,7 @@ namespace CrystalBallSystem.DAL.POCOs
     {
         public int HighSchoolCourseID { get; set; }
         public string HighSchoolCourseDescription { get; set; }
+        public string HighSchoolCourseGroup { get; set; }
+        public bool HighSchoolHighestCourse { get; set; }
     }
 }

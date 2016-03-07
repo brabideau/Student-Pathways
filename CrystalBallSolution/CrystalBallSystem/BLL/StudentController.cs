@@ -45,11 +45,25 @@ namespace CrystalBallSystem.BLL
                               select new GetHSCourses
                               {
                                   HighSchoolCourseID = course.HighSchoolCourseID,
-                                  HighSchoolCourseDescription = course.HighSchoolCourseName
+                                  HighSchoolCourseDescription = course.HighSchoolCourseName,
+                                  HighSchoolCourseGroup = course.CourseGroup,
+                                  HighSchoolHighestCourse = course.Highest
                               };
                 return results.ToList();
             }
         }
+        /*
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public int[] GetHSCourseIDs()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from course in context.HighSchoolCourses
+                              select course.HighSchoolCourseID;
+                return results.ToArray();
+            }
+        }
+         */
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int GetEntranceList(int courseID, int mark)
         {
@@ -73,6 +87,27 @@ namespace CrystalBallSystem.BLL
                 
             }
 
+        }
+        //method returns the list of course ids in a given category
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public int[] GetParentCategory(int courseCode)
+        {
+            List<int> returnArray = new List<int>();
+            using (var context = new CrystalBallContext())
+            {
+                string results = (from program in context.HighSchoolCourses
+                              where program.HighSchoolCourseID == courseCode
+                              select program.CourseGroup).FirstOrDefault();
+
+                var returnArrayTemp = from x in context.HighSchoolCourses
+                                  where x.CourseGroup == results
+                                  select x.HighSchoolCourseID;
+                foreach(int item in returnArrayTemp)
+                {
+                    returnArray.Add(item);
+                }
+                return returnArray.ToArray();
+            }
         }
 
         #region preference questions
