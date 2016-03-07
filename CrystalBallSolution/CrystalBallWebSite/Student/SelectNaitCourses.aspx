@@ -25,6 +25,7 @@
 
         <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
             CssClass="Gridview" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
+            
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
                     <ItemTemplate>
@@ -56,10 +57,12 @@
                 <asp:BoundField DataField="CourseCredits" HeaderText="CourseCredits" SortExpression="CourseCredits" />--%>
                 <asp:CommandField ShowSelectButton="True" />
             </Columns>
+           
             <EmptyDataTemplate>
                 No data found.
 
             </EmptyDataTemplate>
+            <PagerSettings FirstPageText="First" LastPageText="Last" Mode="NumericFirstLast" NextPageText="--&gt;" PageButtonCount="5" PreviousPageText="&lt;--" />
         </asp:GridView>
 
     <div class ="rpt_div clearfix">
