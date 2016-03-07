@@ -198,10 +198,10 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:Button ID="InsertButton" CommandName="Insert" runat="server" Text="Save" CssClass="admin_button" >
-                                                    </asp:Button>
-                                                    <asp:Button ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button">
-                                                    </asp:Button>
+                                                    <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" CssClass="admin_button" >
+                                                    </asp:LinkButton>
+                                                    <asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button">
+                                                    </asp:LinkButton>
                                                 </td>
                                             </tr>
                                         </tbody>
