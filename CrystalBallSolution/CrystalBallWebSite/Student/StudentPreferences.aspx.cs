@@ -9,86 +9,8 @@ using System.Web.UI.WebControls;
 
 public partial class Student_StudentPreferences : System.Web.UI.Page
 {
-    /*
-    protected override object SaveViewState()
-    {
-        // create object array for Item count + 1
-        object[] allStates = new object[this.Items.Count + 1];
-
-        // the +1 is to hold the base info
-        object baseState = base.SaveViewState();
-        allStates[0] = baseState;
-
-        Int32 i = 1;
-        // now loop through and save each Style attribute for the List
-        foreach (ListItem li in this.Items)
-        {
-            Int32 j = 0;
-            string[][] attributes = new string[li.Attributes.Count][];
-            foreach (string attribute in li.Attributes.Keys)
-            {
-                attributes[j++] = new string[] { attribute, li.Attributes[attribute] };
-            }
-            allStates[i++] = attributes;
-        }
-        return allStates;
-    }
-
-    protected override void LoadViewState(object savedState)
-    {
-        if (savedState != null)
-        {
-            object[] myState = (object[])savedState;
-
-            // restore base first
-            if (myState[0] != null)
-                base.LoadViewState(myState[0]);
-
-            Int32 i = 1;
-            foreach (ListItem li in this.Items)
-            {
-                // loop through and restore each style attribute
-                foreach (string[] attribute in (string[][])myState[i++])
-                {
-                    li.Attributes[attribute[0]] = attribute[1];
-                }
-            }
-        }
-    }
-     */
     protected void Page_Load(object sender, EventArgs e)
     {
-        //on page load access the controller and pull the courseid, coursename, category, and highestCategory
-        //loop through each value and bind to the check box list using custom attributes
-        /*
-        StudentController sysmgr = new StudentController();
-        List<GetHSCourses> hsCourses = new List<GetHSCourses>();
-        var courseList = new ListItem();
-        hsCourses = sysmgr.GetCourseList();
-        CB_CourseList.DataSource = hsCourses;
-        CB_CourseList.DataBind();
-        //reference page for forcing attributes on ListItems http://aspnet.4guysfromrolla.com/articles/110205-1.aspx
-        //http://stackoverflow.com/questions/1313447/listitems-attributes-in-a-dropdownlist-are-lost-on-postback
-        ListItem test = new ListItem("test");
-        foreach(ListItem item in CB_CourseList.Items)
-        {
-            courseList.Attributes.Add("test", "test");
-        }
-         */
-        /*foreach (GetHSCourses item in hsCourses)
-        {
-            //look for highestCategory and append that value to that particular checkbox
-            foreach (ListItem list in CB_CourseList.Items)
-            {
-                if (list.Value == item.HighSchoolCourseID.ToString() && item.HighSchoolHighestCourse == true)
-                {
-                    list.Attributes.Add("highest", "1");
-                }
-            }
-        }*/
-
-
-
 
     }
     protected void Submit_Click(object sender, EventArgs e)
@@ -137,40 +59,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         //**ATTEMPT TO ADD FUNCTIONALITY TO AUTO CHECK PREVIOUS COURSES IF A HIGHER LEVEL COURSE IS SELECTED**
         List<int> hsCourses = new List<int>();
         List<GetHSCourses> courseList = new List<GetHSCourses>();
-        courseList = sysmgr.GetCourseList();
-        /* TEST CODE
-        foreach (GetHSCourses testItem in test)
-        {
-            foreach (ListItem item in CB_CourseList.Items)
-            {
-                if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
-                {
-         * //add a variable to capture the the parent category
-         * //eg. int[] childCourses = sysmgr.GetParentCategory();
-         * //create a list that will contain the id's of courses that are part of parent category
-         * //eg. List<int> courseCodes = new List<int>();
-         * // int[] childCourses = sysmgr.GetParentCategory();
-         * //collect all the courseCodes of a given category and then add them to the HSCourseList
-                    hsCourses.Add(Convert.ToInt32(item.Value));
-                    foreach (ListItem demo in CB_CourseList.Items)
-                    {
-                        //if the current iteration falls on a checkbox that is part of the parent group
-                        //add it to the list
-                        //most likely need to achieve this in linq
-                        if (demo.Selected == false && )
-                        {
-
-                        }
-                    }
-                }
-            }
-        }
-         */
-        /*
-         GetParent simply returns the parent category for a given coursecode
-         * 
-         */
-        
+        courseList = sysmgr.GetCourseList();        
 
         //NEW TESTING CODE
         foreach (GetHSCourses testItem in courseList)
