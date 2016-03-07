@@ -50,6 +50,7 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
         AdminController sysmgr = new AdminController();
         string courseCode = EmptyCurrentTextBox.Text;
         NAITCourse courseInfo = sysmgr.GetCourseName(courseCode);
+        //if 
         CurrentCourseName.Text = courseInfo.CourseName;
         CurrentCourseID.Text = courseInfo.CourseID.ToString();
 

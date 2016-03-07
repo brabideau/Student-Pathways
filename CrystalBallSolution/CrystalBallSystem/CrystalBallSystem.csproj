@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\AdminController.cs" />
-    <Compile Include="BLL\AshleyTestController.cs" />
     <Compile Include="BLL\ReportController.cs" />
     <Compile Include="BLL\SelectNaitCourseController.cs" />
     <Compile Include="BLL\StudentController.cs" />

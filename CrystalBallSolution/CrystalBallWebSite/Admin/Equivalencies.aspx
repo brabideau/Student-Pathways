@@ -69,7 +69,7 @@
         <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
         <br />
         <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button" />
-        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button"/>
+        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button" Enabled="false"/>
     </div>
 
     <asp:ObjectDataSource ID="CategoryODS" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
