@@ -11,6 +11,7 @@
                               DataTextField="ProgramName" 
                               DataValueField="ProgramID"
                               AppendDataBoundItems="True" >
+                <%--<asp:ListItem  Value=-1 Text="[---------------]" />--%>
                 <asp:ListItem  Value=0 Text="[Select All]" />
 
             </asp:DropDownList>
