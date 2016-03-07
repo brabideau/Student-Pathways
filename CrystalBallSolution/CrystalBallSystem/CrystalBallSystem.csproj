@@ -71,7 +71,6 @@
     <Compile Include="DAL\Entities\Program.cs" />
     <Compile Include="DAL\Entities\ProgramCourse.cs" />
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
-    <Compile Include="DAL\Entities\ReportingData.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetCredentials.cs" />
     <Compile Include="DAL\POCOs\GetEquivalencies.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="DAL\POCOs\StudentPreferenceSummary.cs" />
     <Compile Include="DAL\POCOs\ProgramNameID.cs" />
     <Compile Include="DAL\POCOs\ProgramResult.cs" />
-    <Compile Include="DAL\POCOs\ProgramSummary.cs" />
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="DAL\POCOs\StudentPreference.cs" />
     <Compile Include="DAL\POCOs\StudentsDroppingSummary.cs" />

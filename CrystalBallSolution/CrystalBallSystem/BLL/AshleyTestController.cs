@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CrystalBallSystem.BLL
 {
+    /*
     [DataObject]
     public class AshleyTestController
     {
@@ -338,4 +339,5 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
     }
+     * */
 }

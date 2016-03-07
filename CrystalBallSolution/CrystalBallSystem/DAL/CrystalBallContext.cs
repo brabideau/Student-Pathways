@@ -22,7 +22,6 @@ namespace CrystalBallSystem.DAL
         public virtual DbSet<NaitCours> NaitCourses { get; set; }
         public virtual DbSet<PreferenceQuestion> PreferenceQuestions { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
-        public virtual DbSet<ReportingData> ReportingData { get; set; }
         public virtual DbSet<SubjectRequirement> SubjectRequirements { get; set; }
         public virtual DbSet<ProgramPreference> ProgramPreferences { get; set; }
         public virtual DbSet<ProgramCourse> ProgramCourses { get; set; }
