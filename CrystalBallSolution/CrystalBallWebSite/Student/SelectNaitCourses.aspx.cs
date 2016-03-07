@@ -114,5 +114,19 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         Session["CoursesSelected"] = CoursesSelected;
         Response.Redirect("../Student/testpage.aspx");
     }
+
+
+    protected void rptCourse_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        int courserId = Convert.ToInt32(e.CommandArgument);
+        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
+        {
+            CoursesSelected.Rows.Find(courserId).Delete();
+            rptCourse.DataSource = CoursesSelected;
+            rptCourse.DataBind();
+        }
+
+    }
 }
 //problem feed back not using ispostback so that everytime it creat a new datatable

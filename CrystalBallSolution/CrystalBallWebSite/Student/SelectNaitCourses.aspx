@@ -62,17 +62,17 @@
         </asp:GridView>
 
     <div class ="rpt_div clearfix">
-        <asp:Repeater ID="rptCourse" runat="server" >
+        <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
         <ItemTemplate>    
             <div class="inner-rpt-div">
-                <span>Course code: <%# Eval("CourseCode") %></span>
-                <span>Course credit: <%# Eval("CourseCredits") %></span>
-                <span><asp:Button ID="Delete" runat="server" Text="Delete" /> </span>
+                <span><%# Eval("CourseCode") %></span>
+                <span>credit: <%# Eval("CourseCredits") %></span>
+                <span><asp:Button ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>' Text="Delete" /></span>
             </div>      
         </ItemTemplate>
         </asp:Repeater>
     </div>
-
+    
      
         <hr />
 
