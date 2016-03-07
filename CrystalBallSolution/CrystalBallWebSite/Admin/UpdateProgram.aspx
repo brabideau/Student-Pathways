@@ -4,20 +4,26 @@
     <div runat="server" align="center">
     <h1>Manage Program</h1>
     <div class="search-bar">
-        
-                    <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
+        <table style="width: 60%">
+                <tr>
+                    <td style="width:70%">
+                        <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
                 
-                    <asp:DropDownList ID="CategoryDropdownList" runat="server" 
-                                      DataSourceID="ODSCategoryList" 
-                                      DataTextField="CategoryDescription" 
-                                      DataValueField="CategoryID"
-                                      AppendDataBoundItems="true">
-                        <asp:ListItem Value="0">[Select Category]</asp:ListItem>
-                    </asp:DropDownList>
-
-               
-                    <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click">Search</asp:LinkButton>
-        </div>
+                        <asp:DropDownList ID="CategoryDropdownList" runat="server" 
+                                          DataSourceID="ODSCategoryList" 
+                                          DataTextField="CategoryDescription" 
+                                          DataValueField="CategoryID"
+                                          AppendDataBoundItems="true">
+                            <asp:ListItem Value="0">[Select Category]</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td>
+                        <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
+                    </td>
+                </tr>
+       </table>
+                                                     
+   </div>
 
         <asp:ListView ID="ProgramListView" runat="server" 
                       align="center" 
@@ -31,10 +37,7 @@
             <AlternatingItemTemplate>
                 <tr>
                     <td>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons" />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' />
+                        <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                     </td>
                     <td>
                         <asp:Label ID="CredentialTypeIDLabel" runat="server" Text='<%# Eval("CredentialTypeID") %>' />
@@ -68,7 +71,7 @@
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <th style="visibility:hidden">
+                                                <th>
                                                     ProgramID: 
                                                 </th>
                                                 <td>
@@ -140,8 +143,8 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                                                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                                                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                                                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button" />
                                                 </td>
                                             </tr>
                                   </tbody>
@@ -233,8 +236,8 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" ></asp:LinkButton>
-                                                    <asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel"></asp:LinkButton>
+                                                    <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" CssClass="admin_button" ></asp:LinkButton>
+                                                    <asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button"></asp:LinkButton>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -245,10 +248,7 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-button" />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' />
+                        <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                     </td>
                     <td>
                         <asp:Label ID="CredentialTypeIDLabel" runat="server" Text='<%# Eval("CredentialTypeID") %>' />
@@ -283,7 +283,6 @@
                             <table id="itemPlaceholderContainer" runat="server">
                                 <tr runat="server" style="">
                                     <th runat="server"></th>
-                                    <th runat="server">ProgramID</th>
                                     <th runat="server">Credential TypeID</th>
                                     <th runat="server">Program Name</th>
                                     <th runat="server">Entrance Requirement</th>
@@ -298,10 +297,14 @@
                             </table>
                         </td>
                     </tr>
+     
                     <tr runat="server">
-                        <td runat="server" style="text-align:left">
-                            <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click"></asp:LinkButton>
-                        </td>
+                        <td runat="server" style="text-align:center">
+                            <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click" CssClass="admin_button2"></asp:LinkButton>
+                        </td>    
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
                     </tr>
                     <tr runat="server">
                         <td runat="server">
@@ -355,10 +358,8 @@
         <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
         
         
-        <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-        
+        <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>      
         
      </div>
-</div>
 </asp:Content>
 

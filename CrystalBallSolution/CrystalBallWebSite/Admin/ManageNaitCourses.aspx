@@ -7,17 +7,24 @@
 
         <h1>Manage Nait Courses</h1>
 
-        <div class="search-bar">
-            <asp:DropDownList ID="CategoryDropdownList" runat="server" 
+        <div>
+            <table style="width: 50%">
+                <tr>
+                    <td style="width:50%">
+                        <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
                                       DataTextField="CategoryDescription" 
                                       DataValueField="CategoryID"
                                       AppendDataBoundItems="true">
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
+                        </asp:DropDownList>
+                    </td>
+                    <td>
+                        <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
+                    </td>
+                </tr>
+            </table>                   
         </div>
-
 
         <div class="programs-column">
                 <h4>Programs</h4>
@@ -87,7 +94,7 @@
                                   OnItemInserting="NaitCoursesListViewByProgram_ItemInserting">
                         <AlternatingItemTemplate>
                             <tr>
-                                <td><asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/></td>
+                                <td><asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/></td>
                                 <td><asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' /></td>
                                 <td><asp:Label ID="CourseNameLabel" runat="server" Text='<%# Eval("CourseName") %>' /></td>
                                 <td align="center"><asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' /></td>
@@ -132,8 +139,8 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="button"/>
-                                                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="button"/>
+                                                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                                                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
                                                     
                                                 </td>
                                             </tr>
@@ -147,7 +154,13 @@
                                 <tr>
                                     <td>No data was returned.</td></tr><tr runat="server">
                                     <td runat="server" style="text-align:left">
-                                        <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click"></asp:LinkButton></td></tr></table></EmptyDataTemplate><InsertItemTemplate>
+                                        <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click"></asp:LinkButton>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </EmptyDataTemplate>
+                        <InsertItemTemplate>
                             <tr>
                                 <td colspan="6">
                                     <table>
@@ -185,8 +198,9 @@
                                             <tr>
                                                 <th></th>
                                                 <td>
-                                                    <asp:Button ID="InsertButton" CommandName="Insert" runat="server" Text="Save" >
-                                                    </asp:Button><asp:Button ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel">
+                                                    <asp:Button ID="InsertButton" CommandName="Insert" runat="server" Text="Save" CssClass="admin_button" >
+                                                    </asp:Button>
+                                                    <asp:Button ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button">
                                                     </asp:Button>
                                                 </td>
                                             </tr>
@@ -196,7 +210,7 @@
                             </tr>                                                                                                                                                                                    </InsertItemTemplate><ItemTemplate>
                             <tr>
                                 <td>
-                                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" /></td>
+                                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" /></td>
                                 <td>
                                     <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' /></td>
                                 <td>
@@ -213,14 +227,25 @@
                                         <table id="itemPlaceholderContainer" runat="server">
                                             <tr runat="server" class="listview-heading align-fix">
                                                 <th></th>
-                                                <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th runat="server">Active</th></tr><tr id="itemPlaceholder" runat="server">
+                                                <th runat="server">Course Code</th>
+                                                <th runat="server">Course Name</th>
+                                                <th runat="server">Course Credits</th>
+                                                <th runat="server">Active</th>
+                                            </tr>
+                                            <tr id="itemPlaceholder" runat="server">
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                                 <tr runat="server">
                                     <td runat="server">
-                                        <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click"></asp:LinkButton></td></tr><tr runat="server">
+                                        <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click" CssClass="admin_button2"></asp:LinkButton>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr runat="server">
                                     <td runat="server"> 
                                         <asp:DataPager ID="DataPager1" runat="server" PageSize="10">
                                             <Fields>

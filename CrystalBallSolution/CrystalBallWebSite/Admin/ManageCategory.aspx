@@ -2,11 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Manage Category</h1>
-    <asp:ListView ID="CategoryList" runat="server" DataSourceID="ODSCategoryList" InsertItemPosition="LastItem">
+    <asp:ListView ID="CategoryList" runat="server" DataSourceID="ODSCategoryList" 
+                                                   InsertItemPosition="LastItem" 
+                                                   OnItemUpdating="CategoryList_ItemUpdating">
         <AlternatingItemTemplate>
             <tr>
                 <td>
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                 </td>
                 <td>
                     <asp:Label ID="CategoryDescriptionLabel" runat="server" Text='<%# Eval("CategoryDescription") %>' />
@@ -15,15 +17,49 @@
         </AlternatingItemTemplate>
         <EditItemTemplate>
             <tr>
-                <td>
-                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="listview-buttons"/>
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="listview-buttons"/>
+                <td colspan="2">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    CategroyID:
+                                </th>
+                                <td>
+                                    <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Bind("CategoryID") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Categroy Description:
+                                </th>
+                                <td>
+                                    <asp:TextBox ID="CategoryDescriptionTextBox" runat="server" Text='<%# Bind("CategoryDescription") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </td>
-             
+            </tr>
+                                               
+            <%--<tr>
+                <td>
+                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                </td>
+                <td>
+                    <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Bind("CategoryID") %>' />
+                </td>            
                 <td>
                     <asp:TextBox ID="CategoryDescriptionTextBox" runat="server" Text='<%# Bind("CategoryDescription") %>' />
                 </td>
-            </tr>
+            </tr>--%>
         </EditItemTemplate>
         <EmptyDataTemplate>
             <table runat="server">
@@ -35,8 +71,8 @@
         <InsertItemTemplate>
             <tr style="">
                 <td>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="listview-buttons"/>
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="admin_button2"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="admin_button2"/>
                 </td>
                 <td>
                     <asp:TextBox ID="CategoryDescriptionTextBox" runat="server" Text='<%# Bind("CategoryDescription") %>' />
@@ -46,7 +82,7 @@
         <ItemTemplate>
             <tr>
                 <td>
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                 </td>
                 <td>
                     <asp:Label ID="CategoryDescriptionLabel" runat="server" Text='<%# Eval("CategoryDescription") %>' />

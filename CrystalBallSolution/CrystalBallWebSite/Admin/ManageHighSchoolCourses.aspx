@@ -7,7 +7,7 @@
         <AlternatingItemTemplate>
             <tr>
                 <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                 </td>
                 <td >
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
@@ -16,13 +16,35 @@
         </AlternatingItemTemplate>
         <EditItemTemplate>
             <tr style="">
-                <td>
-                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" class="button"/>
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" class="button" />
-                </td>
-                <td>
-                    <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
-                </td>
+                <td colspan="2">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    High School CourseID:
+                                </th>
+                                <td>
+                                    <asp:Label ID="HighSchoolCourseIDLabel" runat="server" Text='<%# Bind("HighSchoolCourseID") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    High School Course Name:
+                                </th>
+                                <td>
+                                    <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>    
             </tr>
         </EditItemTemplate>
         <EmptyDataTemplate>
@@ -35,8 +57,8 @@
         <InsertItemTemplate>
             <tr>
                 <td>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" class="button"/>
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" class="button"/>
+                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="admin_button2"/>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="admin_button2"/>
                 </td>
                 <td>
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
@@ -46,7 +68,7 @@
         <ItemTemplate>
             <tr>
                 <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" class="button"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                 </td>
                 <td>
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
@@ -83,7 +105,7 @@
         <SelectedItemTemplate>
             <tr ><%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
                 <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" class="button" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                 </td>
                 <td>
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />

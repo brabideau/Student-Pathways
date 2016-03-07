@@ -7,11 +7,8 @@
         <AlternatingItemTemplate>
             <tr >
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="listview-buttons"/>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
-                </td>
-                <td>
-                    <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button"/>
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                 </td>
                 <td>
                     <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
@@ -20,15 +17,34 @@
         </AlternatingItemTemplate>
         <EditItemTemplate>
             <tr>
-                <td>
-                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="button"/>
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="button"/>
-                </td>
-                <td>
-                    <asp:TextBox ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
-                </td>
-                <td>
-                    <asp:TextBox ID="DescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
+                <td colspan="2">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    QuestionID:
+                                </th>
+                                <td>
+                                    <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Bind("QuestionID") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Question Description:
+                                </th>
+                                <td>
+                                    <asp:TextBox ID="QuestionDescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
         </EditItemTemplate>
@@ -42,11 +58,8 @@
         <InsertItemTemplate>
             <tr>
                 <td>
-                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="button"/>
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="button"/>
-                </td>
-                <td>
-                    <asp:Label ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
+                    <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="admin_button2" />
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="admin_button2" />
                 </td>
                 <td>
                     <asp:TextBox ID="DescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
@@ -56,11 +69,8 @@
         <ItemTemplate>
             <tr>
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" />
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
-                </td>
-                <td>
-                    <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                 </td>
                 <td>
                     <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
@@ -74,7 +84,6 @@
                         <table id="itemPlaceholderContainer" runat="server">
                             <tr runat="server">
                                 <th runat="server"></th>
-                                <th runat="server">QuestionID</th>
                                 <th runat="server">Description</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server">
@@ -98,11 +107,8 @@
         <SelectedItemTemplate>
             <tr>  <%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" />
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
-                </td>
-                <td>
-                    <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button" />
+                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                 </td>
                 <td>
                     <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />

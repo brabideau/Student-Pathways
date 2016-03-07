@@ -44,6 +44,7 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
+                
                 return context.CredentialTypes.OrderBy(x => x.CredentialTypeID).ToList();
             }
         }
@@ -64,7 +65,14 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                context.Entry<Category>(context.Categories.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                Category data = new Category()
+                {
+                    CategoryID = item.CategoryID,
+                    CategoryDescription = item.CategoryDescription
+                };
+
+                context.Entry<Category>(context.Categories.Attach(data)).State = System.Data.Entity.EntityState.Modified;
+ 
                 context.SaveChanges();
             }
         }
