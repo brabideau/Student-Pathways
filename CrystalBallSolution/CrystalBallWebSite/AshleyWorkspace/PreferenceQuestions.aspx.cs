@@ -165,46 +165,46 @@ public partial class AshleyWorkspace_PreferenceQuestions : System.Web.UI.Page
     
     protected void Button2_Click(object sender, EventArgs e)
     {
-        List<int> questionIDs = new List<int>();
-        List<bool> questionAnswers = new List<bool>();        
+        //List<int> questionIDs = new List<int>();
+        //List<bool> questionAnswers = new List<bool>();        
 
-        //Test getting correct data
-        MessageUserControl.TryRun(() =>
-        {
-            string y = "";
-            bool check;
-            //int reportid = int.Parse(ReportLabel.Text);
-            AshleyTestController sysmgr = new AshleyTestController();
+        ////Test getting correct data
+        //MessageUserControl.TryRun(() =>
+        //{
+        //    string y = "";
+        //    bool check;
+        //    //int reportid = int.Parse(ReportLabel.Text);
+        //    AdminController sysmgr = new AdminController();
             
-            foreach (GridViewRow row in QuestionGridview.Rows)
-            {
-                var questionID = int.Parse(row.Cells[0].Text);
-                var isChecked = row.FindControl("Check") as CheckBox;
-                check = isChecked.Checked;
-                questionIDs.Add(questionID);
-                questionAnswers.Add(check);
-                //sysmgr.ReportingDataAddQuestionInfo(questionID, check, reportid);
-            }  
+        //    foreach (GridViewRow row in QuestionGridview.Rows)
+        //    {
+        //        var questionID = int.Parse(row.Cells[0].Text);
+        //        var isChecked = row.FindControl("Check") as CheckBox;
+        //        check = isChecked.Checked;
+        //        questionIDs.Add(questionID);
+        //        questionAnswers.Add(check);
+        //        //sysmgr.ReportingDataAddQuestionInfo(questionID, check, reportid);
+        //    }  
 
-            ////test - display results
-            //foreach (int x in questionIDs)
-            //{
-            //    y += x;
-            //}
-            //foreach (bool a in questionAnswers)
-            //{
-            //    z += a;
-            //}
-            //MessageUserControl.ShowInfo(y + z);
+        //    ////test - display results
+        //    //foreach (int x in questionIDs)
+        //    //{
+        //    //    y += x;
+        //    //}
+        //    //foreach (bool a in questionAnswers)
+        //    //{
+        //    //    z += a;
+        //    //}
+        //    //MessageUserControl.ShowInfo(y + z);
             
-            List<int> tally = sysmgr.QuestionTally(questionIDs, questionAnswers);
-            //test - display results
-            foreach (int x in tally)
-            {
-                y += x;
-            }
-            MessageUserControl.ShowInfo(y);
-        });
+        //    List<int> tally = sysmgr.QuestionTally(questionIDs, questionAnswers);
+        //    //test - display results
+        //    foreach (int x in tally)
+        //    {
+        //        y += x;
+        //    }
+        //    MessageUserControl.ShowInfo(y);
+        //});
 
 
     }

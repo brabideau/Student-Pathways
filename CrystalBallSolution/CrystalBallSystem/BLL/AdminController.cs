@@ -342,5 +342,58 @@ namespace CrystalBallSystem.BLL
 
 
         #endregion
+
+        #region Equivalency Page
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<GetEquivalencyNames> GetEquivalencies(int programID, int categoryID)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from ce in context.CourseEquivalencies
+                              from p in context.Programs
+                              from nc in context.NaitCourses
+                              where p.ProgramCourses.Any(pc => pc.CourseID == ce.DestinationCourseID)
+                                    && ce.ProgramID == programID && ce.DestinationCourseID == nc.CourseID
+                              select new GetEquivalencyNames
+                              {
+                                  CourseEquivalencyID = ce.CourseEquivalencyID,
+                                  CourseCode = ce.NaitCourse.CourseCode,
+                                  CourseName = ce.NaitCourse.CourseName,
+                                  DestinationCourseCode = nc.CourseCode,
+                                  DestinationCourseName = nc.CourseName
+                              };
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public NAITCourse GetCourseName(string courseCode)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = (from equivalency in context.NaitCourses
+                               where equivalency.CourseCode == courseCode
+                               select new NAITCourse
+                               {
+                                   CourseID = equivalency.CourseID,
+                                   CourseCode = equivalency.CourseCode,
+                                   CourseName = equivalency.CourseName,
+                                   CourseCredits = equivalency.CourseCredits
+                               }).FirstOrDefault();
+                return results;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddEquivalency(int programID, int courseID, int destinationCourseID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                CourseEquivalency added = null;
+                added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, CourseID = courseID, DestinationCourseID = destinationCourseID });
+                context.SaveChanges();
+            }
+        }
+        #endregion
     }
 }
