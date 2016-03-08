@@ -1,5 +1,15 @@
 ﻿
+/* testing */
+
+.panelClass {
+    visibility: visible;
+    display: inline-block;
+}
+
+
+
 /*---------------------GENERAL STYLING ------------------------*/
+
 
 body {
   margin: 0 auto;
@@ -78,6 +88,11 @@ textarea {
 .button:hover:after {
     background-color: #1363a8;
     width: 100%;
+}
+
+
+.button-long {
+    width: 220px;
 }
 
 .next {

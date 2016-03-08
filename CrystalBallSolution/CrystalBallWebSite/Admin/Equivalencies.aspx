@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Equivalencies.aspx.cs" Inherits="Admin_Equivalencies" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl"%>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl"  Visible="true"/>
     <div runat="server" id="equivalencyInformation">
+        
         <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
         <asp:DropDownList ID="CategoryDropdownList" 
                                 runat="server" 
@@ -48,28 +53,31 @@
                     <ItemTemplate>
                         <asp:Label ID="DestinationCourseName" runat="server" Text='<%# Item.DestinationCourseName %>' />
                     </ItemTemplate>
-                </asp:TemplateField>               
-            </Columns>
+                </asp:TemplateField>                          
+            </Columns>            
             <EmptyDataTemplate>
                 No Existing Equivalencies.
-                <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click" CssClass="button"/>
+                <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click" CssClass="button button-long"/>
             </EmptyDataTemplate>
+                       
         </asp:GridView>    
     </div>
           
     <div runat="server" id="addNewEquivalency" visible="false"  CssClass="add-equivalency-block">
         <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID: "></asp:Label>
-        <asp:TextBox ID="EmptyCurrentTextBox" runat="server"></asp:TextBox>
+        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true">
+             <asp:ListItem Value="-1">[Select Course Code]</asp:ListItem>
+        </asp:DropDownList>
         <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
         <asp:Label ID="CurrentCourseID" runat="server" Visible="false"></asp:Label>
         <br />
-        <asp:Label ID="EmptyEquivalent" runat="server" Text="Equivalent Course ID: "></asp:Label>
+        <asp:Label ID="EmptyEquivalent" runat="server" Text="Equivalent Course Code: "></asp:Label>
         <asp:TextBox ID="EmptyEquivalentTextBox" runat="server"></asp:TextBox>
         <asp:Label ID="EquivalentCourseName" runat="server"></asp:Label>
         <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
         <br />
-        <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button" />
-        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button" Enabled="false"/>
+        <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button button-long" />
+        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button button-long" Enabled="false"/>
     </div>
 
     <asp:ObjectDataSource ID="CategoryODS" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
@@ -78,10 +86,12 @@
             <asp:ControlParameter ControlID="CategoryDropdownList" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="EquivalencyGridODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetEquivalencies" TypeName="CrystalBallSystem.BLL.AshleyTestController">
+
+    <asp:ObjectDataSource ID="EmptyCurrentDropdownODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController">
         <SelectParameters>
             <asp:ControlParameter ControlID="ProgramDropdownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
     </asp:ObjectDataSource>
+
 </asp:Content>
 

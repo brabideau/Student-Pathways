@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\AdminController.cs" />
+    <Compile Include="BLL\EquivalencyController.cs" />
     <Compile Include="BLL\ReportController.cs" />
     <Compile Include="BLL\SelectNaitCourseController.cs" />
     <Compile Include="BLL\StudentController.cs" />
@@ -72,7 +73,6 @@
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetCredentials.cs" />
-    <Compile Include="DAL\POCOs\GetEquivalencies.cs" />
     <Compile Include="DAL\POCOs\GetEquivalencyNames.cs" />
     <Compile Include="DAL\POCOs\GetHSCourses.cs" />
     <Compile Include="DAL\POCOs\GetPreferenceQuestions.cs" />
