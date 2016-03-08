@@ -4,6 +4,8 @@
 .panelClass {
     visibility: visible;
     display: inline-block;
+    background-color: rbga(255,0,0,.4);
+    border: 1px solid #ff0000;
 }
 
 
