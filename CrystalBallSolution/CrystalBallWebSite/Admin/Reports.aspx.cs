@@ -13,10 +13,73 @@ public partial class Admin_Reports : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            List<StudentPreferenceSummary> leftData = new List<StudentPreferenceSummary> { };
+            ViewState["leftData"] = leftData;
+            List<StudentPreferenceSummary> rightData = new List<StudentPreferenceSummary> { };
+            ViewState["rightData"] = rightData;
+        }
     }
 
     protected void Submit_Click(object sender, EventArgs e)
+    {
+       List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)ViewState["leftData"];
+       List<StudentPreferenceSummary> rightData = (List<StudentPreferenceSummary>)ViewState["rightData"];
+        if (((LinkButton)sender).ID == "Search_Left")
+        {
+            leftData = Get_Data();
+            GV_PreferenceSummaries_Left.DataSource = leftData;
+            GV_PreferenceSummaries_Left.DataBind();
+            ViewState["leftData"] = leftData;
+        }
+        else
+        {
+            rightData = Get_Data();
+            GV_PreferenceSummaries_Right.DataSource = rightData;
+            GV_PreferenceSummaries_Right.DataBind();
+            ViewState["rightData"] = rightData;
+        }
+
+        if (leftData != null && rightData != null)
+        {
+            Compare_Results(leftData, rightData);
+        }
+    }
+
+    protected void Compare_Results(List<StudentPreferenceSummary> leftData, List<StudentPreferenceSummary> rightData)
+    {
+        if (leftData.Any() && rightData.Any())
+        {
+            DataTable compareData = new DataTable { };
+            int? diff;
+
+            //DataRow dr = compareData.NewRow();
+
+            compareData.Columns.Add("Difference");
+
+            for (int i = 0; i < leftData.Count; i++ )
+            {
+                if (leftData[i] != null && rightData[i] != null)
+                {
+                    diff = rightData[i].Yes - leftData[i].Yes;
+                }
+                else
+                {
+                    diff = null;
+                }
+
+             //   dr["Difference"] = diff;
+                compareData.Rows.Add(compareData.NewRow()["Difference"] = diff);
+                
+            }
+
+            GV_Compare.DataSource = compareData;
+            GV_Compare.DataBind();
+        }
+    }
+
+    protected List<StudentPreferenceSummary> Get_Data() //object sender, EventArgs e
     {
         DataTable myData = new DataTable();
 
@@ -107,17 +170,9 @@ public partial class Admin_Reports : System.Web.UI.Page
                         row.Delete();
                     }
                 }
-
             }
-
-
         }
-
-        var summaryList = controller.Get_Summary_Data(myData);
-
-        GV_PreferenceSummaries.DataSource = summaryList;
-        GV_PreferenceSummaries.DataBind();
+         var summaryList = controller.Get_Summary_Data(myData);
+        return summaryList;
     }
-
-
 }

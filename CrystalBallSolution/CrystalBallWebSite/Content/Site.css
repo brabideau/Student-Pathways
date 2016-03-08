@@ -39,7 +39,7 @@
 .col-10,
 .col-11,
 .col-12 {
-    display: inline-block;
+    display: block;
     float: left;
     margin: 1.04%
 }
@@ -125,6 +125,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin: .5em 0;
 }
 
+h1, h2, h3, h4 {
+    text-align: center;
+}
+
 .center {
     text-align: center;
 }
@@ -149,47 +153,19 @@ textarea {
     }
 }
 
+  a {
+      text-decoration: none;
+      color: #003D7E;
+      
+  }
+
+  a:hover {
+      color: #1363a8;
+  }
 
 /* ------------------------------------- BUTTONS --------------------------------- */
 
-.button {
-    display: block;
-    height: 40px;
-    width: 100px;
-    margin: 10px;
-    background-color: #ffffff;
-    line-height: 40px;
-    font-size: 1.2em;
-    text-align: center;
-    color: #003D7E;
-    box-shadow: 5px 5px 5px rgba(0,0,0,.2);    
-}
 
-
-
-
-.button::after {
-    content: '';
-    display: block;
-    height: 4px;
-    width: 0;
-    background-color: transparent;
-    transition: .3s linear;
-}
-
-.button:hover {
-    background-color: #ebf3f9;
-}
-
-.button:hover:after {
-    background-color: #1363a8;
-    width: 100%;
-}
-
-
-.button-long {
-    width: 220px;
-}
 
 .next {
     float: right;
@@ -224,12 +200,60 @@ textarea {
       margin-left: 0px;
 }
 
-/*.listview-buttons  {
+.button {
+    display: block;
+    height: 40px;
+    width: 100px;
+  
+    background-color: #ffffff;
+    line-height: 40px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #003D7E;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);    
+}
+
+.button::after {
+    content: '';
+    display: block;
+    height: 4px;
+    width: 0;
+    background-color: transparent;
+    transition: .3s linear;
+}
+
+.button:hover {
+    background-color: #ebf3f9;
+}
+
+.button:hover:after {
+    background-color: #1363a8;
+    width: 100%;
+}
+
+
+.button-long {
+    width: 220px;
+}
+
+
+
+.listview-buttons  {
     width: 60px;
     height: 25px;
-    border: none;
-    background: url(images/listview-button.png) no-repeat top;
-}*/
+    border: 1px solid #bbbbbb;
+    padding: 3px 8px;
+    background: linear-gradient(#ffffff, #cccccc);
+}
+
+.listview-buttons:hover {
+    background: linear-gradient(#e8f3fc, #BED4E6)
+}
+
+.listview-buttons:active  {
+    background: linear-gradient(#0C487A, #3379B5 ) ;
+    color: #ebf3f9;
+}
 
 
    /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
@@ -267,10 +291,22 @@ nav {
   box-shadow: 5px 5px 5px rgba(0,0,0,.2);
 }
 
-nav .logo {
+nav .logo-box {
     float: left;
-    margin-top: 5px;
-    margin-right: 15px;
+    line-height: 70px;
+    vertical-align: middle;
+    width: 60px;
+    text-align: center;
+}
+
+nav .logo {
+    width: 42px;
+    vertical-align: middle;
+    transition: .1s linear;
+}
+
+nav .logo:hover {
+    width: 45px;
 }
 
 nav li {
@@ -385,15 +421,7 @@ p {
     margin: 20px 0px;
 }
 
-  a {
-      text-decoration: none;
-      color: #003D7E;
-      
-  }
 
-  a:hover {
-      color: #1363a8;
-  }
 
   /*input[type="submit"] {
       border: 1px solid #ffffff;
@@ -574,16 +602,23 @@ footer {
 /* ------------------Management Menu -----------------------*/
 
 .admin-menu .col-4 {
-    height: 290px;
+    height: 230px;
+    padding: 20px 0px;
 }
+
+.admin-menu .col-4:hover {
+    background-color: rgba(162,194,219,.4);
+}
+
+
 
 .cat-img {
     height: 200px;
     width: 200px;
     line-height: 200px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-     display: inline-block;
+    display: inline-block;
 }
 
 .cat-img img {

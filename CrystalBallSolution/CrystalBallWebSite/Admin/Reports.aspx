@@ -57,26 +57,31 @@
             <asp:ListItem Text="Yes" Value="1" />
             <asp:ListItem Text="No" Value="0" />
         </asp:DropDownList>
-
-        <asp:LinkButton ID="Search_Button" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
+    </div>
+    <div class="col-6">
+        <asp:LinkButton ID="Search_Left" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
+    </div>
+    <div class="col-6">
+        <asp:LinkButton ID="Search_Right" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
     </div>
  <%----------------------------------- DATA -------------------------------------%>
-
-    <h2>Results</h2>
-    <asp:GridView ID="GV_PreferenceSummaries" runat="server"></asp:GridView>
-
-
+    <div class="col-5">
+        <h3>Results</h3>
+        <asp:GridView ID="GV_PreferenceSummaries_Left" runat="server"></asp:GridView>
+    </div>
+    <div class="col-2">
+        <asp:GridView ID="GV_Compare" runat="server"></asp:GridView>
+    </div>
+    <div class="col-5">
+        <h3>Results</h3>
+        <asp:GridView ID="GV_PreferenceSummaries_Right" runat="server"></asp:GridView>
+    </div>
 
 
 
   <%----------------------------------- ODS -------------------------------------%>
 
     <asp:ObjectDataSource ID="ProgramListDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetPrograms" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
-
-<asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
-<asp:ObjectDataSource ID="ObjectDataSource2" runat="server"></asp:ObjectDataSource>
-<asp:ObjectDataSource ID="ObjectDataSource3" runat="server"></asp:ObjectDataSource>
-<asp:ObjectDataSource ID="ObjectDataSource4" runat="server"></asp:ObjectDataSource>
 
 </asp:Content>
 

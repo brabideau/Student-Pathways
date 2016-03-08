@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrystalBallSystem.DAL.POCOs
 {
+   [Serializable]
     public class StudentPreferenceSummary
     {
         public string Question { get; set; }

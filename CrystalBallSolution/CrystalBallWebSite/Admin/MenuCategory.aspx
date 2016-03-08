@@ -1,60 +1,83 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="MenuCategory.aspx.cs" Inherits="Admin_MenuCategory" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" CssClass="admin-menu">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
    
-
+    <div class="admin-menu">
     
         <div class="col-4 center">
-
-            <div class="cat-img"><a href="ManageCategory.aspx"><img src="../images/managethree.png" alt="Manage Category"> </a>
+            <a href="ManageCategory.aspx">
+            <div class="cat-img"><img src="../images/managethree.png" alt="Manage program categories"> 
             </div>
-            <h5>Manage Category</h5>
+            <h5>Manage Program Categories</h5>
+            </a>
         </div>
 
 
         <div class="col-4 center">
+            <a href="ManageNaitCourses.aspx">
+             <div class="cat-img"><img src="../images/managetwo.png" alt="Manage Nait Courses">   </div> 
 
-             <div class="cat-img"><a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="Manage Nait Courses"> </a>  </div> 
-
-             <h5>Manage Nait Course</h5>
+             <h5>Manage Nait Courses</h5>
+            </a>
        </div>
 
 
         <div class="col-4 center">
-
-             <div class="cat-img"><a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> </a>
-            </div>
-             <h5>Manange Entrance Requirment</h5>
-
+            <a href="InsertProgram.aspx">
+             <div class="cat-img">
+                 <img src="../images/add.png" alt="add Program">
+             </div>
+             <h5>Add New Program</h5>
+            </a>
        </div>
 
 
         <div class="col-4 center">
+            <a href="UpdateProgram.aspx">
             <div class="cat-img">
-                    <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="manage program"> 
-                    </a>   
+                <img src="../images/update_program.png" alt="manage programs"> 
            </div>
-            <h5>Manage Program</h5>
+            <h5>Manage Programs</h5>
+            </a> 
        </div>
 
 
         <div class="col-4 center">
+            <a href="ManageHighSchoolCourses.aspx">
             <div class="cat-img">
-                <a href="ManageHighSchoolCourses.aspx"><img src="../images/course_logo.png" alt="update high shool courses"> 
-                </a>   
+                <img src="../images/course_logo.png" alt="update high shool courses"> 
             </div>
             <h5>Manage High School Courses</h5>
+            </a>
         </div>
 
 
         <div class="col-4 center">
+            <a href="ManagePreferenceQuestion.aspx">
             <div class="cat-img">
-                <a href="ManagePreferenceQuestion.aspx"><img src="../images/question.png" alt="Manage preference questions"> 
-                </a>   
+                <img src="../images/question.png" alt="Manage preference questions"> 
             </div>
             <h5>Manage Preference Questions</h5>
+             </a> 
        </div>
         
+    <div class="col-4 center">
+        <a href="Equivalencies.aspx">
+            <div class="cat-img">
+                <img src="../images/geometry.png" alt="Manage course equivalencies"> 
+            </div>
+            <h5>Manage Course Equivalencies</h5>
+        </a>   
+       </div>
 
+    <div class="col-4 center">
+            <a href="Reports.aspx">
+                <div class="cat-img">
+                <img src="../images/reports-icon.png" alt="View user data"> 
+                </div>
+            <h5>View User Data</h5>
+            </a> 
+       </div>
+    </div>
 </asp:Content>
 
