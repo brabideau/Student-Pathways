@@ -40,6 +40,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         AdminController sysmr = new AdminController();
         var courseData = sysmr.GetCoursesByProgram(proId);
 
+        NaitCoursesListViewByProgram.Visible = true;
         NaitCoursesListViewByProgram.DataSource = courseData;
         NaitCoursesListViewByProgram.DataBind();
         
@@ -75,6 +76,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
     {
         NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
         NaitCoursesListViewByProgram.DataSource = null;
+        NaitCoursesListViewByProgram.Visible=false;
     }
 
 

@@ -24,7 +24,7 @@
 
              <div class="cat-img"><a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> </a>
             </div>
-             <h5>Insert Program</h5>
+             <h5>Manange Entrance Requirment</h5>
 
        </div>
 

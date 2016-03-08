@@ -8,9 +8,10 @@
         <h1>Manage Nait Courses</h1>
 
         <div>
-            <table style="width: 50%">
+            <table style="width: 60%">
                 <tr>
-                    <td style="width:50%">
+                    <td style="width:70%">
+                        <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
                         <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
                                       DataTextField="CategoryDescription" 
@@ -56,7 +57,9 @@
                                     <td runat="server">
                                         <table id="itemPlaceholderContainer" runat="server" border="0" style="width:350px">
                                             <tr runat="server" style="" hidden="hidden">
-                                                <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server"></tr>
+                                                <th runat="server">ProgramID</th>
+                                                <th runat="server">ProgramName</th>
+                                            </tr><tr id="itemPlaceholder" runat="server"></tr>
                                         </table>
                                     </td>
                                 </tr>
@@ -154,7 +157,7 @@
                                 <tr>
                                     <td>No data was returned.</td></tr><tr runat="server">
                                     <td runat="server" style="text-align:left">
-                                        <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click"></asp:LinkButton>
+                                        <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click" CssClass="admin_button2"></asp:LinkButton>
 
                                     </td>
                                 </tr>
@@ -207,7 +210,9 @@
                                         </tbody>
                                     </table>
                                 </td>
-                            </tr>                                                                                                                                                                                    </InsertItemTemplate><ItemTemplate>
+                            </tr>                                                                                                                                                                                    
+                        </InsertItemTemplate>
+                        <ItemTemplate>
                             <tr>
                                 <td>
                                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" /></td>
