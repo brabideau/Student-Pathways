@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 public partial class Admin_Reports : System.Web.UI.Page
 {
@@ -17,130 +18,106 @@ public partial class Admin_Reports : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        List<NewStudentData> newStudents;
-        List<CurrentStudentData> currentStudents;
-
-        //List<StudentPreferenceSummary> summaryList;
+        DataTable myData = new DataTable();
 
         ReportController controller = new ReportController();
 
-        
-        // initialize the data set
-        
+        //initialize the data set
+
         if (Convert.ToInt32(DL_Program.SelectedValue) == -1)
         {
-            newStudents = controller.Get_NewStudent_Data();
-            var myData = newStudents;
-
-            if (Convert.ToInt32(DL_Year.SelectedValue) != -1)
-            {
-                myData = controller.Filter_by_Year(Convert.ToInt32(DL_Year.SelectedValue), myData);
-            }
-
-            if (Convert.ToInt32(DL_Month.SelectedValue) != -1)
-            {
-                myData = controller.Filter_by_Month(Convert.ToInt32(DL_Month.SelectedValue), myData);
-            }
-
-            var summaryList = controller.Get_Summary_Data(myData);
-
-            GV_PreferenceSummaries.DataSource = summaryList;
-            GV_PreferenceSummaries.DataBind();
+            myData = controller.Get_NewStudent_Data();
         }
-
         else
         {
-            currentStudents = controller.Get_CurrentStudent_Data();
-            var myData = currentStudents;
-
-            if (Convert.ToInt32(DL_Year.SelectedValue) != -1)
-            {
-                myData = controller.Filter_by_Year(Convert.ToInt32(DL_Year.SelectedValue), myData);
-            }
-
-            if (Convert.ToInt32(DL_Month.SelectedValue) != -1)
-            {
-                myData = controller.Filter_by_Month(Convert.ToInt32(DL_Month.SelectedValue), myData);
-            }
-
-            if (Convert.ToInt32(DL_Program.SelectedValue) > 0)
-            {
-                myData = controller.Filter_by_Program(Convert.ToInt32(DL_Program.SelectedValue), myData);
-            }
-
-            if (Convert.ToInt32(DL_Program.SelectedValue) != -1)
-            {
-                if (Convert.ToInt32(DL_Semester.SelectedValue) != -1)
-                {
-                    myData = controller.Filter_by_Semester(Convert.ToInt32(DL_Semester.SelectedValue), myData);
-                }
-
-                if (Convert.ToInt32(DL_Change.SelectedValue) != -1)
-                {
-                    if (Convert.ToInt32(DL_Change.SelectedValue) == 1)
-                    {
-                        myData = controller.Filter_by_ChangeProgram(true, myData);
-                    }
-
-                    else
-                    {
-                        myData = controller.Filter_by_ChangeProgram(false, myData);
-                    }
-                }
-                
-            }
-
-            var summaryList = controller.Get_Summary_Data(myData);
-
-            GV_PreferenceSummaries.DataSource = summaryList;
-            GV_PreferenceSummaries.DataBind();
+            myData = controller.Get_CurrentStudent_Data();
         }
 
-        
-        //// filter the data set
 
-        //if (Convert.ToInt32(DL_Year.SelectedValue) != -1)
-        //{
-        //    myData = controller.Filter_by_Year(Convert.ToInt32(DL_Year.SelectedValue), myData);
-        //}
+        //Apply filters
+        if (Convert.ToInt32(DL_Year.SelectedValue) != -1)
+        {
+            int year = Convert.ToInt32(DL_Year.SelectedValue);
+            var rows = myData.Select("SearchYear <>" + year);
 
-        //if (Convert.ToInt32(DL_Month.SelectedValue) != -1)
-        //{
-        //    myData = controller.Filter_by_Month(Convert.ToInt32(DL_Month.SelectedValue), myData);
-        //}
+            foreach (var row in rows)
+            {
+                row.Delete();
+            }
+        }
 
-        //if (Convert.ToInt32(DL_Program.SelectedValue) > 0)
-        //{
-        //    myData = controller.Filter_by_Program(Convert.ToInt32(DL_Program.SelectedValue), myData);
-        //}
+        if (Convert.ToInt32(DL_Month.SelectedValue) != -1)
+        {
+            int month = Convert.ToInt32(DL_Month.SelectedValue);
+            var rows = myData.Select("SearchMonth <>" + month);
 
-        //if (Convert.ToInt32(DL_Program.SelectedValue) != -1)
-        //{
-        //    if (Convert.ToInt32(DL_Semester.SelectedValue) != -1)
-        //    {
-        //        myData = controller.Filter_by_Semester(Convert.ToInt32(DL_Semester.SelectedValue), myData);
-        //    }
+            foreach (var row in rows)
+            {
+                row.Delete();
+            }
+        }
 
-        //    if (Convert.ToInt32(DL_Change.SelectedValue) != -1)
-        //    {
-        //        if (Convert.ToInt32(DL_Change.SelectedValue) == 1)
-        //        {
-        //            myData = controller.Filter_by_ChangeProgram(true, myData);
-        //        }
+        if (Convert.ToInt32(DL_Program.SelectedValue) != -1)
+        {
+            int programID = Convert.ToInt32(DL_Program.SelectedValue);
 
-        //        else
-        //        {
-        //            myData = controller.Filter_by_ChangeProgram(false, myData);
-        //        }
-        //    }
-        //}
+            if (programID > 0)
+            {
+                var rows = myData.Select("ProgramID <> " +programID);
 
-        //// Bind to the grid view
+                foreach (var row in rows)
+                {
+                    row.Delete();
+                }
+            }
 
-        //var summaryList = controller.Get_Summary_Data(myData);
+            if (Convert.ToInt32(DL_Semester.SelectedValue) != -1)
+            {
+                int sem = Convert.ToInt32(DL_Semester.SelectedValue);
 
-        //GV_PreferenceSummaries.DataSource = summaryList;
-        //GV_PreferenceSummaries.DataBind();
+                var rows = myData.Select("Semester <>" + sem);
 
+                foreach (var row in rows)
+                {
+                    row.Delete();
+                }
+            }
+
+            if (Convert.ToInt32(DL_Change.SelectedValue) != -1)
+            {
+                if (Convert.ToInt32(DL_Change.SelectedValue) == 1)
+                {
+                    int sem = Convert.ToInt32(DL_Semester.SelectedValue);
+
+                    var rows = myData.Select("ChangeProgram = false");
+
+                    foreach (var row in rows)
+                    {
+                        row.Delete();
+                    }
+                }
+                else
+                {
+                    int sem = Convert.ToInt32(DL_Semester.SelectedValue);
+
+                    var rows = myData.Select("ChangeProgram = true");
+
+                    foreach (var row in rows)
+                    {
+                        row.Delete();
+                    }
+                }
+
+            }
+
+
+        }
+
+        var summaryList = controller.Get_Summary_Data(myData);
+
+        GV_PreferenceSummaries.DataSource = summaryList;
+        GV_PreferenceSummaries.DataBind();
     }
+
+
 }

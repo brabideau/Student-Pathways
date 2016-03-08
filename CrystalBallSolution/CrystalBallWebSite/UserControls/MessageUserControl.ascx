@@ -4,7 +4,7 @@
         <asp:Label ID="MessageTitleIcon" runat="server"> </asp:Label>
         <asp:Label ID="MessageTitle" runat="server" />
     </div>
-    <div class="panel-body">
+    <div class="red-panel">
         <asp:Label ID="MessageLabel" runat="server" />
         <asp:Repeater ID="MessageDetailsRepeater" runat="server" EnableViewState="false">
             <headertemplate>

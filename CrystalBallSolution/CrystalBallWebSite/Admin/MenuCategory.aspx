@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="MenuCategory.aspx.cs" Inherits="Admin_MenuCategory" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" CssClass="admin-menu">
    
 
     
-        <div class="cat-box">
+        <div class="col-4 center">
 
             <div class="cat-img"><a href="ManageCategory.aspx"><img src="../images/managethree.png" alt="Manage Category"> </a>
             </div>
@@ -12,7 +12,7 @@
         </div>
 
 
-        <div class="cat-box">
+        <div class="col-4 center">
 
              <div class="cat-img"><a href="ManageNaitCourses.aspx"><img src="../images/managetwo.png" alt="Manage Nait Courses"> </a>  </div> 
 
@@ -20,7 +20,7 @@
        </div>
 
 
-        <div class="cat-box">
+        <div class="col-4 center">
 
              <div class="cat-img"><a href="InsertProgram.aspx"><img src="../images/add.png" alt="add Program"> </a>
             </div>
@@ -29,7 +29,7 @@
        </div>
 
 
-        <div class="cat-box">
+        <div class="col-4 center">
             <div class="cat-img">
                     <a href="UpdateProgram.aspx"><img src="../images/update_program.png" alt="manage program"> 
                     </a>   
@@ -38,7 +38,7 @@
        </div>
 
 
-        <div class="cat-box">
+        <div class="col-4 center">
             <div class="cat-img">
                 <a href="ManageHighSchoolCourses.aspx"><img src="../images/course_logo.png" alt="update high shool courses"> 
                 </a>   
@@ -47,7 +47,7 @@
         </div>
 
 
-        <div class="cat-box">
+        <div class="col-4 center">
             <div class="cat-img">
                 <a href="ManagePreferenceQuestion.aspx"><img src="../images/question.png" alt="Manage preference questions"> 
                 </a>   

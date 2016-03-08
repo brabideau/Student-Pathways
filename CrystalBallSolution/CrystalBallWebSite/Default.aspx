@@ -5,7 +5,7 @@
 
      <h1>Find Your Academic Pathway</h1>
 
-        <div class="center home-col">
+        <div class="center col-6">
             <div class="circle-button">
                 <a href="Student/StudentPreferences"><img src="images/nait-student5.png" alt="learner pathway" /> </a>
              </div>
@@ -16,7 +16,7 @@
                     </p>   
         </div>
 
-        <div class="center home-col">
+        <div class="center col-6">
             <div class="circle-button">
                 <a href="Admin/MenuCategory.aspx"><img src="images/new-student.png" alt="learner pathway" /></a></div>
 

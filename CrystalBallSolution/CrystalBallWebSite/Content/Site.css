@@ -1,16 +1,108 @@
 ﻿
-/* testing */
+/* --------------------------------Message User Control-------------------------------- */
 
-.panelClass {
-    visibility: visible;
-    display: inline-block;
-    background-color: rbga(255,0,0,.4);
+
+.red-panel {
+    background-color: rgba(255,0,0,.3);
     border: 1px solid #ff0000;
+    margin: 15px;
+    padding: 5px;
+}
+
+.yellow-panel {
+    background-color: rgba(255,188,0,.3);
+    border: 1px solid #ffbc00;
+    margin: 15px;
+    padding: 5px;
 }
 
 
+.blue-panel {
+    background-color: rgba(41,128,185,.3);
+    border: 1px solid #2980b9;
+    margin: 15px;
+    padding: 5px;
+}
+
 
 /*---------------------GENERAL STYLING ------------------------*/
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+    display: inline-block;
+    float: left;
+    margin: 1.04%
+}
+
+.col-1 {
+   width: 6.25%;
+   min-width: 37px
+}
+
+.col-2 {
+   width: 14.58%;
+   min-width: 87px
+}
+
+.col-3 {
+   width: 22.92%;
+   min-width: 137px
+}
+
+.col-4 {
+   width: 31.25%;
+   min-width: 187px
+}
+
+.col-5 {
+   width: 39.58%;
+   min-width: 237px
+}
+
+.col-6 {
+   width: 47.92%;
+   min-width: 287px
+}
+
+.col-7 {
+   width: 56.25%;
+   min-width: 337px
+}
+
+.col-8 {
+   width: 64.58%;
+   min-width: 387px
+}
+
+.col-9 {
+   width: 72.92%;
+   min-width: 437px
+}
+
+.col-10 {
+   width: 81.25%;
+   min-width: 487px
+}
+
+.col-11 {
+   width: 89.48%;
+   min-width: 537px
+}
+
+.col-12{
+   width: 97.92%;
+   min-width: 587px
+}
 
 
 body {
@@ -64,6 +156,7 @@ textarea {
     display: block;
     height: 40px;
     width: 100px;
+    margin: 10px;
     background-color: #ffffff;
     line-height: 40px;
     font-size: 1.2em;
@@ -142,6 +235,7 @@ textarea {
    /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
   table {
+      display: block;
       margin: 0 auto;
       font-size: .94em;
       margin-bottom: 15px;
@@ -332,14 +426,6 @@ p {
         }
 
 
-        .home-col {
-            float: left;
-            width: 40%;
-            min-width: 300px;
-            margin: 30px 5%;
-        }
-
-
         .circle-button {
             border-radius: 50%;
             width: 280px;
@@ -487,15 +573,8 @@ footer {
 
 /* ------------------Management Menu -----------------------*/
 
-.cat-box {
-    width: 27%;
-    min-width: 200px;
-    height: 270px;
-    float: left;
-    margin: 3%;
-    text-align: center;
-    color: #555555;
-    position: relative;
+.admin-menu .col-4 {
+    height: 290px;
 }
 
 .cat-img {
@@ -504,9 +583,7 @@ footer {
     line-height: 200px;
     background-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center;
-    display: inline-block;
-
+     display: inline-block;
 }
 
 .cat-img img {

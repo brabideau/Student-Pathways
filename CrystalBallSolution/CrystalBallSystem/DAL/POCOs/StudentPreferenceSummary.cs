@@ -9,7 +9,6 @@ namespace CrystalBallSystem.DAL.POCOs
     public class StudentPreferenceSummary
     {
         public string Question { get; set; }
-        public int Yes { get; set; }
-        public int No { get; set; }
+        public int? Yes { get; set; }
     }
 }

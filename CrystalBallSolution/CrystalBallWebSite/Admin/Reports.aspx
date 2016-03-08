@@ -35,7 +35,9 @@
             <asp:ListItem  Value=-1>Prospective Students</asp:ListItem>
             <asp:ListItem  Value=0>All Programs</asp:ListItem>
         </asp:DropDownList>
+        </div>
 
+    <div class="search-bar">
        Semester:
        <asp:DropDownList ID="DL_Semester" runat="server">
             <asp:ListItem Text="Unspecified" Value="-1" />
