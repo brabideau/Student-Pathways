@@ -111,6 +111,7 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
     }
     protected void Next_Click(object sender, EventArgs e)
     {
+        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
         Session["CoursesSelected"] = CoursesSelected;
         Response.Redirect("../Student/testpage.aspx");
     }

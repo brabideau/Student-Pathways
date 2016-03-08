@@ -44,6 +44,7 @@ input,
 select,
 textarea {
     max-width: 280px;
+    height: 26px;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -425,7 +426,7 @@ footer {
       background-color: #1363a8;
       color: #ebf3f9;
       padding: 5px 15px;
-      width: 220px;
+      width: 120px;
   }
 
   .inner-rpt-div span {

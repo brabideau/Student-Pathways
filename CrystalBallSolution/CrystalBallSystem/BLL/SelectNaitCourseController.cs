@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 #region Additional namespace
-
+using System.Data;
 using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL;
 using System.ComponentModel;
@@ -76,31 +76,7 @@ namespace CrystalBallSystem.BLL
                                         };
                             return results.ToList();
 
-                                    
-
-
-
-                            //var a = from x in context.ProgramCourses
-                            //        where x.ProgramID == programID
-                            //        select x.NaitCourses;
-                            //foreach (var i in a)
-                            //{
-                            //    var results = (from Ncourse in i
-                            //                  select new NAITCourse
-                            //                  {
-                            //                      CourseID = Ncourse.CourseID,
-                            //                      CourseCode = Ncourse.CourseCode,
-                            //                      CourseName = Ncourse.CourseName,
-                            //                      CourseCredits = Ncourse.CourseCredits,
-
-                            //                  });
-                            //    foreach (var result in results)
-                            //    {
-                            //        CourseLIst.Add(result);
-                            //    }
-
-                            //}
-                            //return CourseLIst;
+                            
                         }
                         else
                         {
@@ -119,29 +95,7 @@ namespace CrystalBallSystem.BLL
 
                             return result.ToList();
 
-                            //var a = from x in context.Programs
-                            //        where x.ProgramID == programID
-                            //        select x.NaitCourses;
-                            //foreach (var i in a)
-                            //{
-                            //    var results = (from Ncourse in i
-                            //                  where (Ncourse.CourseName.Contains(SearchInfo))
-                            //              || (Ncourse.CourseCode.Contains(SearchInfo))
-                            //                  select new NAITCourse
-                            //                  {
-                            //                      CourseID = Ncourse.CourseID,
-                            //                      CourseCode = Ncourse.CourseCode,
-                            //                      CourseName = Ncourse.CourseName,
-                            //                      CourseCredits = Ncourse.CourseCredits,
-
-                            //                  });
-
-                            //    foreach(var result in results)
-                            //    {
-                            //        CourseLIst.Add(result);
-                            //    }
-                            //}
-                            //return CourseLIst;
+                          
                         }
 
                     }
@@ -179,6 +133,28 @@ namespace CrystalBallSystem.BLL
                                      CourseCredits = x.CourseCredits
                                  };
                     return result.ToList();
+                }
+            }
+            public List<ProgramCourseMatch> PCMatch(List<int> courseids)
+            {
+                using (var context = new CrystalBallContext())
+                {
+                    List<Program> programs = new List<Program>();
+                    
+                        var result = from x in context.ProgramCourses
+                                     where courseids.Contains(x.CourseID)
+                                     select x;
+                        var result2 = from x in result select new ProgramCourseMatch
+                                            {
+                                                ProgramID = x.Program.ProgramID,
+                                                ProgramName = x.Program.ProgramName,
+                                                CourseID = x.NaitCourse.CourseID,
+                                                CourseCode = x.NaitCourse.CourseCode,
+                                                CourseName = x.NaitCourse.CourseName,
+                                                CourseCredits = x.NaitCourse.CourseCredits
+                                            };
+
+                        return result2.ToList();
                 }
             }
         }
