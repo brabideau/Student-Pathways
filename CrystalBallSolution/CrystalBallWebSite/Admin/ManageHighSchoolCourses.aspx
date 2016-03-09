@@ -2,18 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <div runat="server" align="center">
-        <h1>Manage HighSchool Courses</h1>
+        <h1>Manage High School Courses</h1>
     <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
-        <AlternatingItemTemplate>
-            <tr>
-                <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
-                </td>
-                <td >
-                    <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
-                </td>
-            </tr>
-        </AlternatingItemTemplate>
+
         <EditItemTemplate>
             <tr style="">
                 <td colspan="2">
@@ -47,6 +38,8 @@
                 </td>    
             </tr>
         </EditItemTemplate>
+
+
         <EmptyDataTemplate>
             <table runat="server">
                 <tr>
@@ -54,6 +47,8 @@
                 </tr>
             </table>
         </EmptyDataTemplate>
+
+
         <InsertItemTemplate>
             <tr>
                 <td>
@@ -65,6 +60,8 @@
                 </td>
             </tr>
         </InsertItemTemplate>
+
+
         <ItemTemplate>
             <tr>
                 <td>
@@ -75,6 +72,8 @@
                 </td>
             </tr>
         </ItemTemplate>
+
+
         <LayoutTemplate>
             <table runat="server" class="center">
                 <tr runat="server">
@@ -102,16 +101,9 @@
                 </tr>
             </table>
         </LayoutTemplate>
-        <SelectedItemTemplate>
-            <tr ><%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
-                <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
-                </td>
-                <td>
-                    <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
-                </td>
-            </tr>
-        </SelectedItemTemplate>
+
+
+
     </asp:ListView>
         </div>
     <asp:ObjectDataSource ID="ODSHighSchoolCourses" runat="server" SelectMethod="HighSchoolCourse_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.HighSchoolCours" InsertMethod="AddHighSchoolCourse" OldValuesParameterFormatString="original_{0}" UpdateMethod="HighSchoolCourse_Update"></asp:ObjectDataSource>

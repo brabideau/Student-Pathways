@@ -5,16 +5,6 @@
     <asp:ListView ID="CategoryList" runat="server" DataSourceID="ODSCategoryList" 
                                                    InsertItemPosition="LastItem" 
                                                    OnItemUpdating="CategoryList_ItemUpdating">
-        <AlternatingItemTemplate>
-            <tr>
-                <td>
-                    <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
-                </td>
-                <td>
-                    <asp:Label ID="CategoryDescriptionLabel" runat="server" Text='<%# Eval("CategoryDescription") %>' />
-                </td>
-            </tr>
-        </AlternatingItemTemplate>
         <EditItemTemplate>
             <tr>
                 <td colspan="2">
@@ -47,20 +37,9 @@
                     </table>
                 </td>
             </tr>
-                                               
-            <%--<tr>
-                <td>
-                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
-                </td>
-                <td>
-                    <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Bind("CategoryID") %>' />
-                </td>            
-                <td>
-                    <asp:TextBox ID="CategoryDescriptionTextBox" runat="server" Text='<%# Bind("CategoryDescription") %>' />
-                </td>
-            </tr>--%>
         </EditItemTemplate>
+
+
         <EmptyDataTemplate>
             <table runat="server">
                 <tr>
@@ -68,6 +47,8 @@
                 </tr>
             </table>
         </EmptyDataTemplate>
+
+
         <InsertItemTemplate>
             <tr style="">
                 <td>
@@ -79,6 +60,8 @@
                 </td>
             </tr>
         </InsertItemTemplate>
+
+
         <ItemTemplate>
             <tr>
                 <td>
@@ -89,6 +72,8 @@
                 </td>
             </tr>
         </ItemTemplate>
+
+
         <LayoutTemplate>
             <table runat="server">
                 <tr runat="server">
@@ -116,19 +101,7 @@
                 </tr>
             </table>
         </LayoutTemplate>
-        <SelectedItemTemplate>
-            <tr>
-                <td>
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
-                </td>
-                <td>
-                    <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
-                </td>
-                <td>
-                    <asp:Label ID="CategoryDescriptionLabel" runat="server" Text='<%# Eval("CategoryDescription") %>' />
-                </td>
-            </tr>
-        </SelectedItemTemplate>
+
     </asp:ListView>
 
     <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.Category" InsertMethod="AddCategory" OldValuesParameterFormatString="original_{0}" UpdateMethod="UpdateCategory"></asp:ObjectDataSource>

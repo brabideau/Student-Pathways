@@ -48,7 +48,7 @@
         <h1>Your Preferences</h1>
 
           
-            <asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="GriprefQuestionsCSS">
+            <asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
                 <Columns>
                     <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID"></asp:BoundField>
                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>

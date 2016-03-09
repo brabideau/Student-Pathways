@@ -53,7 +53,7 @@
                         </a>
                     </div>
                     <ul class="left-menu">
-                        <li><a runat="server" href="~/" class="nav-link">Learner Pathways</a></li>
+                        <li><a runat="server" href="~/" class="nav-link">Crystal Ball Home</a></li>
                         <li><a runat="server" href="~/About" class="nav-link">About</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">

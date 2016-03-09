@@ -60,15 +60,7 @@
             <h5>Manage Preference Questions</h5>
              </a> 
        </div>
-        
-    <div class="col-4 center">
-        <a href="Equivalencies.aspx">
-            <div class="cat-img">
-                <img src="../images/geometry.png" alt="Manage course equivalencies"> 
-            </div>
-            <h5>Manage Course Equivalencies</h5>
-        </a>   
-       </div>
+
 
     <div class="col-4 center">
             <a href="Reports.aspx">
