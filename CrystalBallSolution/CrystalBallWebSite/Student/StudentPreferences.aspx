@@ -7,7 +7,7 @@
 
 
     <!--Get student's program information-->
-        <div runat="server" id="stepOne" visible="true" class="center clearfix">
+        <div runat="server" id="stepOne" visible="true" class="clearfix">
             <p>Are you a current NAIT student?<asp:CheckBox ID="CurrentStudent" runat="server" OnCheckedChanged="CurrentStudent_CheckedChanged" autopostback="true" Checked="true"/></p>
             
             <div runat="server" id="chooseProgram" class="clearfix">
@@ -40,11 +40,11 @@
         </asp:DropDownList></p>
                 <p>Are you considering switching programs?<span style="margin-right: 15px;"></span><asp:CheckBox ID="ChangeProgram" runat="server" /></p>
             </div>
-            <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button-long">Next</asp:LinkButton>
+            <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
         </div>
 
     <!-- get student preference questions -->
-        <div runat="server" id="step2" visible="false" class="center">
+        <div runat="server" id="step2" visible="false">
         <h1>Your Preferences</h1>
 
           
@@ -67,8 +67,8 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:LinkButton ID="previous" runat="server" OnClick="onPreviousClick" CssClass ="button-long">Previous</asp:LinkButton>
-            <asp:LinkButton ID="stepTwoNext" runat="server" OnClick="stepTwoNext_Click" CssClass="button-long">Next</asp:LinkButton>
+            <asp:LinkButton ID="previous" runat="server" OnClick="onPreviousClick" CssClass ="button back">Previous</asp:LinkButton>
+            <asp:LinkButton ID="stepTwoNext" runat="server" OnClick="stepTwoNext_Click" CssClass="button next">Next</asp:LinkButton>
             </div>
 
 
@@ -79,13 +79,13 @@
                 runat="server" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
 
     <!-- student course selection section -->
-    <div id="stepThree" runat="server" visible="false" class="center">
+    <div id="stepThree" runat="server" visible="false">
     <h1>Select the Courses You've Taken</h1>
 
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5" CssClass="courseCSS">
         </asp:CheckBoxList>
 
-            <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click" CssClass="button-long">Previous</asp:LinkButton>
+            <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click" CssClass="button back">Previous</asp:LinkButton>
             <!--<asp:Button ID="submit" runat="server" Text="Submit" OnClick="Submit_Click" />
             <script type="text/javascript">
                 $("#submit").click(function (e){
@@ -94,7 +94,7 @@
             </script>-->        
 
 
-            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Submit_Click" CssClass="button-long">Submit</asp:LinkButton>
+            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Submit_Click" CssClass="button submit">Submit</asp:LinkButton>
 
         </div>
 
@@ -103,7 +103,7 @@
         <div id="results" runat="server" visible="false" >
             <h1>Results</h1>
             <asp:GridView ID="ResultsView" runat="server" CssClass="program-search-results"></asp:GridView>
-            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button-long">Search Again</asp:LinkButton>
+            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
         </div>
         
 

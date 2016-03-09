@@ -572,14 +572,14 @@ footer {
     border: none;
  }
 
-.program-search-results tr:first-child .program-search-results td:first-child  {
+.program-search-results tr:first-child, .program-search-results td:first-child  {
     display: none;
 }
 
 .program-search-results tr {
     background-color: rgba(255,255,255,.8);
     display: inline-block;
-    margin: 2%;  
+    margin: 1.9%;  
     border: 1px solid #aaaaaa;
     box-shadow: 8px 8px 5px rgba(0,0,0,.3);
     float: left;
