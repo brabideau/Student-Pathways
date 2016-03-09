@@ -91,6 +91,18 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
 
             equivalencyInformation.Visible = true;
             addNewEquivalency.Visible = false;
+
+            //empty dropdown and textbox
+            EmptyCurrentDropdown.Items.Clear();
+            CurrentCourseName.Text = null;
+            CurrentCourseID.Text = null;
+
+            EmptyEquivalentTextBox.Text = null;
+            EquivalentCourseName.Text = null;
+            EquivalentCourseID.Text = null;
+
+            Enter.Enabled = false;
+
         }, "", "Equivalency Successfully Added");        
     }
 
