@@ -82,16 +82,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             }
         }
 
-
-        /* GOOD CODE
-        foreach (ListItem item in CB_CourseList.Items)
-        {
-            if(item.Selected)
-            {
-                hsCourses.Add(Convert.ToInt32(item.Value));
-            }
-        }
-         */
         //send information to BLL for processing and narrow down possible results
         List<ProgramResult> programResults = new List<ProgramResult>();
         programResults = StudentController.FindProgramMatches(hsCourses);

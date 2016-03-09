@@ -52,18 +52,7 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-        /*
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public int[] GetHSCourseIDs()
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = from course in context.HighSchoolCourses
-                              select course.HighSchoolCourseID;
-                return results.ToArray();
-            }
-        }
-         */
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int GetEntranceList(int courseID, int mark)
         {
