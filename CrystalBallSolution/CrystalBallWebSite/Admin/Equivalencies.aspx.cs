@@ -76,7 +76,6 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
         }       
     }
 
-
     protected void Enter_Click(object sender, EventArgs e)
     {
         MessageUserControl.TryRun(() =>
@@ -92,7 +91,7 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
             equivalencyInformation.Visible = true;
             addNewEquivalency.Visible = false;
 
-            //empty dropdown and textbox
+            //reset add equivalency screen
             EmptyCurrentDropdown.Items.Clear();
             CurrentCourseName.Text = null;
             CurrentCourseID.Text = null;
@@ -106,15 +105,21 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
         }, "", "Equivalency Successfully Added");        
     }
 
-    protected void EquivalenciesGrid_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
-        GridView GridView = sender as GridView;
-        GridViewRow row = GridView.Rows[e.NewSelectedIndex];
+        equivalencyInformation.Visible = true;
+        addNewEquivalency.Visible = false;
 
-        int idLabel = Convert.ToInt32(row.FindControl("CourseEquivalencyID") as Label);
-        
-        AdminController sysmgr = new AdminController();
-        sysmgr.Equivalency_Delete(idLabel);
+        //reset add equivalency screen
+        EmptyCurrentDropdown.Items.Clear();
+        CurrentCourseName.Text = null;
+        CurrentCourseID.Text = null;
+
+        EmptyEquivalentTextBox.Text = null;
+        EquivalentCourseName.Text = null;
+        EquivalentCourseID.Text = null;
+
+        Enter.Enabled = false;
     }
     protected void EquivalenciesGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {

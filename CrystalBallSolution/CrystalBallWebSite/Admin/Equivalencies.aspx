@@ -86,6 +86,7 @@
         <br />
         <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button button-long" />
         <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button button-long" Enabled="false"/>
+        <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"  CssClass="button button-long"/>
     </div>
 
     <asp:ObjectDataSource ID="CategoryODS" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
