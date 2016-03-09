@@ -78,6 +78,15 @@
             <h5>View User Data</h5>
             </a> 
        </div>
+
+    <div class="col-4 center">
+        <a href="Equivalencies.aspx">
+            <div class="cat-img">
+                <img src="../images/equivalency.png" alt="Manage Equivalencies"> 
+            </div>
+            <h5>Manage Equivalencies</h5>
+        </a> 
     </div>
+</div>
 </asp:Content>
 

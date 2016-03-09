@@ -26,12 +26,11 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
         //get the value of the selected value in the drop down list and populate the program
         //list data source based on that value
         AdminController sysmgr = new AdminController();
-        EquivalencyController sys = new EquivalencyController();
         int category = Convert.ToInt32(CategoryDropdownList.SelectedValue);
         ProgramDropdownList.DataSource = sysmgr.GetProgramByCategory(category);
         ProgramDropdownList.DataBind();
         int program = Convert.ToInt32(ProgramDropdownList.SelectedValue);
-        EquivalenciesGrid.DataSource = sys.GetEquivalencies(program);
+        EquivalenciesGrid.DataSource = sysmgr.GetEquivalencies(program);
         EquivalenciesGrid.DataBind();
     }
 
@@ -39,55 +38,79 @@ public partial class Admin_Equivalencies : System.Web.UI.Page
     {
         //get the value of the selected value in the drop down list and populate the program
         //list data source based on that value
-        EquivalencyController sysmgr = new EquivalencyController();
+        AdminController sysmgr = new AdminController();
         int program = Convert.ToInt32(ProgramDropdownList.SelectedValue);
-        int category = Convert.ToInt32(CategoryDropdownList.SelectedValue);
         EquivalenciesGrid.DataSource = sysmgr.GetEquivalencies(program);
         EquivalenciesGrid.DataBind();
+
     }
 
     protected void AddNew_Click(object sender, EventArgs e)
-    {
+    {        
         equivalencyInformation.Visible = false;
         addNewEquivalency.Visible = true;
+        EmptyCurrentDropdown.DataBind();
     }
     protected void CheckIDs_Click(object sender, EventArgs e)
     {
-        MessageUserControl.TryRun(() =>
-        {
-            AdminController sysmgr = new AdminController();
-            StudentController sys = new StudentController();
-            string courseCode = EmptyCurrentDropdown.SelectedValue;
-            string courseCode2 = EmptyEquivalentTextBox.Text;
+        AdminController sysmgr = new AdminController();
+        StudentController sys = new StudentController();
+        string courseCode = EmptyCurrentDropdown.SelectedValue;
+        string courseCode2 = EmptyEquivalentTextBox.Text;
         
-            if (EmptyCurrentDropdown.SelectedValue != "-1"
-                && !string.IsNullOrWhiteSpace(EmptyEquivalentTextBox.Text))
-            {
-                    NAITCourse courseInfo = sysmgr.GetCourseName(courseCode);
-                    CurrentCourseName.Text = courseInfo.CourseName;
-                    CurrentCourseID.Text = courseInfo.CourseID.ToString();
+        if (EmptyCurrentDropdown.SelectedValue != "-1"
+            && !string.IsNullOrWhiteSpace(EmptyEquivalentTextBox.Text))
+        {
+                NAITCourse courseInfo = sysmgr.GetCourseName(courseCode);
+                CurrentCourseName.Text = courseInfo.CourseName;
+                CurrentCourseID.Text = courseInfo.CourseID.ToString();
 
-                    courseInfo = sysmgr.GetCourseName(courseCode2);
-                    EquivalentCourseName.Text = courseInfo.CourseName;
-                    EquivalentCourseID.Text = courseInfo.CourseID.ToString();
-                    Enter.Enabled = true;
-                    MessageUserControl.ShowInfo("Equivalency Successfully Added");
-            }
-            else
-            {
-                MessageUserControl.ShowInfo("Program Course Code and Equivalent Course Code are Required.");
-            }
-        }, "", "A course cannot be found for the equivalent course code entered.");        
+                courseInfo = sysmgr.GetCourseName(courseCode2);
+                EquivalentCourseName.Text = courseInfo.CourseName;
+                EquivalentCourseID.Text = courseInfo.CourseID.ToString();
+                Enter.Enabled = true;                
+        }
+        else
+        {
+            MessageUserControl.ShowInfo("Program Course Code and Equivalent Course Code are Required.");
+        }       
     }
 
 
     protected void Enter_Click(object sender, EventArgs e)
     {
-        AdminController sysmgr = new AdminController();
-        int programID = int.Parse(ProgramDropdownList.SelectedValue); 
-        int courseID = int.Parse(CurrentCourseID.Text);
-        int destinationCourseID = int.Parse(EquivalentCourseID.Text);
-        sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
+        MessageUserControl.TryRun(() =>
+        {
+            AdminController sysmgr = new AdminController();
+            int programID = int.Parse(ProgramDropdownList.SelectedValue);
+            int courseID = int.Parse(CurrentCourseID.Text);
+            int destinationCourseID = int.Parse(EquivalentCourseID.Text);
+            sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
+            EquivalenciesGrid.DataSource = sysmgr.GetEquivalencies(programID);
+            EquivalenciesGrid.DataBind();
 
+            equivalencyInformation.Visible = true;
+            addNewEquivalency.Visible = false;
+        }, "", "Equivalency Successfully Added");        
+    }
+
+    protected void EquivalenciesGrid_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+    {
+        GridView GridView = sender as GridView;
+        GridViewRow row = GridView.Rows[e.NewSelectedIndex];
+
+        int idLabel = Convert.ToInt32(row.FindControl("CourseEquivalencyID") as Label);
+        
+        AdminController sysmgr = new AdminController();
+        sysmgr.Equivalency_Delete(idLabel);
+    }
+    protected void EquivalenciesGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        int programID = int.Parse(ProgramDropdownList.SelectedValue);
+        int equivalencyid = Convert.ToInt32(EquivalenciesGrid.DataKeys[e.RowIndex].Value);
+        AdminController sysmgr = new AdminController();
+        sysmgr.Equivalency_Delete(equivalencyid);
+        EquivalenciesGrid.DataSource = sysmgr.GetEquivalencies(programID);
+        EquivalenciesGrid.DataBind();
     }
 }

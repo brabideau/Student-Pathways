@@ -352,23 +352,25 @@ namespace CrystalBallSystem.BLL
         #endregion
 
         #region Equivalency Page
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetEquivalencyNames> GetEquivalencies(int programID, int categoryID)
+        public List<GetEquivalencyNames> GetEquivalencies(int programID)
         {
             using (var context = new CrystalBallContext())
             {
                 var results = from ce in context.CourseEquivalencies
-                              from p in context.Programs
-                              from nc in context.NaitCourses
-                              where p.ProgramCourses.Any(pc => pc.CourseID == ce.DestinationCourseID)
-                                    && ce.ProgramID == programID && ce.DestinationCourseID == nc.CourseID
+                              where ce.ProgramID == programID
                               select new GetEquivalencyNames
                               {
                                   CourseEquivalencyID = ce.CourseEquivalencyID,
                                   CourseCode = ce.NaitCourse.CourseCode,
                                   CourseName = ce.NaitCourse.CourseName,
-                                  DestinationCourseCode = nc.CourseCode,
-                                  DestinationCourseName = nc.CourseName
+                                  DestinationCourseCode = (from nc in context.NaitCourses
+                                                           where nc.CourseID == ce.DestinationCourseID
+                                                           select nc.CourseCode).FirstOrDefault(),
+                                  DestinationCourseName = (from nc in context.NaitCourses
+                                                           where nc.CourseID == ce.DestinationCourseID
+                                                           select nc.CourseName).FirstOrDefault(),
                               };
                 return results.ToList();
             }
@@ -399,6 +401,21 @@ namespace CrystalBallSystem.BLL
             {
                 CourseEquivalency added = null;
                 added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, CourseID = courseID, DestinationCourseID = destinationCourseID });
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void Equivalency_Delete(int courseEquivalencyID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                //lookup the instance and record if found (set pointer to instance)
+                CourseEquivalency existing = context.CourseEquivalencies.Find(courseEquivalencyID);
+
+                //setup the command to execute the delete
+                context.CourseEquivalencies.Remove(existing);
+                //command is not executed until it is actually saved.
                 context.SaveChanges();
             }
         }

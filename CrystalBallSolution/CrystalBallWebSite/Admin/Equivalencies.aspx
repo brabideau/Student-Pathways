@@ -27,7 +27,7 @@
                             AutoPostBack="true">
         </asp:DropDownList>
      
-        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames">
+        <asp:GridView ID="EquivalenciesGrid" runat="server" AutoGenerateColumns="False"  CssClass="equivalency-grid" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID" OnRowDeleting="EquivalenciesGrid_RowDeleting">
             <Columns>
                 <asp:TemplateField HeaderText="CourseEquivalencyID">
                     <ItemTemplate>
@@ -53,8 +53,15 @@
                     <ItemTemplate>
                         <asp:Label ID="DestinationCourseName" runat="server" Text='<%# Item.DestinationCourseName %>' />
                     </ItemTemplate>
-                </asp:TemplateField>                          
-            </Columns>            
+                </asp:TemplateField>      
+                <asp:TemplateField>
+                    <FooterTemplate>
+                        <asp:LinkButton ID="Add" runat="server" Text="Add Equivalency" OnClick="AddNew_Click" CssClass="button button-long"></asp:LinkButton>
+                    </FooterTemplate>
+                </asp:TemplateField>                    
+                <asp:ButtonField Text="Remove" CommandName="Delete"/>
+            </Columns>          
+            
             <EmptyDataTemplate>
                 No Existing Equivalencies.
                 <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click" CssClass="button button-long"/>
@@ -62,7 +69,8 @@
                        
         </asp:GridView>    
     </div>
-          
+         
+    <!--Add new equivalency to empty gridview--> 
     <div runat="server" id="addNewEquivalency" visible="false"  CssClass="add-equivalency-block">
         <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID: "></asp:Label>
         <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true">
