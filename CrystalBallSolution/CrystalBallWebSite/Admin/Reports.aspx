@@ -4,7 +4,8 @@
 
     <h1>Reports</h1>
   <%----------------------------------- Filters -------------------------------------%>
-    <div class="search-bar">
+    <div class="clearfix">
+     <div class="search-bar">
         Year:
         <asp:DropDownList ID="DL_Year" runat="server">
             <asp:ListItem Text="Year" Value="-1"/>
@@ -58,25 +59,28 @@
             <asp:ListItem Text="No" Value="0" />
         </asp:DropDownList>
     </div>
-    <div class="col-6">
+    <div class="col-5">
         <asp:LinkButton ID="Search_Left" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
+        <h3>Results</h3>
     </div>
-    <div class="col-6">
+    <div class="col-5">
         <asp:LinkButton ID="Search_Right" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
+        <h3>Results</h3>
     </div>
+    </div>
+
  <%----------------------------------- DATA -------------------------------------%>
     <div class="col-5">
-        <h3>Results</h3>
+        
         <asp:GridView ID="GV_PreferenceSummaries_Left" runat="server"></asp:GridView>
+    </div>
+    <div class="col-5">
+        
+        <asp:GridView ID="GV_PreferenceSummaries_Right" runat="server"></asp:GridView>
     </div>
     <div class="col-2">
         <asp:GridView ID="GV_Compare" runat="server"></asp:GridView>
     </div>
-    <div class="col-5">
-        <h3>Results</h3>
-        <asp:GridView ID="GV_PreferenceSummaries_Right" runat="server"></asp:GridView>
-    </div>
-
 
 
   <%----------------------------------- ODS -------------------------------------%>

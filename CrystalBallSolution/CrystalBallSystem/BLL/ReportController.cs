@@ -102,7 +102,7 @@ namespace CrystalBallSystem.BLL
                     summaries.Add(new StudentPreferenceSummary
                     {
                         Question = quest,
-                        Yes = yes,
+                        PercentYes = yes,
                     });
                 }
 
@@ -115,7 +115,7 @@ namespace CrystalBallSystem.BLL
                 summaries.Add(new StudentPreferenceSummary
                 {
                     Question = "Do you want to change programs?",
-                    Yes = yes,
+                    PercentYes = yes,
                 });
 
                 return summaries;

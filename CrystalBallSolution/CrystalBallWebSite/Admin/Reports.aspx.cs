@@ -62,7 +62,7 @@ public partial class Admin_Reports : System.Web.UI.Page
             {
                 if (leftData[i] != null && rightData[i] != null)
                 {
-                    diff = rightData[i].Yes - leftData[i].Yes;
+                    diff = rightData[i].PercentYes - leftData[i].PercentYes;
                 }
                 else
                 {
