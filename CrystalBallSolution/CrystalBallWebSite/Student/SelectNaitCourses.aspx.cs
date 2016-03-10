@@ -54,11 +54,13 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             //Session["table"] = CoursesSelected;
             rptCourse.DataSource = CoursesSelected;
             rptCourse.DataBind();
+            CourseGridView.Visible = false;
         }
     }
 
     protected void SelectCourses(object sender, GridViewSelectEventArgs e)
     {
+       
         GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
         string CCode = (row.FindControl("CourseCode") as Label).Text;
         int  id = int.Parse((row.FindControl("CourseID") as Label).Text);
@@ -128,6 +130,10 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             rptCourse.DataBind();
         }
 
+    }
+    protected void Search_Click(object sender, EventArgs e)
+    {
+        CourseGridView.Visible = true;
     }
 }
 //problem feed back not using ispostback so that everytime it creat a new datatable

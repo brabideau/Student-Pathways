@@ -8,8 +8,6 @@ namespace CrystalBallSystem.DAL.POCOs
 {
     public class ProgramCourseMatch
     {
-        public int ProgramID { get; set; }
-        public string ProgramName { get; set; }
         public int CourseID { get; set; }
         public string CourseCode { get; set; }
         public string CourseName { get; set; }

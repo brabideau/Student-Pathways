@@ -49,9 +49,10 @@ public partial class Student_testpage : System.Web.UI.Page
         }
         SelectNaitCourseController NCC = new SelectNaitCourseController();
         var pcMatch = NCC.PCMatch(listCID);
+        
 
-        pcMatchGv.DataSource = pcMatch;
-        pcMatchGv.DataBind();
+        rptProgram.DataSource = pcMatch;
+        rptProgram.DataBind();
         
         
     }

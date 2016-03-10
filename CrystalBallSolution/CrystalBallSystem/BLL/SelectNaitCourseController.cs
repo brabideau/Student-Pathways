@@ -11,7 +11,7 @@ using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL;
 using System.ComponentModel;
 using CrystalBallSystem.DAL.POCOs;
-
+using CrystalBallSystem.DAL.DTOs;
 #endregion
 
 
@@ -135,26 +135,40 @@ namespace CrystalBallSystem.BLL
                     return result.ToList();
                 }
             }
-            public List<ProgramCourseMatch> PCMatch(List<int> courseids)
+            [DataObjectMethod(DataObjectMethodType.Select, false)]
+            public List<ProgramAndCourses> PCMatch(List<int> courseids)
             {
                 using (var context = new CrystalBallContext())
                 {
                     List<Program> programs = new List<Program>();
-                    
-                        var result = from x in context.ProgramCourses
-                                     where courseids.Contains(x.CourseID)
-                                     select x;
-                        var result2 = from x in result select new ProgramCourseMatch
-                                            {
-                                                ProgramID = x.Program.ProgramID,
-                                                ProgramName = x.Program.ProgramName,
-                                                CourseID = x.NaitCourse.CourseID,
-                                                CourseCode = x.NaitCourse.CourseCode,
-                                                CourseName = x.NaitCourse.CourseName,
-                                                CourseCredits = x.NaitCourse.CourseCredits
-                                            };
 
-                        return result2.ToList();
+                    var result = from x in context.ProgramCourses
+                                 where courseids.Contains(x.CourseID)
+                                 select x;
+                    var result2 = (from x in result
+                                  orderby x.Program.ProgramName
+                                  select new ProgramAndCourses
+                                  {
+                                      ProgramID = x.Program.ProgramID,
+                                      ProgramName = x.Program.ProgramName,
+                                      ProgramCourseMatch = from y in result
+                                                           where y.Program.ProgramID == x.Program.ProgramID
+                                                           select new ProgramCourseMatch
+                                                           {
+                                                               CourseID = y.NaitCourse.CourseID,
+                                                               CourseCode = y.NaitCourse.CourseCode,
+                                                               CourseName = y.NaitCourse.CourseName,
+                                                               CourseCredits = y.NaitCourse.CourseCredits
+                                                           }
+
+                                  }).GroupBy(a => a.ProgramID);
+
+                    List<ProgramAndCourses> PAC = new List<ProgramAndCourses>();
+                    foreach(var item in result2)
+                    {
+                        PAC.Add(item.FirstOrDefault());
+                    }
+                    return PAC;
                 }
             }
         }

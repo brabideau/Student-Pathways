@@ -20,11 +20,11 @@
 
             <label >Please search the NAIT course you want.</label>
             <br />
-            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:Button ID="Search" runat="server" Text="Search" />
+            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:Button ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
         </div>
 
-        <asp:GridView ID="CourseGridView" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            CssClass="Gridview" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
+        <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
+            CssClass="Gridview" DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses" style="height:300px; width:600px; overflow:scroll" >
             
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
@@ -62,7 +62,7 @@
                 No data found.
 
             </EmptyDataTemplate>
-            <PagerSettings FirstPageText="First" LastPageText="Last" Mode="NumericFirstLast" NextPageText="--&gt;" PageButtonCount="5" PreviousPageText="&lt;--" />
+            <%--<PagerSettings FirstPageText="First" LastPageText="Last" Mode="NumericFirstLast" NextPageText="--&gt;" PageButtonCount="5" PreviousPageText="&lt;--" />--%>
         </asp:GridView>
 
     <div class ="rpt_div clearfix">

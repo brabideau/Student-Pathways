@@ -6,21 +6,36 @@
          <asp:GridView ID="GridView1" runat="server"></asp:GridView>
         <asp:Button ID="Button2" runat="server" Text="Generated" OnClick="Button2_Click" />
     </div>
+   
     <div>
-        <h1>All the programs</h1>
-        <asp:GridView ID="ProgramGV" runat="server"></asp:GridView>
-    </div>
-    <div>
-        <asp:Repeater ID="rptCourse" runat="server" >
+        <asp:Repeater ID="rptProgram" runat="server"  >
         <ItemTemplate>    
             <div >
-                <span><%# Eval("Program") %></span>
-                <asp:GridView ID="GridView2" runat="server"></asp:GridView>
+                <h1>
+                    <%--<span><%# Eval("ProgramID") %></span>--%>
+                    <span><%# Eval("ProgramName") %></span>
+                </h1>
+                
+                <asp:Repeater ID="rptCourse" runat="server" DataSource ='<%# Eval("ProgramCourseMatch") %>'>
+                    
+                    <ItemTemplate>    
+                        <div >
+                            <h5>
+                                <span><%# Eval("CourseID") %></span>
+                                <span><%# Eval("CourseCode") %></span>
+                                <span><%# Eval("CourseName") %></span>
+                                <span><%# Eval("CourseCredits") %></span> 
+                            </h5>
+                                                     
+                        </div>      
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>      
         </ItemTemplate>
         </asp:Repeater>
     </div>
-    <asp:GridView ID="pcMatchGv" runat="server"></asp:GridView>
+    
+    
     <asp:Button ID="Button1" runat="server" Text="Back" OnClick="Button1_Click" />
 </asp:Content>
 
