@@ -21,15 +21,17 @@
                     <ItemTemplate>    
                         <div >
                             <h5>
-                                <span><%# Eval("CourseID") %></span>
-                                <span><%# Eval("CourseCode") %></span>
+                                <%--<span><%# Eval("CourseID") %></span>--%>
+                                <%--<span><%# Eval("CourseCode") %></span>--%>
                                 <span><%# Eval("CourseName") %></span>
-                                <span><%# Eval("CourseCredits") %></span> 
+                                <asp:Label ID="Label1" runat="server" Text=""><%# Eval("CourseCredits") %></asp:Label>
+                                <%--<span></span>--%> 
                             </h5>
                                                      
                         </div>      
                     </ItemTemplate>
                 </asp:Repeater>
+                <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
             </div>      
         </ItemTemplate>
         </asp:Repeater>

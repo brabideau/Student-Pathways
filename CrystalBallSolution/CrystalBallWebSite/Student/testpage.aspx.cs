@@ -53,6 +53,28 @@ public partial class Student_testpage : System.Web.UI.Page
 
         rptProgram.DataSource = pcMatch;
         rptProgram.DataBind();
+
+
+        int credit = 0;
+        //Repeater outrepeater = rptProgram;
+        Repeater intrepeater = (Repeater) rptProgram.FindControl("rptCourse");
+
+        foreach (RepeaterItem i in intrepeater.Items)
+        {
+            var IDLabel = i.FindControl("Label1") as Label;
+            credit += int.Parse(IDLabel.ToString());
+            
+        }
+        Label a = (Label)rptProgram.FindControl("Label2");
+        a.Text = credit + "";
+        //{
+
+        //    TextBox txtExample = (TextBox)i.FindControl("txtExample");
+        //    if (txtExample != null)
+        //    {
+        //        litResults.Text += txtExample.Text + "<br />";
+        //    }
+        //}
         
         
     }
