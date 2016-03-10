@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManagePreferenceQuestion.aspx.cs" Inherits="Admin_ManagePreferenceQuestion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-
+    <div runat="server" align="center">
     <h1>Manage Preference Question</h1>
     <asp:ListView ID="QuestionList" runat="server" DataSourceID="ODSQuestions" InsertItemPosition="LastItem" DataKeyNames="QuestionID">
         <AlternatingItemTemplate>
@@ -91,7 +91,7 @@
                         </table>
                     </td>
                 </tr>
-                <tr runat="server" align="center">  <%--style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;"--%>
+                <%--<tr runat="server" align="center">
                     <td runat="server">
                         <asp:DataPager ID="DataPager1" runat="server">
                             <Fields>
@@ -101,11 +101,11 @@
                             </Fields>
                         </asp:DataPager>
                     </td>
-                </tr>
+                </tr>--%>
             </table>
         </LayoutTemplate>
         <SelectedItemTemplate>
-            <tr>  <%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
+            <tr>  
                 <td>
                     <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button" />
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
@@ -116,7 +116,7 @@
             </tr>
         </SelectedItemTemplate>
     </asp:ListView>
-
+</div>
     <asp:ObjectDataSource ID="ODSQuestions" runat="server" 
                           DataObjectTypeName="CrystalBallSystem.DAL.Entities.PreferenceQuestion" 
                           DeleteMethod="PreferenceQuestion_Delete" 

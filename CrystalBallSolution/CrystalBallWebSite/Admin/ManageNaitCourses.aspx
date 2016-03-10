@@ -2,13 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
-        
-
-
         <h1>Manage Nait Courses</h1>
 
         <div class="search-bar col-9 clearfix">
-            <div class="col-8"><asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
+            <div class="col-8">
+                <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
                         <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
                                       DataTextField="CategoryDescription" 
@@ -17,7 +15,7 @@
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                         </asp:DropDownList>
             </div>
-            <div class="col-4">
+            <div class="col-2">
                         <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
              </div>                    
         </div>
