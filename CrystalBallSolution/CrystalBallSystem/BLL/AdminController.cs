@@ -22,6 +22,7 @@ namespace CrystalBallSystem.BLL
         #region Admin management
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all categories
         public List<Category> Category_List()
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -31,6 +32,7 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all high school courses
         public List<HighSchoolCours> HighSchoolCourse_List()
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -40,6 +42,7 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all credential types
         public List<CredentialType> CredentialType_List()
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -50,6 +53,7 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        // Adds the supplied category to the database
         public void AddCategory(Category item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -78,6 +82,7 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all programs for the specified category
         public List<Program> GetProgramByCategory(int categoryID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -171,6 +176,7 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all courses for the specified program
         public List<NaitCours> GetCoursesByProgram(int programID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -298,9 +304,6 @@ namespace CrystalBallSystem.BLL
 
         #endregion
 
-        #region requirement
-
-        #endregion
 
         #region Preference Questions
 
