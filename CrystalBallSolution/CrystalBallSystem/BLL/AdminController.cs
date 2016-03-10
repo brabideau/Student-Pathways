@@ -274,7 +274,9 @@ namespace CrystalBallSystem.BLL
                 HighSchoolCours data = new HighSchoolCours()
                 {
                     HighSchoolCourseID = item.HighSchoolCourseID,
-                    HighSchoolCourseName = item.HighSchoolCourseName
+                    HighSchoolCourseName = item.HighSchoolCourseName,
+                    CourseGroup =item.CourseGroup,
+                    Highest = item.Highest
                 };
 
                 context.Entry<HighSchoolCours>(context.HighSchoolCourses.Attach(data)).State = System.Data.Entity.EntityState.Modified;
@@ -288,7 +290,7 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                // TODO: Validation rules...
+                
                 var added = context.HighSchoolCourses.Add(item);
                 context.SaveChanges();
             }

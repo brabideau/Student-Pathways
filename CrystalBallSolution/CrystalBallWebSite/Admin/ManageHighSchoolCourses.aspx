@@ -27,6 +27,22 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>
+                                    Gourse Group:
+                                </th>
+                                <td>
+                                    <asp:TextBox ID="CourseGroupLabel" runat="server" Text='<%# Bind("CourseGroup") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Highest:
+                                </th>
+                                <td>
+                                    <asp:CheckBox ID="HighestCheckBox" runat ="server" Checked='<%# Bind("Highest") %>' />
+                                </td>
+                            </tr>
+                            <tr>
                                 <th></th>
                                 <td>
                                     <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
@@ -58,6 +74,12 @@
                 <td>
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
                 </td>
+                <td>
+                    <asp:TextBox ID="CourseGroupLabel" runat="server" Text='<%# Bind("CourseGroup") %>' />
+                </td>
+                <td>
+                    <asp:CheckBox ID="HighestCheckBox" runat ="server" Checked='<%# Bind("Highest") %>' />
+                </td>
             </tr>
         </InsertItemTemplate>
 
@@ -69,6 +91,12 @@
                 </td>
                 <td>
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
+                </td>
+                <td>
+                    <asp:Label ID="CourseGroupLabel" runat="server" Text='<%# Eval("CourseGroup") %>' />
+                </td>
+                <td>
+                    <asp:CheckBox ID="HighestCheckBox" runat ="server" Checked='<%# Eval("Highest") %>' Enabled="false"/>
                 </td>
             </tr>
         </ItemTemplate>
@@ -82,6 +110,8 @@
                             <tr runat="server">
                                 <th runat="server"></th>
                                 <th runat="server">High School Course Name</th>
+                                <th runat="server">Course Group</th>
+                                <th runat="server">Highest</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server">
                             </tr>
