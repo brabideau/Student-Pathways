@@ -28,10 +28,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         //add exception handling for program stream not being selected - also have category auto refresh based on first value in the category DDL
         if (CurrentStudent.Checked == true && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
         {
-            programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
-            programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
-            programChange = Convert.ToInt32(ChangeProgram.Checked);
-            semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
+            MessageUserControl.TryRun(() =>
+                {
+                    programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
+                    programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
+                    programChange = Convert.ToInt32(ChangeProgram.Checked);
+                    semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
+                }, "Success!", "Message");
         }
         else
         {
@@ -42,56 +45,61 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
         
         //step 2 - preference questions
-        List<StudentPreference> myPreferences = new List<StudentPreference>();
-        foreach (GridViewRow row in PrefQuestions.Rows)
+        MessageUserControl.TryRun(() =>
         {
-            myPreferences.Add(new StudentPreference(
-                       Convert.ToInt32(row.Cells[0].Text),
-                       Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
-                            ));
-        }
-        //send preferences to the BLL for initial results
-        List<ProgramResult> preferenceResults = new List<ProgramResult>();
-        preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
-
-        //step 3 - student courses - use method near the bottom of student controller entrancereq-prefmatch
-        //for each option selected in the check box field, add that to a list
-        List<int> hsCourses = new List<int>();
-        List<GetHSCourses> courseList = new List<GetHSCourses>();
-        courseList = sysmgr.GetCourseList();        
-
-        //Search for checked items in the check box list - if a checked item is a 30 level that
-        //is flagged in the database as being the highest of a category
-        //add all other items in that category
-        foreach (GetHSCourses testItem in courseList)
-        {
-            foreach (ListItem item in CB_CourseList.Items)
+            List<StudentPreference> myPreferences = new List<StudentPreference>();
+            foreach (GridViewRow row in PrefQuestions.Rows)
             {
-                if(item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
+                myPreferences.Add(new StudentPreference(
+                           Convert.ToInt32(row.Cells[0].Text),
+                           Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
+                                ));
+            }
+            //send preferences to the BLL for initial results
+            List<ProgramResult> preferenceResults = new List<ProgramResult>();
+            preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
+
+            //step 3 - student courses - use method near the bottom of student controller entrancereq-prefmatch
+            //for each option selected in the check box field, add that to a list
+            List<int> hsCourses = new List<int>();
+            List<GetHSCourses> courseList = new List<GetHSCourses>();
+            courseList = sysmgr.GetCourseList();
+
+            //Search for checked items in the check box list - if a checked item is a 30 level that
+            //is flagged in the database as being the highest of a category
+            //add all other items in that category
+            foreach (GetHSCourses testItem in courseList)
+            {
+                foreach (ListItem item in CB_CourseList.Items)
                 {
-                    int[] childCourses = sysmgr.GetParentCategory(Convert.ToInt32(item.Value));
-                    for (int i = 0; i < childCourses.Length; i++)
+                    if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
                     {
-                        hsCourses.Add(Convert.ToInt32(childCourses[i]));
+                        int[] childCourses = sysmgr.GetParentCategory(Convert.ToInt32(item.Value));
+                        for (int i = 0; i < childCourses.Length; i++)
+                        {
+                            hsCourses.Add(Convert.ToInt32(childCourses[i]));
+                        }
+                    }
+                    else if (item.Selected)
+                    {
+                        hsCourses.Add(Convert.ToInt32(item.Value));
                     }
                 }
-                else if (item.Selected)
-                {
-                    hsCourses.Add(Convert.ToInt32(item.Value));
-                }
             }
-        }
 
-        //send information to BLL for processing and narrow down possible results
-        List<ProgramResult> programResults = new List<ProgramResult>();
-        programResults = StudentController.FindProgramMatches(hsCourses);
+            //send information to BLL for processing and narrow down possible results
+            List<ProgramResult> programResults = new List<ProgramResult>();
+            programResults = StudentController.FindProgramMatches(hsCourses);
 
-        List<ProgramResult> finalResults = new List<ProgramResult>();
-        finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
-        //display results once queries are complete
-        ResultsView.DataSource = finalResults;
-        ResultsView.DataBind();
-        results.Visible = true;
+            List<ProgramResult> finalResults = new List<ProgramResult>();
+            finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
+            //display results once queries are complete
+            ResultsView.DataSource = finalResults;
+            ResultsView.DataBind();
+            results.Visible = true;
+        }, "Success!", "Message");
+        
+        
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
