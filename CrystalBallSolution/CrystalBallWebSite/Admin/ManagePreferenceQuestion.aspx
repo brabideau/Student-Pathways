@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <div runat="server" align="center">
-    <h1>Manage Preference Question</h1>
+    <h4 class="table_header">Manage Preference Questions</h4>
     <asp:ListView ID="QuestionList" runat="server" DataSourceID="ODSQuestions" InsertItemPosition="LastItem" DataKeyNames="QuestionID">
         <AlternatingItemTemplate>
             <tr >
@@ -22,17 +22,13 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    QuestionID:
-                                </th>
-                                <td>
+                                    QuestionID: </th><td>
                                     <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Bind("QuestionID") %>' />
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Question Description:
-                                </th>
-                                <td>
+                                    Question Description: </th><td>
                                     <asp:TextBox ID="QuestionDescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
                                 </td>
                             </tr>
@@ -51,11 +47,7 @@
         <EmptyDataTemplate>
             <table runat="server">
                 <tr>
-                    <td>No data was returned.</td>
-                </tr>
-            </table>
-        </EmptyDataTemplate>
-        <InsertItemTemplate>
+                    <td>No data was returned.</td></tr></table></EmptyDataTemplate><InsertItemTemplate>
             <tr>
                 <td>
                     <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="admin_button2" />
@@ -84,24 +76,11 @@
                         <table id="itemPlaceholderContainer" runat="server">
                             <tr runat="server">
                                 <th runat="server"></th>
-                                <th runat="server">Description</th>
-                            </tr>
-                            <tr id="itemPlaceholder" runat="server">
+                                <th runat="server">Description</th></tr><tr id="itemPlaceholder" runat="server">
                             </tr>
                         </table>
                     </td>
                 </tr>
-                <%--<tr runat="server" align="center">
-                    <td runat="server">
-                        <asp:DataPager ID="DataPager1" runat="server">
-                            <Fields>
-                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                                <asp:NumericPagerField />
-                                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                            </Fields>
-                        </asp:DataPager>
-                    </td>
-                </tr>--%>
             </table>
         </LayoutTemplate>
         <SelectedItemTemplate>
@@ -116,6 +95,165 @@
             </tr>
         </SelectedItemTemplate>
     </asp:ListView>
+
+    <div style="width:100%;text-align:center;margin:20px">
+        <h4 class="table_header">Manage Questions for Each Program</h4>
+        <div style="width:100%;clear:both">
+            <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
+            <asp:DropDownList ID="CategoryDropdownList" runat="server" 
+                                              DataSourceID="ODSCategory" 
+                                              DataTextField="CategoryDescription" 
+                                              DataValueField="CategoryID"
+                                              AppendDataBoundItems="true">
+                                <asp:ListItem Value="0">[Select Category]</asp:ListItem>
+            </asp:DropDownList>
+               
+            <asp:LinkButton ID="SearchButton" runat="server" CssClass="button" OnClick="SearchButton_Click">Search</asp:LinkButton>
+        </div>  
+    </div>  
+
+    <div style="clear:both;width:100%;margin:10px;">  
+    <div style="float:left;width:40%">
+        <h4 class="table_header">Programs</h4>
+
+                    <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
+                                                                  OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
+                                                                  DataKeyNames="ProgramID" style="margin-right: 45px"
+                                                                  
+                                                                  >
+                        
+                        <EmptyDataTemplate>
+                            <table runat="server">
+                                <tr>
+                                    <td>No data was returned.</td>
+                                </tr>
+                            </table>
+                        </EmptyDataTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
+                                </td>
+                                <td>
+                                        <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
+                                            <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
+                                        </asp:LinkButton></td></tr></ItemTemplate><LayoutTemplate>
+                            <table runat="server">
+                                <tr runat="server">
+                                    <td runat="server">
+                                        <table id="itemPlaceholderContainer" runat="server" border="0" style="width:100%">
+                                            <tr runat="server" style="" hidden="hidden">
+                                                <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server"></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </LayoutTemplate>
+                        <SelectedItemTemplate>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
+                                </td>
+                                <td>
+                                    <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
+                                            <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
+                                    </asp:LinkButton>
+                                </td>
+                            </tr>
+                        </SelectedItemTemplate>
+                    </asp:ListView>
+
+    </div>
+        
+        <div style="width:55%;float:right">
+        <h4 class="table_header">Questions</h4>
+            <asp:ListView ID="QuestionListView" runat="server">
+            <AlternatingItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="QuestionLabel" runat="server" Text='<%# Eval("Question") %>' />
+                    </td>
+                    <td>
+                        <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' Enabled="false" RepeatDirection="Horizontal">
+                            <asp:ListItem Value="True">Yes</asp:ListItem>
+                            <asp:ListItem Value="False">No</asp:ListItem>                                
+                        </asp:RadioButtonList>
+                        <%--<asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Eval("Answer") %>' Enabled="false"/>--%>
+                    </td>
+                </tr>
+            </AlternatingItemTemplate>
+            <EditItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="QuestionTextBox" runat="server" Text='<%# Bind("Question") %>' />
+                    </td>
+                    <td>
+                        <asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Bind("Answer") %>' />
+                    </td>
+                </tr>
+            </EditItemTemplate>
+            <EmptyDataTemplate>
+                <table runat="server" style="">
+                    <tr>
+                        <td>No data was returned.</td>
+
+                    </tr>
+                </table>
+            </EmptyDataTemplate>
+                
+            <ItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="QuestionLabel" runat="server" Text='<%# Eval("Question") %>' />
+                    </td>
+                    <td>
+                        <%--<asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Eval("Answer") %>' Enabled="false"/>--%>
+                        <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' Enabled="false" RepeatDirection="Horizontal">
+                            <asp:ListItem Value="True">Yes</asp:ListItem>
+                            <asp:ListItem Value="False">No</asp:ListItem>                                
+                        </asp:RadioButtonList>
+                    </td>
+                </tr>
+            </ItemTemplate>
+            <LayoutTemplate>
+                <table runat="server">
+                    <tr runat="server">
+                        <td runat="server">
+                            <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                <tr runat="server" style="">
+                                    <th runat="server">QuestionID</th>
+                                    <th runat="server">Question</th>
+                                    <th runat="server">Answer</th>
+                                </tr>
+                                <tr id="itemPlaceholder" runat="server">
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr runat="server">
+                        <td runat="server" style="">
+                        </td>
+                    </tr>
+                </table>
+            </LayoutTemplate>
+        </asp:ListView>
+    </div>
+</div>
+    
 </div>
     <asp:ObjectDataSource ID="ODSQuestions" runat="server" 
                           DataObjectTypeName="CrystalBallSystem.DAL.Entities.PreferenceQuestion" 
@@ -129,5 +267,11 @@
             <asp:Parameter Name="questionId" Type="Int32" />
         </DeleteParameters>
     </asp:ObjectDataSource>
-</asp:Content>
+    <asp:ObjectDataSource ID="ODSCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ODSProgramByCategory" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="CategoryDropdownList" DefaultValue="0" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
+            </SelectParameters>
+    </asp:ObjectDataSource>
+    </asp:Content>
 

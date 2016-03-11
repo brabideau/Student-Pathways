@@ -202,7 +202,7 @@ textarea {
 }
 
 .button {
-    display: block;
+    display:inline-block;
     height: 40px;
     width: 100px;
   
@@ -499,6 +499,11 @@ p {
       padding: 3px 8px;
   }*/
 
+  .table_header
+  {
+      background-color:rgba(63, 143, 210, 0.5);
+
+  }
 
 
 

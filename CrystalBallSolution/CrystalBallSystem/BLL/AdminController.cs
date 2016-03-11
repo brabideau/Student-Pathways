@@ -353,6 +353,26 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all questions and answers for the specified program
+        public List<GetProgramPreferenceQuestions> GetQuestionsByProgram(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var result = from x in context.ProgramPreferences
+                             where x.ProgramID == programID
+                             select new GetProgramPreferenceQuestions()
+                             {
+                                 QuestionID = x.QuestionID,
+                                 Question = x.PreferenceQuestion.Description,
+                                 Answer = x.Answer                     
+                             };
+                return result.ToList();
+                //
+                // return context.NaitCourses.Where(c => c.Programs.Any(p => p.ProgramID == programID)).ToList();
+            }
+        }
+
 
         #endregion
 
