@@ -373,7 +373,22 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void UpdateProgramPreferenceQuestion(GetProgramPreferenceQuestions item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                GetProgramPreferenceQuestions data = new GetProgramPreferenceQuestions()
+                {
+                    QuestionID = item.QuestionID,
+                    Question = item.Question,
+                    Answer = item.Answer
 
+                };
+            
+                context.SaveChanges();
+            }
+        }
         #endregion
 
         #region Equivalency Page
