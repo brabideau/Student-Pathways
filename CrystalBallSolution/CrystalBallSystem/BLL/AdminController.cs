@@ -460,5 +460,99 @@ namespace CrystalBallSystem.BLL
             }
         }
         #endregion
+
+        #region Briand Playspace
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all categories
+        public List<Program> Program_Search(string searchTerm, int? catID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                List<Program> results = new List<Program> { };
+
+                if (catID == null && searchTerm != null)
+                {
+                    results = (from p in context.Programs
+                                  where p.ProgramName.Contains(searchTerm)
+                                  select p).ToList();
+                }
+                else if (catID != null && searchTerm == null)
+                {
+                    results = (context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == catID))).ToList();
+                }
+                else
+                {
+                    results = (from p in context.Programs
+                                  select p).ToList();
+                }
+
+                return results;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all Programs
+        public List<Program> Get_All_Programs()
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var results = from p in context.Programs
+                              select p;
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Get one program by ID
+        public Program Get_Program(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var result = (from p in context.Programs
+                             where p.ProgramID == programID
+                              select p).FirstOrDefault();
+                return result;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all categories for a specific program
+        public List<Int32> Get_Categories_By_Program(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var results = from p in context.Programs
+                              from pc in p.Categories
+                              where p.ProgramID == programID
+                              select pc.CategoryID;
+
+                return results.ToList();
+            }
+        }
+
+        public List<NaitCours> GetCoursesByProgramSemester(int programID, int sem)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                if (sem < 5)
+                {
+                    var result = from x in context.ProgramCourses
+                                 where x.ProgramID == programID && x.Semester == sem
+                                 select x.NaitCourse;
+                    return result.ToList();
+                }
+                else
+                {
+                    var result = from x in context.ProgramCourses
+                                 where x.ProgramID == programID && x.Semester >= 5
+                                 select x.NaitCourse;
+                    return result.ToList();
+                }
+                //
+                // return context.NaitCourses.Where(c => c.Programs.Any(p => p.ProgramID == programID)).ToList();
+            }
+        }
+        #endregion
     }
 }

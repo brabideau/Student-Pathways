@@ -320,7 +320,7 @@
                 </table>
             </LayoutTemplate>
             <SelectedItemTemplate>
-                <tr ><%--style="background-color:#E2DED6; font-weight: bold;color: #333333;"--%>
+                <tr >
                     <td>
                         <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="listview-buttons"/>
                     </td>
