@@ -29,7 +29,7 @@ public partial class Student_testpage : System.Web.UI.Page
             CoursesSelected = (DataTable)Session["CoursesSelected"];
             //GridView1.DataSource = CoursesSelected;
             //GridView1.DataBind();
-            //ViewState["CoursesSelected"] = CoursesSelected;
+            ViewState["CoursesSelected"] = CoursesSelected;
             List<int> listCID = new List<int>();
             foreach (DataRow row1 in CoursesSelected.Rows)
             {
@@ -42,6 +42,7 @@ public partial class Student_testpage : System.Web.UI.Page
 
             rptProgram.DataSource = pcMatch;
             rptProgram.DataBind();
+            //ViewState["CoursesSelected"] = CoursesSelected;
         }
         //DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
         
@@ -49,8 +50,12 @@ public partial class Student_testpage : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
+        CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        Session["CoursesSelected"] = CoursesSelected;
+
 
         Response.Redirect("../Student/SelectNaitCourses.aspx");
+
     }
     //protected void Button2_Click(object sender, EventArgs e)
     //{

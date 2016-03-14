@@ -16,10 +16,11 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         {
             DataColumn CourseID;
             DataColumn CourseCode;
+            DataColumn CourseName;
             DataColumn CourseCredits;
             CoursesSelected = new DataTable();
-            //if (Session["CoursesSelected"] == null)
-            //{
+            if (Session["CoursesSelected"] == null)
+            {
             CourseID = new DataColumn();
             CourseID.DataType = System.Type.GetType("System.Int32");
             CourseID.ColumnName = "CourseID";
@@ -31,6 +32,12 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             CourseCode.ColumnName = "CourseCode";
             CourseCode.Caption = "CourseCode";
             CoursesSelected.Columns.Add(CourseCode);
+
+            CourseName = new DataColumn();
+            CourseName.DataType = System.Type.GetType("System.String");
+            CourseName.ColumnName = "CourseName";
+            CourseName.Caption = "CourseName";
+            CoursesSelected.Columns.Add(CourseName);
 
             CourseCredits = new DataColumn();
             CourseCredits.DataType = System.Type.GetType("System.Double");
@@ -44,13 +51,12 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             pCol[0] = CourseID;
             CoursesSelected.PrimaryKey = pCol;
             ViewState["CoursesSelected"] = CoursesSelected;
-            //}
-            //else
-            //{
-            //    CoursesSelected = (DataTable)Session["CoursesSelected"];
-            //    Session["CoursesSelected"] = null;
-            //    //CourseCodeLabel.Text = CoursesSelected.Rows.ToString();
-            //}
+            }
+            else
+            {
+                CoursesSelected = (DataTable)Session["CoursesSelected"];
+                ViewState["CoursesSelected"] = CoursesSelected;
+            }
             //Session["table"] = CoursesSelected;
             rptCourse.DataSource = CoursesSelected;
             rptCourse.DataBind();
@@ -60,9 +66,10 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
 
     protected void SelectCourses(object sender, GridViewSelectEventArgs e)
     {
-       
+        
         GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
         string CCode = (row.FindControl("CourseCode") as Label).Text;
+        string CName = (row.FindControl("CourseName") as Label).Text;
         int  id = int.Parse((row.FindControl("CourseID") as Label).Text);
         double CCredits = double.Parse((row.FindControl("CourseCredits") as Label).Text);
         //CourseRepeater.CourseCodeLabel.Text = id;
@@ -72,6 +79,7 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         dtrow = CoursesSelected.NewRow();
         dtrow["CourseID"] = id;
         dtrow["CourseCode"] = CCode;
+        dtrow["CourseName"] = CName;
         dtrow["CourseCredits"] = CCredits;
         
         //how to delete duplicate value
@@ -85,17 +93,17 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
             CoursesSelected.Rows.Find(id).Delete();
             CoursesSelected.Rows.Add(dtrow);
         }
-        double credit = 0;
+        int count = 0;
         foreach (DataRow row1 in CoursesSelected.Rows)
         {
-            credit =credit + double.Parse(row1[2].ToString());
-
+            count++;
         }        
         ViewState["CoursesSelected"] = CoursesSelected;
 
         rptCourse.DataSource = CoursesSelected;
         rptCourse.DataBind();
 
+        TotalCourseLabel.Text = "the total course you have is : " + count;
         //for (int i = 0; i < CourseGridView.Rows.Count; i++)
         //{
         //    CourseGridView.Rows[i].Font.Bold = false;
@@ -134,6 +142,12 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
     protected void Search_Click(object sender, EventArgs e)
     {
         CourseGridView.Visible = true;
+    }
+    protected void reset_Click(object sender, EventArgs e)
+    {
+        Session["CoursesSelected"] = null;
+        ViewState["CoursesSelected"] = null;
+        Response.Redirect("../Student/SelectNaitCourses.aspx");
     }
 }
 //problem feed back not using ispostback so that everytime it creat a new datatable
