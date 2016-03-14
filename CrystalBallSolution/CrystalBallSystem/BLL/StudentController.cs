@@ -34,7 +34,7 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
-        //select method that will populate the drop down list allowing a user to select courses.
+        //Method that will get all of the highschool courses and their relevant details
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<GetHSCourses> GetCourseList()
         {
@@ -77,7 +77,7 @@ namespace CrystalBallSystem.BLL
             }
 
         }
-        //method returns the list of course ids in a given category
+        //Method returns the list of course ids in a given category
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int[] GetParentCategory(int courseCode)
         {

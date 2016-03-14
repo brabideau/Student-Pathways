@@ -13,28 +13,25 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
 
     }
+
+    /*
+     * When user clicks the submit button the program will log all of the options selected and send them to the database step by step to determine the final results that should be returned.
+     * Once those results are gathered the final view will be displayed with the returned values from the databased bound to a gridview.
+     */
     protected void Submit_Click(object sender, EventArgs e)
     {
+        //step 1 - Gather program information from the student. This is primarily used in metrics data to see what programs see students looking to transfer.
         int? programCategoryID, programID, programChange, semester;
         StudentController sysmgr = new StudentController();
         int tempInt;
-        //gather the question ids and answer values for each value on the page and send it
-        //to the database for evaluation (packaged with the initial questions)
-        //hide previous steps and do requisite computations to get results
         stepThree.Visible = false;
-        //log entries from steps 1-3 and then use those entries to query the database
-        //step 1 - program information - metrics gather stuff - use program and semester to pull back courses - use method in student controller (prefill courses)
 
-        //add exception handling for program stream not being selected - also have category auto refresh based on first value in the category DDL
         if (CurrentStudent.Checked == true && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
         {
-            MessageUserControl.TryRun(() =>
-                {
-                    programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
-                    programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
-                    programChange = Convert.ToInt32(ChangeProgram.Checked);
-                    semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
-                }, "Success!", "Message");
+            programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
+            programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
+            programChange = Convert.ToInt32(ChangeProgram.Checked);
+            semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
         }
         else
         {
@@ -43,10 +40,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             programChange = null;
             semester = null;
         }
-        
-        //step 2 - preference questions
+
+
         MessageUserControl.TryRun(() =>
         {
+            //step 2 - Gather the answers to the student preference questions
             List<StudentPreference> myPreferences = new List<StudentPreference>();
             foreach (GridViewRow row in PrefQuestions.Rows)
             {
@@ -59,15 +57,14 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             List<ProgramResult> preferenceResults = new List<ProgramResult>();
             preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
 
-            //step 3 - student courses - use method near the bottom of student controller entrancereq-prefmatch
-            //for each option selected in the check box field, add that to a list
+            //step 3 - Gather the selected courses provided by the student. Determine if any selected courses are the highest in a particular course group
             List<int> hsCourses = new List<int>();
             List<GetHSCourses> courseList = new List<GetHSCourses>();
             courseList = sysmgr.GetCourseList();
 
             //Search for checked items in the check box list - if a checked item is a 30 level that
             //is flagged in the database as being the highest of a category
-            //add all other items in that category
+            //add all other courses in that category to hsCourses
             foreach (GetHSCourses testItem in courseList)
             {
                 foreach (ListItem item in CB_CourseList.Items)
@@ -87,6 +84,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 }
             }
 
+            //step 4 - Determine initial program results and then filter those results based on student preference questions. Display final results
             //send information to BLL for processing and narrow down possible results
             List<ProgramResult> programResults = new List<ProgramResult>();
             programResults = StudentController.FindProgramMatches(hsCourses);
@@ -97,9 +95,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ResultsView.DataSource = finalResults;
             ResultsView.DataBind();
             results.Visible = true;
-        }, "Success!", "Message");
-        
-        
+        }, "Success!", "Here are the pathways available to you!");
+
+
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
@@ -137,9 +135,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             {
                 switchProgram = false;
             }
-            //AshleyTestController sysmgr = new AshleyTestController();
-            //int reportid = sysmgr.ReportingDataAddProgramInfo(programid, semester, switchProgram);
-            //ReportLabel.Text = reportid.ToString();
         }
     }
     protected void onPreviousClick(object sender, EventArgs e)
@@ -149,8 +144,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void Populate_Program(object sender, EventArgs e)
     {
-        //get the value of the selected value in the drop down list and populate the program
-        //list data source based on that value
         AdminController sysmgr = new AdminController();
         int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
@@ -166,6 +159,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         step2.Visible = false;
         stepThree.Visible = true;
     }
+    //should I be resetting the values when they click search again? It was mentioned that they wanted this stuff to be saved.
     protected void searchAgain_Click(object sender, EventArgs e)
     {
         results.Visible = false;
