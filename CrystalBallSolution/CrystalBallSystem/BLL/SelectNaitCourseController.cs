@@ -151,6 +151,10 @@ namespace CrystalBallSystem.BLL
                                   {
                                       ProgramID = x.Program.ProgramID,
                                       ProgramName = x.Program.ProgramName,
+                                      ProgramCreditTotal = x.Program.TotalCredits == null ? 0 : x.Program.TotalCredits,
+                                      CreditTatol = (from y in result
+                                                     where y.Program.ProgramID == x.Program.ProgramID
+                                                     select y.NaitCourse.CourseCredits).Sum(),
                                       ProgramCourseMatch = from y in result
                                                            where y.Program.ProgramID == x.Program.ProgramID
                                                            select new ProgramCourseMatch
@@ -160,6 +164,7 @@ namespace CrystalBallSystem.BLL
                                                                CourseName = y.NaitCourse.CourseName,
                                                                CourseCredits = y.NaitCourse.CourseCredits
                                                            }
+
 
                                   }).GroupBy(a => a.ProgramID);
 

@@ -16,6 +16,8 @@ namespace CrystalBallSystem.DAL.DTOs
     {
         public int ProgramID { get; set; }
         public string ProgramName { get; set; }
+        public double CreditTatol { get; set; }
+        public double? ProgramCreditTotal { get; set; }
         public IEnumerable ProgramCourseMatch { get; set; }
     }
 }

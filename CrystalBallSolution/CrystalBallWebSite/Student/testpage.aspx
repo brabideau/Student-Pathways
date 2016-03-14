@@ -3,17 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     
     <div>
-         <asp:GridView ID="GridView1" runat="server"></asp:GridView>
-        <asp:Button ID="Button2" runat="server" Text="Generated" OnClick="Button2_Click" />
-    </div>
-   
-    <div>
         <asp:Repeater ID="rptProgram" runat="server"  >
         <ItemTemplate>    
             <div >
                 <h1>
                     <%--<span><%# Eval("ProgramID") %></span>--%>
                     <span><%# Eval("ProgramName") %></span>
+                    
                 </h1>
                 
                 <asp:Repeater ID="rptCourse" runat="server" DataSource ='<%# Eval("ProgramCourseMatch") %>'>
@@ -31,7 +27,11 @@
                         </div>      
                     </ItemTemplate>
                 </asp:Repeater>
-                <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+                <h3>
+                    Total Credit you got for this program:
+                    <span><%# Eval("CreditTatol") %></span>/<span><%# Eval("ProgramCreditTotal") %></span>
+                </h3>
+                
             </div>      
         </ItemTemplate>
         </asp:Repeater>

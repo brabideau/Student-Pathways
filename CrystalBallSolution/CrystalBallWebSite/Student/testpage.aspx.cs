@@ -21,16 +21,30 @@ using CrystalBallSystem.BLL;
 
 public partial class Student_testpage : System.Web.UI.Page
 {
-
+    DataTable CoursesSelected;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            DataTable CoursesSelected = (DataTable)Session["CoursesSelected"];
-            GridView1.DataSource = CoursesSelected;
-            GridView1.DataBind();
-            ViewState["CoursesSelected"] = CoursesSelected;
+            CoursesSelected = (DataTable)Session["CoursesSelected"];
+            //GridView1.DataSource = CoursesSelected;
+            //GridView1.DataBind();
+            //ViewState["CoursesSelected"] = CoursesSelected;
+            List<int> listCID = new List<int>();
+            foreach (DataRow row1 in CoursesSelected.Rows)
+            {
+                int cid = int.Parse((row1[0]).ToString());
+                listCID.Add(cid);
+            }
+            SelectNaitCourseController NCC = new SelectNaitCourseController();
+            var pcMatch = NCC.PCMatch(listCID);
+
+
+            rptProgram.DataSource = pcMatch;
+            rptProgram.DataBind();
         }
+        //DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        
 
     }
     protected void Button1_Click(object sender, EventArgs e)
@@ -38,44 +52,32 @@ public partial class Student_testpage : System.Web.UI.Page
 
         Response.Redirect("../Student/SelectNaitCourses.aspx");
     }
-    protected void Button2_Click(object sender, EventArgs e)
-    {
-        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
-        List<int> listCID = new List<int>();
-        foreach (DataRow row1 in CoursesSelected.Rows)
-        {
-            int cid =int.Parse( (row1[0]).ToString());
-            listCID.Add(cid);
-        }
-        SelectNaitCourseController NCC = new SelectNaitCourseController();
-        var pcMatch = NCC.PCMatch(listCID);
+    //protected void Button2_Click(object sender, EventArgs e)
+    //{
         
 
-        rptProgram.DataSource = pcMatch;
-        rptProgram.DataBind();
 
+    //    //int credit = 0;
+    //    //Repeater outrepeater = rptProgram;
+    //    //Repeater intrepeater = (Repeater) rptProgram.FindControl("rptCourse");
 
-        int credit = 0;
-        //Repeater outrepeater = rptProgram;
-        Repeater intrepeater = (Repeater) rptProgram.FindControl("rptCourse");
-
-        foreach (RepeaterItem i in intrepeater.Items)
-        {
-            var IDLabel = i.FindControl("Label1") as Label;
-            credit += int.Parse(IDLabel.ToString());
+    //    //foreach (RepeaterItem i in intrepeater.Items)
+    //    //{
+    //    //    var IDLabel = i.FindControl("Label1") as Label;
+    //    //    credit += int.Parse(IDLabel.ToString());
             
-        }
-        Label a = (Label)rptProgram.FindControl("Label2");
-        a.Text = credit + "";
-        //{
+    //    //}
+    //    //Label a = (Label)rptProgram.FindControl("Label2");
+    //    //a.Text = credit + "";
+    //    //{
 
-        //    TextBox txtExample = (TextBox)i.FindControl("txtExample");
-        //    if (txtExample != null)
-        //    {
-        //        litResults.Text += txtExample.Text + "<br />";
-        //    }
-        //}
+    //    //    TextBox txtExample = (TextBox)i.FindControl("txtExample");
+    //    //    if (txtExample != null)
+    //    //    {
+    //    //        litResults.Text += txtExample.Text + "<br />";
+    //    //    }
+    //    //}
         
         
-    }
+    //}
 }

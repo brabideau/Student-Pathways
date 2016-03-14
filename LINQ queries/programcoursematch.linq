@@ -1,10 +1,9 @@
 <Query Kind="Statements">
   <Connection>
-    <ID>bfa7ecad-18c9-462b-abd4-23b7f9cddaf7</ID>
+    <ID>8ed7549f-3fca-4078-8e01-2fe63f08d8ab</ID>
     <Persist>true</Persist>
     <Server>.</Server>
-    <Database>Nait_Pathways</Database>
-    <ShowServer>true</ShowServer>
+    <Database>NAIT_PATHWAYS</Database>
   </Connection>
 </Query>
 
@@ -36,6 +35,8 @@ select new
 	c.Dump();
 
 
+double CreditTatol = (from y in aa where y.Program.ProgramID==x.Program.ProgramID
+                                                        select y.NaitCourse.CourseCredits).Sum();
 
-
+CreditTatol.Dump();
 //FirstOrDefault   x.Program && x.NaitCourses;
