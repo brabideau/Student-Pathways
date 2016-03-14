@@ -58,6 +58,12 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
                 ViewState["CoursesSelected"] = CoursesSelected;
             }
             //Session["table"] = CoursesSelected;
+            int count = 0;
+            foreach (DataRow row1 in CoursesSelected.Rows)
+            {
+                count++;
+            }
+            TotalCourseLabel.Text = "Total courses : " + count;
             rptCourse.DataSource = CoursesSelected;
             rptCourse.DataBind();
             CourseGridView.Visible = false;
@@ -103,20 +109,20 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         rptCourse.DataSource = CoursesSelected;
         rptCourse.DataBind();
 
-        TotalCourseLabel.Text = "the total course you have is : " + count;
-        //for (int i = 0; i < CourseGridView.Rows.Count; i++)
-        //{
-        //    CourseGridView.Rows[i].Font.Bold = false;
-        //    for (int j = 0; j < CoursesSelected.Rows.Count; j++)
-        //    {
-        //        if (GridView1.DataKeys[i]["CategoryID"].ToString() == tblSelected.Rows[j]["catID"].ToString())
-        //        {
-        //            GridView1.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
-        //            GridView1.Rows[i].Font.Bold = true;
-        //            GridView1.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
-        //        }
-        //    }
-        //}  
+        TotalCourseLabel.Text = "Total courses : " + count;
+        for (int i = 0; i < CourseGridView.Rows.Count; i++)
+        {
+            CourseGridView.Rows[i].Font.Bold = false;
+            for (int j = 0; j < CoursesSelected.Rows.Count; j++)
+            {
+                if (CourseGridView.DataKeys[i]["CourseID"].ToString() == CoursesSelected.Rows[j]["CourseID"].ToString())
+                {
+                    CourseGridView.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
+                    CourseGridView.Rows[i].Font.Bold = true;
+                    CourseGridView.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
+                }
+            }
+        }  
 
     }
     protected void Next_Click(object sender, EventArgs e)

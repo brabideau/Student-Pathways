@@ -24,7 +24,7 @@
         </div>
     <div class="col-6 nait-courses">
         <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            DataKeyNames="CourseCode" OnSelectedIndexChanging="SelectCourses">
+            DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
             
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
@@ -83,7 +83,7 @@
         
     <div class="col-12">
         
-        <asp:Label ID="TotalCourseLabel" runat="server" Text="Total course you have is : 0" Font-Size="Larger"></asp:Label>
+        <asp:Label ID="TotalCourseLabel" runat="server" Text="Total courses : " Font-Size="Larger"></asp:Label>
         <hr />
         
         <asp:LinkButton ID="Next" runat="server" OnClick="Next_Click" CssClass="button next" >Next</asp:LinkButton>
