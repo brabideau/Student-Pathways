@@ -57,12 +57,14 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
 
         var programPreference = new GetProgramPreferenceQuestions();
 
+        programPreference.ProgramID = proId;
         programPreference.QuestionID = int.Parse(questionId.Text);
         programPreference.Question = question.Text;
+      
         programPreference.Answer = Convert.ToBoolean(answer.SelectedValue);
 
 
-        sysmr.UpdateProgramPreferenceQuestion(programPreference, proId);
+        sysmr.UpdateProgramPreferenceQuestion(programPreference);
     }
 
     protected void QuestionListView_ItemEditing(object sender, ListViewEditEventArgs e)
