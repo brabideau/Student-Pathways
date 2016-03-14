@@ -1,5 +1,6 @@
 ﻿using CrystalBallSystem.BLL;
 using CrystalBallSystem.DAL.Entities;
+using CrystalBallSystem.DAL.POCOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,6 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         LinkButton button = (LinkButton)(sender);
         
         int programID = Convert.ToInt32(button.CommandArgument);
-        InvisibleID.Text = programID.ToString();
         AdminController sysmgr = new AdminController();
         Program myProgram = sysmgr.Get_Program(programID);
 
@@ -48,9 +48,14 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         TB_Link.Text = myProgram.ProgramLink;
 
         // populate the other info       
-        //Populate_Categories(programID);        
+        //Populate_Categories(programID);  
+        CB_Categories.DataBind();
+        Populate_Categories(programID);
+
         Populate_Courses(programID);
         Populate_Equivalencies(programID);
+
+        GV_Questions.DataBind();
         Populate_Preferences(programID);
 
         buttons.Visible = true;
@@ -78,16 +83,16 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     /*-- ----------------------------- CATEGORIES ---------------------------------------*/
     protected void Categories_Show(object sender, EventArgs e)
     {
-        int programID = Convert.ToInt32(InvisibleID.Text);
+
         ProgramInfo.Visible = false;
         Categories.Visible = true;
         EntranceRequirements.Visible = false;
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
-        CB_Categories.DataBind();
-        Populate_Categories(programID);
+
     }
+
     protected void Populate_Categories(int programID)
     {
         AdminController sysmgr = new AdminController();
@@ -209,9 +214,51 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Populate_Preferences(int programID)
     {
         AdminController sysmgr = new AdminController();
-        var questions = sysmgr.GetQuestionsByProgram(programID);
-        GV_Questions.DataSource = questions;
-        GV_Questions.DataBind();
+        var progQuestions = sysmgr.GetQuestionsByProgram(programID);
+        int questionID;
+        ProgramPreference myPref = new ProgramPreference();
+        List<int> questionAns = new List<int>();
+        questionAns = (from x in progQuestions
+                       select x.QuestionID).ToList();
+
+        if (GV_Questions.Rows.Count > 0)
+        {
+            for (int i = 0; i < GV_Questions.Rows.Count; i++)
+            {
+                (GV_Questions.Rows[i].FindControl("CB_Yes") as CheckBox).Checked = false;
+                (GV_Questions.Rows[i].FindControl("CB_No") as CheckBox).Checked = false;
+
+                if (questionAns.Contains(
+                    Convert.ToInt32((GV_Questions.Rows[i].FindControl("QuestionID") as Label).Text)
+                    ))
+                {
+
+                    (GV_Questions.Rows[i].FindControl("CB_Yes") as CheckBox).Checked = true;
+                }
+            }
+        }
+
+
+            //GetProgramPreferenceQuestions question = new GetProgramPreferenceQuestions();
+
+            //question = (from x in progQuestions
+            //                where x.QuestionID == Convert.ToInt32((GV_Questions.Rows[i].FindControl("QuestionID") as TextBox).Text)
+            //                select x).FirstOrDefault();
+            
+
+            //if (question != null)
+            //{
+            //    if (question.Answer == true)
+            //    {
+            //        (GV_Questions.Rows[i].FindControl("CB_Yes") as CheckBox).Checked = true;
+            //    }
+            //    else
+            //    {
+            //        (GV_Questions.Rows[i].FindControl("CB_No") as CheckBox).Checked = false;
+            //    }
+            //}
+
+        
     }
     protected void Save_Questions(object sender, EventArgs e)
     {

@@ -59,19 +59,20 @@
 
      <%-- ----------------------------- BUTTONS ---------------------------------------%>
     <div runat="server" id="buttons" visible="false" class="col-12 searchbox"> 
-    <asp:LinkButton ID="B_ProgramInfo" runat="server" OnClick="ProgramInfo_Show" CssClass="button submit button-long">Program Info</asp:LinkButton>
-    <asp:LinkButton ID="B_Categories" runat="server" OnClick="Categories_Show" CssClass="button submit">Categories</asp:LinkButton>
-    <asp:LinkButton ID="B_EntranceReq" runat="server" OnClick="EntranceReq_Show"  CssClass="button submit button-long">Entrance Requirements</asp:LinkButton>
-    <asp:LinkButton ID="B_Courses" runat="server" OnClick="Courses_Show" CssClass="button submit" >Courses</asp:LinkButton>
-    <asp:LinkButton ID="B_CourseEquivalencies" runat="server" OnClick="CourseEquivalencies_Show" CssClass="button submit button-long">Equivalencies</asp:LinkButton>
-    <asp:LinkButton ID="B_ProgramPreferences" runat="server" OnClick="ProgramPreferences_Show" CssClass="button submit">Preferences</asp:LinkButton>
+        <h2 id="ProgramNameLabel"></h2>
+        <h5>
+    <asp:LinkButton ID="B_ProgramInfo" runat="server" OnClick="ProgramInfo_Show">Program Info</asp:LinkButton> >>> 
+    <asp:LinkButton ID="B_Categories" runat="server" OnClick="Categories_Show">Categories</asp:LinkButton> >>> 
+    <asp:LinkButton ID="B_EntranceReq" runat="server" OnClick="EntranceReq_Show">Entrance Requirements</asp:LinkButton> >>> 
+    <asp:LinkButton ID="B_Courses" runat="server" OnClick="Courses_Show" >Courses</asp:LinkButton> >>> 
+    <asp:LinkButton ID="B_CourseEquivalencies" runat="server" OnClick="CourseEquivalencies_Show">Equivalencies</asp:LinkButton> >>> 
+    <asp:LinkButton ID="B_ProgramPreferences" runat="server" OnClick="ProgramPreferences_Show" >Preferences</asp:LinkButton>
+            </h5>
     </div>
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
 
     <div runat="server" id="ProgramInfo" visible="false">
 <%--        <p>ProgramID: <asp:Label ID="ProgramIDLabel" runat="server" /></p>--%>
-        <asp:Label runat="server" ID="InvisibleID"></asp:Label>
-
         <p>Program Name: <asp:TextBox ID="TB_ProgramName" runat="server" Visible="false"/></p>
 
         <p>Credential Type: <asp:DropDownList ID="DL_CredentialType" runat="server" 
@@ -303,15 +304,33 @@
    
     <div runat="server" id="ProgramPreferences" visible="false">
         <p>Answer the questions below so that students can be better matched with this program:</p>
-        <asp:GridView ID="GV_Questions" runat="server"></asp:GridView>
-        <asp:Button ID="Questions_Save" runat="server" Text="Save" OnClick ="Save_Questions"/>
+        <asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Label ID="QuestionID" runat="server"  Text='<%# Eval("QuestionID") %>'></asp:Label>
+                   </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="CB_Yes" runat="server" selected="false"></asp:CheckBox>
+                        <asp:CheckBox ID="CB_No" runat="server" selected="false"></asp:CheckBox>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+        <asp:Button ID="Questions_Save" runat="server" Text="Save" OnClick="Save_Questions" />
     </div>
 
-   <%-- -----------------------------ODS---------------------------------------%>
+    <%-- -----------------------------ODS---------------------------------------%>
 
     <asp:ObjectDataSource ID="CategoryList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
 
-    <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource> 
+    <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+
+    <asp:ObjectDataSource ID="QuestionsList" runat="server" SelectMethod="Question_List" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource> 
 
 </asp:Content>
 

@@ -463,6 +463,21 @@ namespace CrystalBallSystem.BLL
         #endregion
 
         #region Briand Playspace
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all Programs
+        public ProgramPreference Get_Program_Question(int programID, int questionID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var result = (from p in context.ProgramPreferences
+                              where p.ProgramID == programID && p.QuestionID == questionID
+                              select p).FirstOrDefault();
+                return result;
+            }
+        }
+
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all categories
         public List<Program> Program_Search(string searchTerm, int? catID)
