@@ -28,15 +28,23 @@ select new
 	where y.Program.ProgramID == x.Program.ProgramID
 	select new 
 	{
-		y.NaitCourses.CourseID
+		y.NaitCourses.CourseID,
+		y.NaitCourses.CourseCredits
 	}
 	
 }).GroupBy(a=> a.programid);
 	c.Dump();
 
 
-double CreditTatol = (from y in aa where y.Program.ProgramID==x.Program.ProgramID
-                                                        select y.NaitCourse.CourseCredits).Sum();
-
+//double CreditTatol = (from y in aa  select y.NaitCourses.CourseCredits).Sum();
+var CreditTatol = (from x in aa  select new {
+										programid =  x.Program.ProgramID,
+										total = (from y in aa
+										where y.Program.ProgramID == x.Program.ProgramID
+										select 
+										y.NaitCourses.CourseCredits).Sum()}).GroupBy(a=> a.programid);
 CreditTatol.Dump();
 //FirstOrDefault   x.Program && x.NaitCourses;
+
+CreditTatol = (from y in result where y.Program.ProgramID==x.Program.ProgramID
+                                                        select y.NaitCourse.CourseCredits).Sum(),
