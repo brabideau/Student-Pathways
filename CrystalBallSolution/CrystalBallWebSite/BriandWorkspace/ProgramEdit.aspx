@@ -25,7 +25,7 @@
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
-        </LayoutTemplate>
+        </LayoutTemplate>        
         <ItemTemplate>
                 <tr>
                     <td>
@@ -70,8 +70,9 @@
 
     <div runat="server" id="ProgramInfo" visible="false">
 <%--        <p>ProgramID: <asp:Label ID="ProgramIDLabel" runat="server" /></p>--%>
+        <asp:Label runat="server" ID="InvisibleID"></asp:Label>
 
-        <p>Program Name: <asp:TextBox ID="TB_ProgramName" runat="server" /></p>
+        <p>Program Name: <asp:TextBox ID="TB_ProgramName" runat="server" Visible="false"/></p>
 
         <p>Credential Type: <asp:DropDownList ID="DL_CredentialType" runat="server" 
                                                                   DataSourceID="ODSCredentialType" 
@@ -105,7 +106,7 @@
     </div>
 
 
-        <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
+    <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
      <div runat="server" id="EntranceRequirements" visible="false">
          <p>What high school courses does this program require?</p>
@@ -119,7 +120,7 @@
      </div>
 
 
-        <%-- ----------------------------- PROGRAM COURSES ---------------------------------------%>
+    <%-- ----------------------------- PROGRAM COURSES ---------------------------------------%>
      
     <div runat="server" id="ProgramCourses" visible="false">
         <p>What courses are part of this program?</p>
@@ -288,7 +289,7 @@
     </div>
 
 
-        <%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%>
+    <%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%>
      
     <div runat="server" id="CourseEquivalencies" visible="false">
         <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p>
@@ -298,7 +299,7 @@
     </div>
     
 
-        <%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%>
+    <%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%>
    
     <div runat="server" id="ProgramPreferences" visible="false">
         <p>Answer the questions below so that students can be better matched with this program:</p>

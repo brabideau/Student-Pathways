@@ -33,6 +33,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         LinkButton button = (LinkButton)(sender);
         
         int programID = Convert.ToInt32(button.CommandArgument);
+        InvisibleID.Text = programID.ToString();
         AdminController sysmgr = new AdminController();
         Program myProgram = sysmgr.Get_Program(programID);
 
@@ -46,8 +47,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         CB_Active.Checked = myProgram.Active;
         TB_Link.Text = myProgram.ProgramLink;
 
-        // populate the other info
-        Populate_Categories(programID);
+        // populate the other info       
+        //Populate_Categories(programID);        
         Populate_Courses(programID);
         Populate_Equivalencies(programID);
         Populate_Preferences(programID);
@@ -77,37 +78,39 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     /*-- ----------------------------- CATEGORIES ---------------------------------------*/
     protected void Categories_Show(object sender, EventArgs e)
     {
+        int programID = Convert.ToInt32(InvisibleID.Text);
         ProgramInfo.Visible = false;
         Categories.Visible = true;
         EntranceRequirements.Visible = false;
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
+        CB_Categories.DataBind();
+        Populate_Categories(programID);
     }
     protected void Populate_Categories(int programID)
     {
         AdminController sysmgr = new AdminController();
         List<int> catList = sysmgr.Get_Categories_By_Program(programID);
 
-
         int catID;
-         // Why isn't this working??????
-
-        foreach (ListItem x in CB_Categories.Items)
+    
+        if(CB_Categories.Items.Count > 0)
         {
-            catID = Convert.ToInt32(x.Value);
-            if (catList.Contains(catID))
+            foreach (ListItem x in CB_Categories.Items)
             {
-                x.Selected = true;
+                catID = Convert.ToInt32(x.Value);
+                if (catList.Contains(catID))
+                {
+                    x.Selected = true;
+                }
             }
-        }
+        }        
     }
     protected void Save_Categories(object sender, EventArgs e)
     {
 
     }
-
-
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
     protected void EntranceReq_Show(object sender, EventArgs e)
