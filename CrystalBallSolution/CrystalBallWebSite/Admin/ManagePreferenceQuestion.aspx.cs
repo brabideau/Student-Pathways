@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 using CrystalBallSystem.BLL;
 using CrystalBallSystem.DAL.Entities;
+using CrystalBallSystem.DAL.POCOs;
 
 public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
 {
@@ -27,9 +28,53 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
         QuestionListView.DataBind();
     }
 
+    private void BindList()
+    {
+        string pid = ProgramList.SelectedDataKey.Value.ToString();
+        int proId = Convert.ToInt32(pid);
+        AdminController sysmr = new AdminController();
+        var questionData = sysmr.GetQuestionsByProgram(proId);
+
+        QuestionListView.DataSource = questionData;
+        QuestionListView.DataBind();
+    }
+
     protected void SearchButton_Click(object sender, EventArgs e)
     {
         QuestionListView.DataSource = null;
         QuestionListView.Visible = false;
+    }
+
+    protected void QuestionListView_ItemUpdating(object sender, ListViewUpdateEventArgs e)
+    {
+        AdminController sysmr = new AdminController();
+        string pid = ProgramList.SelectedDataKey.Value.ToString();
+        int proId = Convert.ToInt32(pid);
+
+        Label questionId = (Label)QuestionListView.EditItem.FindControl("QuestionIDTextLabel");
+        RadioButtonList answer = (RadioButtonList)QuestionListView.EditItem.FindControl("AnswerRadioButtons");
+        Label question = (Label)QuestionListView.EditItem.FindControl("QuestionTextLabel");
+
+        var programPreference = new GetProgramPreferenceQuestions();
+
+        programPreference.QuestionID = int.Parse(questionId.Text);
+        programPreference.Question = question.Text;
+        programPreference.Answer = Convert.ToBoolean(answer.SelectedValue);
+
+
+        sysmr.UpdateProgramPreferenceQuestion(programPreference, proId);
+    }
+
+    protected void QuestionListView_ItemEditing(object sender, ListViewEditEventArgs e)
+    {
+       QuestionListView.EditIndex = e.NewEditIndex;
+        BindList();
+    }
+
+    protected void QuestionListView_ItemCanceling(object sender, ListViewCancelEventArgs e)
+    {
+        
+        QuestionListView.EditIndex = -1;
+        BindList();
     }
 }

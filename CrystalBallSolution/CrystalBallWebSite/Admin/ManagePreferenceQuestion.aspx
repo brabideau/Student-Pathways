@@ -120,8 +120,7 @@
                                                                   OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
                                                                   DataKeyNames="ProgramID" style="margin-right: 45px"
                                                                   
-                                                                  >
-                        
+                                                                  >                        
                         <EmptyDataTemplate>
                             <table runat="server">
                                 <tr>
@@ -158,21 +157,21 @@
                                 <td>
                                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                    </asp:LinkButton>
-                                </td>
+                                    </asp:LinkButton></td>
+
                             </tr>
                         </SelectedItemTemplate>
                     </asp:ListView>
-
-    </div>
-        
-        <div style="width:55%;float:right">
+    </div><div style="width:55%;float:right">
         <h4 class="table_header">Questions</h4>
-            <asp:ListView ID="QuestionListView" runat="server">
-            <AlternatingItemTemplate>
+            <asp:ListView ID="QuestionListView" runat="server" DataKeyNames="QuestionID" 
+                                                               OnItemUpdating="QuestionListView_ItemUpdating" 
+                                                               OnItemEditing="QuestionListView_ItemEditing" 
+                                                               OnItemCanceling="QuestionListView_ItemCanceling">
+                <AlternatingItemTemplate>
                 <tr style="">
                     <td>
-                        <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                        <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                     </td>
                     <td>
                         <asp:Label ID="QuestionLabel" runat="server" Text='<%# Eval("Question") %>' />
@@ -180,42 +179,61 @@
                     <td>
                         <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' Enabled="false" RepeatDirection="Horizontal">
                             <asp:ListItem Value="True">Yes</asp:ListItem>
-                            <asp:ListItem Value="False">No</asp:ListItem>                                
+                            <asp:ListItem Value="False">No</asp:ListItem>
+
                         </asp:RadioButtonList>
-                        <%--<asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Eval("Answer") %>' Enabled="false"/>--%>
                     </td>
                 </tr>
             </AlternatingItemTemplate>
+
             <EditItemTemplate>
                 <tr style="">
-                    <td>
-                        <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="QuestionIDTextBox" runat="server" Text='<%# Bind("QuestionID") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="QuestionTextBox" runat="server" Text='<%# Bind("Question") %>' />
-                    </td>
-                    <td>
-                        <asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Bind("Answer") %>' />
-                    </td>
+                    <td colspan="3">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>QuestionID:</th><td>
+                                        <asp:Label ID="QuestionIDTextLabel" runat="server" Text='<%# Bind("QuestionID") %>' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Question:</th><td>
+                                        <asp:Label ID="QuestionTextLabel" runat="server" Text='<%# Bind("Question") %>' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Answer:</th>
+                                    <td>
+                                        <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' RepeatDirection="Horizontal">
+                                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False">No</asp:ListItem>
+
+                                        </asp:RadioButtonList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>
+                                        <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                                        <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>               
                 </tr>
             </EditItemTemplate>
             <EmptyDataTemplate>
                 <table runat="server" style="">
                     <tr>
                         <td>No data was returned.</td>
-
                     </tr>
                 </table>
+
             </EmptyDataTemplate>
-                
             <ItemTemplate>
                 <tr style="">
                     <td>
-                        <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>' />
+                        <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                     </td>
                     <td>
                         <asp:Label ID="QuestionLabel" runat="server" Text='<%# Eval("Question") %>' />
@@ -224,7 +242,8 @@
                         <%--<asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Eval("Answer") %>' Enabled="false"/>--%>
                         <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' Enabled="false" RepeatDirection="Horizontal">
                             <asp:ListItem Value="True">Yes</asp:ListItem>
-                            <asp:ListItem Value="False">No</asp:ListItem>                                
+                            <asp:ListItem Value="False">No</asp:ListItem>
+
                         </asp:RadioButtonList>
                     </td>
                 </tr>
@@ -235,7 +254,7 @@
                         <td runat="server">
                             <table id="itemPlaceholderContainer" runat="server" border="0" style="">
                                 <tr runat="server" style="">
-                                    <th runat="server">QuestionID</th>
+                                    <th></th>
                                     <th runat="server">Question</th>
                                     <th runat="server">Answer</th>
                                 </tr>

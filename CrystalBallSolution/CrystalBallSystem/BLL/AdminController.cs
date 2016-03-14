@@ -374,18 +374,15 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Update, false)]
-        public void UpdateProgramPreferenceQuestion(GetProgramPreferenceQuestions item)
+        public void UpdateProgramPreferenceQuestion(GetProgramPreferenceQuestions item,int programid)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                GetProgramPreferenceQuestions data = new GetProgramPreferenceQuestions()
-                {
-                    QuestionID = item.QuestionID,
-                    Question = item.Question,
-                    Answer = item.Answer
 
-                };
-            
+                var programPreference = context.ProgramPreferences.Find(programid,item.QuestionID);
+
+                    programPreference.Answer = item.Answer;
+                       
                 context.SaveChanges();
             }
         }
