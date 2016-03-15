@@ -96,7 +96,7 @@
         </SelectedItemTemplate>
     </asp:ListView>
 
-    <div style="width:100%;text-align:center;margin:20px">
+    <div style="width:100%;text-align:center;">
         <h4 class="table_header">Manage Questions for Each Program</h4>
         <div style="width:100%;clear:both">
             <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
@@ -112,14 +112,14 @@
         </div>  
     </div>  
 
-    <div style="clear:both;width:100%;margin:10px;">  
+    <div style="clear:both;width:100%;margin-top:15px;">  
     <div style="float:left;width:40%">
         <h4 class="table_header">Programs</h4>
 
                     <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
                                                                   OnSelectedIndexChanging="ProgramList_SelectedIndexChanging"
-                                                                  DataKeyNames="ProgramID" style="margin-right: 45px"
-                                                                  
+                                                                  DataKeyNames="ProgramID" 
+                                                                  style="margin-right: 45px"                      
                                                                   >                        
                         <EmptyDataTemplate>
                             <table runat="server">
@@ -157,18 +157,12 @@
                                 <td>
                                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                             <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                    </asp:LinkButton></td>
-
-                            </tr>
-                        </SelectedItemTemplate>
-                    </asp:ListView>
-    </div><div style="width:55%;float:right">
-        <h4 class="table_header">Questions</h4>
-            <asp:ListView ID="QuestionListView" runat="server" DataKeyNames="QuestionID" 
+                                    </asp:LinkButton></td></tr></SelectedItemTemplate></asp:ListView></div><div style="width:55%;float:right">
+        <h4 class="table_header">Questions</h4><asp:ListView ID="QuestionListView" runat="server" DataKeyNames="QuestionID" 
                                                                OnItemUpdating="QuestionListView_ItemUpdating" 
                                                                OnItemEditing="QuestionListView_ItemEditing" 
-                                                               OnItemCanceling="QuestionListView_ItemCanceling">
-                <AlternatingItemTemplate>
+                                                               OnItemCanceling="QuestionListView_ItemCanceling"
+                                                               InsertItemPosition="LastItem" OnItemInserting="QuestionListView_ItemInserting"><AlternatingItemTemplate>
                 <tr style="">
                     <td>
                         <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
@@ -178,15 +172,7 @@
                     </td>
                     <td>
                         <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' Enabled="false" RepeatDirection="Horizontal">
-                            <asp:ListItem Value="True">Yes</asp:ListItem>
-                            <asp:ListItem Value="False">No</asp:ListItem>
-
-                        </asp:RadioButtonList>
-                    </td>
-                </tr>
-            </AlternatingItemTemplate>
-
-            <EditItemTemplate>
+                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False">No</asp:ListItem></asp:RadioButtonList></td></tr></AlternatingItemTemplate><EditItemTemplate>
                 <tr style="">
                     <td colspan="3">
                         <table>
@@ -202,15 +188,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Answer:</th>
-                                    <td>
+                                    <th>Answer:</th><td>
                                         <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' RepeatDirection="Horizontal">
-                                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False">No</asp:ListItem>
-
-                                        </asp:RadioButtonList>
-                                    </td>
-                                </tr>
-                                <tr>
+                                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False">No</asp:ListItem></asp:RadioButtonList></td></tr><tr>
                                     <th></th>
                                     <td>
                                         <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
@@ -225,11 +205,26 @@
             <EmptyDataTemplate>
                 <table runat="server" style="">
                     <tr>
-                        <td>No data was returned.</td>
-                    </tr>
-                </table>
+                        <td>No data was returned.</td></tr></table></EmptyDataTemplate><InsertItemTemplate>
+                <tr>
+                    <td>
+                        <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="admin_button2" />
+                        <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="admin_button2" />
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="QuestionDropDownList" runat="server" AppendDataBoundItems="true" DataSourceID="ODSQuestions" DataTextField="Description" DataValueField="QuestionID">
+                            <asp:ListItem Value="0">[Select Question]</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td>
+                        <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" RepeatDirection="Horizontal">
+                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False" Selected="true">No</asp:ListItem>
 
-            </EmptyDataTemplate>
+                        </asp:RadioButtonList>
+                    </td>
+
+                </tr>
+                        </InsertItemTemplate>
             <ItemTemplate>
                 <tr style="">
                     <td>
@@ -241,24 +236,14 @@
                     <td>
                         <%--<asp:CheckBox ID="AnswerCheckBox" runat="server" Text='<%# Eval("Answer") %>' Enabled="false"/>--%>
                         <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" SelectedValue='<%# Eval("Answer") %>' Enabled="false" RepeatDirection="Horizontal">
-                            <asp:ListItem Value="True">Yes</asp:ListItem>
-                            <asp:ListItem Value="False">No</asp:ListItem>
-
-                        </asp:RadioButtonList>
-                    </td>
-                </tr>
-            </ItemTemplate>
-            <LayoutTemplate>
+                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False">No</asp:ListItem></asp:RadioButtonList></td></tr></ItemTemplate><LayoutTemplate>
                 <table runat="server">
                     <tr runat="server">
                         <td runat="server">
                             <table id="itemPlaceholderContainer" runat="server" border="0" style="">
                                 <tr runat="server" style="">
                                     <th></th>
-                                    <th runat="server">Question</th>
-                                    <th runat="server">Answer</th>
-                                </tr>
-                                <tr id="itemPlaceholder" runat="server">
+                                    <th runat="server">Question</th><th runat="server">Answer</th></tr><tr id="itemPlaceholder" runat="server">
                                 </tr>
                             </table>
                         </td>

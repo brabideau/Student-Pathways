@@ -65,6 +65,9 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
 
 
         sysmr.UpdateProgramPreferenceQuestion(programPreference);
+        QuestionListView.EditIndex = -1;
+
+        BindList();
     }
 
     protected void QuestionListView_ItemEditing(object sender, ListViewEditEventArgs e)
@@ -77,6 +80,31 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
     {
         
         QuestionListView.EditIndex = -1;
+        BindList();
+    }
+
+    protected void QuestionListView_ItemInserting(object sender, ListViewInsertEventArgs e)
+    {
+
+        AdminController sysmr = new AdminController();
+        string pid = ProgramList.SelectedDataKey.Value.ToString();
+        int proId = Convert.ToInt32(pid);
+
+        DropDownList questionList = (DropDownList)QuestionListView.InsertItem.FindControl("QuestionDropDownList");
+        int questionId = int.Parse(questionList.SelectedValue);
+        RadioButtonList answer = (RadioButtonList)QuestionListView.InsertItem.FindControl("AnswerRadioButtons");
+
+        var newQuestion = new ProgramPreference();
+
+        newQuestion.QuestionID = questionId;
+        newQuestion.ProgramID = proId;
+        newQuestion.Answer= Convert.ToBoolean(answer.SelectedValue);
+
+        if (questionId != 0)
+        {
+            sysmr.AddProgramPreferenceQuestion(newQuestion);
+        }
+
         BindList();
     }
 }

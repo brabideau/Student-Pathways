@@ -390,6 +390,19 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Insert,false)]
+        public void AddProgramPreferenceQuestion(ProgramPreference questions)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                ProgramPreference added = null;
+
+                added = context.ProgramPreferences.Add(questions);
+
+                context.SaveChanges();
+            }
+        }
         #endregion
 
         #region Equivalency Page
