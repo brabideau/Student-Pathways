@@ -26,6 +26,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Program_List.DataSource = programData;
         Program_List.DataBind();
         ProgramList.Visible = true;
+        ProgramEditDiv.Visible = false;
     }
 
     protected void Populate_Program_Info(object sender, EventArgs e)
@@ -38,6 +39,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Program myProgram = sysmgr.Get_Program(programID);
 
         // Populate the program info
+        ProgramIDLabel.Text = myProgram.ProgramID.ToString();
         TB_ProgramName.Text = myProgram.ProgramName;
         ProgramNameLabel.Text = myProgram.ProgramName;
         DL_CredentialType.SelectedValue = myProgram.CredentialTypeID.ToString();
@@ -60,8 +62,10 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         Populate_EntranceReqs(programID);
 
+        // show the appropriate info
+        ProgramEditDiv.Visible = true;
         buttons.Visible = true;
-        ProgramInfo.Visible = true;
+        ProgramInfo_Show(sender, e);
         ProgramList.Visible = false;
     }
 
@@ -81,7 +85,43 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
     protected void Save_Program(object sender, EventArgs e)
     {
+        AdminController sysmr = new AdminController();
+        //TB_ProgramName.Text = myProgram.ProgramName;
+        //ProgramNameLabel.Text = myProgram.ProgramName;
+        //DL_CredentialType.SelectedValue = myProgram.CredentialTypeID.ToString();
+        //TB_Description.Text = myProgram.ProgramDescription;
+        //TB_Credits.Text = myProgram.TotalCredits.ToString();
+        //TB_Length.Text = myProgram.ProgramLength;
+        //TB_CompetitiveAdvantage.Text = myProgram.CompetitiveAdvantage.ToString();
+        //CB_Active.Checked = myProgram.Active;
+        //TB_Link.Text = myProgram.ProgramLink;
 
+        var program = new Program();
+        program.ProgramID = int.Parse(ProgramIDLabel.Text);
+        program.CredentialTypeID = int.Parse(DL_CredentialType.SelectedValue);
+        program.ProgramName = ProgramNameLabel.Text;
+        program.ProgramDescription = TB_Description.Text;
+        string credits = TB_Credits.Text;
+
+        if (string.IsNullOrEmpty(credits))
+        {
+            program.TotalCredits = null;
+
+        }
+        else
+        {
+            program.TotalCredits = double.Parse(credits);
+        }
+
+        program.ProgramLength = TB_Length.Text;
+        program.CompetitiveAdvantage = int.Parse(TB_CompetitiveAdvantage.Text);
+        program.Active = CB_Active.Checked;
+        program.ProgramLink = TB_Link.Text;
+
+        sysmr.Program_Update(program);
+
+        // go to next
+        Categories_Show(sender, e);
     }
     #endregion
     /*-- ----------------------------- CATEGORIES ---------------------------------------*/
@@ -121,6 +161,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Save_Categories(object sender, EventArgs e)
     {
 
+
+        EntranceReq_Show(sender, e);
     }
     #endregion
 
@@ -173,6 +215,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Save_EntranceReq(object sender, EventArgs e)
     {
 
+        Courses_Show(sender, e);
     }
 #endregion
     /*-- ----------------------------- COURSES ---------------------------------------*/
@@ -217,6 +260,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Save_Courses(object sender, EventArgs e)
     {
 
+
+        CourseEquivalencies_Show(sender, e);
     }
 
     #endregion
@@ -243,6 +288,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Save_CourseEquivalencies(object sender, EventArgs e)
     {
 
+        ProgramPreferences_Show(sender, e);
     }
     #endregion
     /*-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------*/
