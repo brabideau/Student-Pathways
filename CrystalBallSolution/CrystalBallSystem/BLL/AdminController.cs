@@ -578,10 +578,46 @@ namespace CrystalBallSystem.BLL
                                  select x.NaitCourse;
                     return result.ToList();
                 }
-                //
-                // return context.NaitCourses.Where(c => c.Programs.Any(p => p.ProgramID == programID)).ToList();
             }
         }
+
+        public List<DegreeEntranceRequirement> Get_DegEntReq_ByProgram(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                
+                var result = from x in context.DegreeEntranceRequirements
+                                where x.ProgramID == programID
+                                select x;
+                return result.ToList();
+
+            }
+        }
+
+        public List<SubjectRequirement> Get_SubjectReq_ByProgram(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                var result = (from x in context.EntranceRequirements
+                             where x.ProgramID == programID
+                             select x.SubjectRequirement).Distinct();
+                return result.ToList();
+            }
+        }
+
+        public List<EntranceRequirement> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                var result = from x in context.EntranceRequirements
+                              where x.ProgramID == programID && x.SubjectRequirementID == subjectID
+                              select x;
+                return result.ToList();
+            }
+        }
+
         #endregion
     }
 }

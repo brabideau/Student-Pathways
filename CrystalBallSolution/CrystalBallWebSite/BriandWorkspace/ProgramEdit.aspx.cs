@@ -16,7 +16,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     }
 
     /* ----------------------------------- SEARCH --------------------*/
-
+    #region main
     protected void Program_Search(object sender, EventArgs e)
     {
         string search = Search_Box.Text;
@@ -39,6 +39,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         // Populate the program info
         TB_ProgramName.Text = myProgram.ProgramName;
+        ProgramNameLabel.Text = myProgram.ProgramName;
         DL_CredentialType.SelectedValue = myProgram.CredentialTypeID.ToString();
         TB_Description.Text = myProgram.ProgramDescription;
         TB_Credits.Text = myProgram.TotalCredits.ToString();
@@ -48,7 +49,6 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         TB_Link.Text = myProgram.ProgramLink;
 
         // populate the other info       
-        //Populate_Categories(programID);  
         CB_Categories.DataBind();
         Populate_Categories(programID);
 
@@ -58,13 +58,17 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         GV_Questions.DataBind();
         Populate_Preferences(programID);
 
+        Populate_EntranceReqs(programID);
+
         buttons.Visible = true;
         ProgramInfo.Visible = true;
         ProgramList.Visible = false;
     }
 
-    /* -----------------------------------PROGRAM INFO --------------------*/
+    #endregion
 
+    /* -----------------------------------PROGRAM INFO --------------------*/
+    #region program info
     protected void ProgramInfo_Show(object sender, EventArgs e)
     {
         ProgramInfo.Visible = true;
@@ -79,8 +83,10 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
 
     }
-
+    #endregion
     /*-- ----------------------------- CATEGORIES ---------------------------------------*/
+
+    #region categories
     protected void Categories_Show(object sender, EventArgs e)
     {
 
@@ -116,8 +122,10 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
 
     }
+    #endregion
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
+    #region entrance requirements
     protected void EntranceReq_Show(object sender, EventArgs e)
     {
         ProgramInfo.Visible = false;
@@ -127,12 +135,48 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
     }
+
+    protected void Populate_EntranceReqs(int programID) {
+        AdminController sysmgr = new AdminController();
+        //populate High School Entrance Requirements
+        List<SubjectRequirement> subjectList = sysmgr.Get_SubjectReq_ByProgram(programID);
+        LV_SubjectReq.DataSource = subjectList;
+        LV_SubjectReq.DataBind();
+
+        List<EntranceRequirement> ereqList = new List<EntranceRequirement> {};
+        int subjectID;
+
+        //and the classes for each subject
+
+        foreach (ListViewItem x in LV_SubjectReq.Items)
+        {
+            subjectID = Convert.ToInt32((x.FindControl("SubjectIDLabel") as Label).Text);
+            var courses = x.FindControl("GV_EntranceReqs") as GridView;
+            ereqList = sysmgr.Get_EntReq_ByProgram_Subject(programID, subjectID);
+            courses.DataSource = ereqList;
+            courses.DataBind();
+            
+        }
+
+
+
+
+        //populate Degree Entrance Requirements
+        
+        List<DegreeEntranceRequirement> degEntList = sysmgr.Get_DegEntReq_ByProgram(programID);
+
+        LV_DegreeEntranceReq.DataSource = degEntList;
+        LV_DegreeEntranceReq.DataBind();
+
+        
+    }
     protected void Save_EntranceReq(object sender, EventArgs e)
     {
 
     }
-
+#endregion
     /*-- ----------------------------- COURSES ---------------------------------------*/
+    #region courses
     protected void Courses_Show(object sender, EventArgs e)
     {
         ProgramInfo.Visible = false;
@@ -175,8 +219,9 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
     }
 
-
+    #endregion
     /*-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------*/
+    #region equivalencies
     protected void CourseEquivalencies_Show(object sender, EventArgs e)
     {
         ProgramInfo.Visible = false;
@@ -199,8 +244,9 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
 
     }
-
+    #endregion
     /*-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------*/
+    #region preferences
     protected void ProgramPreferences_Show(object sender, EventArgs e)
     {
         ProgramInfo.Visible = false;
@@ -215,9 +261,10 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
         AdminController sysmgr = new AdminController();
         var progQuestions = sysmgr.GetQuestionsByProgram(programID);
-        int questionID;
-        ProgramPreference myPref = new ProgramPreference();
+        GetProgramPreferenceQuestions question = new GetProgramPreferenceQuestions();
         List<int> questionAns = new List<int>();
+        int q_ID;
+
         questionAns = (from x in progQuestions
                        select x.QuestionID).ToList();
 
@@ -225,38 +272,36 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         {
             for (int i = 0; i < GV_Questions.Rows.Count; i++)
             {
-                (GV_Questions.Rows[i].FindControl("CB_Yes") as CheckBox).Checked = false;
-                (GV_Questions.Rows[i].FindControl("CB_No") as CheckBox).Checked = false;
+                var DL_List = GV_Questions.Rows[i].FindControl("DL_Preference") as DropDownList;
+                DL_List.SelectedValue = "noPref";
 
-                if (questionAns.Contains(
-                    Convert.ToInt32((GV_Questions.Rows[i].FindControl("QuestionID") as Label).Text)
-                    ))
+                var idbox = GV_Questions.Rows[i].FindControl("QuestionID") as Label;
+                q_ID = Convert.ToInt32(idbox.Text);
+                
+                if (questionAns.Contains(q_ID))
                 {
+                question = (from x in progQuestions
+                            where x.QuestionID == q_ID
+                            select x).FirstOrDefault();
 
-                    (GV_Questions.Rows[i].FindControl("CB_Yes") as CheckBox).Checked = true;
+                    if (question != null)
+                    {
+                        if (question.Answer == true)
+                        {
+                            DL_List.SelectedValue = "Yes";
+                        }
+                        else
+                        {
+                            DL_List.SelectedValue = "No";
+                        }
+                    }
                 }
+
             }
         }
 
 
-            //GetProgramPreferenceQuestions question = new GetProgramPreferenceQuestions();
 
-            //question = (from x in progQuestions
-            //                where x.QuestionID == Convert.ToInt32((GV_Questions.Rows[i].FindControl("QuestionID") as TextBox).Text)
-            //                select x).FirstOrDefault();
-            
-
-            //if (question != null)
-            //{
-            //    if (question.Answer == true)
-            //    {
-            //        (GV_Questions.Rows[i].FindControl("CB_Yes") as CheckBox).Checked = true;
-            //    }
-            //    else
-            //    {
-            //        (GV_Questions.Rows[i].FindControl("CB_No") as CheckBox).Checked = false;
-            //    }
-            //}
 
         
     }
@@ -264,4 +309,5 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
 
     }
+    #endregion
 }

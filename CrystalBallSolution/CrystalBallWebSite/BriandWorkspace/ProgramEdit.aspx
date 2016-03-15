@@ -2,64 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" CssClass="clearfix">
     <h1>Edit Program</h1>
-     <%-- ----------------------------- SEARCH ---------------------------------------%>
-    <div runat="server" id="search" class="search-bar" >
-        <asp:TextBox ID="Search_Box" runat="server"></asp:TextBox>
-        <asp:Button ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search"/>
-    </div>
-
-     <%-- ----------------------------- PROGRAM LIST ---------------------------------------%>
-    <div runat="server" id="ProgramList" visible="true" class="col-12 searchbox">
-        <asp:ListView ID="Program_List" runat="server">
-        <LayoutTemplate>
-            <table>
-                <tr>
-                    <th></th>
-                    <th runat="server">Program Name</th>
-                    <th runat="server">Entrance Requirement</th>
-                    <th runat="server">Total Credits</th>
-                    <th runat="server">Program Length</th>
-                    <th runat="server">Competitive Advantage</th>
-                    <th runat="server">Active</th>
-                    <th runat="server">Program Link</th>
-                </tr>
-                <tr id="itemPlaceholder" runat="server"></tr>
-            </table>
-        </LayoutTemplate>        
-        <ItemTemplate>
-                <tr>
-                    <td>
-                        <asp:LinkButton ID="EditButton" runat="server" CommandArgument='<%#Eval("ProgramID") %>' OnClick="Populate_Program_Info" Text="Edit" CssClass="admin_button" />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="TotalCreditsLabel" runat="server" Text='<%# Eval("TotalCredits") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramLengthLabel" runat="server" Text='<%# Eval("ProgramLength") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CompetitiveAdvantageLabel" runat="server" Text='<%# Eval("CompetitiveAdvantage") %>' />
-                    </td>
-                    <td>
-                        <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false" />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramLinkLabel" runat="server" Text='<%# Eval("ProgramLink") %>' />
-                    </td>
-                </tr>
-            </ItemTemplate>
-    </asp:ListView>
-    </div>
-
+   
      <%-- ----------------------------- BUTTONS ---------------------------------------%>
     <div runat="server" id="buttons" visible="false" class="col-12 searchbox"> 
-        <h2 id="ProgramNameLabel"></h2>
+        <h2>
+            <asp:Label ID="ProgramNameLabel" runat="server" Text="Label"></asp:Label></h2>
         <h5>
     <asp:LinkButton ID="B_ProgramInfo" runat="server" OnClick="ProgramInfo_Show">Program Info</asp:LinkButton> >>> 
     <asp:LinkButton ID="B_Categories" runat="server" OnClick="Categories_Show">Categories</asp:LinkButton> >>> 
@@ -73,7 +20,7 @@
 
     <div runat="server" id="ProgramInfo" visible="false">
 <%--        <p>ProgramID: <asp:Label ID="ProgramIDLabel" runat="server" /></p>--%>
-        <p>Program Name: <asp:TextBox ID="TB_ProgramName" runat="server" Visible="false"/></p>
+        <p>Program Name: <asp:TextBox ID="TB_ProgramName" runat="server" /></p>
 
         <p>Credential Type: <asp:DropDownList ID="DL_CredentialType" runat="server" 
                                                                   DataSourceID="ODSCredentialType" 
@@ -110,12 +57,71 @@
     <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
      <div runat="server" id="EntranceRequirements" visible="false">
-         <p>What high school courses does this program require?</p>
 
+         <p>What high school courses does this program require?</p>
+          <asp:ListView ID="LV_SubjectReq" runat="server">
+        <LayoutTemplate>
+            <table>
+                <tr>
+                    <th></th>
+                    <th runat="server">Subject</th>
+                    <th runat="server">Courses</th>
+                </tr>
+                <tr id="itemPlaceholder" runat="server"></tr>
+            </table>
+        </LayoutTemplate>        
+        <ItemTemplate>
+                <tr>
+                    <td>
+                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Eval("SubjectRequirementID") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Eval("SubjectDescription") %>' />
+                    </td>
+                    <td>
+                        <asp:GridView ID="GV_EntranceReqs" runat="server"></asp:GridView>
+                    </td>
+                </tr>
+            </ItemTemplate>
+    </asp:ListView>
 
          <p>Does entry to this program require any previous post-secondary work?</p>
 
+         <asp:ListView ID="LV_DegreeEntranceReq" runat="server">
+        <LayoutTemplate>
+            <table>
+                <tr>
+                    <th></th>
+                    <th runat="server">Credential Type</th>
+                    <th runat="server">Category</th>
+                    <th runat="server">GPA</th>
+                </tr>
+                <tr id="itemPlaceholder" runat="server"></tr>
+            </table>
+        </LayoutTemplate>        
+        <ItemTemplate>
+                <tr>
+                    <td>
+                        <asp:Label ID="DegreeEntranceReqLabel" runat="server" Text='<%# Eval("DegreeEntranceReqID") %>' />
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="DL_DegEnt_CredType" runat="server" DataSourceID="ODSCredentialType" 
+                                                                  DataTextField="CredentialTypeName" 
+                                                                  DataValueField="CredentialTypeID" SelectedValue='<%# Eval("CredentialTypeID") %>'></asp:DropDownList>
 
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="DL_DegEnt_Cat" runat="server" DataSourceID="CategoryList" 
+                                                                  DataTextField="CategoryDescription" 
+                                                                  DataValueField="CategoryID" SelectedValue='<%# Eval("CategoryID") %>'></asp:DropDownList>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="GPA_TextBox" runat="server" Text='<%# Eval("GPA") %>'></asp:TextBox>
+                    </td>
+                    
+                </tr>
+            </ItemTemplate>
+    </asp:ListView>
          <asp:Button ID="EntranceReq_Save" runat="server" Text="Save" OnClick ="Save_EntranceReq"/>
 
      </div>
@@ -315,14 +321,75 @@
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:CheckBox ID="CB_Yes" runat="server" selected="false"></asp:CheckBox>
-                        <asp:CheckBox ID="CB_No" runat="server" selected="false"></asp:CheckBox>
+                        <asp:DropDownList ID="DL_Preference" runat="server">
+                            <asp:ListItem Selected="True" Value="noPref">No preference</asp:ListItem>
+                            <asp:ListItem Value="Yes">Yes</asp:ListItem>
+                            <asp:ListItem Value="No">No</asp:ListItem>
+                        </asp:DropDownList>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:Button ID="Questions_Save" runat="server" Text="Save" OnClick="Save_Questions" />
     </div>
+
+
+      <%-- ----------------------------- SEARCH ---------------------------------------%>
+    <div runat="server" id="search" class="search-bar" >
+        <asp:TextBox ID="Search_Box" runat="server"></asp:TextBox>
+        <asp:Button ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search"/>
+    </div>
+
+     <%-- ----------------------------- PROGRAM LIST ---------------------------------------%>
+    <div runat="server" id="ProgramList" visible="true" class="col-12 searchbox">
+        <asp:ListView ID="Program_List" runat="server">
+        <LayoutTemplate>
+            <table>
+                <tr>
+                    <th></th>
+                    <th runat="server">Program Name</th>
+                    <th runat="server">Entrance Requirement</th>
+                    <th runat="server">Total Credits</th>
+                    <th runat="server">Program Length</th>
+                    <th runat="server">Competitive Advantage</th>
+                    <th runat="server">Active</th>
+                    <th runat="server">Program Link</th>
+                </tr>
+                <tr id="itemPlaceholder" runat="server"></tr>
+            </table>
+        </LayoutTemplate>        
+        <ItemTemplate>
+                <tr>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" CommandArgument='<%#Eval("ProgramID") %>' OnClick="Populate_Program_Info" Text="Edit" CssClass="admin_button" />
+                    </td>
+                    <td>
+                        <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="TotalCreditsLabel" runat="server" Text='<%# Eval("TotalCredits") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ProgramLengthLabel" runat="server" Text='<%# Eval("ProgramLength") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="CompetitiveAdvantageLabel" runat="server" Text='<%# Eval("CompetitiveAdvantage") %>' />
+                    </td>
+                    <td>
+                        <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false" />
+                    </td>
+                    <td>
+                        <asp:Label ID="ProgramLinkLabel" runat="server" Text='<%# Eval("ProgramLink") %>' />
+                    </td>
+                </tr>
+            </ItemTemplate>
+    </asp:ListView>
+    </div>
+
+
 
     <%-- -----------------------------ODS---------------------------------------%>
 

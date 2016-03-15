@@ -25,7 +25,7 @@ namespace CrystalBallSystem.DAL.Entities
         public int CategoryID { get; set; }
 
         [Required]
-        public double GPA { get; set; }
+        public decimal GPA { get; set; }
 
 
         public virtual Program Program { get; set; }
