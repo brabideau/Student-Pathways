@@ -22,6 +22,26 @@ public partial class Admin_Reports : System.Web.UI.Page
         }
     }
 
+    #region program data
+    protected void Program_Submit_Click(object sender, EventArgs e)
+    {
+        ReportController sysmgr = new ReportController();
+
+        List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program();
+
+        GV_Program_Dropping.DataSource = dropping;
+        GV_Program_Dropping.DataBind();
+
+        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency();
+
+        GV_ProgramFrequency.DataSource = frequency;
+        GV_ProgramFrequency.DataBind();
+
+    }
+
+    #endregion
+
+    #region student data
     protected void Submit_Click(object sender, EventArgs e)
     {
        List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)ViewState["leftData"];
@@ -175,4 +195,5 @@ public partial class Admin_Reports : System.Web.UI.Page
          var summaryList = controller.Get_Summary_Data(myData);
         return summaryList;
     }
+    #endregion
 }

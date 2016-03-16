@@ -80,6 +80,7 @@
     <Compile Include="DAL\POCOs\GetProgramPreferenceQuestions.cs" />
     <Compile Include="DAL\POCOs\NAITCourse.cs" />
     <Compile Include="DAL\POCOs\ProgramCourseMatch.cs" />
+    <Compile Include="DAL\POCOs\ProgramFrequency.cs" />
     <Compile Include="DAL\POCOs\StudentPreferenceSummary.cs" />
     <Compile Include="DAL\POCOs\ProgramNameID.cs" />
     <Compile Include="DAL\POCOs\ProgramResult.cs" />

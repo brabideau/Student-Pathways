@@ -14,7 +14,7 @@ namespace CrystalBallSystem.BLL
     public class ReportController
     {
 
-        #region general
+        #region student
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public DataTable Get_NewStudent_Data()
@@ -169,6 +169,24 @@ namespace CrystalBallSystem.BLL
 
         //}
 
+        
+    #endregion
+
+        #region program
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<ProgramData> Get_ProgramData()
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var results = from x in context.ProgramDatas
+                              select x;
+
+                return results.ToList();
+            }
+        }
+
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<StudentsDroppingSummary> StudentsDropping_by_Program()
         {
@@ -192,8 +210,29 @@ namespace CrystalBallSystem.BLL
 
             }
         }
-    #endregion
 
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<ProgramFrequency> Get_Program_Frequency()
+        {
+            // Which programs have the most students switching?
+
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var results = from pd in context.ProgramDatas
+                              group pd by pd.Program into p
+                              select new ProgramFrequency
+                              {
+                                  Program = p.Key.ProgramName,
+                                  Frequency = p.Count()
+                              };
+
+                return results.ToList();
+            }
+        }
+
+
+
+        #endregion
     }
 }

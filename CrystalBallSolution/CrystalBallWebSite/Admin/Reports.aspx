@@ -3,10 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Reports</h1>
-  <%----------------------------------- Filters -------------------------------------%>
-    <div class="clearfix">
-     <div class="search-bar">
-        Year:
+
+
+
+        <div class="search-bar col-6">
+         Year:
         <asp:DropDownList ID="DL_Year" runat="server">
             <asp:ListItem Text="Year" Value="-1"/>
             <asp:ListItem Text="2015" Value="2015" />
@@ -30,6 +31,30 @@
             <asp:ListItem Text="November" Value="11" />
             <asp:ListItem Text="December" Value="12" />
         </asp:DropDownList>
+
+    </div>
+
+    <div id="ProgramData" runat="server" visible="true" class="clearfix">
+        <div class="col-12">
+       <asp:LinkButton ID="Program_Search_Button" runat="server" OnClick="Program_Submit_Click" CssClass="button submit">Search</asp:LinkButton>
+        </div>
+        <div class="col-6 nait-courses">
+            <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
+        </div>
+
+        <div class="col-6 nait-courses">
+            <asp:GridView ID="GV_ProgramFrequency" runat="server"></asp:GridView>
+        </div>
+     </div>
+            
+
+
+
+    <div id="UserData" runat="server" visible="false">
+  <%----------------------------------- Filters -------------------------------------%>
+    <div class="clearfix">
+     <div class="search-bar">
+       
 
         Program:
         <asp:DropDownList ID="DL_Program" runat="server" DataSourceID="ProgramListDataSource" DataTextField="ProgramName" DataValueField="ProgramID" AppendDataBoundItems="true">
@@ -81,11 +106,13 @@
     <div class="col-2">
         <asp:GridView ID="GV_Compare" runat="server"></asp:GridView>
     </div>
-
+</div>
 
   <%----------------------------------- ODS -------------------------------------%>
 
     <asp:ObjectDataSource ID="ProgramListDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetPrograms" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
+
+
 
 </asp:Content>
 
