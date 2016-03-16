@@ -56,5 +56,7 @@ namespace CrystalBallSystem.DAL.Entities
         public virtual ICollection<CourseEquivalency> CourseEquivalencies { get; set; }
         
         public virtual ICollection<CurrentStudentData> CurrentStudentDatas { get; set;}
+
+        public virtual ICollection<ProgramData> ProgramDatas { get; set; }
     }
 }

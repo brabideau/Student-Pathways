@@ -68,6 +68,7 @@
     <Compile Include="DAL\Entities\PreferenceQuestion.cs" />
     <Compile Include="DAL\Entities\Program.cs" />
     <Compile Include="DAL\Entities\ProgramCourse.cs" />
+    <Compile Include="DAL\Entities\ProgramData.cs" />
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetCredentials.cs" />
