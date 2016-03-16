@@ -209,8 +209,9 @@ textarea, .textarea {
 
 
 .back:hover:after {
-      margin-left: 0px;
+      margin-left: 0;
 }
+
 
 .button {
     display: block;
@@ -226,7 +227,21 @@ textarea, .textarea {
     margin-bottom: 5px;    
 }
 
-.button::after {
+.button2 {
+    display: inline-block;
+    height: 40px;
+    width: 100px;
+    background-color: #ffffff;
+    line-height: 40px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #003D7E;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    margin-top: 5px;
+    margin-bottom: 5px;    
+}
+
+.button::after, .button2::after {
     content: '';
     display: block;
     height: 4px;
@@ -235,11 +250,11 @@ textarea, .textarea {
     transition: .3s linear;
 }
 
-.button:hover {
+.button:hover, .button2:hover{
     background-color: #ebf3f9;
 }
 
-.button:hover:after {
+.button:hover:after, .button2:hover:after{
     background-color: #1363a8;
     width: 100%;
 }
@@ -346,6 +361,13 @@ textarea, .textarea {
       margin-bottom: 15px;
       text-align: center;
   }
+
+  .search
+  {
+      width:100%;
+      clear:both;
+  }
+
 
   tbody {
       margin: 0 auto;

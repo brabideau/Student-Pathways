@@ -19,7 +19,7 @@ namespace CrystalBallSystem.DAL.Entities
         [Key]
         public int QuestionID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A Question Description is required.")]
         [StringLength(200)]
         public string Description { get; set; }
 

@@ -1,8 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManagePreferenceQuestion.aspx.cs" Inherits="Admin_ManagePreferenceQuestion" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <div runat="server" align="center">
     <h4 class="table_header">Manage Preference Questions</h4>
+        <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <asp:ListView ID="QuestionList" runat="server" DataSourceID="ODSQuestions" InsertItemPosition="LastItem" DataKeyNames="QuestionID">
         <AlternatingItemTemplate>
             <tr >
@@ -98,7 +102,8 @@
 
     <div style="width:100%;text-align:center;">
         <h4 class="table_header">Manage Questions for Each Program</h4>
-        <div style="width:100%;clear:both">
+        <div class="search">
+
             <asp:Label ID="Label1" runat="server" Text="Select a category: "></asp:Label>
             <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                               DataSourceID="ODSCategory" 
@@ -108,7 +113,7 @@
                                 <asp:ListItem Value="0">[Select Category]</asp:ListItem>
             </asp:DropDownList>
                
-            <asp:LinkButton ID="SearchButton" runat="server" CssClass="button" OnClick="SearchButton_Click">Search</asp:LinkButton>
+            <asp:LinkButton ID="SearchButton" runat="server" CssClass="button2" OnClick="SearchButton_Click">Search</asp:LinkButton>
         </div>  
     </div>  
 
@@ -213,19 +218,9 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="QuestionDropDownList" runat="server" AppendDataBoundItems="true" DataSourceID="ODSQuestions" DataTextField="Description" DataValueField="QuestionID">
-                            <asp:ListItem Value="0">[Select Question]</asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                    <td>
+                            <asp:ListItem Value="0">[Select Question]</asp:ListItem></asp:DropDownList></td><td>
                         <asp:RadioButtonList ID="AnswerRadioButtons" runat="server" RepeatDirection="Horizontal">
-                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False" Selected="true">No</asp:ListItem>
-
-                        </asp:RadioButtonList>
-                    </td>
-
-                </tr>
-                        </InsertItemTemplate>
-            <ItemTemplate>
+                            <asp:ListItem Value="True">Yes</asp:ListItem><asp:ListItem Value="False" Selected="true">No</asp:ListItem></asp:RadioButtonList></td></tr></InsertItemTemplate><ItemTemplate>
                 <tr style="">
                     <td>
                         <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
@@ -266,7 +261,10 @@
                           OldValuesParameterFormatString="original_{0}" 
                           SelectMethod="Question_List" 
                           TypeName ="CrystalBallSystem.BLL.AdminController" 
-                          UpdateMethod="UpdatePreferenceQuestion">
+                          UpdateMethod="UpdatePreferenceQuestion" 
+                          OnDeleted="CheckForException" 
+                          OnInserted="CheckForException" 
+                          OnUpdated="CheckForException">
         <DeleteParameters>
             <asp:Parameter Name="questionId" Type="Int32" />
         </DeleteParameters>

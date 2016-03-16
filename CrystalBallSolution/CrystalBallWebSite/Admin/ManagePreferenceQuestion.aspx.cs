@@ -16,6 +16,11 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
 
     }
 
+    protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
+    {
+        MessageUserControl.HandleDataBoundException(e);
+    }
+
     protected void ProgramList_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
     {
         ProgramList.SelectedIndex = e.NewSelectedIndex;
@@ -99,10 +104,15 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
         newQuestion.QuestionID = questionId;
         newQuestion.ProgramID = proId;
         newQuestion.Answer= Convert.ToBoolean(answer.SelectedValue);
-
+       
+            
         if (questionId != 0)
         {
             sysmr.AddProgramPreferenceQuestion(newQuestion);
+        }
+        else
+        {
+            MessageUserControl.ShowInfo("Please select a question before clicking Add.");
         }
 
         BindList();
