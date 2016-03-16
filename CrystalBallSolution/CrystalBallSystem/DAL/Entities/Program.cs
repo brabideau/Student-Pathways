@@ -22,7 +22,7 @@ namespace CrystalBallSystem.DAL.Entities
 
         public int CredentialTypeID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A Program Name is required")]
         [StringLength(50)]
         public string ProgramName { get; set; }
 

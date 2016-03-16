@@ -50,6 +50,8 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
     protected void SearchButton_Click(object sender, EventArgs e)
     {
         ProgramListView.InsertItemPosition = InsertItemPosition.None;
+        if (CategoryDropdownList.SelectedIndex == 0)
+            MessageUserControl.ShowInfo("Please select a category before clicking Search.");
         BindList();
 
     }
@@ -92,8 +94,16 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         program.Active = Active.Checked;
         program.ProgramLink = ProgramLinkBox.Text;
 
-        sysmr.Program_Update(program);
-        ProgramListView.EditIndex = -1;
+        if (string.IsNullOrEmpty(ProgramNameBox.Text))
+        {
+            MessageUserControl.ShowInfo("The Program Name is required.");
+        }
+        else
+        {
+            sysmr.Program_Update(program);
+            ProgramListView.EditIndex = -1;
+        }
+        
         BindList();
     }
 
@@ -134,21 +144,32 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             program.TotalCredits = double.Parse(credits);
         }
 
-        program.ProgramLength = ProgramLengthBox.Text;
-        program.CompetitiveAdvantage = int.Parse(CompetiveAdvantageBox.Text);
-        program.Active = Active.Checked;
-        program.ProgramLink = ProgramLinkBox.Text;
-
-        List<Program> NewProgram = new List<Program>();
-        NewProgram.Add(program);
+        
 
         string categoryid = CategoryDropdownList.SelectedValue.ToString();
         int cateid = Convert.ToInt32(categoryid);
 
         AdminController sysmr = new AdminController();
-        sysmr.AddProgram(NewProgram, cateid);
 
-        CloseInsert();
+        if (string.IsNullOrEmpty(ProgramNameBox.Text))
+        {
+            MessageUserControl.ShowInfo("The Program Name is required.");
+        }
+        else
+        {
+            program.ProgramLength = ProgramLengthBox.Text;
+            program.CompetitiveAdvantage = int.Parse(CompetiveAdvantageBox.Text);
+            program.Active = Active.Checked;
+            program.ProgramLink = ProgramLinkBox.Text;
+
+            List<Program> NewProgram = new List<Program>();
+            NewProgram.Add(program);
+
+            MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
+
+            CloseInsert();
+        }
+        
         BindList();
 
     }

@@ -7,8 +7,8 @@
 
         <h1>Manage Nait Courses</h1>
     <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-        <div class="search-bar col-9 clearfix">
-            <div class="col-8">
+        <div class="search-bar clearfix">
+         
                 <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
                         <asp:DropDownList ID="CategoryDropdownList" runat="server" 
                                       DataSourceID="ODSCategory" 
@@ -17,10 +17,9 @@
                                       AppendDataBoundItems="true">
                         <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                         </asp:DropDownList>
-            </div>
-            <div class="col-2">
-                        <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
-             </div>                    
+                   
+               <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button2 submit">Search</asp:LinkButton>
+                         
         </div>
 
         <div class="col-4 center">

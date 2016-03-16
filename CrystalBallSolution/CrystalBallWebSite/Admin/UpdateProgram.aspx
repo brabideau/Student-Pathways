@@ -1,12 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="UpdateProgram.aspx.cs" Inherits="Admin_UpdateProgram" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <div runat="server" align="center">
+    <div runat="server">
     <h1>Manage Program</h1>
-    <div class="search-bar">
-        <table style="width: 60%">
-                <tr>
-                    <td style="width:70%">
+        <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+    <div class="search-bar clearfix">
+       
                         <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>
                 
                         <asp:DropDownList ID="CategoryDropdownList" runat="server" 
@@ -16,13 +18,9 @@
                                           AppendDataBoundItems="true">
                             <asp:ListItem Value="0">[Select Category]</asp:ListItem>
                         </asp:DropDownList>
-                    </td>
-                    <td>
-                        <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button submit">Search</asp:LinkButton>
-                    </td>
-                </tr>
-       </table>
-                                                     
+                    
+                        <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button2 submit">Search</asp:LinkButton>
+                                                                      
    </div>
 
         <asp:ListView ID="ProgramListView" runat="server" 
