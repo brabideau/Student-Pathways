@@ -4,7 +4,7 @@
         <asp:Label ID="MessageTitleIcon" runat="server"> </asp:Label>
         <asp:Label ID="MessageTitle" runat="server" />
     </div>
-    <div class="red-panel">
+   <%-- <div class="red-panel">--%>
         <asp:Label ID="MessageLabel" runat="server" />
         <asp:Repeater ID="MessageDetailsRepeater" runat="server" EnableViewState="false">
             <headertemplate>
@@ -17,5 +17,5 @@
                 <li><%# Eval("Error") %></li>
             </itemtemplate>
         </asp:Repeater>
-    </div>
+<%--    </div>--%>
 </asp:Panel>

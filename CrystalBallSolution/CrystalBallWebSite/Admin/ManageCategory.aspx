@@ -108,6 +108,9 @@
 
     </asp:ListView>
 
-    <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.Category" InsertMethod="AddCategory" OldValuesParameterFormatString="original_{0}" UpdateMethod="UpdateCategory" OnInserted="CheckForException" OnUpdated="CheckForException"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List"
+         TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.Category"
+         InsertMethod="AddCategory" OldValuesParameterFormatString="original_{0}" UpdateMethod="UpdateCategory"
+         OnInserted="CheckForException" OnUpdated="CheckForException"></asp:ObjectDataSource>
 </asp:Content>
 

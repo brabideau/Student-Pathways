@@ -34,7 +34,8 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="message">Text to display as the message</param>
     public void ShowInfo(string message)
     {
-        ShowInfo(STR_TITLE_UsageInstructions, message);
+        string title = "";
+        ShowInfo(title, message);
     }
     /// <summary>
     /// Displays a message and title in the message panel with a general "info" display
@@ -43,7 +44,8 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="message">Text to display as the message</param>
     public void ShowInfo(string title, string message)
     {
-        ShowInfo(message, title, STR_TITLE_ICON_info, STR_PANEL_info);
+        string panelClass = "red-panel";
+        ShowInfo(message, title, panelClass);
     }
     /// <summary>
     /// Processes a request through a callback delegate within a try/catch block. Distinguished Entity Framework exceptions from general exceptions.
@@ -62,7 +64,7 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     public void TryRun(ProcessRequest callback, string title, string successMessage)
     {
         if (TryCatch(callback))
-            ShowInfo(successMessage, title, STR_TITLE_ICON_success, STR_PANEL_success);
+            ShowInfo(successMessage, title, "blue-panel");
     }
     /// <summary>
     /// Checks for an exception from an ObjectDataSource event and handles it by showing the details of the exception.
@@ -116,7 +118,9 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
                       {
                           Error = error.ErrorMessage
                       };
-        ShowExceptions(details, STR_TEXT_ValidationErrors, STR_TITLE_ValidationErrors, STR_TITLE_ICON_warning, STR_PANEL_danger);
+        string text = "";
+        string title = "";
+        ShowExceptions(details, text, title, "red-panel");
     }
     /// <summary>
     /// Handles an Exception by getting the root of the error and showing it as a General Exception.
@@ -132,7 +136,7 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
         else
         {
             dynamic[] details = new dynamic[] { new { Error = root.Message } };
-            ShowExceptions(details, STR_TEXT_GeneralErrors, STR_TITLE_GeneralErrors, STR_TITLE_ICON_warning, STR_PANEL_danger);
+            ShowExceptions(details, "", "", "red-panel");
         }
     }
     /// <summary>
@@ -143,11 +147,11 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="messageTitle">Title for the panel</param>
     /// <param name="titleIcon">Icon to show in the panel title</param>
     /// <param name="panelClass">CSS Class to apply to the panel</param>
-    private void ShowExceptions(object details, string messageText, string messageTitle, string titleIcon, string panelClass)
+    private void ShowExceptions(object details, string messageText, string messageTitle, string panelClass)
     {
         MessageDetailsRepeater.DataSource = details;
         MessageDetailsRepeater.DataBind();
-        ShowInfo(messageText, messageTitle, titleIcon, panelClass);
+        ShowInfo(messageText, messageTitle, panelClass);
     }
     /// <summary>
     /// Displays the message panel.
@@ -156,12 +160,11 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="messageTitle">Title for the panel</param>
     /// <param name="titleIcon">Icon to show in the panel title</param>
     /// <param name="panelClass">CSS Class to apply to the panel</param>
-    private void ShowInfo(string messageText, string messageTitle, string titleIcon, string panelClass)
+    private void ShowInfo(string messageText, string messageTitle, string panelClass)
     {
 
         MessageLabel.Text = messageText;
         MessageTitle.Text = messageTitle;
-        MessageTitleIcon.CssClass = titleIcon;
         MessagePanel.CssClass = panelClass;
         MessagePanel.Visible = true;
     }
