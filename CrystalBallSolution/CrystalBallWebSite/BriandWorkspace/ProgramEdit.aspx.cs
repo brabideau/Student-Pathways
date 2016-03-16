@@ -276,6 +276,90 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         GV_Equivalencies.DataBind();
     }
 
+    protected void AddNew_Click(object sender, EventArgs e)
+    {
+        addNewEquivalency.Visible = true;
+        EmptyCurrentDropdown.DataBind();
+    }
+    protected void CheckIDs_Click(object sender, EventArgs e)
+    {
+        AdminController sysmgr = new AdminController();
+        StudentController sys = new StudentController();
+        string courseCode = EmptyCurrentDropdown.SelectedValue;
+        string courseCode2 = EmptyEquivalentTextBox.Text;
+
+        if (EmptyCurrentDropdown.SelectedValue != "-1"
+            && !string.IsNullOrWhiteSpace(EmptyEquivalentTextBox.Text))
+        {
+            NAITCourse courseInfo = sysmgr.GetCourseName(courseCode);
+            CurrentCourseName.Text = courseInfo.CourseName;
+            CurrentCourseID.Text = courseInfo.CourseID.ToString();
+
+            courseInfo = sysmgr.GetCourseName(courseCode2);
+            EquivalentCourseName.Text = courseInfo.CourseName;
+            EquivalentCourseID.Text = courseInfo.CourseID.ToString();
+            Enter.Enabled = true;
+        }
+        else
+        {
+            //MessageUserControl.ShowInfo("Program Course Code and Equivalent Course Code are Required.");
+        }
+    }
+
+    protected void Enter_Click(object sender, EventArgs e)
+    {
+        //MessageUserControl.TryRun(() =>
+        //{
+            AdminController sysmgr = new AdminController();
+            int programID = Int32.Parse(ProgramIDLabel.Text);
+            int courseID = int.Parse(CurrentCourseID.Text);
+            int destinationCourseID = int.Parse(EquivalentCourseID.Text);
+            sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
+            GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
+            GV_Equivalencies.DataBind();
+
+            //equivalencyInformation.Visible = true;
+            addNewEquivalency.Visible = false;
+
+            //reset add equivalency screen
+            EmptyCurrentDropdown.Items.Clear();
+            CurrentCourseName.Text = null;
+            CurrentCourseID.Text = null;
+
+            EmptyEquivalentTextBox.Text = null;
+            EquivalentCourseName.Text = null;
+            EquivalentCourseID.Text = null;
+
+            Enter.Enabled = false;
+
+        //}, "", "Equivalency Successfully Added");
+    }
+
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+        addNewEquivalency.Visible = false;
+
+        //reset add equivalency screen
+        EmptyCurrentDropdown.Items.Clear();
+        CurrentCourseName.Text = null;
+        CurrentCourseID.Text = null;
+
+        EmptyEquivalentTextBox.Text = null;
+        EquivalentCourseName.Text = null;
+        EquivalentCourseID.Text = null;
+
+        Enter.Enabled = false;
+    }
+    protected void EquivalenciesGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        int programID = Int32.Parse(ProgramIDLabel.Text);
+        int equivalencyid = Convert.ToInt32(GV_Equivalencies.DataKeys[e.RowIndex].Value);
+        AdminController sysmgr = new AdminController();
+        sysmgr.Equivalency_Delete(equivalencyid);
+        GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
+        GV_Equivalencies.DataBind();
+    }
+
     protected void Save_CourseEquivalencies(object sender, EventArgs e)
     {
 

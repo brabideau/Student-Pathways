@@ -303,7 +303,75 @@
      
     <div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
         <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p>
-        <asp:GridView ID="GV_Equivalencies" runat="server"></asp:GridView>
+        <%--<asp:GridView ID="GV_Equivalencies" runat="server" OnRowDeleting="EquivalenciesGrid_RowDeleting">
+        </asp:GridView>--%>
+
+                <!--Add new equivalency to empty gridview--> 
+    <div runat="server" id="addNewEquivalency" visible="false"  CssClass="add-equivalency-block">
+        <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID: "></asp:Label>
+        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true">
+             <asp:ListItem Value="-1">[Select Course Code]</asp:ListItem>
+        </asp:DropDownList>
+        <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
+        <asp:Label ID="CurrentCourseID" runat="server" Visible="false"></asp:Label>
+        <br />
+        <asp:Label ID="EmptyEquivalent" runat="server" Text="Equivalent Course Code: "></asp:Label>
+        <asp:TextBox ID="EmptyEquivalentTextBox" runat="server"></asp:TextBox>
+        <asp:Label ID="EquivalentCourseName" runat="server"></asp:Label>
+        <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
+        <br />
+        <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button button-long" />
+        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button button-long" Enabled="false"/>
+        <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"  CssClass="button button-long"/>
+    </div>
+
+        <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
+            <Columns>
+                <asp:TemplateField HeaderText="CourseEquivalencyID">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseEquivalencyID" runat="server" Text='<%# Item.CourseEquivalencyID %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CourseCode">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseCode" runat="server" Text='<%# Item.CourseCode %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CourseName">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseName" runat="server" Text='<%# Item.CourseName %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>    
+                <asp:TemplateField HeaderText="DestinationCourseCode">
+                    <ItemTemplate>
+                        <asp:Label ID="DestinationCourseCode" runat="server" Text='<%# Item.DestinationCourseCode %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="DestinationCourseName">
+                    <ItemTemplate>
+                        <asp:Label ID="DestinationCourseName" runat="server" Text='<%# Item.DestinationCourseName %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>      
+                <asp:TemplateField>
+                    <FooterTemplate>
+                        <asp:LinkButton ID="Add" runat="server" Text="Add Equivalency" OnClick="AddNew_Click" CssClass="button button-long"></asp:LinkButton>
+                    </FooterTemplate>
+                </asp:TemplateField>                    
+                <asp:ButtonField Text="Remove" CommandName="Delete"/>
+            </Columns>          
+            
+            <EmptyDataTemplate>
+                No Existing Equivalencies.
+                <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click" CssClass="button button-long"/>
+            </EmptyDataTemplate>
+                       
+        </asp:GridView>    
+
+
+
+
+
+
          <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
     
@@ -400,6 +468,12 @@
     <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
 
     <asp:ObjectDataSource ID="QuestionsList" runat="server" SelectMethod="Question_List" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource> 
+
+    <asp:ObjectDataSource ID="EmptyCurrentDropdownODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="ProgramIDLabel" Name="programID" Type="Int32" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
 
 </asp:Content>
 
