@@ -303,29 +303,11 @@
      
     <div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
         <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p>
-        <%--<asp:GridView ID="GV_Equivalencies" runat="server" OnRowDeleting="EquivalenciesGrid_RowDeleting">
-        </asp:GridView>--%>
 
                 <!--Add new equivalency to empty gridview--> 
-    <div runat="server" id="addNewEquivalency" visible="false"  CssClass="add-equivalency-block">
-        <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID: "></asp:Label>
-        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true">
-             <asp:ListItem Value="-1">[Select Course Code]</asp:ListItem>
-        </asp:DropDownList>
-        <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
-        <asp:Label ID="CurrentCourseID" runat="server" Visible="false"></asp:Label>
-        <br />
-        <asp:Label ID="EmptyEquivalent" runat="server" Text="Equivalent Course Code: "></asp:Label>
-        <asp:TextBox ID="EmptyEquivalentTextBox" runat="server"></asp:TextBox>
-        <asp:Label ID="EquivalentCourseName" runat="server"></asp:Label>
-        <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
-        <br />
-        <asp:Button ID="CheckIDs" runat="server" Text="Check Equivalency" OnClick="CheckIDs_Click" CssClass="button button-long" />
-        <asp:Button ID="Enter" runat="server" Text="Enter Equivalency" OnClick="Enter_Click"  CssClass="button button-long" Enabled="false"/>
-        <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"  CssClass="button button-long"/>
-    </div>
+    
 
-        <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
+        <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
             <Columns>
                 <asp:TemplateField HeaderText="CourseEquivalencyID">
                     <ItemTemplate>
@@ -352,22 +334,36 @@
                         <asp:Label ID="DestinationCourseName" runat="server" Text='<%# Item.DestinationCourseName %>' />
                     </ItemTemplate>
                 </asp:TemplateField>      
-                <asp:TemplateField>
-                    <FooterTemplate>
-                        <asp:LinkButton ID="Add" runat="server" Text="Add Equivalency" OnClick="AddNew_Click" CssClass="button button-long"></asp:LinkButton>
-                    </FooterTemplate>
-                </asp:TemplateField>                    
+                  
                 <asp:ButtonField Text="Remove" CommandName="Delete"/>
             </Columns>          
             
             <EmptyDataTemplate>
                 No Existing Equivalencies.
-                <asp:Button ID="AddNew" runat="server" Text="Add An Equivalency" OnClick="AddNew_Click" CssClass="button button-long"/>
             </EmptyDataTemplate>
                        
         </asp:GridView>    
 
-
+        <div runat="server" id="addNewEquivalency" visible="true"  CssClass="add-equivalency-block">
+        <p class="clearfix"><asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID:" CssClass="label col-3"></asp:Label>
+        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true" CssClass="col-2">
+             <asp:ListItem Value="-1">[Select Course Code]</asp:ListItem>
+        </asp:DropDownList>
+        <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
+        <asp:Label ID="CurrentCourseID" runat="server" Visible="false"></asp:Label>
+        </p>
+        <p class="clearfix">
+        <asp:Label ID="EmptyEquivalent" runat="server" Text="Equivalent Course Code:"  CssClass="label col-3"></asp:Label>
+        <asp:TextBox ID="EmptyEquivalentTextBox" runat="server" CssClass="col-3"></asp:TextBox>
+        <asp:Label ID="EquivalentCourseName" runat="server"></asp:Label>
+        <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
+        </p>
+            <p class="clearfix">
+        <asp:LinkButton ID="CheckIDs" runat="server" OnClick="CheckIDs_Click" CssClass="button button-long submit">Check Equivalency</asp:LinkButton>
+        <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="button button-long next" Enabled="false">Enter Equivalency</asp:LinkButton>
+        <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click"  CssClass="button button-long back">Cancel</asp:LinkButton>
+                </p>
+    </div>
 
 
 

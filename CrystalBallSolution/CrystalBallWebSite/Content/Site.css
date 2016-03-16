@@ -145,7 +145,7 @@ select {
 }
 
 
-input[type=checkbox] {
+input[type="checkbox"] {
     vertical-align: middle;
     margin-right: 5px;
 }
@@ -213,16 +213,17 @@ textarea, .textarea {
 }
 
 .button {
-    display:inline-block;
+    display: block;
     height: 40px;
     width: 100px;
-  
     background-color: #ffffff;
     line-height: 40px;
     font-size: 1.2em;
     text-align: center;
     color: #003D7E;
-    box-shadow: 5px 5px 5px rgba(0,0,0,.2);    
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    margin-top: 5px;
+    margin-bottom: 5px;    
 }
 
 .button::after {
@@ -335,12 +336,6 @@ textarea, .textarea {
     text-align: right;
     vertical-align: top;
 }
-
-/*input[type="submit"] {
-      border: 1px solid #ffffff;
-      border-radius: 5px;
-      background-color: #ffffff;
-      padding: 3px 8px;*/
 
    /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
@@ -503,19 +498,7 @@ p {
     margin: 20px 0px;
 }
 
-  /*input[type="submit"] {
-      border: 1px solid #ffffff;
-      border-radius: 5px;
-      background-color: #ffffff;
-      padding: 3px 8px;
-  }
 
-   input[type="submit"]:hover {
-      border: 1px solid #003D7E;
-      border-radius: 5px;
-      background-color: #e5f2ff;
-      padding: 3px 8px;
-  }*/
 
   .table_header
   {
