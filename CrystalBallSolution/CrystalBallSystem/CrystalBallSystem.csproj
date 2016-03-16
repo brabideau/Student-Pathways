@@ -52,6 +52,7 @@
     <Compile Include="BLL\ReportController.cs" />
     <Compile Include="BLL\SelectNaitCourseController.cs" />
     <Compile Include="BLL\StudentController.cs" />
+    <Compile Include="BLL\testController.cs" />
     <Compile Include="BusinessRuleException.cs" />
     <Compile Include="DAL\DTOs\CategoryProgram.cs" />
     <Compile Include="DAL\DTOs\ProgramAndCourses.cs" />
