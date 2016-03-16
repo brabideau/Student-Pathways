@@ -16,10 +16,10 @@ namespace CrystalBallSystem.DAL.Entities
         [Key]
         public int CourseID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A Course Code is required.")]
         [StringLength(10)]
         public string CourseCode { get; set; }
-        [Required]
+        [Required(ErrorMessage = "A Course Name is required.")]
         [StringLength(100)]
         public string CourseName { get; set; }
 

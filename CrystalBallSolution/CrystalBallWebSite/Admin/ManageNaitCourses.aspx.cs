@@ -82,6 +82,9 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
         NaitCoursesListViewByProgram.DataSource = null;
         NaitCoursesListViewByProgram.Visible=false;
+        if (CategoryDropdownList.SelectedIndex == 0)
+            MessageUserControl.ShowInfo("Please select a category before clicking Search.");
+        
     }
 
 
@@ -101,22 +104,35 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         bool activityTF = activity.Checked;
 
         List<NaitCours> NewCourse = new List<NaitCours>();
-        NewCourse.Add(
-            new NaitCours()
-            {
-                CourseCode = courseCodeText,
-                CourseName = courseNameText,
-                CourseCredits = double.Parse(courseCreditsText),
-                Active = activityTF
-            });
 
         string pid = ProgramList.SelectedDataKey.Value.ToString();
         int proId = Convert.ToInt32(pid);
-        AdminController sysmr = new AdminController();
 
-        sysmr.AddNaitCourse(NewCourse, proId);
-        CloseInsert();
-        BindList();
+        AdminController sysmr = new AdminController();
+        if (string.IsNullOrEmpty(courseCodeText))
+        {
+            MessageUserControl.ShowInfo("The Course Code is required.");
+        }
+        else if (string.IsNullOrEmpty(courseNameText))
+        {
+            MessageUserControl.ShowInfo("The Course Name is required.");
+        }
+        else
+        {
+            NewCourse.Add(
+                new NaitCours()
+                {
+                    CourseCode = courseCodeText,
+                    CourseName = courseNameText,
+                    CourseCredits = double.Parse(courseCreditsText),
+                    Active = activityTF
+                });
+
+            sysmr.AddNaitCourse(NewCourse, proId);
+            CloseInsert();
+            BindList();
+        }
+             
     }
 
 
@@ -202,8 +218,20 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         course.CourseCredits = double.Parse(courseCreditsBox.Text);
         course.Active = activity.Checked;
 
-        sysmr.UpdateNaitCourse(course);
-        NaitCoursesListViewByProgram.EditIndex = -1;
+        if (string.IsNullOrEmpty(courseCodeBox.Text))
+        {
+            MessageUserControl.ShowInfo("The Course Code is required.");
+        }
+        else if (string.IsNullOrEmpty(courseNameBox.Text))
+        {
+            MessageUserControl.ShowInfo("The Course Name is required.");
+        }
+        else
+        {
+            sysmr.UpdateNaitCourse(course);
+            NaitCoursesListViewByProgram.EditIndex = -1;
+        }
+        
         BindList();
 
     }
