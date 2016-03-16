@@ -2,6 +2,7 @@
 using CrystalBallSystem.DAL.POCOs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,9 +10,66 @@ using System.Web.UI.WebControls;
 
 public partial class Student_StudentPreferences : System.Web.UI.Page
 {
+    DataTable CoursesSelected;
+    List<ProgramResult> finalResults;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            DataColumn CourseID;
+            DataColumn CourseCode;
+            DataColumn CourseName;
+            DataColumn CourseCredits;
+            CoursesSelected = new DataTable();
+            if (Session["CoursesSelected"] == null)
+            {
+                CourseID = new DataColumn();
+                CourseID.DataType = System.Type.GetType("System.Int32");
+                CourseID.ColumnName = "CourseID";
+                CourseID.Caption = "CourseID";
+                CoursesSelected.Columns.Add(CourseID);
 
+                CourseCode = new DataColumn();
+                CourseCode.DataType = System.Type.GetType("System.String");
+                CourseCode.ColumnName = "CourseCode";
+                CourseCode.Caption = "CourseCode";
+                CoursesSelected.Columns.Add(CourseCode);
+
+                CourseName = new DataColumn();
+                CourseName.DataType = System.Type.GetType("System.String");
+                CourseName.ColumnName = "CourseName";
+                CourseName.Caption = "CourseName";
+                CoursesSelected.Columns.Add(CourseName);
+
+                CourseCredits = new DataColumn();
+                CourseCredits.DataType = System.Type.GetType("System.Double");
+                CourseCredits.ColumnName = "CourseCredits";
+                CourseCredits.Caption = "CourseCredits";
+                CoursesSelected.Columns.Add(CourseCredits);
+                //DataColumn CrsCode = new DataColumn("CrsCode");
+                //CrsCode.DataType = Type.GetType("System.String");
+                //CoursesSelected.Columns.Add(CrsCode);
+                DataColumn[] pCol = new DataColumn[1];
+                pCol[0] = CourseID;
+                CoursesSelected.PrimaryKey = pCol;
+                ViewState["CoursesSelected"] = CoursesSelected;
+            }
+            else
+            {
+                CoursesSelected = (DataTable)Session["CoursesSelected"];
+                ViewState["CoursesSelected"] = CoursesSelected;
+            }
+            //Session["table"] = CoursesSelected;
+            int count = 0;
+            foreach (DataRow row1 in CoursesSelected.Rows)
+            {
+                count++;
+            }
+            TotalCourseLabel.Text = "Total courses : " + count;
+            rptCourse.DataSource = CoursesSelected;
+            rptCourse.DataBind();
+            CourseGridView.Visible = false;
+        }
     }
 
     /*
@@ -24,7 +82,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         int? programCategoryID, programID, programChange, semester;
         StudentController sysmgr = new StudentController();
         int tempInt;
-        stepThree.Visible = false;
+        stepFour.Visible = false;
 
         if (CurrentStudent.Checked == true && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
         {
@@ -89,7 +147,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             List<ProgramResult> programResults = new List<ProgramResult>();
             programResults = StudentController.FindProgramMatches(hsCourses);
 
-            List<ProgramResult> finalResults = new List<ProgramResult>();
+            finalResults = new List<ProgramResult>();
             finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
             //display results once queries are complete
             ResultsView.DataSource = finalResults;
@@ -111,6 +169,15 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
     }
 
+
+    protected void Populate_Program(object sender, EventArgs e)
+    {
+        AdminController sysmgr = new AdminController();
+        int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
+        ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
+        ProgramDropDown.DataBind();
+    }
+    //======1
     protected void stepOneNext_Click(object sender, EventArgs e)
     {
         while (ProgramDropDown.SelectedValue == "0")
@@ -118,7 +185,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             MessageUserControl.ShowInfo("You must select a program");
         }
         stepOne.Visible = false;
-        step2.Visible = true;
+        stepTwo.Visible = true;
         int programid;
         int semester;
         bool switchProgram;
@@ -137,28 +204,43 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             }
         }
     }
-    protected void onPreviousClick(object sender, EventArgs e)
+    /*protected void onPreviousClick(object sender, EventArgs e)
     {
-        step2.Visible = false;
+        stepTwo.Visible = false;
         stepOne.Visible = true;
     }
-    protected void Populate_Program(object sender, EventArgs e)
+     */
+    //==========2
+    protected void stepTwoNext_Click(object sender, EventArgs e)
     {
-        AdminController sysmgr = new AdminController();
-        int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
-        ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
-        ProgramDropDown.DataBind();
+        stepTwo.Visible = false;
+        stepThree.Visible = true;
     }
+    protected void stepTwoPrevious_Click(object sender, EventArgs e)
+    {
+        stepTwo.Visible = false;
+        stepOne.Visible = true;
+    }
+
+    //===========3
     protected void stepThreePrevious_Click(object sender, EventArgs e)
     {
         stepThree.Visible = false;
-        step2.Visible = true;
+        stepTwo.Visible = true;
     }
-    protected void stepTwoNext_Click(object sender, EventArgs e)
+    protected void stepThreeNext_Click(object sender, EventArgs e)
     {
-        step2.Visible = false;
+        stepThree.Visible = false;
+        stepFour.Visible = true;
+    }
+    //=============4
+    protected void stepFourPrevious_Click(object sender, EventArgs e)
+    {
+        stepFour.Visible = false;
         stepThree.Visible = true;
     }
+
+
     //should I be resetting the values when they click search again? It was mentioned that they wanted this stuff to be saved.
     protected void searchAgain_Click(object sender, EventArgs e)
     {
@@ -174,4 +256,102 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             item.Selected = false;
         }
     }
+    //===============================================select nait course==================================================================================
+    protected void SelectCourses(object sender, GridViewSelectEventArgs e)
+    {
+
+        GridViewRow row = CourseGridView.Rows[e.NewSelectedIndex];
+        string CCode = (row.FindControl("CourseCode") as Label).Text;
+        string CName = (row.FindControl("CourseName") as Label).Text;
+        int id = int.Parse((row.FindControl("CourseID") as Label).Text);
+        double CCredits = double.Parse((row.FindControl("CourseCredits") as Label).Text);
+        //CourseRepeater.CourseCodeLabel.Text = id;
+        //MultiSelect(CCode, id, CCredits);
+        DataRow dtrow;
+        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        dtrow = CoursesSelected.NewRow();
+        dtrow["CourseID"] = id;
+        dtrow["CourseCode"] = CCode;
+        dtrow["CourseName"] = CName;
+        dtrow["CourseCredits"] = CCredits;
+
+        //how to delete duplicate value
+        DataRow findRow = CoursesSelected.Rows.Find(id);
+        if (findRow == null)
+        {
+            CoursesSelected.Rows.Add(dtrow);
+        }
+        else
+        {
+            CoursesSelected.Rows.Find(id).Delete();
+            CoursesSelected.Rows.Add(dtrow);
+        }
+        int count = 0;
+        foreach (DataRow row1 in CoursesSelected.Rows)
+        {
+            count++;
+        }
+        ViewState["CoursesSelected"] = CoursesSelected;
+
+        rptCourse.DataSource = CoursesSelected;
+        rptCourse.DataBind();
+
+        TotalCourseLabel.Text = "Total courses : " + count;
+        for (int i = 0; i < CourseGridView.Rows.Count; i++)
+        {
+            CourseGridView.Rows[i].Font.Bold = false;
+            for (int j = 0; j < CoursesSelected.Rows.Count; j++)
+            {
+                if (CourseGridView.DataKeys[i]["CourseID"].ToString() == CoursesSelected.Rows[j]["CourseID"].ToString())
+                {
+                    CourseGridView.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
+                    CourseGridView.Rows[i].Font.Bold = true;
+                    CourseGridView.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
+                }
+            }
+        }
+
+    }
+    protected void Next_Click(object sender, EventArgs e)
+    {
+        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        Session["CoursesSelected"] = CoursesSelected;
+        Response.Redirect("../Student/testpage.aspx");
+    }
+
+
+    protected void rptCourse_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        int courserId = Convert.ToInt32(e.CommandArgument);
+        DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+        if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
+        {
+            CoursesSelected.Rows.Find(courserId).Delete();
+            rptCourse.DataSource = CoursesSelected;
+            rptCourse.DataBind();
+        }
+
+        CourseGridView.DataBind();
+    }
+    protected void Search_Click(object sender, EventArgs e)
+    {
+        CourseGridView.Visible = true;
+        CourseGridView.DataBind();
+
+    }
+    protected void reset_Click(object sender, EventArgs e)
+    {
+        //Session["CoursesSelected"] = null;
+        //ViewState["CoursesSelected"] = null;
+        CoursesSelected = null;
+        CourseGridView.DataSource = null;
+        CourseGridView.DataBind();
+        rptCourse.DataBind();
+        TotalCourseLabel.Text = "Total courses : 0";
+        //Response.Redirect("../Student/SelectNaitCourses.aspx");
+    }
+
+    //========================================================================================================================================
+
+
 }

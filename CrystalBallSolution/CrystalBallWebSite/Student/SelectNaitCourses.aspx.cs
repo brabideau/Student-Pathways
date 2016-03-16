@@ -148,6 +148,8 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
     protected void Search_Click(object sender, EventArgs e)
     {
         CourseGridView.Visible = true;
+        CourseGridView.DataBind();
+
     }
     protected void reset_Click(object sender, EventArgs e)
     {

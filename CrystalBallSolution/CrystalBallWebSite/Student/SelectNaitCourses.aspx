@@ -17,10 +17,9 @@
             </asp:DropDownList>
         </div>
         <div class="search-bar">
-
             <label >Please search the NAIT course you want.</label>
             <br />
-            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:Button ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
+            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
         </div>
     <div class="col-6 nait-courses">
         <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
@@ -73,7 +72,7 @@
                 <span><%# Eval("CourseCode") %></span>
                 <span><%# Eval("CourseName") %></span>
                 <%--<span>credit: <%# Eval("CourseCredits") %></span>--%>
-                <span><asp:Button ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>' Text="Delete" /></span>
+                <span><asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>' Text="Delete" /></span>
             </div>      
         </ItemTemplate>
         </asp:Repeater>
@@ -90,14 +89,21 @@
         <asp:LinkButton ID="reset" runat="server"  CssClass="button next" OnClick="reset_Click" >reset</asp:LinkButton>
     </div>
 
-        <asp:ObjectDataSource ID="SelectProgramODB" runat="server" SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="NaitCourseODB" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
+        <asp:ObjectDataSource ID="SelectProgramODB" runat="server" 
+            SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
+            OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="NaitCourseODB" runat="server" 
+            OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses"
+             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
             <SelectParameters>
                 <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="ProgramDropDownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="SelectedCourseODB" runat="server" SelectMethod="SelectedNaitCourses" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" OldValuesParameterFormatString="original_{0}">
+        <asp:ObjectDataSource ID="SelectedCourseODB" 
+            runat="server" SelectMethod="SelectedNaitCourses"
+             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
+            OldValuesParameterFormatString="original_{0}">
             <SelectParameters>
                 <asp:ControlParameter ControlID="CourseGridView" Name="courseID" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
