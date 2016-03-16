@@ -18,27 +18,28 @@
             </h5>
     </div>
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
+       <div runat="server" id="ProgramInfo" visible="false" class="clearfix">
        <asp:Label ID="ProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
-    <div runat="server" id="ProgramInfo" visible="false" class="clearfix">
-        <p>Program Name: <asp:TextBox ID="TB_ProgramName" runat="server" /></p>
+    
+       <p class="clearfix"><span class="label col-3">Program Name:</span> <asp:TextBox ID="TB_ProgramName" runat="server" CssClass="col-4"/></p> 
 
-        <p>Credential Type: <asp:DropDownList ID="DL_CredentialType" runat="server" 
+        <p class="clearfix"><span class="label col-3">Credential Type:</span><asp:DropDownList ID="DL_CredentialType" runat="server" 
                                                                   DataSourceID="ODSCredentialType" 
                                                                   DataTextField="CredentialTypeName" 
                                                                   DataValueField="CredentialTypeID"
-                                                            />   </p>
+                                                                  CssClass="col-2"
+                                                                  />   </p>
 
-        <p>Description: <asp:TextBox ID="TB_Description" runat="server" /></p>
+        <p class="clearfix"><span class="label col-3">Description:</span> <asp:TextBox ID="TB_Description" TextMode="multiline" runat="server" CssClass="col-6"/></p>
+        <p class="clearfix"><span class="label col-3">Total Credits:</span> <asp:TextBox ID="TB_Credits" runat="server" CssClass="col-1"/></p>
 
-        <p>Total Credits: <asp:TextBox ID="TB_Credits" runat="server" /></p>
+        <p class="clearfix"><span class="label col-3">Program Length: </span><asp:TextBox ID="TB_Length" runat="server" CssClass="col-1"/></p>
 
-        <p>Program Length: <asp:TextBox ID="TB_Length" runat="server" /></p>
+        <p class="clearfix"><span class="label col-3">Competitive Average (Competitive Advantage): </span><asp:TextBox ID="TB_CompetitiveAdvantage" runat="server" CssClass="col-1"/></p>
 
-        <p>Competitive Average (Competitive Advantage): <asp:TextBox ID="TB_CompetitiveAdvantage" runat="server" /></p>
+        <p class="clearfix"><span class="label col-3">Check if Active: </span> <asp:Checkbox ID="CB_Active" runat="server" CssClass="col-1"/></p> 
 
-        <p>Check if Active: <asp:Checkbox ID="CB_Active" runat="server" /></p>
-
-        <p>Program Link: <asp:TextBox ID="TB_Link" runat="server" /></p>
+        <p class="clearfix"><span class="label col-3">Program Link: </span><asp:TextBox ID="TB_Link" runat="server"  CssClass="col-4"/></p>
         <asp:LinkButton ID="Program_Save" runat="server" OnClick="Save_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
       
     </div>
@@ -84,6 +85,9 @@
                 </tr>
             </ItemTemplate>
     </asp:ListView>
+
+
+
 
          <p>Does entry to this program require any previous post-secondary work?</p>
 
@@ -346,7 +350,7 @@
                 <tr>
                     <th></th>
                     <th runat="server">Program Name</th>
-                    <th runat="server">Entrance Requirement</th>
+                    <th runat="server">Description</th>
                     <th runat="server">Total Credits</th>
                     <th runat="server">Program Length</th>
                     <th runat="server">Competitive Advantage</th>

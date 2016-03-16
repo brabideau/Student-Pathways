@@ -86,20 +86,11 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Save_Program(object sender, EventArgs e)
     {
         AdminController sysmr = new AdminController();
-        //TB_ProgramName.Text = myProgram.ProgramName;
-        //ProgramNameLabel.Text = myProgram.ProgramName;
-        //DL_CredentialType.SelectedValue = myProgram.CredentialTypeID.ToString();
-        //TB_Description.Text = myProgram.ProgramDescription;
-        //TB_Credits.Text = myProgram.TotalCredits.ToString();
-        //TB_Length.Text = myProgram.ProgramLength;
-        //TB_CompetitiveAdvantage.Text = myProgram.CompetitiveAdvantage.ToString();
-        //CB_Active.Checked = myProgram.Active;
-        //TB_Link.Text = myProgram.ProgramLink;
 
         var program = new Program();
         program.ProgramID = int.Parse(ProgramIDLabel.Text);
         program.CredentialTypeID = int.Parse(DL_CredentialType.SelectedValue);
-        program.ProgramName = ProgramNameLabel.Text;
+        program.ProgramName = TB_ProgramName.Text;
         program.ProgramDescription = TB_Description.Text;
         string credits = TB_Credits.Text;
 

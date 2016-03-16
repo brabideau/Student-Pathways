@@ -618,6 +618,18 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        // Adds the supplied category to the database
+        public void AddEntranceRequirement(EntranceRequirement item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                EntranceRequirement added = null;
+                added = context.EntranceRequirements.Add(item);
+                context.SaveChanges();
+            }
+        }
         #endregion
     }
 }
