@@ -158,8 +158,8 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     /// <param name="panelClass">CSS Class to apply to the panel</param>
     private void ShowInfo(string messageText, string messageTitle, string titleIcon, string panelClass)
     {
-        MessageLabel.Text = messageText;
-        MessageTitle.Text = messageTitle;
+        
+       
         MessageTitleIcon.CssClass = titleIcon;
         MessagePanel.CssClass = panelClass;
         MessagePanel.Visible = true;

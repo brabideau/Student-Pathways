@@ -4,9 +4,10 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <div runat="server" align="center">
     <h4 class="table_header">Manage Preference Questions</h4>
-        <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+        
     <asp:ListView ID="QuestionList" runat="server" DataSourceID="ODSQuestions" InsertItemPosition="LastItem" DataKeyNames="QuestionID">
         <AlternatingItemTemplate>
             <tr >
@@ -100,7 +101,7 @@
         </SelectedItemTemplate>
     </asp:ListView>
 
-    <div style="width:100%;text-align:center;">
+    <div >
         <h4 class="table_header">Manage Questions for Each Program</h4>
         <div class="search">
 
