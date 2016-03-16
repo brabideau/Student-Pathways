@@ -276,11 +276,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         GV_Equivalencies.DataBind();
     }
 
-    protected void AddNew_Click(object sender, EventArgs e)
-    {
-        addNewEquivalency.Visible = true;
-        EmptyCurrentDropdown.DataBind();
-    }
+
     protected void CheckIDs_Click(object sender, EventArgs e)
     {
         AdminController sysmgr = new AdminController();
