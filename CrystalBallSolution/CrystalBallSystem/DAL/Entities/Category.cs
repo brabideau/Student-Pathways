@@ -20,7 +20,7 @@ namespace CrystalBallSystem.DAL.Entities
         [Key]
         public int CategoryID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A Category Description is required (5-50 characters)")]
         [StringLength(50)]
         public string CategoryDescription { get; set; }
 

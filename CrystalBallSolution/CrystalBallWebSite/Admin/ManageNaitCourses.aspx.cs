@@ -18,6 +18,11 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         }
     }
 
+    protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
+    {
+        MessageUserControl.HandleDataBoundException(e);
+    }
+
     private void BindList()
     {
         string pid = ProgramList.SelectedDataKey.Value.ToString();
@@ -108,6 +113,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         string pid = ProgramList.SelectedDataKey.Value.ToString();
         int proId = Convert.ToInt32(pid);
         AdminController sysmr = new AdminController();
+
         sysmr.AddNaitCourse(NewCourse, proId);
         CloseInsert();
         BindList();

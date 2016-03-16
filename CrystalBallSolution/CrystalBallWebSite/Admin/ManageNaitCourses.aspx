@@ -1,9 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManageNaitCourses.aspx.cs" Inherits="Admin_ManageNaitCourses" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
         <h1>Manage Nait Courses</h1>
-
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
         <div class="search-bar col-9 clearfix">
             <div class="col-8">
                 <asp:Label ID="Label1" runat="server" Text="Select a Category: "></asp:Label>

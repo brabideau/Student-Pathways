@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ManageCategory.aspx.cs" Inherits="Admin_ManageCategory" %>
+
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Manage Category</h1>
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <asp:ListView ID="CategoryList" runat="server" DataSourceID="ODSCategoryList" 
                                                    InsertItemPosition="LastItem" 
                                                    OnItemUpdating="CategoryList_ItemUpdating">
@@ -104,6 +108,6 @@
 
     </asp:ListView>
 
-    <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.Category" InsertMethod="AddCategory" OldValuesParameterFormatString="original_{0}" UpdateMethod="UpdateCategory"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ODSCategoryList" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.Category" InsertMethod="AddCategory" OldValuesParameterFormatString="original_{0}" UpdateMethod="UpdateCategory" OnInserted="CheckForException" OnUpdated="CheckForException"></asp:ObjectDataSource>
 </asp:Content>
 

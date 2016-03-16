@@ -15,6 +15,10 @@ public partial class Admin_ManageCategory : System.Web.UI.Page
 
     }
 
+    protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
+    {
+        MessageUserControl.HandleDataBoundException(e);
+    }
 
     protected void CategoryList_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
