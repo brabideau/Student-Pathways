@@ -564,7 +564,7 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                if (sem < 5)
+                if ( 0 < sem && sem < 5)
                 {
                     var result = from x in context.ProgramCourses
                                  where x.ProgramID == programID && x.Semester == sem
@@ -574,8 +574,9 @@ namespace CrystalBallSystem.BLL
                 else
                 {
                     var result = from x in context.ProgramCourses
-                                 where x.ProgramID == programID && x.Semester >= 5
+                                 where x.ProgramID == programID && !(0 > x.Semester || x.Semester < 5)
                                  select x.NaitCourse;
+
                     return result.ToList();
                 }
             }

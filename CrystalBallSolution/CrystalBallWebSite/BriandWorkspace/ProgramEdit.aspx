@@ -305,8 +305,7 @@
         <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p>
 
                 <!--Add new equivalency to empty gridview--> 
-    
-
+   
         <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
             <Columns>
                 <asp:TemplateField HeaderText="CourseEquivalencyID">
@@ -346,7 +345,8 @@
 
         <div runat="server" id="addNewEquivalency" visible="true"  CssClass="add-equivalency-block">
         <p class="clearfix"><asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID:" CssClass="label col-3"></asp:Label>
-        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true" CssClass="col-2">
+        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
+            DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true" CssClass="col-2">
              <asp:ListItem Value="-1">[Select Course Code]</asp:ListItem>
         </asp:DropDownList>
         <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
@@ -362,7 +362,7 @@
         <asp:LinkButton ID="CheckIDs" runat="server" OnClick="CheckIDs_Click" CssClass="button button-long submit">Check Equivalency</asp:LinkButton>
         <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="button button-long next" Enabled="false">Enter Equivalency</asp:LinkButton>
         <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click"  CssClass="button button-long back">Cancel</asp:LinkButton>
-                </p>
+             </p>
     </div>
 
 
@@ -465,7 +465,8 @@
 
     <asp:ObjectDataSource ID="QuestionsList" runat="server" SelectMethod="Question_List" TypeName="CrystalBallSystem.BLL.AdminController" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource> 
 
-    <asp:ObjectDataSource ID="EmptyCurrentDropdownODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController">
+    <asp:ObjectDataSource ID="EmptyCurrentDropdownODS" runat="server" OldValuesParameterFormatString="original_{0}" 
+        SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController">
         <SelectParameters>
             <asp:ControlParameter ControlID="ProgramIDLabel" Name="programID" Type="Int32" />
         </SelectParameters>
