@@ -1,4 +1,5 @@
 ﻿using CrystalBallSystem.DAL;
+using CrystalBallSystem.DAL.DTOs;
 using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL.POCOs;
 using System;
@@ -16,20 +17,21 @@ namespace CrystalBallSystem.BLL
         //List Equivalent Courses
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all categories
-        public List<NAITCourse> Equivalent_Courses(int courseid)
+        public List<NAITCourse> Equivalent_Courses(List<int> courseids)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                var result = from x in context.CourseEquivalencies
-                             from nc in context.NaitCourses
-                             where x.CourseID == courseid && nc.CourseID == x.DestinationCourseID
-                             select new NAITCourse
-                                    {
-                                        CourseID = nc.CourseID,
-                                        CourseCode = nc.CourseCode,
-                                        CourseName = nc.CourseName,
-                                        CourseCredits = nc.CourseCredits
-                                    };
+                var result =    from x in context.CourseEquivalencies
+                                            from nc in context.NaitCourses
+                                            where courseids.Contains(x.CourseID) && nc.CourseID == x.DestinationCourseID
+                                            select new NAITCourse
+                                            {
+                                                CourseID = nc.CourseID,
+                                                CourseCode = nc.CourseCode,
+                                                CourseName = nc.CourseName,
+                                                CourseCredits = nc.CourseCredits
+                                            };
+
                 return result.ToList();
             }
         }

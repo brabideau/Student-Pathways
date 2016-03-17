@@ -283,8 +283,12 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
-
+        #region Equivalency Matching
+        //var test = (from x in ProgramCourses
+        //            from ce in CourseEquivalencies
+        //            where courseids.Contains(x.CourseID) || (courseids.Contains(ce.DestinationCourseID) && x.CourseID == ce.CourseID)
+        //            select x).Distinct();
+        #endregion
     }
 }
-
 
