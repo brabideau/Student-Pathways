@@ -3,6 +3,8 @@ using Microsoft.Owin.Security;
 using System;
 using System.Web;
 using CrystalBallWebSite;
+using CrystalBallSystem.BLL.Security;
+using CrystalBallSystem.DAL.Entities.Security;
 
 public partial class Account_RegisterExternalLogin : System.Web.UI.Page
 {

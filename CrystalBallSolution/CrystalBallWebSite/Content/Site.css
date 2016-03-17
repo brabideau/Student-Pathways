@@ -709,6 +709,145 @@ footer {
 
 }
 
+/*---------------------Login Page---------------------------*/
+*,*:before,*:after
+{
+    box-sizing:border-box;
+}
+
+.form-group
+{
+    margin-bottom:15px;
+}
+
+.form-group input
+{
+    max-width:280px;
+}
+
+.form-control
+{
+    width:100%;
+    margin-bottom:0;
+    display:block;
+    height:34px;
+    padding:6px 12px;
+    font-size:14px;
+    line-height:1.42;
+    color:#555555;
+    vertical-align:middle;
+    background-color:#ffffff;
+    border:1px solid #cccccc;
+    border-radius:4px;
+
+}
+
+.col-md-2
+{
+    width:16.666666666666664%;
+     position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+    top: 0;
+    left:-1px;
+    float:left;
+}
+
+.col-md-offset-2
+{
+    margin-left:16.666666666666664%;
+}
+
+.col-md-8
+{
+    width:66.66666666666666%;
+    position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+    top: 0;
+    left:-1px;
+    float:left;
+}
+
+.col-md-10
+{
+    position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+    top: 0;
+    left:-1px;
+    float:left;
+    width:83.3333333333334%;
+}
+
+
+.has-waring .control-label
+{
+    color:#c09853;
+}
+
+.has-error .control-label
+{
+    color:#b94a48;
+}
+
+.has-success .control-label
+{
+    color:#468847;
+}
+
+.form-horizontal .control-label
+{
+    padding-top:7px;
+    margin-top:0;
+    margin-bottom:0;
+    text-align:right;
+}
+
+.form-horizontal .form-group
+{
+    margin-right:-15px;
+    margin-left:-15px;
+}
+
+.form-horizontal .form-group:before,
+.form-horizontal .form-group:after
+{
+    display:table;
+    content:" ";
+}
+
+.form-horizontal .form-group:after
+{
+    clear:both;
+}
+
+.text-danger
+{
+    color:#b94a48;
+}
+
+.checkbox
+{
+    display:block;
+    min-height:20px;
+    padding-left:20px;
+    margin-top:10px;
+    margin-bottom:10px;
+    vertical-align:middle;
+}
+
+.checkbox label
+{
+    display:inline;
+    margin-bottom:0;
+    font-weight:normal;
+    cursor:pointer;
+}
+
 
 
 

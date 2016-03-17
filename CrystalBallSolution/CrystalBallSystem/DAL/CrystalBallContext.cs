@@ -16,7 +16,7 @@ namespace CrystalBallSystem.DAL
 
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CredentialType> CredentialTypes { get; set; }
-
+        public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<EntranceRequirement> EntranceRequirements { get; set; }
         public virtual DbSet<HighSchoolCours> HighSchoolCourses { get; set; }
         public virtual DbSet<NaitCours> NaitCourses { get; set; }

@@ -36,6 +36,14 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -50,6 +58,11 @@
   <ItemGroup>
     <Compile Include="BLL\AdminController.cs" />
     <Compile Include="BLL\ReportController.cs" />
+    <Compile Include="BLL\Security\ApplicationDbContext.cs" />
+    <Compile Include="BLL\Security\RoleManager.cs" />
+    <Compile Include="DAL\Entities\Administrator.cs" />
+    <Compile Include="DAL\Entities\Security\ApplicationUser.cs" />
+    <Compile Include="BLL\Security\UserManager.cs" />
     <Compile Include="BLL\SelectNaitCourseController.cs" />
     <Compile Include="BLL\StudentController.cs" />
     <Compile Include="BLL\testController.cs" />
@@ -71,6 +84,7 @@
     <Compile Include="DAL\Entities\ProgramCourse.cs" />
     <Compile Include="DAL\Entities\ProgramData.cs" />
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
+    <Compile Include="DAL\Entities\Security\SecurityRole.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
     <Compile Include="DAL\POCOs\GetCourseCredits.cs" />
     <Compile Include="DAL\POCOs\GetCredentials.cs" />
