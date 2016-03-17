@@ -113,13 +113,23 @@ namespace CrystalBallSystem.BLL
                                  ProgramDescription = x.ProgramDescription,
                                  ProgramLink = x.ProgramLink,
                                  Credits = (from c in x.ProgramCourses
-                                                where courseid.Contains(c.CourseID)
-                                                select (double?)c.NaitCourse.CourseCredits).Sum()
+                                            from ce in context.CourseEquivalencies
+                                            where courseid.Contains(c.CourseID) || (courseid.Contains(ce.DestinationCourseID) && c.CourseID == ce.CourseID)
+                                            select (double?)c.NaitCourse.CourseCredits).Sum()
                              };
+
 
                 return result.ToList();
             }
         }
+
+
+        //var test = (from x in ProgramCourses
+        //            from ce in CourseEquivalencies
+        //            where courseids.Contains(x.CourseID) || (courseids.Contains(ce.DestinationCourseID) && x.CourseID == ce.CourseID)
+        //            select x).Distinct();
+
+
 
         //var result = from p in Programs
         //            where programIDs.Contains(p.ProgramID)
@@ -284,10 +294,7 @@ namespace CrystalBallSystem.BLL
         #endregion
 
         #region Equivalency Matching
-        //var test = (from x in ProgramCourses
-        //            from ce in CourseEquivalencies
-        //            where courseids.Contains(x.CourseID) || (courseids.Contains(ce.DestinationCourseID) && x.CourseID == ce.CourseID)
-        //            select x).Distinct();
+
         #endregion
     }
 }
