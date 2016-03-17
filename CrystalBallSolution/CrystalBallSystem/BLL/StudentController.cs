@@ -98,6 +98,21 @@ namespace CrystalBallSystem.BLL
                 return returnArray.ToArray();
             }
         }
+        //to be expanded upon
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public int[] GetCourseCredits(List<int> courseid, List<int> programid)
+        //{
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        var result = from x in context.ProgramCourses
+        //                     where programid.Contains(x.ProgramID)
+        //                     group x by x.ProgramID into c
+        //                     select new GetCourseCredits
+        //                     {
+        //                         ProgramID = c.Key.
+        //                         Credits = 
+        //                     }
+        //}
 
         #region preference questions
         [DataObjectMethod(DataObjectMethodType.Select, false)]
