@@ -90,7 +90,17 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         }
 
         program.ProgramLength = ProgramLengthBox.Text;
-        program.CompetitiveAdvantage = int.Parse(CompetiveAdvantageBox.Text);
+
+        string competitiveAdvantage = CompetiveAdvantageBox.Text;
+        if (string.IsNullOrEmpty(competitiveAdvantage))
+        {
+            program.CompetitiveAdvantage = null;
+        }
+        else
+        {
+            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+        }
+
         program.Active = Active.Checked;
         program.ProgramLink = ProgramLinkBox.Text;
 
@@ -134,6 +144,7 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         program.ProgramDescription = EntranceRequirementBox.Text;
         string credits = TotalCreditsBox.Text;
 
+
         if (string.IsNullOrEmpty(credits))
         {
             program.TotalCredits = null;
@@ -144,7 +155,23 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             program.TotalCredits = double.Parse(credits);
         }
 
-        
+        program.ProgramLength = ProgramLengthBox.Text;
+
+        string competitiveAdvantage = CompetiveAdvantageBox.Text;
+        if (string.IsNullOrEmpty(competitiveAdvantage))
+        {
+            program.CompetitiveAdvantage = null;
+        }
+        else
+        {
+            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+        }
+
+        program.Active = Active.Checked;
+        program.ProgramLink = ProgramLinkBox.Text;
+
+        List<Program> NewProgram = new List<Program>();
+        NewProgram.Add(program);
 
         string categoryid = CategoryDropdownList.SelectedValue.ToString();
         int cateid = Convert.ToInt32(categoryid);
@@ -156,15 +183,7 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             MessageUserControl.ShowInfo("The Program Name is required.");
         }
         else
-        {
-            program.ProgramLength = ProgramLengthBox.Text;
-            program.CompetitiveAdvantage = int.Parse(CompetiveAdvantageBox.Text);
-            program.Active = Active.Checked;
-            program.ProgramLink = ProgramLinkBox.Text;
-
-            List<Program> NewProgram = new List<Program>();
-            NewProgram.Add(program);
-
+        {            
             MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
 
             CloseInsert();
