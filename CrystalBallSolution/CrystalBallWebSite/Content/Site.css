@@ -848,6 +848,16 @@ footer {
     cursor:pointer;
 }
 
+.displayName
+{
+    float:right;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:#3cb0fd;
+    clear:both;
+    font-size:16px;
+}
+
+
 
 
 

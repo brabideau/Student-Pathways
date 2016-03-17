@@ -1,8 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="MenuCategory.aspx.cs" Inherits="Admin_MenuCategory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    Currently Logged in user is:
-    <asp:Label ID ="currentLogin" runat="server"></asp:Label>
+    <div class="displayName">
+         Currently Logged in user is:
+        <asp:Label ID ="currentLogin" runat="server"></asp:Label>
+    </div>   
 
     <div class="admin-menu">      
         <div class="col-4 center">

@@ -14,7 +14,11 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-
+            if (!Request.IsAuthenticated)
+            {
+                //NO
+                Response.Redirect("~/Account/Login.aspx");
+            }
         }
     }
 
