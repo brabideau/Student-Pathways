@@ -270,3 +270,17 @@ namespace CrystalBallSystem.BLL
 
     }
 }
+
+
+//var result = from p in Programs
+//            where programIDs.Contains(p.ProgramID)
+//            select new {
+//                    ProgramID = p.ProgramID,
+//                    ProgramName = p.ProgramName,
+//                    ProgramDescription = p.ProgramDescription,
+//                    ProgramLink = p.ProgramLink,
+//                    Credits = (from c in p.ProgramCourses
+//                                where courseIDs.Contains(c.CourseID)
+//                                select (double?) c.NaitCourses.CourseCredits).Sum()};
+
+//result.Dump();
