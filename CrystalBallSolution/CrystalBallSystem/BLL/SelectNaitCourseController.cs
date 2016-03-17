@@ -142,9 +142,21 @@ namespace CrystalBallSystem.BLL
                 {
                     List<Program> programs = new List<Program>();
 
+                    //var equivalencies = from x in context.CourseEquivalencies
+                    //                    where courseids.Contains(x.CourseID)
+                    //                    select x.DestinationCourseID;
+                    //foreach (int i in equivalencies)
+                    //{
+                    //    courseids.Add(i);
+                    //}
+
                     var result = from x in context.ProgramCourses
                                  where courseids.Contains(x.CourseID)
                                  select x;
+
+                    
+
+
                     var result2 = (from x in result
                                   orderby x.Program.ProgramName
                                   select new ProgramAndCourses
