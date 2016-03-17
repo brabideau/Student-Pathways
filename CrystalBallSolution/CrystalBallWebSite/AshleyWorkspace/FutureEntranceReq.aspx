@@ -4,25 +4,44 @@
     <div runat="server" id="EntranceRequirements" visible="false" class="clearfix">
 
         <p>What high school courses does this program require?</p>
-        <asp:ListView ID="LV_SubjectReq" runat="server" ItemType="CrystalBallSystem.DAL.Entities.SubjectRequirement">
-            <LayoutTemplate>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th runat="server">Subject</th>
-                        <th runat="server">Courses</th>
-                    </tr>
-                    <tr id="itemPlaceholder" runat="server"></tr>
-                </table>
-            </LayoutTemplate>        
-            <ItemTemplate>
-                <tr>
-                    <td>
-                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Eval("SubjectRequirementID") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Eval("SubjectDescription") %>' />
-                    </td>
+        <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False">
+            <%--ItemType="CrystalBallSystem.DAL.POCOs.SubjectRequirementAndCourses" DataKeyNames="SubjectRequirementID"--%>
+            <%--<Columns>
+                <asp:TemplateField HeaderText="SubjectRequirementID" Visible="false">
+                    <ItemTemplate>
+                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Item.SubjectRequirementID %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField> 
+                <asp:TemplateField HeaderText="SubjectDescription">
+                    <ItemTemplate>
+                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Item.SubjectDescription %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:GridView ID="GV_EntranceReqs" runat="server" OnRowDeleting="GV_EntranceReqs_RowDeleting" DataKeyNames="CourseID" ItemType="CrystalBallSystem.DAL.POCOs.GetHSCourseCode">
+                            <Columns>
+                                <asp:TemplateField HeaderText="CourseID">
+                                    <ItemTemplate>
+                                        <asp:Label ID="CourseID" runat="server" Text='<%# Item.CourseID %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="CourseCode">
+                                    <ItemTemplate>
+                                        <asp:Label ID="CourseCode" runat="server" Text='<%# Item.CourseCode %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:ButtonField Text="Remove" CommandName="Delete"/>
+                            </Columns>          
+            
+                            <EmptyDataTemplate>
+                                No Existing Entrance Requirements.
+                            </EmptyDataTemplate>
+                        </asp:GridView>
+                    </ItemTemplate>
+                </asp:TemplateField> 
+            </Columns>   --%> 
+            <%--<ItemTemplate>
                     <td>
                         <asp:GridView ID="GV_EntranceReqs" runat="server" OnRowDeleting="GV_EntranceReqs_RowDeleting" DataKeyNames="CourseID" ItemType="CrystalBallSystem.DAL.POCOs.GetHSCourseCode">
                             <Columns>
@@ -42,14 +61,11 @@
                             <EmptyDataTemplate>
                                 No Existing Entrance Requirements.
                             </EmptyDataTemplate>
-
                         </asp:GridView>
                     </td>
                 </tr>
-            </ItemTemplate>
-        </asp:ListView>
-
-
+            </ItemTemplate>--%>
+        </asp:GridView>
 
 
         <p>Does entry to this program require any previous post-secondary work?</p>
