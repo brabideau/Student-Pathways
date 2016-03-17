@@ -663,15 +663,9 @@ footer {
 
 
    /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
-.program-search-results {
-    border: none;
- }
 
-.program-search-results tr:first-child, .program-search-results td:first-child  {
-    display: none;
-}
 
-.program-search-results tr {
+.program-search-results{
     background-color: rgba(255,255,255,.8);
     display: inline-block;
     margin: 1.9%;  
@@ -685,14 +679,9 @@ footer {
 
 .program-search-results td {
     padding: 15px;
-    border: none;
     display: block;
 }
 
-.program-search-results td:nth-child(2){
-    font-family: 'Coda';
-    font-size: 1.8em;
-}
 
 /* ------------------Management Menu -----------------------*/
 

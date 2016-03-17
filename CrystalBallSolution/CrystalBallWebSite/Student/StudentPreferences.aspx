@@ -205,7 +205,30 @@
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
         <div id="results" runat="server" visible="false" >
             <h1>Results</h1>
-            <asp:GridView ID="ResultsView" runat="server" CssClass="program-search-results"></asp:GridView>
+            <asp:ListView ID="ResultsView" runat="server" >
+                        <LayoutTemplate>
+                            <table>
+                                <tr id="itemPlaceholder" runat="server"></tr>
+                            </table>
+                        </LayoutTemplate>
+                <ItemTemplate>
+                    <tr class="program-search-results">
+                        <td>
+                           <h3><asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' /></h3>
+                        </td>
+                        <td>
+                           <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
+                        </td>
+                        <td>
+                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits in this program</asp:Label>
+                        </td>
+                        <td>
+                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server"><span class="button submit">More Info</span></asp:HyperLink>
+                        </td>
+                    </tr>
+
+               </ItemTemplate>
+            </asp:ListView>
             <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
         </div>
 

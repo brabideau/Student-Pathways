@@ -8,7 +8,6 @@ namespace CrystalBallSystem.DAL.POCOs
 {
     public class GetCourseCredits
     {
-        public int CourseID { get; set; }
         public int ProgramID { get; set; }
         public string ProgramName { get; set; }
         public string ProgramDescription { get; set; }
