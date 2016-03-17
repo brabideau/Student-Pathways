@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ProgramEdit.aspx.cs" Inherits="Briand_Workspace_ProgramEdit" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" CssClass="clearfix">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
     <h1>Edit Program</h1>
    <div runat="server" id="ProgramEditDiv" visible="false">
        <h2>
@@ -57,21 +57,21 @@
 
     <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
-     <div runat="server" id="EntranceRequirements" visible="false" class="clearfix">
+    <div runat="server" id="EntranceRequirements" visible="false" class="clearfix">
 
-         <p>What high school courses does this program require?</p>
-          <asp:ListView ID="LV_SubjectReq" runat="server">
-        <LayoutTemplate>
-            <table>
-                <tr>
-                    <th></th>
-                    <th runat="server">Subject</th>
-                    <th runat="server">Courses</th>
-                </tr>
-                <tr id="itemPlaceholder" runat="server"></tr>
-            </table>
-        </LayoutTemplate>        
-        <ItemTemplate>
+        <p>What high school courses does this program require?</p>
+        <asp:ListView ID="LV_SubjectReq" runat="server">
+            <LayoutTemplate>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th runat="server">Subject</th>
+                        <th runat="server">Courses</th>
+                    </tr>
+                    <tr id="itemPlaceholder" runat="server"></tr>
+                </table>
+            </LayoutTemplate>        
+            <ItemTemplate>
                 <tr>
                     <td>
                         <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Eval("SubjectRequirementID") %>' />
@@ -80,11 +80,29 @@
                         <asp:Label ID="SubjectLabel" runat="server" Text='<%# Eval("SubjectDescription") %>' />
                     </td>
                     <td>
-                        <asp:GridView ID="GV_EntranceReqs" runat="server"></asp:GridView>
+                        <asp:GridView ID="GV_EntranceReqs" runat="server" OnRowDeleting="GV_EntranceReqs_RowDeleting" DataKeyNames="CourseID">
+                            <Columns>
+<%--                                <asp:TemplateField HeaderText="CourseID">
+                                    <ItemTemplate>
+                                        <asp:Label ID="CourseID" runat="server" Text='<%# Item.CourseEquivalencyID %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="CourseCode">
+                                    <ItemTemplate>
+                                        <asp:Label ID="CourseCode" runat="server" Text='<%# Item.CourseCode %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:ButtonField Text="Remove" CommandName="Delete"/>
+                            </Columns>          
+            
+                            <EmptyDataTemplate>
+                                No Existing Entrance Requirements.
+                            </EmptyDataTemplate>
+                        </asp:GridView>
                     </td>
                 </tr>
             </ItemTemplate>
-    </asp:ListView>
+        </asp:ListView>
 
 
 

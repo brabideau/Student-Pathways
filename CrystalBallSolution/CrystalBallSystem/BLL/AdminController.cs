@@ -607,18 +607,37 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        public List<EntranceRequirement> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
+        //public List<EntranceRequirement> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
+
+        //        var result = from x in context.EntranceRequirements
+        //                      where x.ProgramID == programID && x.SubjectRequirementID == subjectID
+        //                      select x;
+        //        return result.ToList();
+        //    }
+        //}
+
+
+        public List<GetHSCourseCode> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
 
                 var result = from x in context.EntranceRequirements
-                              where x.ProgramID == programID && x.SubjectRequirementID == subjectID
-                              select x;
+                             from hs in context.HighSchoolCourses
+                             where x.ProgramID == programID
+                             && x.SubjectRequirementID == subjectID 
+                             && x.HighSchoolCourseID == hs.HighSchoolCourseID
+                             select new GetHSCourseCode
+                             {
+                                 CourseID = hs.HighSchoolCourseID,
+                                 CourseCode = hs.HighSchoolCourseName
+                             };
                 return result.ToList();
             }
         }
-
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         // Adds the supplied category to the database
@@ -628,6 +647,21 @@ namespace CrystalBallSystem.BLL
             {
                 EntranceRequirement added = null;
                 added = context.EntranceRequirements.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void EntranceReq_Delete(int courseEquivalencyID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                //lookup the instance and record if found (set pointer to instance)
+                CourseEquivalency existing = context.CourseEquivalencies.Find(courseEquivalencyID);
+
+                //setup the command to execute the delete
+                context.CourseEquivalencies.Remove(existing);
+                //command is not executed until it is actually saved.
                 context.SaveChanges();
             }
         }
