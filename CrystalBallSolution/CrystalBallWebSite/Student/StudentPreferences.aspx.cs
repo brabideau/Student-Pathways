@@ -11,7 +11,8 @@ using System.Web.UI.WebControls;
 public partial class Student_StudentPreferences : System.Web.UI.Page
 {
     DataTable CoursesSelected;
-    List<ProgramResult> finalResults;
+    List<int> finalResults;
+    List<GetCourseCredits> completeResults;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -112,7 +113,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                                 ));
             }
             //send preferences to the BLL for initial results
-            List<ProgramResult> preferenceResults = new List<ProgramResult>();
+            List<int> preferenceResults = new List<int>();
             preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
 
             //step 3 - Gather the selected courses provided by the student. Determine if any selected courses are the highest in a particular course group
@@ -144,28 +145,40 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
             //step 4 - Determine initial program results and then filter those results based on student preference questions. Display final results
             //send information to BLL for processing and narrow down possible results
-            List<ProgramResult> programResults = new List<ProgramResult>();
+            List<int> programResults = new List<int>();
             programResults = StudentController.FindProgramMatches(hsCourses);
 
-            finalResults = new List<ProgramResult>();
+            finalResults = new List<int>();
             finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
 
             //grab the list of courses selected by the student in the NAIT course repeater
             //send that list and the list of final program matches to the student controller for comparison
             //if any courses selected match both programIDs add the course credit to that particular program result
-            List<string> courseCredits = new List<string>();
-            foreach (RepeaterItem rptItem in rptCourse.Items)
-            {
-                courseCredits.Add(rptItem.FindControl("CourseCode").ToString());
-            }
+            
+
+
+
+
+            //List<string> courseCredits = new List<string>();
+            //foreach (RepeaterItem rptItem in rptCourse.Items)
+            //{
+            //    courseCredits.Add(rptItem.FindControl("CourseCode").ToString());
+            //}
             //send list of course codes to the db and retrieve courseids
-            //int[] courseIDs =
+            DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+            List<int> courseIDs = new List<int>();
+            foreach (DataRow x in CoursesSelected.Rows)
+            {
+                courseIDs.Add(Convert.ToInt32(x["CourseID"]));
+            }
+            //List<int> programIDs = sysmgr.GetProgramIDs(finalResults);
 
-
-            //
+            //send list of courseids and list of programids to the db for final results
+            completeResults = new List<GetCourseCredits>();
+            completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
 
             //display results once queries are complete
-            ResultsView.DataSource = finalResults;
+            ResultsView.DataSource = completeResults;
             ResultsView.DataBind();
             results.Visible = true;
         }, "Success!", "Here are the pathways available to you!");
@@ -296,11 +309,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             CoursesSelected.Rows.Add(dtrow);
         }
-        else
-        {
-            CoursesSelected.Rows.Find(id).Delete();
-            CoursesSelected.Rows.Add(dtrow);
-        }
+        //else
+        //{
+        //    CoursesSelected.Rows.Find(id).Delete();
+        //    CoursesSelected.Rows.Add(dtrow);
+        //}
         int count = 0;
         foreach (DataRow row1 in CoursesSelected.Rows)
         {

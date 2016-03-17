@@ -52,6 +52,34 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<int> GetCourseIDs(string[] courseCodes)
+        {
+            List<int> intList = new List<int>();
+            using (var context = new CrystalBallContext())
+            {
+                for (int i = 0; i < courseCodes.Length; i++)
+                {
+                    var results = (from course in context.NaitCourses
+                                  where course.CourseCode == courseCodes[i]
+                                  select course.CourseID).First();
+                    intList.Add(results);
+                }
+                return intList;
+            }
+        }
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<int> GetProgramIDs(List<ProgramResult> programResults)
+        //{
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        var results = (from program in context.Programs
+        //                       from programTwo in programResults
+        //                       where program.ProgramID == programTwo.ProgramID
+        //                       select program.ProgramID).Distinct();
+        //        return results.ToList();
+        //    }
+        //}
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int GetEntranceList(int courseID, int mark)
@@ -183,20 +211,14 @@ namespace CrystalBallSystem.BLL
 
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<ProgramResult> FindProgramMatches(List<int> myCourses)
+        static public List<int> FindProgramMatches(List<int> myCourses)
         {
             using (var context = new CrystalBallContext())
             {
-                
+
                 var results = from p in context.Programs
-			    where p.Active == true && p.EntranceRequirements.All(e => e.SubjectRequirement.EntranceRequirements.Any(er => myCourses.Contains(er.HighSchoolCourseID)))
-			    select new ProgramResult 
-                {
-                    ProgramID = p.ProgramID,
-                    ProgramName = p.ProgramName,
-                    ProgramDescription = p.ProgramDescription,
-                    ProgramLink = p.ProgramLink
-                };
+                              where p.Active == true && p.EntranceRequirements.All(e => e.SubjectRequirement.EntranceRequirements.Any(er => myCourses.Contains(er.HighSchoolCourseID)))
+                              select p.ProgramID;
 
 
                 return results.ToList();
@@ -204,7 +226,7 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<ProgramResult> FindPreferenceMatches(List<StudentPreference> myPrefs)
+        static public List<int> FindPreferenceMatches(List<StudentPreference> myPrefs)
             //  returns programs where the program and student have answered at least one question the same way
             // and have not given conflicting answers to any questions
             // unanswered questions are ignored
@@ -243,13 +265,7 @@ namespace CrystalBallSystem.BLL
                                 select q.Program).Distinct());
 
                 var result = from p in programList
-                             select new ProgramResult
-                                {
-                                    ProgramID = p.ProgramID,
-                                    ProgramName = p.ProgramName,
-                                    ProgramDescription = p.ProgramDescription,
-                                    ProgramLink = p.ProgramLink
-                                };
+                             select p.ProgramID;
 
                 return result.ToList();
             }
@@ -257,14 +273,13 @@ namespace CrystalBallSystem.BLL
 
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<ProgramResult> EntranceReq_Pref_Match(List<ProgramResult> myPrefs, List<ProgramResult> myMatches)
+        static public List<int> EntranceReq_Pref_Match(List<int> myPrefs, List<int> myMatches)
         {
             // Compares the results from two lists of programs and returns the programs common to each
             
-            var results = (from p in myMatches
-				from s in myPrefs
-				where s.ProgramID == p.ProgramID
-				select p).Distinct();
+            var results = (from s in myPrefs
+				where myMatches.Contains(s)
+				select s).Distinct();
 
                 return results.ToList();
             
