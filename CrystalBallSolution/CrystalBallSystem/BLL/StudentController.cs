@@ -104,19 +104,35 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                var result = from x in context.ProgramCourses
-                             where programid.Contains(x.ProgramID) && courseid.Contains(x.CourseID)
-                             group x by x.Program into c
+                var result = from x in context.Programs
+                             where programid.Contains(x.ProgramID)
                              select new GetCourseCredits
                              {
-                                 ProgramID = c.Key.ProgramID,
-                                 Credits = (from y in c
-                                            select y.NaitCourse.CourseCredits).Sum()
+                                 ProgramID = x.ProgramID,
+                                 ProgramName = x.ProgramName,
+                                 ProgramDescription = x.ProgramDescription,
+                                 ProgramLink = x.ProgramLink,
+                                 Credits = (from c in x.ProgramCourses
+                                                where courseid.Contains(c.CourseID)
+                                                select (double?)c.NaitCourse.CourseCredits).Sum()
                              };
 
                 return result.ToList();
             }
         }
+
+        //var result = from p in Programs
+        //            where programIDs.Contains(p.ProgramID)
+        //            select new {
+        //                    ProgramID = p.ProgramID,
+        //                    ProgramName = p.ProgramName,
+        //                    ProgramDescription = p.ProgramDescription,
+        //                    ProgramLink = p.ProgramLink,
+        //                    Credits = (from c in p.ProgramCourses
+        //                                where courseIDs.Contains(c.CourseID)
+        //                                select (double?) c.NaitCourses.CourseCredits).Sum()};
+
+        //result.Dump();
 
         //        var result = from x in ProgramCourses
         //            where programIDs.Contains(x.ProgramID) && courseIDs.Contains(x.CourseID)
@@ -272,15 +288,3 @@ namespace CrystalBallSystem.BLL
 }
 
 
-//var result = from p in Programs
-//            where programIDs.Contains(p.ProgramID)
-//            select new {
-//                    ProgramID = p.ProgramID,
-//                    ProgramName = p.ProgramName,
-//                    ProgramDescription = p.ProgramDescription,
-//                    ProgramLink = p.ProgramLink,
-//                    Credits = (from c in p.ProgramCourses
-//                                where courseIDs.Contains(c.CourseID)
-//                                select (double?) c.NaitCourses.CourseCredits).Sum()};
-
-//result.Dump();

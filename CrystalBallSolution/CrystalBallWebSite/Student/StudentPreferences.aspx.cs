@@ -153,10 +153,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //grab the list of courses selected by the student in the NAIT course repeater
             //send that list and the list of final program matches to the student controller for comparison
             //if any courses selected match both programIDs add the course credit to that particular program result
-            //List<GetCourseCredits> courseCredits
+            List<GetCourseCredits> courseCredits = new List<GetCourseCredits>();
             foreach (RepeaterItem rptItem in rptCourse.Items)
             {
-
+                //courseCredits.Add(rptItem.FindControl("course-id"));
             }
 
             //display results once queries are complete
