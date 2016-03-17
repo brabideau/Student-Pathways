@@ -69,6 +69,7 @@
     <Compile Include="BusinessRuleException.cs" />
     <Compile Include="DAL\DTOs\CategoryProgram.cs" />
     <Compile Include="DAL\DTOs\ProgramAndCourses.cs" />
+    <Compile Include="DAL\DTOs\SubjectRequirementAndCourses.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
     <Compile Include="DAL\CrystalBallContext.cs" />
     <Compile Include="DAL\Entities\CourseEquivalency.cs" />

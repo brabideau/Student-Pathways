@@ -82,16 +82,6 @@
                     <td>
                         <asp:GridView ID="GV_EntranceReqs" runat="server" OnRowDeleting="GV_EntranceReqs_RowDeleting" DataKeyNames="CourseID">
                             <Columns>
-<%--                                <asp:TemplateField HeaderText="CourseID">
-                                    <ItemTemplate>
-                                        <asp:Label ID="CourseID" runat="server" Text='<%# Item.CourseEquivalencyID %>' />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="CourseCode">
-                                    <ItemTemplate>
-                                        <asp:Label ID="CourseCode" runat="server" Text='<%# Item.CourseCode %>' />
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
                                 <asp:ButtonField Text="Remove" CommandName="Delete"/>
                             </Columns>          
             

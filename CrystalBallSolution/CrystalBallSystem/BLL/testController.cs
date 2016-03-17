@@ -40,18 +40,22 @@ namespace CrystalBallSystem.BLL
 
         #region Entrance Requirements
 
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<SubjectRequirement> Get_SubjectReq_ByProgram(int programID)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<SubjectRequirementAndCourses> Get_SubjectReq_ByProgram(int programID)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
 
-                var result = (from x in context.EntranceRequirements
-                              where x.ProgramID == programID
-                              select x.SubjectRequirement).Distinct();
-                return result.ToList();
-            }
-        }
+        //        var result = (from x in context.EntranceRequirements
+        //                      where x.ProgramID == programID
+        //                      select new SubjectRequirementAndCourses
+        //                      {
+
+        //                      });
+                    
+        //        return result.ToList();
+        //    }
+        //}
 
         public List<GetHSCourseCode> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
         {
