@@ -29,7 +29,7 @@
                 </asp:Repeater>
                 <h3>
                     Total Credit you got for this program:
-                    <span><%# Eval("CreditTatol") %></span>/<span><%# Eval("ProgramCreditTotal") %></span>
+                    <span><%# Eval("CreditTotal") %></span>/<span><%# Eval("ProgramCreditTotal") %></span>
                 </h3>
                 
             </div>      
