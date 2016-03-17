@@ -234,21 +234,5 @@ namespace CrystalBallSystem.BLL
 
 
         #endregion
-
-//        var result = from x in ProgramCourses
-//            where programIDs.Contains(x.ProgramID) && courseIDs.Contains(x.CourseID)
-//            group x by x.Program into c
-//            select new {
-//                    ProgramID = c.Key.ProgramID,
-//                    ProgramName = c.Key.ProgramName,
-//                    ProgramDescription = c.Key.ProgramDescription,
-//                    ProgramLink = c.Key.ProgramLink,
-//                    CourseCredits = (from y in c
-//                                    select y.NaitCourses.CourseCredits).Sum()};
-			
-			
-			
-			
-//result.Dump();
     }
 }

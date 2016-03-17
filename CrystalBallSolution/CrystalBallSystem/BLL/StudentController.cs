@@ -98,21 +98,41 @@ namespace CrystalBallSystem.BLL
                 return returnArray.ToArray();
             }
         }
-        //to be expanded upon
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public int[] GetCourseCredits(List<int> courseid, List<int> programid)
-        //{
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //        var result = from x in context.ProgramCourses
-        //                     where programid.Contains(x.ProgramID)
-        //                     group x by x.ProgramID into c
-        //                     select new GetCourseCredits
-        //                     {
-        //                         ProgramID = c.Key.
-        //                         Credits = 
-        //                     }
-        //}
+        //Method will return a list of program ids and credits for each program returned based on the user course selection
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<GetCourseCredits> GetCourseCredits(List<int> courseid, List<int> programid)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var result = from x in context.ProgramCourses
+                             where programid.Contains(x.ProgramID) && courseid.Contains(x.CourseID)
+                             group x by x.Program into c
+                             select new GetCourseCredits
+                             {
+                                 ProgramID = c.Key.ProgramID,
+                                 Credits = (from y in c
+                                            select y.NaitCourse.CourseCredits).Sum()
+                             };
+
+                return result.ToList();
+            }
+        }
+
+        //        var result = from x in ProgramCourses
+        //            where programIDs.Contains(x.ProgramID) && courseIDs.Contains(x.CourseID)
+        //            group x by x.Program into c
+        //            select new {
+        //                    ProgramID = c.Key.ProgramID,
+        //                    ProgramName = c.Key.ProgramName,
+        //                    ProgramDescription = c.Key.ProgramDescription,
+        //                    ProgramLink = c.Key.ProgramLink,
+        //                    CourseCredits = (from y in c
+        //                                    select y.NaitCourses.CourseCredits).Sum()};
+
+
+
+
+        //result.Dump();
 
         #region preference questions
         [DataObjectMethod(DataObjectMethodType.Select, false)]

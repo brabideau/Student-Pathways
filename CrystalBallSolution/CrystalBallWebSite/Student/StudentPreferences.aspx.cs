@@ -149,6 +149,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
             finalResults = new List<ProgramResult>();
             finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
+
+            //grab the list of courses selected by the student in the NAIT course repeater
+            //send that list and the list of final program matches to the student controller for comparison
+            //if any courses selected match both programIDs add the course credit to that particular program result
+            //List<GetCourseCredits> courseCredits
+            foreach (RepeaterItem rptItem in rptCourse.Items)
+            {
+
+            }
+
             //display results once queries are complete
             ResultsView.DataSource = finalResults;
             ResultsView.DataBind();
