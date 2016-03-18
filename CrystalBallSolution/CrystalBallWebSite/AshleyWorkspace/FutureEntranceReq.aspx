@@ -4,7 +4,7 @@
     <div runat="server" id="EntranceRequirements" class="clearfix">
 
         <p>What high school courses does this program require?</p>
-        <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting">
+        <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
             <Columns>
                 <asp:TemplateField HeaderText="Entrance Requirement ID" Visible="false">
                     <ItemTemplate>
@@ -26,14 +26,59 @@
                         <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.GetHSCourseCode %>' />
                     </ItemTemplate>  
                 </asp:TemplateField>
-                <asp:ButtonField Text="Remove" CommandName="Delete"/>
-            </Columns>   
+                <asp:TemplateField>
+                    <FooterTemplate>
+                        <asp:LinkButton ID="Add" runat="server" Text="Add Requirement" OnClick="AddNew_Click" CssClass="button button-long"></asp:LinkButton>
+                    </FooterTemplate>
+                </asp:TemplateField>   
+                <asp:ButtonField Text="Remove" CommandName="Delete"/>                
+            </Columns>               
 
             <EmptyDataTemplate>
                 No Existing Entrance Requirements.
             </EmptyDataTemplate>
             
         </asp:GridView>
+
+        <div id="addRequirement" runat="server">
+            <asp:GridView ID="GV_Course" runat="server" align="center" AutoGenerateColumns="False" ShowFooter="True" OnRowDeleting="GVCourse_RowDeleting">     
+                <Columns>
+                    <asp:BoundField DataField="RowNumber" Visible="false"/>
+                    <asp:TemplateField>
+                        <FooterTemplate>
+                            <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
+                                OnClick="AddNew_Click" CssClass="wizard-course-buttons hvr-ripple-out add-align"  
+                                CausesValidation="false"><i aria-hidden="true" class="glyphicon glyphicon-plus"></i></asp:LinkButton>
+                        </FooterTemplate>
+                        <ItemTemplate>
+
+                            <asp:DropDownList ID="DL_Course" runat="server" DataSourceID="CourseList" CssClass="form-control"
+                                            DataTextField="HighSchoolCourseDescription"
+                                            DataValueField="HighSchoolCourseID"
+                                            AppendDataBoundItems="True">
+                                            <asp:ListItem Value="">Select a Course &amp; Level</asp:ListItem>
+                            </asp:DropDownList>
+
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Enter Required Mark (Optional)">                                
+                        <ItemTemplate>
+                            <asp:TextBox ID="TB_EnterMarks" runat="server" CssClass="form-control ent-req-input"
+                                Width="50px"></asp:TextBox>
+                            <%--<asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please enter a number between 1 - 100" 
+                                ControlToValidate="TB_EnterMarks" MinimumValue="1" MaximumValue="100" ForeColor="Maroon" 
+                                Type="Integer" Font-Size="Smaller" Display="Dynamic"></asp:RangeValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="You must enter a grade value."
+                                ControltoValidate="TB_EnterMarks" ForeColor="Maroon" Font-Size="Smaller" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>               
+                    <asp:CommandField ShowDeleteButton="True" />                
+                </Columns>
+            </asp:GridView>
+        </div>
+
+        <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
 
 
         <p>Does entry to this program require any previous post-secondary work?</p>
