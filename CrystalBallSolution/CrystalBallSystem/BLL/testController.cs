@@ -40,39 +40,46 @@ namespace CrystalBallSystem.BLL
 
         #region Entrance Requirements
 
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public List<SubjectRequirementAndCourses> Get_SubjectReq_ByProgram(int programID)
-        //{
-        //    using (CrystalBallContext context = new CrystalBallContext())
-        //    {
-
-        //        var result = (from x in context.EntranceRequirements
-        //                      where x.ProgramID == programID
-        //                      select new SubjectRequirementAndCourses
-        //                      {
-
-        //                      });
-                    
-        //        return result.ToList();
-        //    }
-        //}
-
-        public List<GetHSCourseCode> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<SubjectRequirementAndCourses> Get_SubjectReq_ByProgram(int programID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
 
-                var result = from x in context.EntranceRequirements
-                             from hs in context.HighSchoolCourses
-                             where x.ProgramID == programID
-                             && x.SubjectRequirementID == subjectID
-                             && x.HighSchoolCourseID == hs.HighSchoolCourseID
-                             select new GetHSCourseCode
-                             {
-                                 CourseID = hs.HighSchoolCourseID,
-                                 CourseCode = hs.HighSchoolCourseName
-                             };
-                return result.ToList();
+                var result = (from x in context.EntranceRequirements
+                              where x.ProgramID == programID
+                              select new SubjectRequirementAndCourses
+                              {
+                                  EntranceReqID = x.EntranceRequirementID,
+                                  SubjectReqID = x.SubjectRequirementID,
+                                  SubjectDesc = x.SubjectRequirement.SubjectDescription,
+                                  GetHSCourseCode = (from hs in context.HighSchoolCourses
+                                                     where x.HighSchoolCourseID == hs.HighSchoolCourseID
+                                                     select hs.HighSchoolCourseName).FirstOrDefault()
+                              }).GroupBy(a => a.EntranceReqID);
+
+                
+                List<SubjectRequirementAndCourses> SRC = new List<SubjectRequirementAndCourses>();
+                foreach (var item in result)
+                {
+                    SRC.Add(item.FirstOrDefault());
+                }
+                return SRC.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void Equivalency_Delete(int entReqID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                //lookup the instance and record if found (set pointer to instance)
+                EntranceRequirement existing = context.EntranceRequirements.Find(entReqID);
+
+                //setup the command to execute the delete
+                context.EntranceRequirements.Remove(existing);
+                //command is not executed until it is actually saved.
+                context.SaveChanges();
             }
         }
 
@@ -84,21 +91,6 @@ namespace CrystalBallSystem.BLL
             {
                 EntranceRequirement added = null;
                 added = context.EntranceRequirements.Add(item);
-                context.SaveChanges();
-            }
-        }
-
-        [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public void EntranceReq_Delete(int courseEquivalencyID)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                //lookup the instance and record if found (set pointer to instance)
-                CourseEquivalency existing = context.CourseEquivalencies.Find(courseEquivalencyID);
-
-                //setup the command to execute the delete
-                context.CourseEquivalencies.Remove(existing);
-                //command is not executed until it is actually saved.
                 context.SaveChanges();
             }
         }

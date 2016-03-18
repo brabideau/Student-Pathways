@@ -9,8 +9,9 @@ namespace CrystalBallSystem.DAL.DTOs
 {
     public class SubjectRequirementAndCourses
     {
-        public int CourseID { get; set; }
-        public string CourseCode { get; set; }
+        public int EntranceReqID { get; set; }
+        public int SubjectReqID { get; set; }
+        public string SubjectDesc { get; set; }
         public IEnumerable GetHSCourseCode { get; set; }
     }
 }
