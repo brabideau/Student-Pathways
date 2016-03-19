@@ -80,7 +80,7 @@
                         <FooterTemplate>
                             <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
                                 OnClick="AddNew_Click" CssClass="wizard-course-buttons hvr-ripple-out add-align"  
-                                CausesValidation="false">Add Alternative Course<i aria-hidden="true" class="glyphicon glyphicon-plus"></i></asp:LinkButton>
+                                CausesValidation="false">Add Alternative Course</asp:LinkButton>
                         </FooterTemplate>   
                         <ItemTemplate>
                             <asp:DropDownList ID="DL_Course" runat="server" DataSourceID="CourseList"
