@@ -18,6 +18,33 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
         Populate_EntranceReqs(programID);
     }
 
+    //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
+    private void PopulateManual()
+     {
+         //Create DataTable
+         DataTable dt = new DataTable();
+         DataRow dr = null;
+ 
+         //Add initail values to DataTable
+         dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+         dt.Columns.Add(new DataColumn("Column1Course", typeof(string)));
+         dt.Columns.Add(new DataColumn("Column2Course", typeof(string)));
+ 
+         dr = dt.NewRow();
+         dr["RowNumber"] = 1;
+         dr["Column1Course"] = string.Empty;
+         dr["Column2Course"] = string.Empty;
+ 
+         dt.Rows.Add(dr);
+         dr = dt.NewRow();
+ 
+         //Store the DataTable in ViewState
+         ViewState["CurrentTableCourse"] = dt;
+         GV_ManualNewEntrReq.DataSource = dt;
+         GV_ManualNewEntrReq.DataBind();
+ 
+     }
+
     #region for existing entrance requirements
     protected void Populate_EntranceReqs(int programID)
     {
@@ -46,12 +73,14 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
         int subjectReq = Convert.ToInt32(DL_SubjDesc.SelectedValue);
         if (subjectReq != 0)
         {
+            prePopulatedER.Visible = true;
             GV_NewEntrReq.DataSource = sysmgr.Get_CoursesBySubjectRequirement(subjectReq);
             GV_NewEntrReq.DataBind();
         }
         else
         {
-
+            manualER.Visible = true;
+            PopulateManual();
         }
         
     }
@@ -85,132 +114,146 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
 
         ER_GridView.DataSource = items;
         ER_GridView.DataBind();
-    }
-
+    }    
     #endregion
 
 
 
 
-    //CODE THIS POINT ON IS COPY PASTE AND NEEDS EDITING
-    //protected void AddNew_Click(object sender, EventArgs e)
-    //{
-    //    foreach (GridViewRow row in GV_Course.Rows)
-    //    {
-    //        var course = row.FindControl("DL_Course") as DropDownList;
-    //        var poQtyLabel = row.FindControl("TB_EnterMarks") as TextBox;
-    //        if (string.IsNullOrEmpty((row.FindControl("DL_Course") as DropDownList).SelectedValue))
-    //        {
-    //            //MessageUserControl.ShowInfo("Please make a course selection");
-    //            //trigger = false;
-    //        }
-    //        else
-    //        {
-    //            if (string.IsNullOrEmpty((row.FindControl("TB_EnterMarks") as TextBox).Text))
-    //            {
-    //                //MessageUserControl.ShowInfo("Please enter a mark");
-    //                //trigger = false;
-    //            }
-    //            else
-    //            {
-    //                AddNewRowToCourse();
-    //                //if (Int32.TryParse((row.FindControl("TB_EnterMarks") as TextBox).Text, out i) == false)
-    //                //{
-    //                //    MessageUserControl.ShowInfo("mark must be a integer");
-    //                //    trigger = false;
-    //                //}
-    //                //else
-    //                //{
+    protected void AddNew_Click(object sender, EventArgs e)
+    {
+        //foreach (GridViewRow row in GV_ManualNewEntrReq.Rows)
+        //{
+            //var course = row.FindControl("DL_Course") as DropDownList;
+            //var poQtyLabel = row.FindControl("Marks") as TextBox;
+            AddNewRowToCourse();
+        //}
+    }
 
-    //                //    if (int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) <= 0 || int.Parse((row.FindControl("TB_EnterMarks") as TextBox).Text) > 100)
-    //                //    {
-    //                //        MessageUserControl.ShowInfo("mark must between 0 to 100.");
-    //                //        trigger = false;
-    //                //    }
-    //                //    else
-    //                //    {
-    //                //        MessageUserControl.ShowInfo("Successed!");
-    //                //    }
-    //                //}     
-    //            }                        
-    //        }                                   
-    //    }
-    //    //if (trigger == true)
-    //    //{
-    //    //    AddNewRowToCourse();
-    //    //}
-    //}
+    private void AddNewRowToCourse()
+    {
+        int rowIndex = 0;
 
-    // private void AddNewRowToCourse()
-    //{
-    //    int rowIndex = 0;
+        if (ViewState["CurrentTableCourse"] != null)
+        {
+            //create new datatable, cast datatable of viewstate
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
+            DataRow drCurrentRow = null;
 
-    //    if (ViewState["CurrentTableCourse"] != null)
-    //    {
-    //        //create new datatable, cast datatable of viewstate
-    //        DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
-    //        DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+                    //extract the values
+                    DropDownList courseList = (DropDownList)GV_ManualNewEntrReq.Rows[rowIndex].Cells[1].FindControl("DL_Course");
+                    TextBox marks = (TextBox)GV_ManualNewEntrReq.Rows[rowIndex].Cells[2].FindControl("Marks");
 
-    //        if (dtCurrentTable.Rows.Count > 0)
-    //        {
-    //            for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-    //            {
-    //                //extract the values
-    //                DropDownList courseList = (DropDownList)GV_Course.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-    //                TextBox marks = (TextBox)GV_Course.Rows[rowIndex].Cells[2].FindControl("TB_EnterMarks");
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
 
-    //                drCurrentRow = dtCurrentTable.NewRow();
-    //                drCurrentRow["RowNumber"] = i + 1;
+                    dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.Text;
+                    dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
 
-    //                dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.Text;
-    //                dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
+                    rowIndex++;
+                }
 
-    //                rowIndex++;
-    //            }
+                dtCurrentTable.Rows.Add(drCurrentRow);
+                ViewState["CurrentTableCourse"] = dtCurrentTable;
 
-    //            dtCurrentTable.Rows.Add(drCurrentRow);
-    //            ViewState["CurrentTableCourse"] = dtCurrentTable;
+                GV_ManualNewEntrReq.DataSource = dtCurrentTable;
+                GV_ManualNewEntrReq.DataBind();
+            }
+        }
 
-    //            GV_Course.DataSource = dtCurrentTable;
-    //            GV_Course.DataBind();
-    //        }
-    //    }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        //Set Previous Data on Postbacks
+        SetPreviousCourseData();
+    }    
 
-    //    else
-    //    {
-    //        Response.Write("ViewState is null");
-    //    }
-    //    //Set Previous Data on Postbacks
-    //    SetPreviousCourseData();
-    //}
+    protected void GV_ManualNewEntrReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        if (ViewState["CurrentTableCourse"] != null)
+        {
+            SetRowData();
+            DataTable dt = (DataTable)ViewState["CurrentTableCourse"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
+            {
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTableCourse"] = dt;
+                GV_ManualNewEntrReq.DataSource = dt;
+                GV_ManualNewEntrReq.DataBind();
 
-    //private void SetPreviousCourseData()
-    // {
-    //     int rowIndex = 0;
- 
-    //     if (ViewState["CurrentTableCourse"] != null)
-    //     {
-    //         DataTable dt = (DataTable)ViewState["CurrentTableCourse"];
-    //         if (dt.Rows.Count > 0)
-    //         {
-    //             for (int i = 0; i < dt.Rows.Count; i++)
-    //             {
-    //                 DropDownList courseList = (DropDownList)GV_Course.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-    //                 TextBox marks = (TextBox)GV_Course.Rows[rowIndex].Cells[2].FindControl("TB_EnterMarks");
- 
-    //                 courseList.Text = dt.Rows[i]["Column1Course"].ToString();
-    //                 marks.Text = dt.Rows[i]["Column2Course"].ToString();
- 
-    //                 rowIndex++;
-    //             }
-    //         }
-    //     }
-    // }
+                for (int i = 0; i < GV_ManualNewEntrReq.Rows.Count - 1; i++)
+                {
+                    GV_ManualNewEntrReq.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousCourseData();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+    }
 
-    //protected void GVCourse_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    //{
-    //}
+    private void SetPreviousCourseData()
+    {
+        int rowIndex = 0;
 
+        if (ViewState["CurrentTableCourse"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTableCourse"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList courseList = (DropDownList)GV_ManualNewEntrReq.Rows[rowIndex].Cells[1].FindControl("DL_Course");
+                    TextBox marks = (TextBox)GV_ManualNewEntrReq.Rows[rowIndex].Cells[2].FindControl("Marks");
+
+                    courseList.Text = dt.Rows[i]["Column1Course"].ToString();
+                    marks.Text = dt.Rows[i]["Column2Course"].ToString();
+
+                    rowIndex++;
+                }
+            }
+        }
+    }
+
+    private void SetRowData()
+    {
+        int rowIndex = 0;
+
+        DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
+        DataRow drCurrentRow = null;
+        if (dtCurrentTable.Rows.Count > 0)
+        {
+            for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+            {
+                DropDownList courseList = (DropDownList)GV_ManualNewEntrReq.Rows[rowIndex].Cells[1].FindControl("DL_Course");
+                TextBox marks = (TextBox)GV_ManualNewEntrReq.Rows[rowIndex].Cells[2].FindControl("Marks");
+
+                drCurrentRow = dtCurrentTable.NewRow();
+                drCurrentRow["RowNumber"] = i + 1;
+                dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.SelectedValue;
+                dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
+
+                rowIndex++;
+            }
+
+            ViewState["CurrentTableCourse"] = dtCurrentTable;
+            //grvStudentDetails.DataSource = dtCurrentTable;
+            //grvStudentDetails.DataBind();
+        }
+        //SetPreviousData();
+    }
+
+    //SAVE
     protected void Save_EntranceReq(object sender, EventArgs e)
     {
 

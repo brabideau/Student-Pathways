@@ -68,11 +68,15 @@ namespace CrystalBallSystem.BLL
                                   EntranceReqID = x.EntranceRequirementID,
                                   SubjectReqID = x.SubjectRequirementID,
                                   SubjectDesc = x.SubjectRequirement.SubjectDescription,
-                                  GetHSCourseIDName = (from hs in context.HighSchoolCourses
+                                  HSCourseCode = (from hs in context.HighSchoolCourses
                                                      where x.HighSchoolCourseID == hs.HighSchoolCourseID
-                                                     select hs.HighSchoolCourseName).FirstOrDefault()
+                                                     select hs.HighSchoolCourseName).FirstOrDefault(),
+                                  HSCourseMark = (from hs in context.HighSchoolCourses
+                                                  where x.HighSchoolCourseID == hs.HighSchoolCourseID
+                                                  select x.RequiredMark).FirstOrDefault() == null ? 0 : (from hs in context.HighSchoolCourses
+                                                  where x.HighSchoolCourseID == hs.HighSchoolCourseID
+                                                  select x.RequiredMark).FirstOrDefault()          
                               }).GroupBy(a => a.EntranceReqID);
-
                 
                 List<SubjectRequirementAndCourses> SRC = new List<SubjectRequirementAndCourses>();
                 foreach (var item in result)

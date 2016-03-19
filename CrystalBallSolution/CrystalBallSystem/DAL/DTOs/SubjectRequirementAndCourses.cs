@@ -12,6 +12,7 @@ namespace CrystalBallSystem.DAL.DTOs
         public int EntranceReqID { get; set; }
         public int SubjectReqID { get; set; }
         public string SubjectDesc { get; set; }
-        public IEnumerable GetHSCourseIDName { get; set; }
+        public IEnumerable HSCourseCode { get; set; }
+        public int? HSCourseMark { get; set; }
     }
 }
