@@ -620,7 +620,7 @@ namespace CrystalBallSystem.BLL
         //}
 
 
-        public List<GetHSCourseCode> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
+        public List<GetHSCourseIDName> Get_EntReq_ByProgram_Subject(int programID, int subjectID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
@@ -630,10 +630,10 @@ namespace CrystalBallSystem.BLL
                              where x.ProgramID == programID
                              && x.SubjectRequirementID == subjectID 
                              && x.HighSchoolCourseID == hs.HighSchoolCourseID
-                             select new GetHSCourseCode
+                             select new GetHSCourseIDName
                              {
                                  CourseID = hs.HighSchoolCourseID,
-                                 CourseCode = hs.HighSchoolCourseName
+                                 CourseName = hs.HighSchoolCourseName
                              };
                 return result.ToList();
             }

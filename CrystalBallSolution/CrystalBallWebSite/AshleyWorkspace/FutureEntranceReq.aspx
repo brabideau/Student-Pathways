@@ -23,14 +23,14 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Course Code">
                     <ItemTemplate>
-                        <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.GetHSCourseCode %>' />
+                        <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.GetHSCourseIDName %>' />
                     </ItemTemplate>  
                 </asp:TemplateField>
-                <asp:TemplateField>
+<%--                <asp:TemplateField>
                     <FooterTemplate>
                         <asp:LinkButton ID="Add" runat="server" Text="Add Requirement" OnClick="AddNew_Click" CssClass="button button-long"></asp:LinkButton>
                     </FooterTemplate>
-                </asp:TemplateField>   
+                </asp:TemplateField> --%>  
                 <asp:ButtonField Text="Remove" CommandName="Delete"/>                
             </Columns>               
 
@@ -41,7 +41,44 @@
         </asp:GridView>
 
         <div id="addRequirement" runat="server">
-            <asp:GridView ID="GV_Course" runat="server" align="center" AutoGenerateColumns="False" ShowFooter="True" OnRowDeleting="GVCourse_RowDeleting">     
+            <!--Dropdown to select SubjectDescription and prepopulate gridview-->
+            <asp:DropDownList ID="DL_SubjDesc" runat="server" DataSourceID="ODS_SubjectRequirement" DataTextField="SubjectDescription" DataValueField="SubjectRequirementID">
+                <asp:ListItem Value="0">[Select Subject Requirement]</asp:ListItem>
+            </asp:DropDownList>
+            <asp:LinkButton ID="SubjectButton" runat="server" OnClick="SubjectButton_Click">Select</asp:LinkButton>
+
+            <!--Course Gridview-->
+            <asp:GridView ID="GV_NewEntrReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetEntranceReq" DataKeyNames="HSCourseID" OnSelectedIndexChanging="GV_NewEntrReq_SelectedIndexChanging">
+                <Columns>
+                    <asp:TemplateField HeaderText="Course ID" Visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="ID" runat="server" Text='<%# Item.HSCourseID %>' Visible="false"/>
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="Course">
+                        <ItemTemplate>
+                            <asp:Label ID="Course" runat="server" Text='<%# Item.HSCourseName %>' />
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="Mark">
+                        <ItemTemplate>
+                            <asp:TextBox ID="Mark" runat="server" Width="50px" Text=<%# Item.Mark %> />
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+                    <asp:ButtonField Text="Remove" CommandName="Select"/>                
+                </Columns>
+            </asp:GridView>
+        </div>
+
+        <!--ODS-->
+        <asp:ObjectDataSource ID="ODS_SubjectRequirement" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_SubjectRequirements" TypeName="CrystalBallSystem.BLL.testController"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
+
+    </div>
+</asp:Content>
+
+            
+            <%--<asp:GridView ID="GV_Course" runat="server" AutoGenerateColumns="False" ShowFooter="True" OnRowDeleting="GVCourse_RowDeleting">            
                 <Columns>
                     <asp:BoundField DataField="RowNumber" Visible="false"/>
                     <asp:TemplateField>
@@ -65,11 +102,11 @@
                         <ItemTemplate>
                             <asp:TextBox ID="TB_EnterMarks" runat="server" CssClass="form-control ent-req-input"
                                 Width="50px"></asp:TextBox>
-                            <%--<asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please enter a number between 1 - 100" 
+                            <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please enter a number between 1 - 100" 
                                 ControlToValidate="TB_EnterMarks" MinimumValue="1" MaximumValue="100" ForeColor="Maroon" 
                                 Type="Integer" Font-Size="Smaller" Display="Dynamic"></asp:RangeValidator>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="You must enter a grade value."
-                                ControltoValidate="TB_EnterMarks" ForeColor="Maroon" Font-Size="Smaller" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                                ControltoValidate="TB_EnterMarks" ForeColor="Maroon" Font-Size="Smaller" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>               
@@ -77,8 +114,16 @@
                 </Columns>
             </asp:GridView>
         </div>
-
+    
+        <asp:ObjectDataSource ID="ODS_SubjectRequirement" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_SubjectRequirements" TypeName="CrystalBallSystem.BLL.testController"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
+
+
+
+
+
+
+
 
 
         <p>Does entry to this program require any previous post-secondary work?</p>
@@ -117,8 +162,7 @@
                     
                 </tr>
             </ItemTemplate>
-        </asp:ListView>--%>
+        </asp:ListView>
         <asp:LinkButton ID="EntranceReq_Save" runat="server" OnClick="Save_EntranceReq" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
-</asp:Content>
-
+</asp:Content>--%>

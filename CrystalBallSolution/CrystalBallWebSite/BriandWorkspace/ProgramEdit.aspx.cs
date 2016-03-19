@@ -177,7 +177,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         LV_SubjectReq.DataSource = subjectList;
         LV_SubjectReq.DataBind();
 
-        List<GetHSCourseCode> ereqList = new List<GetHSCourseCode> { };
+        List<GetHSCourseIDName> ereqList = new List<GetHSCourseIDName> { };
         int subjectID;
 
         //and the classes for each subject
