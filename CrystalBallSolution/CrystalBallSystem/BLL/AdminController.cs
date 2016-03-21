@@ -667,6 +667,31 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddProgramCourse(ProgramCourse item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                var added = context.ProgramCourses.Add(item);
+                context.SaveChanges();
+            }
+        }
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void DeleteProgramCourse(ProgramCourse item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+               ProgramCourse existing = context.ProgramCourses.Find(item.CourseID, item.ProgramID);
+
+               context.ProgramCourses.Remove(existing);
+
+                context.SaveChanges();
+            }
+        }
+
         #endregion
     }
 }

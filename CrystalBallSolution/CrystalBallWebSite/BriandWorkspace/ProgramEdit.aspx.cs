@@ -268,6 +268,50 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         LV_ProgramCoursesSearch.DataBind();
     }
 
+    protected void Add_Program_Course(object sender, ListViewCommandEventArgs args)
+    {
+        ListViewItem item = args.Item;
+
+        int programID = Int32.Parse(ProgramIDLabel.Text);
+        int courseID = Convert.ToInt32((item.FindControl("CourseIDLabel") as Label).Text);
+        int? semester = Convert.ToInt32((item.FindControl("DL_Semester") as DropDownList).SelectedValue);
+        if (semester == -1)
+        {
+            semester = null;
+        }
+
+        ProgramCourse progCourse = new ProgramCourse()
+        {
+            CourseID = courseID,
+            ProgramID = programID,
+            Semester = semester
+        };
+
+        AdminController sysmgr = new AdminController();
+        sysmgr.AddProgramCourse(progCourse);
+
+        Populate_Courses(programID);
+    }
+
+
+    protected void Remove_Program_Course(object sender, ListViewCommandEventArgs args)
+    {
+        ListViewItem item = args.Item;
+
+        int programID = Int32.Parse(ProgramIDLabel.Text);
+        int courseID = Convert.ToInt32((item.FindControl("CourseIDLabel") as Label).Text);
+
+        ProgramCourse progCourse = new ProgramCourse()
+        {
+            CourseID = courseID,
+            ProgramID = programID
+        };
+
+        AdminController sysmgr = new AdminController();
+        sysmgr.DeleteProgramCourse(progCourse);
+
+        Populate_Courses(programID);
+    }
 
     protected void Save_Courses(object sender, EventArgs e)
     {

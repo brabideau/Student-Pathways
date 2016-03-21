@@ -47,11 +47,10 @@
     <%-- ----------------------------- CATEGORIES ---------------------------------------%>
     
     <div runat="server" id="Categories" visible="false" class="clearfix">
-        <p>Select the categorie(s) that this program belongs to:</p>
+        <p>Select the categories that this program belongs to:</p>
         <asp:CheckBoxList ID="CB_Categories" runat="server" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" >
         </asp:CheckBoxList>
         <asp:LinkButton ID="Categories_Save" runat="server" OnClick="Save_Categories" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-
     </div>
 
 
@@ -144,7 +143,7 @@
         <p>What courses are part of this program?</p>
         <h4>Level One</h4>
         <div class="nait-courses">
-         <asp:ListView ID="LV_ProgramCourses_One" runat="server">
+         <asp:ListView ID="LV_ProgramCourses_One" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
@@ -152,6 +151,7 @@
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
+
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -169,14 +169,17 @@
                     </td>
                     <td>
                         <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
+                    </td>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" Text="Remove" CssClass="admin_button" />
                     </td>
                  </tr>
             </ItemTemplate>
     </asp:ListView>
             </div>
-        <div class="nait-courses">
         <h4>Level Two</h4>
-         <asp:ListView ID="LV_ProgramCourses_Two" runat="server">
+            <div class="nait-courses">
+         <asp:ListView ID="LV_ProgramCourses_Two" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
@@ -184,6 +187,7 @@
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
+                    <th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -201,6 +205,9 @@
                     </td>
                     <td>
                         <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
+                    </td>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" Text="Remove" CssClass="admin_button" />
                     </td>
                  </tr>
             </ItemTemplate>
@@ -208,7 +215,7 @@
             </div>
         <h4>Level Three</h4>
         <div class="nait-courses">
-        <asp:ListView ID="LV_ProgramCourses_Three" runat="server">
+        <asp:ListView ID="LV_ProgramCourses_Three" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
@@ -216,6 +223,7 @@
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
+                    <th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -234,6 +242,9 @@
                     <td>
                         <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
                     </td>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" Text="Remove" CssClass="admin_button" />
+                    </td>
                  </tr>
             </ItemTemplate>
     </asp:ListView>
@@ -241,7 +252,7 @@
 
         <h4>Level Four</h4>
         <div class="nait-courses">
-                 <asp:ListView ID="LV_ProgramCourses_Four" runat="server">
+                 <asp:ListView ID="LV_ProgramCourses_Four" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
@@ -249,6 +260,7 @@
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
+                    <th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -267,6 +279,9 @@
                     <td>
                         <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
                     </td>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" Text="Remove" CssClass="admin_button" />
+                    </td>
                  </tr>
             </ItemTemplate>
     </asp:ListView>
@@ -274,7 +289,8 @@
 
         <h4>Other:</h4>
         <div class="nait-courses">
-       <asp:ListView ID="LV_ProgramCourses_More" runat="server">
+       <asp:ListView ID="LV_ProgramCourses_More" runat="server"
+           OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
@@ -282,6 +298,7 @@
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
+                    <th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -299,6 +316,9 @@
                     </td>
                     <td>
                         <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
+                    </td>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" Text="Remove" CssClass="admin_button" />
                     </td>
                  </tr>
             </ItemTemplate>
@@ -310,7 +330,8 @@
             <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox><asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
         </div>
         <div class="nait-courses">
-         <asp:ListView ID="LV_ProgramCoursesSearch" runat="server">
+         <asp:ListView ID="LV_ProgramCoursesSearch" runat="server"
+                            OnItemCommand="Add_Program_Course" >
         <LayoutTemplate>
             <table class="nait-courses">
                 <tr>
@@ -318,6 +339,8 @@
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -333,8 +356,20 @@
                     <td>
                         <asp:Label ID="CourseNameLabel" runat="server" Text='<%# Eval("CourseName") %>' />
                     </td>
-                    <td>
+                     <td>
                         <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="DL_Semester" runat="server">
+                            <asp:ListItem Value="-1">---</asp:ListItem>
+                            <asp:ListItem>1</asp:ListItem>
+                            <asp:ListItem>2</asp:ListItem>
+                            <asp:ListItem>3</asp:ListItem>
+                            <asp:ListItem>4</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td>
+                        <asp:LinkButton ID="EditButton" runat="server" Text="Add to Program" CssClass="admin_button" />
                     </td>
                  </tr>
             </ItemTemplate>
