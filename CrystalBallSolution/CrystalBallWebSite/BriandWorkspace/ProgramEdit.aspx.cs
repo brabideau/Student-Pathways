@@ -259,6 +259,16 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         LV_ProgramCourses_More.DataSource = courseData;
         LV_ProgramCourses_More.DataBind();
     }
+
+    protected void ProgramCourses_Search(object sender, EventArgs e)
+    {
+        SelectNaitCourseController sysmgr = new SelectNaitCourseController();
+        List<NAITCourse> naitcourses = sysmgr.SearchNaitCourses(TB_ProgramCoursesSearch.Text, 0);
+        LV_ProgramCoursesSearch.DataSource = naitcourses;
+        LV_ProgramCoursesSearch.DataBind();
+    }
+
+
     protected void Save_Courses(object sender, EventArgs e)
     {
 

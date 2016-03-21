@@ -148,7 +148,6 @@
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">CourseID</th>
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
@@ -180,7 +179,6 @@
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">CourseID</th>
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
@@ -213,7 +211,6 @@
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">CourseID</th>
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
@@ -246,7 +243,6 @@
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">CourseID</th>
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
@@ -273,12 +269,11 @@
     </asp:ListView>
 
         <h4>Other:</h4>
-                 <asp:ListView ID="LV_ProgramCourses_More" runat="server">
+       <asp:ListView ID="LV_ProgramCourses_More" runat="server">
         <LayoutTemplate>
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">CourseID</th>
                     <th runat="server">Course Code</th>
                     <th runat="server">Course Name</th>
                     <th runat="server">Course Credits</th>
@@ -303,6 +298,44 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
+
+        <div class="search-bar">
+            <label>Search for a course to add:</label>
+
+            <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox><asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
+        </div>
+         <asp:ListView ID="LV_ProgramCoursesSearch" runat="server">
+        <LayoutTemplate>
+            <table>
+                <tr>
+                    <th></th>
+                    <th runat="server">Course Code</th>
+                    <th runat="server">Course Name</th>
+                    <th runat="server">Course Credits</th>
+                </tr>
+                <tr id="itemPlaceholder" runat="server"></tr>
+            </table>
+        </LayoutTemplate>
+        <ItemTemplate>
+                <tr>
+                    <td>
+                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' Visible="false" />
+                    </td>
+                    <td>
+                        <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="CourseNameLabel" runat="server" Text='<%# Eval("CourseName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="CourseCreditsLabel" runat="server" Text='<%# Eval("CourseCredits") %>' />
+                    </td>
+                 </tr>
+            </ItemTemplate>
+    </asp:ListView>
+
+
+
         <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
 
