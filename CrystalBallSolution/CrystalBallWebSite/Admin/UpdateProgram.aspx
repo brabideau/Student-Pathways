@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="UpdateProgram.aspx.cs" Inherits="Admin_UpdateProgram" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="UpdateProgram.aspx.cs" Inherits="Admin_UpdateProgram" maintainScrollPositionOnPostBack="true"%>
 
 <%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
-
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <div runat="server">
@@ -22,7 +21,7 @@
                         <asp:LinkButton ID="SearchButton" runat="server" OnClick="SearchButton_Click" CssClass="button2 submit">Search</asp:LinkButton>
                                                                       
    </div>
-
+ 
         <asp:ListView ID="ProgramListView" runat="server" 
                       align="center" 
                       DataKeyNames="ProgramID"
