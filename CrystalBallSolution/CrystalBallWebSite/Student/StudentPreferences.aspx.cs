@@ -266,10 +266,62 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void stepThreeNext_Click(object sender, EventArgs e)
     {
-        stepThree.Visible = false;
-        //add code to populate drop down list and auto add courses
-        //run the search for for the program automatically and 
-        stepFour.Visible = true;
+        if (CurrentStudent.Checked && CategoryDropDown.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("If you are a current student you must select a program.");
+        }
+        else
+        {
+            stepThree.Visible = false;
+            SelectNaitCourseController course = new SelectNaitCourseController();
+            int programID, semester;
+            List<NAITCourse> courses = new List<NAITCourse>();
+            //add code to populate drop down list and auto add courses
+            //run the search for for the program automatically and fill the basket based on prefill results
+            if (CurrentStudent.Checked)
+            {
+                programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
+                semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
+                courses = StudentController.Prefill_Courses(programID, semester);
+
+                foreach (var item in courses)
+                {
+                    //add items to the basket
+                    //step 1 add a new datatable row
+                    int id = item.CourseID;
+                    double CCredits = item.CourseCredits;
+                    string CCode = item.CourseCode, CName = item.CourseName;
+                    DataRow dr;
+                    DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+                    dr = CoursesSelected.NewRow();
+                    dr["CourseID"] = id;
+                    dr["CourseCode"] = CCode;
+                    dr["CourseName"] = CName;
+                    dr["CourseCredits"] = CCredits;
+
+                    //find duplicates and add if there are none
+                    DataRow findRow = CoursesSelected.Rows.Find(id);
+                    if (findRow == null)
+                    {
+                        CoursesSelected.Rows.Add(dr);
+                    }
+                    ViewState["CoursesSelected"] = CoursesSelected;
+
+                    rptCourse.DataSource = CoursesSelected;
+                    rptCourse.DataBind();
+                }
+                //set drop down list to programid
+                //filter search results based on programid
+                ProgramDropDownList.DataBind();
+                ProgramDropDownList.SelectedValue = programID.ToString();
+                
+                CourseGridView.DataSource = course.SearchNaitCourses(null, programID);
+                CourseGridView.DataBind();
+                CourseGridView.Visible = true;
+            }
+            //ADD CODE TO CHANGE THE COUNT OF COURSES ACCORDINGLY
+            stepFour.Visible = true;
+        }
     }
     //=============4
     protected void stepFourPrevious_Click(object sender, EventArgs e)

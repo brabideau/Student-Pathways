@@ -113,8 +113,9 @@
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
         </div>
     <div class="col-6 nait-courses">
-        <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
+        <!-- DataSourceID="NaitCourseODB" -->
+        <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
+            
             
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
@@ -220,17 +221,5 @@
                            <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
                         </td>
                         <td>
-                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits in this program</asp:Label>
-                        </td>
-                        <td>
-                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server"><span class="button submit">More Info</span></asp:HyperLink>
-                        </td>
-                    </tr>
-
-               </ItemTemplate>
-            </asp:ListView>
-            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
-        </div>
-
-</asp:Content>
-
+                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits in this program</asp:Label></td><td>
+                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server"><span class="button submit">More Info</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView><asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton></div></asp:Content>

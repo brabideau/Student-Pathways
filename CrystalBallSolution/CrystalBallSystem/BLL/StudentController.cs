@@ -287,19 +287,18 @@ namespace CrystalBallSystem.BLL
 
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<NaitCours> Prefill_Courses(int programID, int semester)
+        static public List<NAITCourse> Prefill_Courses(int programID, int semester)
         {
             using (var context = new CrystalBallContext())
             {
 
                 var results = from c in context.ProgramCourses
                               where c.ProgramID == programID && c.Semester <= semester
-                              select new NaitCours {
+                              select new NAITCourse {
                                   CourseID = c.NaitCourse.CourseID,
                                   CourseCode = c.NaitCourse.CourseCode,
                                   CourseName = c.NaitCourse.CourseName,
-                                  CourseCredits = c.NaitCourse.CourseCredits,
-                                  Active = c.NaitCourse.Active
+                                  CourseCredits = c.NaitCourse.CourseCredits
                               };
 
 
