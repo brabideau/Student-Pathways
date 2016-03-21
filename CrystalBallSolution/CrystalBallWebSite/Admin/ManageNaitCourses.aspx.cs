@@ -54,6 +54,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         NaitCoursesListViewByProgram.DataBind();
         
         ProgramList.DataBind();
+        NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
         BindList();
 
     }

@@ -116,7 +116,16 @@
                                             <tr>
                                                 <th>Program Length:</th>
                                                 <td>
-                                                    <asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />
+                                                    <asp:DropDownList ID="lengthDropDownList" SelectedValue='<%# Item.ProgramLength==null? Item.ProgramLength:"0" %>' runat="server">
+                                                        <asp:ListItem Value="0">[Select Length]</asp:ListItem>
+                                                        <asp:ListItem>3 months</asp:ListItem>
+                                                        <asp:ListItem>6 months</asp:ListItem>
+                                                        <asp:ListItem>1 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>2 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>3 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>4 Year(s)</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                    <%--<asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />--%>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -209,7 +218,16 @@
                                             <tr>
                                                 <th>Program Length:</th>
                                                 <td>
-                                                    <asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />
+                                                    <asp:DropDownList ID="lengthDropDownList" runat="server">
+                                                        <asp:ListItem Value="0">[Select Length]</asp:ListItem>
+                                                        <asp:ListItem>3 months</asp:ListItem>
+                                                        <asp:ListItem>6 months</asp:ListItem>
+                                                        <asp:ListItem>1 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>2 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>3 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>4 Year(s)</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                    <%--<asp:TextBox ID="ProgramLengthTextBox" runat="server" Text='<%# Bind("ProgramLength") %>' />--%>
                                                 </td>
                                             </tr>
                                             <tr>

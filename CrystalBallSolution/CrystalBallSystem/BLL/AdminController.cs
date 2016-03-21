@@ -302,6 +302,15 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Category> GetCategoryByProgram(int programid)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.Categories.Where(c => c.Programs.Any(p => p.ProgramID == programid)).ToList();
+            };
+        }
+
         #endregion
 
 

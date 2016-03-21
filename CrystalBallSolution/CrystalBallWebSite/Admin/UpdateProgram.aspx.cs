@@ -71,7 +71,9 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         TextBox ProgramNameBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramNameTextBox");
         TextBox EntranceRequirementBox = (TextBox)ProgramListView.EditItem.FindControl("EntranceRequirementTextBox");
         TextBox TotalCreditsBox = (TextBox)ProgramListView.EditItem.FindControl("TotalCreditsTextBox");
-        TextBox ProgramLengthBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLengthTextBox");
+        DropDownList ProgramLength = (DropDownList)ProgramListView.EditItem.FindControl("lengthDropDownList");
+        string length = ProgramLength.SelectedValue.ToString();
+        //TextBox ProgramLengthBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLengthTextBox");
         TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.EditItem.FindControl("CompetiveAdvantageTextBox");
         CheckBox Active = (CheckBox)ProgramListView.EditItem.FindControl("ActiveCheckBox");
         TextBox ProgramLinkBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLinkTextBox");
@@ -93,7 +95,7 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             program.TotalCredits = double.Parse(credits);
         }
 
-        program.ProgramLength = ProgramLengthBox.Text;
+        program.ProgramLength = length;
 
         string competitiveAdvantage = CompetiveAdvantageBox.Text;
         if (string.IsNullOrEmpty(competitiveAdvantage))
@@ -137,7 +139,9 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         TextBox ProgramNameBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramNameTextBox");
         TextBox EntranceRequirementBox = (TextBox)ProgramListView.InsertItem.FindControl("EntranceRequirementTextBox");
         TextBox TotalCreditsBox = (TextBox)ProgramListView.InsertItem.FindControl("TotalCreditsTextBox");
-        TextBox ProgramLengthBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramLengthTextBox");
+        //TextBox ProgramLengthBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramLengthTextBox");
+        DropDownList ProgramLength = (DropDownList)ProgramListView.InsertItem.FindControl("lengthDropDownList");
+        string length = ProgramLength.SelectedValue.ToString();
         TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.InsertItem.FindControl("CompetiveAdvantageTextBox");
         CheckBox Active = (CheckBox)ProgramListView.InsertItem.FindControl("ActiveCheckBox");
         TextBox ProgramLinkBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramLinkTextBox");
@@ -159,7 +163,7 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             program.TotalCredits = double.Parse(credits);
         }
 
-        program.ProgramLength = ProgramLengthBox.Text;
+        program.ProgramLength = length;
 
         string competitiveAdvantage = CompetiveAdvantageBox.Text;
         if (string.IsNullOrEmpty(competitiveAdvantage))
