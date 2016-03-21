@@ -420,10 +420,10 @@ namespace CrystalBallSystem.BLL
                                   CourseCode = ce.NaitCourse.CourseCode,
                                   CourseName = ce.NaitCourse.CourseName,
                                   DestinationCourseCode = (from nc in context.NaitCourses
-                                                           where nc.CourseID == ce.DestinationCourseID
+                                                           where nc.CourseID == ce.TransferCourseID
                                                            select nc.CourseCode).FirstOrDefault(),
                                   DestinationCourseName = (from nc in context.NaitCourses
-                                                           where nc.CourseID == ce.DestinationCourseID
+                                                           where nc.CourseID == ce.TransferCourseID
                                                            select nc.CourseName).FirstOrDefault(),
                               };
                 return results.ToList();
@@ -454,7 +454,7 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 CourseEquivalency added = null;
-                added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, CourseID = courseID, DestinationCourseID = destinationCourseID });
+                added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, ProgramCourseID = courseID, TransferCourseID = destinationCourseID });
                 context.SaveChanges();
             }
         }

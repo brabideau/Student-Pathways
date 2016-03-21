@@ -17,10 +17,10 @@ namespace CrystalBallSystem.DAL.Entities
         public int ProgramID { get; set; }
 
         [Required]
-        public int CourseID { get; set; }
+        public int ProgramCourseID { get; set; }
 
         [Required]
-        public int DestinationCourseID { get; set; }
+        public int TransferCourseID { get; set; }
 
         public virtual Program Program { get; set; }
 

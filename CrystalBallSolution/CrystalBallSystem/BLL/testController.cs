@@ -24,7 +24,7 @@ namespace CrystalBallSystem.BLL
             {
                 var result = from x in context.CourseEquivalencies
                              from nc in context.NaitCourses
-                             where nc.CourseID == x.DestinationCourseID && x.CourseID == courseids
+                             where nc.CourseID == x.TransferCourseID && x.ProgramCourseID == courseids
                              //where courseids.Contains(x.CourseID) && nc.CourseID == x.DestinationCourseID
                              select new NAITCourse
                              {

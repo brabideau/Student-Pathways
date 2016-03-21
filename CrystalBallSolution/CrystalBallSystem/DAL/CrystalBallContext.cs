@@ -77,7 +77,7 @@ namespace CrystalBallSystem.DAL
             modelBuilder.Entity<NaitCours>()
                 .HasMany(e => e.CourseEquivalencies)
                 .WithRequired(e => e.NaitCourse)
-                .HasForeignKey(e => e.CourseID)
+                .HasForeignKey(e => e.ProgramCourseID)
                 .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<NaitCours>()

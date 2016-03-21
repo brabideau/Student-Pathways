@@ -142,7 +142,7 @@ namespace CrystalBallSystem.BLL
                                  ProgramLink = x.ProgramLink,
                                  Credits = (from c in x.ProgramCourses
                                             from ce in context.CourseEquivalencies
-                                            where courseid.Contains(c.CourseID) || (courseid.Contains(ce.DestinationCourseID) && c.CourseID == ce.CourseID)
+                                            where courseid.Contains(c.CourseID) || (courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID)
                                             select (double?)c.NaitCourse.CourseCredits).Sum()
                              };
 
