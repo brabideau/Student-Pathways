@@ -13,6 +13,67 @@ namespace CrystalBallSystem.BLL
 {
     public class ReportController
     {
+        #region Metrics
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void InsertNewStudentMetrics(List<StudentPreference> prefs)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                NewStudentData data = null;
+                foreach (var item in prefs)
+                {
+                    data = context.NewStudentDatas.Add(new NewStudentData()
+                        {
+                            QuestionID = item.QuestionID,
+                            StudentAnswer = item.Answer,
+                            SearchMonth = DateTime.Now.Month,
+                            SearchYear = DateTime.Now.Year
+                        });
+                }
+                context.SaveChanges();
+            }
+        }
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void InsertCurrentStudentMetrics(List<StudentPreference> prefs, int programID, int semester, bool changeProgram)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                CurrentStudentData data = null;
+                foreach (var item in prefs)
+                {
+                    data = context.CurrentStudentDatas.Add(new CurrentStudentData()
+                    {
+                        ProgramID = programID,
+                        Semester = semester,
+                        ChangeProgram = changeProgram,
+                        QuestionID = item.QuestionID,
+                        StudentAnswer = item.Answer,
+                        SearchMonth = DateTime.Now.Month,
+                        SearchYear = DateTime.Now.Year
+                    });
+                }
+                context.SaveChanges();
+            }
+        }
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void InsertProgramResults(List<GetCourseCredits> programs)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                ProgramData data = null;
+                foreach (var item in programs)
+                {
+                    data = context.ProgramDatas.Add(new ProgramData()
+                        {
+                            ProgramID = item.ProgramID,
+                            SearchMonth = DateTime.Now.Month,
+                            SearchYear = DateTime.Now.Year
+                        });
+                }
+                context.SaveChanges();
+            }
+        }
+        #endregion
 
         #region student
 

@@ -112,6 +112,24 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                            Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
                                 ));
             }
+
+            //prior to first step towards getting results log the relevant data for metrics gathering
+            //NEW STUDENT - QuestionID/AnswerValue
+            ReportController report = new ReportController();
+            int currentProgID, currentSemester;
+            bool changeProgram = true;
+            if(CurrentStudent.Checked)
+            {
+                currentProgID = Convert.ToInt32(ProgramDropDown.SelectedValue);
+                currentSemester = Convert.ToInt32(SemesterDropDown.SelectedValue);
+                changeProgram = true;
+                report.InsertCurrentStudentMetrics(myPreferences, currentProgID, currentSemester, changeProgram);
+            }
+            else
+            {
+                report.InsertNewStudentMetrics(myPreferences);
+            }
+
             //send preferences to the BLL for initial results
             List<int> preferenceResults = new List<int>();
             preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
@@ -150,20 +168,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
             finalResults = new List<int>();
             finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
-
-            //grab the list of courses selected by the student in the NAIT course repeater
-            //send that list and the list of final program matches to the student controller for comparison
-            //if any courses selected match both programIDs add the course credit to that particular program result
             
-
-
-
-
-            //List<string> courseCredits = new List<string>();
-            //foreach (RepeaterItem rptItem in rptCourse.Items)
-            //{
-            //    courseCredits.Add(rptItem.FindControl("CourseCode").ToString());
-            //}
             //send list of course codes to the db and retrieve courseids
             DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
             List<int> courseIDs = new List<int>();
@@ -176,6 +181,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //send list of courseids and list of programids to the db for final results
             completeResults = new List<GetCourseCredits>();
             completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
+
+            //insert program results to db
+            report.InsertProgramResults(completeResults);
 
             //display results once queries are complete
             ResultsView.DataSource = completeResults;
@@ -259,6 +267,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     protected void stepThreeNext_Click(object sender, EventArgs e)
     {
         stepThree.Visible = false;
+        //add code to populate drop down list and auto add courses
+        //run the search for for the program automatically and 
         stepFour.Visible = true;
     }
     //=============4
