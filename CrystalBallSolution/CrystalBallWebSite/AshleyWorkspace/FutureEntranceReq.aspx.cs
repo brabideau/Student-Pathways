@@ -258,7 +258,7 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
     protected void addPPSubjectButton_Click(object sender, EventArgs e)
     {
         testController sysmgr = new testController();
-        EntranceRequirement er = new EntranceRequirement();
+        List<AddEntranceRequirements> er = new List<AddEntranceRequirements>();
 
         int programID = 2046;
         int subReqID = Convert.ToInt32(DL_SubjDesc.SelectedValue);
@@ -267,7 +267,14 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
         {
             int hsID = Convert.ToInt32(row.Cells[0].Text);
             int mark = Convert.ToInt32(row.Cells[2].Text);
-            //sysmgr.AddEntranceRequirement(EntranceRequirement item)
+            //er.Add(new AddEntranceRequirements()
+            //{
+            //    hsID, 
+            //    subReqID, 
+            //    programID, 
+            //    mark
+            //});
+            sysmgr.AddEntranceRequirement(er);
         }
     }
     //SAVE

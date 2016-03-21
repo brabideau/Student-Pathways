@@ -5,6 +5,7 @@ using CrystalBallSystem.DAL.POCOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,13 +92,17 @@ namespace CrystalBallSystem.BLL
         //for new entrance requirements
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         // Adds the supplied category to the database
-        public void AddEntranceRequirement(EntranceRequirement item)
+        public void AddEntranceRequirement(List<AddEntranceRequirements> item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                EntranceRequirement added = null;
-                added = context.EntranceRequirements.Add(item);
-                context.SaveChanges();
+
+                //string sqlIns = "INSERT INTO EntranceRequirement (HighSchoolCourseID, SubjectRequirementID, ProgramID, RequiredMark) VALUES(@hsID, @subReqID, @programID, @mark)";
+
+                //SqlCommand cmdIns = new SqlCommand(sqlIns, context);
+                //EntranceRequirement added = null;
+                //added = context.EntranceRequirements.Add(item);
+                //context.SaveChanges();
             }
         }
         #endregion
