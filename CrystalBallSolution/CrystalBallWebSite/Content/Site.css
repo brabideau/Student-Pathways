@@ -631,8 +631,9 @@ footer {
   /* ---------------------------------SELECT NAIT COURSE-------------------------------- */
 
   .nait-courses {
+      display: block;
       max-height: 300px;
-      overflow-y: scroll;
+      overflow-y: auto;
       overflow-x: hidden;
   }
   

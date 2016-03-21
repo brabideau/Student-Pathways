@@ -143,6 +143,7 @@
     <div runat="server" id="ProgramCourses" visible="false" class="clearfix">
         <p>What courses are part of this program?</p>
         <h4>Level One</h4>
+        <div class="nait-courses">
          <asp:ListView ID="LV_ProgramCourses_One" runat="server">
         <LayoutTemplate>
             <table>
@@ -172,7 +173,8 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
-
+            </div>
+        <div class="nait-courses">
         <h4>Level Two</h4>
          <asp:ListView ID="LV_ProgramCourses_Two" runat="server">
         <LayoutTemplate>
@@ -203,9 +205,9 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
-
+            </div>
         <h4>Level Three</h4>
-
+        <div class="nait-courses">
         <asp:ListView ID="LV_ProgramCourses_Three" runat="server">
         <LayoutTemplate>
             <table>
@@ -235,9 +237,10 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
-
+            </div>
 
         <h4>Level Four</h4>
+        <div class="nait-courses">
                  <asp:ListView ID="LV_ProgramCourses_Four" runat="server">
         <LayoutTemplate>
             <table>
@@ -267,8 +270,10 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
+            </div>
 
         <h4>Other:</h4>
+        <div class="nait-courses">
        <asp:ListView ID="LV_ProgramCourses_More" runat="server">
         <LayoutTemplate>
             <table>
@@ -298,15 +303,16 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
-
+        </div>
         <div class="search-bar">
             <label>Search for a course to add:</label>
 
             <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox><asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
         </div>
+        <div class="nait-courses">
          <asp:ListView ID="LV_ProgramCoursesSearch" runat="server">
         <LayoutTemplate>
-            <table>
+            <table class="nait-courses">
                 <tr>
                     <th></th>
                     <th runat="server">Course Code</th>
@@ -333,7 +339,7 @@
                  </tr>
             </ItemTemplate>
     </asp:ListView>
-
+            </div>
 
 
         <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton>
