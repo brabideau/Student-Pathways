@@ -154,3 +154,65 @@ namespace CrystalBallSystem.BLL
         }
     }
 }
+
+
+
+
+
+
+
+
+
+[DataObjectMethod(DataObjectMethodType.Select, false)]
+            public List<ProgramAndCourses> PCMatch(List<int> courseids)
+            {
+                using (var context = new CrystalBallContext())
+                {
+                    List<Program> programs = new List<Program>();
+
+                    //var equivalencies = from x in context.CourseEquivalencies
+                    //                    where courseids.Contains(x.CourseID)
+                    //                    select x.DestinationCourseID;
+                    //foreach (int i in equivalencies)
+                    //{
+                    //    courseids.Add(i);
+                    //}
+
+                    var result = from x in context.ProgramCourses
+                                 where courseids.Contains(x.CourseID)
+                                 select x;
+
+                    
+
+
+                    var result2 = (from x in result
+                                  orderby x.Program.ProgramName
+                                  select new ProgramAndCourses
+                                  {
+                                      ProgramID = x.Program.ProgramID,
+                                      ProgramName = x.Program.ProgramName,
+                                      ProgramCreditTotal = x.Program.TotalCredits == null ? 0 : x.Program.TotalCredits,
+                                      CreditTotal = (from y in result
+                                                     where y.Program.ProgramID == x.Program.ProgramID
+                                                     select y.NaitCourse.CourseCredits).Sum(),
+                                      ProgramCourseMatch = from y in result
+                                                           where y.Program.ProgramID == x.Program.ProgramID
+                                                           select new ProgramCourseMatch
+                                                           {
+                                                               CourseID = y.NaitCourse.CourseID,
+                                                               CourseCode = y.NaitCourse.CourseCode,
+                                                               CourseName = y.NaitCourse.CourseName,
+                                                               CourseCredits = y.NaitCourse.CourseCredits
+                                                           }
+
+
+                                  }).GroupBy(a => a.ProgramID);
+
+                    List<ProgramAndCourses> PAC = new List<ProgramAndCourses>();
+                    foreach(var item in result2)
+                    {
+                        PAC.Add(item.FirstOrDefault());
+                    }
+                    return PAC;
+                }
+            }
