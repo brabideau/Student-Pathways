@@ -43,7 +43,7 @@
         <div id="addRequirement" runat="server">
             <!--Dropdown to select SubjectDescription and prepopulate gridview-->
             <asp:DropDownList ID="DL_SubjDesc" runat="server" DataSourceID="ODS_SubjectRequirement" DataTextField="SubjectDescription" DataValueField="SubjectRequirementID" AppendDataBoundItems="true">
-                <asp:ListItem Value="0">[Select Subject Requirement]</asp:ListItem>
+                <asp:ListItem Value="0">[Create New Subject Requirement]</asp:ListItem>
             </asp:DropDownList>
             <asp:LinkButton ID="SubjectButton" runat="server" OnClick="SubjectButton_Click">Select</asp:LinkButton>
         </div>
@@ -70,6 +70,7 @@
                     <asp:ButtonField Text="Remove" CommandName="Select"/>                
                 </Columns>
             </asp:GridView>
+            <asp:LinkButton ID="addPPSubjectButton" runat="server" OnClick="addPPSubjectButton_Click">LinkButton</asp:LinkButton>
         </div>
 
         <div id="manualER" runat="server" visible="true">

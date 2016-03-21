@@ -20,7 +20,7 @@
     
     <asp:ObjectDataSource ID="EquivalentODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Equivalent_Courses" TypeName="CrystalBallSystem.BLL.testController">
         <SelectParameters>
-            <asp:ControlParameter ControlID="CourseDropDown" DefaultValue="" Name="courseid" PropertyName="SelectedValue" Type="Int32" />
+            <asp:ControlParameter ControlID="CourseDropDown" Name="courseids" PropertyName="SelectedValue" Type="Object" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <asp:ObjectDataSource ID="CourseODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController">

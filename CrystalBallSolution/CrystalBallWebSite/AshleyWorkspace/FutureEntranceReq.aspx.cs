@@ -74,12 +74,14 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
         if (subjectReq != 0)
         {
             prePopulatedER.Visible = true;
+            manualER.Visible = false;
             GV_NewEntrReq.DataSource = sysmgr.Get_CoursesBySubjectRequirement(subjectReq);
             GV_NewEntrReq.DataBind();
         }
         else
         {
             manualER.Visible = true;
+            prePopulatedER.Visible = false;
             PopulateManual();
         }
         
@@ -255,6 +257,10 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
 
     //SAVE
     protected void Save_EntranceReq(object sender, EventArgs e)
+    {
+
+    }
+    protected void addPPSubjectButton_Click(object sender, EventArgs e)
     {
 
     }

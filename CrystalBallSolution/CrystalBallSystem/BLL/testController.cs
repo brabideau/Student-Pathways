@@ -18,13 +18,14 @@ namespace CrystalBallSystem.BLL
         //List Equivalent Courses
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all categories
-        public List<NAITCourse> Equivalent_Courses(List<int> courseids)
+        public List<NAITCourse> Equivalent_Courses(int courseids)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 var result = from x in context.CourseEquivalencies
                              from nc in context.NaitCourses
-                             where courseids.Contains(x.CourseID) && nc.CourseID == x.DestinationCourseID
+                             where nc.CourseID == x.DestinationCourseID && x.CourseID == courseids
+                             //where courseids.Contains(x.CourseID) && nc.CourseID == x.DestinationCourseID
                              select new NAITCourse
                              {
                                  CourseID = nc.CourseID,
@@ -126,16 +127,12 @@ namespace CrystalBallSystem.BLL
                              {           
                                  HSCourseID = course.HighSchoolCours.HighSchoolCourseID,
                                  HSCourseName = course.HighSchoolCours.HighSchoolCourseName,
-                                 Mark = null
+                                 //Mark = null
                              };
 
                 return result.Distinct().ToList();
             }
         }
-        #endregion
-
-        #region Delete New Requirement From List
-
         #endregion
     }
 }
