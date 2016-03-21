@@ -106,6 +106,7 @@
     <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="DAL\POCOs\StudentPreference.cs" />
     <Compile Include="DAL\POCOs\StudentsDroppingSummary.cs" />
+    <Compile Include="DAL\POCOs\SubjReq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

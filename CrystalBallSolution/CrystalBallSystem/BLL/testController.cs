@@ -65,6 +65,7 @@ namespace CrystalBallSystem.BLL
 
                 var result = (from x in context.EntranceRequirements
                               where x.ProgramID == programID
+                              orderby x.SubjectRequirementID
                               select new SubjectRequirementAndCourses
                               {
                                   EntranceReqID = x.EntranceRequirementID,
@@ -92,17 +93,22 @@ namespace CrystalBallSystem.BLL
         //for new entrance requirements
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         // Adds the supplied category to the database
-        public void AddEntranceRequirement(List<AddEntranceRequirements> item)
+        public void AddEntranceRequirement(List<AddEntranceRequirements> er)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-
-                //string sqlIns = "INSERT INTO EntranceRequirement (HighSchoolCourseID, SubjectRequirementID, ProgramID, RequiredMark) VALUES(@hsID, @subReqID, @programID, @mark)";
-
-                //SqlCommand cmdIns = new SqlCommand(sqlIns, context);
-                //EntranceRequirement added = null;
-                //added = context.EntranceRequirements.Add(item);
-                //context.SaveChanges();
+                EntranceRequirement data = null;
+                foreach (var item in er)
+                {
+                    data = context.EntranceRequirements.Add(new EntranceRequirement()
+                    {
+                        ProgramID = item.programID,
+                        HighSchoolCourseID = item.highSchoolID,
+                        SubjectRequirementID = item.subReqID,
+                        RequiredMark = item.reqMark
+                    });
+                }
+                context.SaveChanges();
             }
         }
         #endregion
@@ -136,6 +142,24 @@ namespace CrystalBallSystem.BLL
                              };
 
                 return result.Distinct().ToList();
+            }
+        }
+        #endregion
+
+        #region Add Subject Requirement
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        // Adds the supplied category to the database
+        public int AddSubjectRequirement(string description)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                SubjectRequirement data = null;
+                data = context.SubjectRequirements.Add(new SubjectRequirement()
+                {
+                    SubjectDescription = description
+                });
+                context.SaveChanges();
+                return data.SubjectRequirementID;
             }
         }
         #endregion

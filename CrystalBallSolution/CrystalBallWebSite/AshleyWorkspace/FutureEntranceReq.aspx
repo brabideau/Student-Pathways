@@ -45,6 +45,7 @@
             <asp:DropDownList ID="DL_SubjDesc" runat="server" DataSourceID="ODS_SubjectRequirement" DataTextField="SubjectDescription" DataValueField="SubjectRequirementID" AppendDataBoundItems="true">
                 <asp:ListItem Value="0">[Create New Subject Requirement]</asp:ListItem>
             </asp:DropDownList>
+            <asp:TextBox ID="SubReqDesc" runat="server" Visible="false" />
             <asp:LinkButton ID="SubjectButton" runat="server" OnClick="SubjectButton_Click">Select</asp:LinkButton>
         </div>
 
@@ -70,7 +71,7 @@
                     <asp:ButtonField Text="Remove" CommandName="Select"/>                
                 </Columns>
             </asp:GridView>
-            <asp:LinkButton ID="addPPSubjectButton" runat="server" OnClick="addPPSubjectButton_Click">LinkButton</asp:LinkButton>
+            <asp:LinkButton ID="addPPSubjectButton" runat="server" OnClick="addPPSubjectButton_Click">Add Requirement</asp:LinkButton>
         </div>
 
         <div id="manualER" runat="server" visible="true">
@@ -100,6 +101,7 @@
                     <asp:CommandField ShowDeleteButton="True" />                
                 </Columns>
             </asp:GridView>
+            <asp:LinkButton ID="addMSubjectButton" runat="server" OnClick="addMSubjectButton_Click">Add Requirement</asp:LinkButton>
         </div>
 
         <!--ODS-->

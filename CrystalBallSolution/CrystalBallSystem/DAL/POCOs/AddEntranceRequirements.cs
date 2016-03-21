@@ -10,7 +10,17 @@ namespace CrystalBallSystem.DAL.POCOs
     {
         public int programID { get; set; }
         public int subReqID { get; set; }
-        public int hsID { get; set; }
-        public int? mark { get; set; }
+        public int highSchoolID { get; set; }
+        public int? reqMark { get; set; }
+
+        public AddEntranceRequirements(Int32 hsID, Int32 srID, Int32 pID, Int32 mark)
+        {
+            highSchoolID = hsID;
+            subReqID = srID;
+            programID = pID;
+            reqMark = mark;
+        }
     }
+
+   
 }

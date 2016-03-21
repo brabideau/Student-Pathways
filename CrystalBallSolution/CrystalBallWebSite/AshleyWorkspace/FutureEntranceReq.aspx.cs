@@ -75,12 +75,14 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
         {
             prePopulatedER.Visible = true;
             manualER.Visible = false;
+            SubReqDesc.Visible = false;
             GV_NewEntrReq.DataSource = sysmgr.Get_CoursesBySubjectRequirement(subjectReq);
             GV_NewEntrReq.DataBind();
         }
         else
         {
             manualER.Visible = true;
+            SubReqDesc.Visible = true;
             prePopulatedER.Visible = false;
             PopulateManual();
         }
@@ -262,21 +264,65 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
 
         int programID = 2046;
         int subReqID = Convert.ToInt32(DL_SubjDesc.SelectedValue);
+        int mark;
 
         foreach (GridViewRow row in GV_NewEntrReq.Rows)
         {
-            int hsID = Convert.ToInt32(row.Cells[0].Text);
-            int mark = Convert.ToInt32(row.Cells[2].Text);
-            //er.Add(new AddEntranceRequirements()
-            //{
-            //    hsID, 
-            //    subReqID, 
-            //    programID, 
-            //    mark
-            //});
-            sysmgr.AddEntranceRequirement(er);
+            int hsID = Convert.ToInt32((row.FindControl("ID") as Label).Text);
+            if ((row.FindControl("Mark") as TextBox).Text.Trim() != "")
+            {
+                mark = Convert.ToInt32((row.FindControl("Mark") as TextBox).Text);
+            }
+            else
+            {
+                mark = 0;
+            }
+            er.Add(new AddEntranceRequirements(
+                hsID,
+                subReqID,
+                programID,
+                mark));
         }
+            sysmgr.AddEntranceRequirement(er);
+
+            LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
+            LV_SubjectReq.DataBind();
     }
+
+    protected void addMSubjectButton_Click(object sender, EventArgs e)
+    {
+        testController sysmgr = new testController();
+        List<AddEntranceRequirements> er = new List<AddEntranceRequirements>();
+        string description = SubReqDesc.Text;
+
+        int subReqID = sysmgr.AddSubjectRequirement(description);
+
+        int programID = 2046;       
+        int mark;
+
+        foreach (GridViewRow row in GV_ManualNewEntrReq.Rows)
+        {
+            int hsID = Convert.ToInt32((row.FindControl("DL_Course") as DropDownList).SelectedValue);
+            if ((row.FindControl("Marks") as TextBox).Text.Trim() != "")
+            {
+                mark = Convert.ToInt32((row.FindControl("Marks") as TextBox).Text);
+            }
+            else
+            {
+                mark = 0;
+            }
+            er.Add(new AddEntranceRequirements(
+                hsID,
+                subReqID,
+                programID,
+                mark));
+        }
+        sysmgr.AddEntranceRequirement(er);
+
+        LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
+        LV_SubjectReq.DataBind();
+    }
+
     //SAVE
     protected void Save_EntranceReq(object sender, EventArgs e)
     {
