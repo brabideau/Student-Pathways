@@ -573,9 +573,11 @@ namespace CrystalBallSystem.BLL
                 }
                 else
                 {
-                    var result = from x in context.ProgramCourses
-                                 where x.ProgramID == programID && !(0 > x.Semester || x.Semester < 5)
-                                 select x.NaitCourse;
+                    var result = (from x in context.ProgramCourses
+                                 where x.ProgramID == programID
+                                 select x.NaitCourse).Except(from y in context.ProgramCourses
+                                                                 where y.Semester > 0 && y.Semester < 5
+                                                                 select y.NaitCourse);
 
                     return result.ToList();
                 }

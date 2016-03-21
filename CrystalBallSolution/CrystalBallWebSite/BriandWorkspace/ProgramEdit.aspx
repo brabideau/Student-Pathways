@@ -159,7 +159,7 @@
         <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' />
+                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' Visible="false" />
                     </td>
                     <td>
                         <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' />
@@ -191,7 +191,7 @@
         <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' />
+                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' Visible="false" />
                     </td>
                     <td>
                         <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' />
@@ -208,7 +208,7 @@
 
         <h4>Level Three</h4>
 
-                 <asp:ListView ID="LV_ProgramCourses_Three" runat="server">
+        <asp:ListView ID="LV_ProgramCourses_Three" runat="server">
         <LayoutTemplate>
             <table>
                 <tr>
@@ -224,7 +224,7 @@
         <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' />
+                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>'  Visible="false"/>
                     </td>
                     <td>
                         <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' />
@@ -257,7 +257,7 @@
         <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' />
+                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>'  Visible="false" />
                     </td>
                     <td>
                         <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' />
@@ -272,7 +272,7 @@
             </ItemTemplate>
     </asp:ListView>
 
-        <h4>Level 5 and above:</h4>
+        <h4>Other:</h4>
                  <asp:ListView ID="LV_ProgramCourses_More" runat="server">
         <LayoutTemplate>
             <table>
@@ -289,7 +289,7 @@
         <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' />
+                        <asp:Label ID="CourseIDLabel" runat="server" Text='<%# Eval("CourseID") %>' Visible="false" />
                     </td>
                     <td>
                         <asp:Label ID="CourseCodeLabel" runat="server" Text='<%# Eval("CourseCode") %>' />
