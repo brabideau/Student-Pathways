@@ -10,7 +10,9 @@
                               DataSourceID="SelectProgramODB" 
                               DataTextField="ProgramName" 
                               DataValueField="ProgramID"
-                              AppendDataBoundItems="True" >
+                              AppendDataBoundItems="True" AutoPostBack="True" 
+                              OnSelectedIndexChanged="ProgramDropDownList_SelectedIndexChanged"
+                               >
                 <%--<asp:ListItem  Value=-1 Text="[---------------]" />--%>
                 <asp:ListItem  Value=0 Text="[Select All]" />
 
@@ -22,8 +24,11 @@
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
         </div>
     <div class="col-6 nait-courses">
-        <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
-            DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
+        <asp:GridView ID="CourseGridView" runat="server" 
+            AutoGenerateColumns="False" DataSourceID="NaitCourseODB"
+            DataKeyNames="CourseID" 
+            OnSelectedIndexChanging="SelectCourses"
+            >
             
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">

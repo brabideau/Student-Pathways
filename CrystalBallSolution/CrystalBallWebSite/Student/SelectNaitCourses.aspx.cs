@@ -6,6 +6,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+#region Addtional namespace
+using CrystalBallSystem.BLL;
+#endregion
+
 public partial class User_SelectNaitCourses : System.Web.UI.Page
 {
     DataTable CoursesSelected;
@@ -156,6 +160,19 @@ public partial class User_SelectNaitCourses : System.Web.UI.Page
         Session["CoursesSelected"] = null;
         ViewState["CoursesSelected"] = null;
         Response.Redirect("../Student/SelectNaitCourses.aspx");
+    }
+    protected void ProgramDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SelectNaitCourseController scc = new SelectNaitCourseController();
+        string SearchInfo = SearchTextBox.Text;
+        int programID = int.Parse(ProgramDropDownList.SelectedValue);
+
+
+        scc.SearchNaitCourses(SearchInfo, programID);
+        CourseGridView.Visible = true;
+        CourseGridView.DataBind();
+        //ProgramDropDownList.AutoPostBack;
+        
     }
 }
 //problem feed back not using ispostback so that everytime it creat a new datatable
