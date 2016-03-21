@@ -19,7 +19,9 @@ namespace CrystalBallSystem.BLL
 {
     public class SelectNaitCourseController
     {
-            [DataObjectMethod(DataObjectMethodType.Select, false)]
+
+        #region select nait course
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
             public List<NAITCourse> SearchNaitCourses(string SearchInfo,int programID)
             {
                 using (var context = new CrystalBallContext())
@@ -188,5 +190,62 @@ namespace CrystalBallSystem.BLL
                     return PAC;
                 }
             }
-        }
+        #endregion
+
+        #region add new nait course
+            [DataObjectMethod(DataObjectMethodType.Select, false)]
+            public List<NaitCours> NaitCourse_List(int programid)
+            {
+                using (CrystalBallContext context = new CrystalBallContext())
+                {
+                    
+                    if(programid == 0 )
+                    {
+                        var step1 = from x in context.NaitCourses select x;
+                        return step1.ToList();
+                    }
+                    else if (programid == -1)
+                    {
+                        var step1 = from x in context.NaitCourses
+                                    where
+                                        (x.ProgramCourses).Count() == 0
+                                    select x;
+                        return step1.ToList();
+                    }
+                    else
+                    {
+                        var step1 = from x in context.ProgramCourses
+                                    where x.ProgramID == programid
+                                    select x.NaitCourse;
+                        return step1.ToList();
+                    }
+
+                              
+
+                }
+            }
+
+
+            [DataObjectMethod(DataObjectMethodType.Select, false)]
+            public List<Program> Program_List()
+            {
+                using (CrystalBallContext context = new CrystalBallContext())
+                {
+                    return context.Programs.ToList();
+                }
+            }
+
+            //[DataObjectMethod(DataObjectMethodType.Insert, false)]
+            // Adds the supplied category to the database
+            public void AddCourse(NaitCours item)
+            {
+                using (CrystalBallContext context = new CrystalBallContext())
+                {
+                    NaitCours added = null;
+                    added = context.NaitCourses.Add(item);
+                    context.SaveChanges();
+                }
+            }
+        #endregion
+    }
     }
