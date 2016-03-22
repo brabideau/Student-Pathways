@@ -230,10 +230,10 @@ textarea, .textarea {
     color: #003D7E;
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
     margin-top: 5px;
-    margin-bottom: 5px;    
+    margin-bottom: 5px;   
 }
 
-.button2 {
+/*.button2 {
     display: inline-block;
     height: 40px;
     width: 100px;
@@ -245,9 +245,9 @@ textarea, .textarea {
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
     margin-top: 5px;
     margin-bottom: 5px;    
-}
+}*/
 
-.button::after, .button2::after {
+.button::after {
     content: '';
     display: block;
     height: 4px;
@@ -256,11 +256,11 @@ textarea, .textarea {
     transition: .3s linear;
 }
 
-.button:hover, .button2:hover{
+.button:hover {
     background-color: #ebf3f9;
 }
 
-.button:hover:after, .button2:hover:after{
+.button:hover:after {
     background-color: #1363a8;
     width: 100%;
 }
@@ -673,8 +673,10 @@ footer {
     border: 1px solid #aaaaaa;
     box-shadow: 8px 8px 5px rgba(0,0,0,.3);
     float: left;
+    width: 45%;
+    margin: 2.5%;
     min-width: 300px;
-    height: 400px;
+    height: 350px;
 }
 
 .program-search-results td {

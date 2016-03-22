@@ -9,18 +9,18 @@
     <!-- student course selection section -->
     <div id="stepOne" runat="server" visible="true">
     <h1>Select the Courses You've Taken</h1>
-
+        <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5" CssClass="courseCSS">
         </asp:CheckBoxList>
 
-            <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button submit">Next</asp:LinkButton>
+            <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
 
         </div>
     <!-- step 2 - preference questions -->
     <!-- get student preference questions -->
         <div runat="server" id="stepTwo" visible="false">
         <h1>Your Preferences</h1>
-
+            <p>This will help us match you with programs you might enjoy!</p>
           
             <asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
                 <Columns>
@@ -55,6 +55,7 @@
     <!--Get student's program information-->
         <div runat="server" id="stepThree" visible="false" class="clearfix">
             <p>Are you a current NAIT student?<asp:CheckBox ID="CurrentStudent" runat="server" OnCheckedChanged="CurrentStudent_CheckedChanged" autopostback="true" Checked="true"/></p>
+            <p>If you have taken courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
             
             <div runat="server" id="chooseProgram" class="clearfix">
                 <p>Select Program Category: 
@@ -88,14 +89,14 @@
             </div>
             
             <asp:LinkButton ID="stepThreeNext" runat="server" OnClick="stepThreeNext_Click" CssClass="button next">Next</asp:LinkButton>
-            <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click" CssClass="button next">Previous</asp:LinkButton>
+            <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click" CssClass="button back">Previous</asp:LinkButton>
         </div>
     <!-- step 4 - nait courses -->
     <div id="stepFour" runat="server" visible="false">
         <h1>Select NAIT Course</h1>
 
         <div class="search-bar" >
-            <label>Please select a program</label>
+            <label>Filter courses by program</label>
             <br />
             <asp:DropDownList runat="server" ID="ProgramDropDownList" 
                               DataSourceID="SelectProgramODB" 
@@ -108,7 +109,7 @@
             </asp:DropDownList>
         </div>
         <div class="search-bar">
-            <label >Please search the NAIT course you want.</label>
+            <label >Search by course name or course code</label>
             <br />
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
         </div>
@@ -175,11 +176,13 @@
     <div class="col-12">
         
         <asp:Label ID="TotalCourseLabel" runat="server" Text="Total courses : " Font-Size="Larger"></asp:Label>
-        <hr />
+         <p><asp:LinkButton ID="reset" runat="server"  CssClass="button back button-long" OnClick="reset_Click" >Clear Courses</asp:LinkButton></p>
+</div>
+<div class="col-12">
         
-        <asp:LinkButton ID="Next" runat="server" OnClick="Submit_Click" CssClass="button next" >Submit</asp:LinkButton>
-        <asp:LinkButton ID="stepFourPrevious" runat="server" OnClick="stepFourPrevious_Click" CssClass="button next">Previous</asp:LinkButton>
-        <asp:LinkButton ID="reset" runat="server"  CssClass="button next" OnClick="reset_Click" >Reset</asp:LinkButton>
+        <asp:LinkButton ID="Next" runat="server" OnClick="Submit_Click" CssClass="button next button-long" >See Results</asp:LinkButton>
+        <asp:LinkButton ID="stepFourPrevious" runat="server" OnClick="stepFourPrevious_Click" CssClass="button back">Previous</asp:LinkButton>
+       
     </div>
 
         <asp:ObjectDataSource ID="SelectProgramODB" runat="server" 

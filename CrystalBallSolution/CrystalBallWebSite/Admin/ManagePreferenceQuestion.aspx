@@ -114,7 +114,7 @@
                                 <asp:ListItem Value="0">[Select Category]</asp:ListItem>
             </asp:DropDownList>
                
-            <asp:LinkButton ID="SearchButton" runat="server" CssClass="button2" OnClick="SearchButton_Click">Search</asp:LinkButton>
+            <asp:LinkButton ID="SearchButton" runat="server" CssClass="button submit" OnClick="SearchButton_Click">Search</asp:LinkButton>
         </div>  
     </div>  
 
