@@ -82,7 +82,7 @@
                                                 </th>
                                                 <td>
                                                     <%--<asp:TextBox ID="CredentialTypeIDTextBox" runat="server" Text='<%# Bind("CredentialTypeID") %>' />--%>
-                                                    <asp:DropDownList ID="CredentialTypeDropdownList" runat="server" 
+                                                    <asp:DropDownList ID="CredentialTypeDropdownList" runat="server" SelectedValue='<%# Item.CredentialTypeID %>'
                                                           DataSourceID="ODSCredentialType" 
                                                           DataTextField="CredentialTypeName" 
                                                           DataValueField="CredentialTypeID"
@@ -116,7 +116,7 @@
                                             <tr>
                                                 <th>Program Length:</th>
                                                 <td>
-                                                    <asp:DropDownList ID="lengthDropDownList" SelectedValue='<%# Item.ProgramLength==null? Item.ProgramLength:"0" %>' runat="server">
+                                                    <asp:DropDownList ID="lengthDropDownList" runat="server">
                                                         <asp:ListItem Value="0">[Select Length]</asp:ListItem>
                                                         <asp:ListItem>3 months</asp:ListItem>
                                                         <asp:ListItem>6 months</asp:ListItem>
