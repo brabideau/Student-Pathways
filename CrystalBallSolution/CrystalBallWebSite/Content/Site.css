@@ -613,20 +613,21 @@ footer {
 
 .prefQuestionsCSS input[type="checkbox"] + label::after {
     content: 'No';
-    width: 80px;
-    height: 2em;
+    font-family: 'Coda', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    width: 60px;
     background-color: rgba(255,0,0,.3);
     cursor:pointer;
     display: inline-block;
     float: right;
+    margin-left: 10px;
 }
 
 .prefQuestionsCSS input[type="checkbox"]:checked + label::after {
     background-color: rgba(41,128,185,.3);
     content: 'Yes';
 }
-
-
 
 
 
@@ -671,7 +672,8 @@ footer {
 
 
 .courseCSS input[type="checkbox"]:checked + label {
-    background-color: #ffffff;
+    background-color: #113e68;
+      color: #ebf3f9;
 }
 
 
@@ -700,7 +702,7 @@ footer {
   .inner-rpt-div {
       display: block;
       float: left;
-      background-color: #1363a8;
+      background-color: #113e68;
       color: #ebf3f9;
       width: 46%;
       height: 100px;
