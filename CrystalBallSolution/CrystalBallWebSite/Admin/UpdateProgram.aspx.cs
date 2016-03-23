@@ -33,6 +33,18 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
     protected void ProgramListView_ItemEditing(object sender, ListViewEditEventArgs e)
     {
         ProgramListView.EditIndex = e.NewEditIndex;
+        //DropDownList ProgramLength = (DropDownList)ProgramListView.EditItem.FindControl("lengthDropDownList");
+
+        //ListItem item = ProgramLength.Items.FindByText(ProgramLength.SelectedValue.ToString());
+        //if (item != null)
+        //{
+        //    ProgramLength.Items.FindByText(ProgramLength.SelectedValue.ToString()).Selected = true;
+        //}
+        //else
+        //{
+        //    ProgramLength.Items.FindByText(ProgramLength.SelectedValue.ToString()).Selected = false;
+        //}
+
         CloseInsert();
         BindList();
     }
