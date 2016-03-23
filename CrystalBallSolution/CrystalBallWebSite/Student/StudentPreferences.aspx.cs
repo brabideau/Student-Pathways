@@ -453,6 +453,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         TotalCourseLabel.Text = "Total courses : 0";
         //Response.Redirect("../Student/SelectNaitCourses.aspx");
     }
+    protected void List_Change(object sender, EventArgs e)
+    {
+        SelectNaitCourseController course = new SelectNaitCourseController();
+        List<NAITCourse> courses = new List<NAITCourse>();
+        CourseGridView.DataSource = course.SearchNaitCourses(null, Convert.ToInt32(ProgramDropDownList.SelectedValue));
+        CourseGridView.DataBind();
+    }
 
     //========================================================================================================================================
 
