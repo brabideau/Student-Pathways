@@ -4,7 +4,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <div runat="server" align="center">
+    <div runat="server">
         <h1>Manage High School Courses</h1>
         <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
