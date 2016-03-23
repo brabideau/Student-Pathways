@@ -249,46 +249,77 @@ namespace CrystalBallSystem.BLL
 
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<StudentsDroppingSummary> StudentsDropping_by_Program()
+        public List<StudentsDroppingSummary> StudentsDropping_by_Program(int? year, int? month)
         {
             // Which programs have the most students switching?
-
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                var swapList = from c in context.CurrentStudentDatas
-                               group c by c.Program into swaps
-                               select new StudentsDroppingSummary
-                               {
-                                   Program = swaps.Key.ProgramName,
-                                   PercentDropping = 100 * (from s in swaps
-                                                            where s.ChangeProgram
-                                                            select swaps).Count() / swaps.Count()
-                               };
-
-                var results = swapList.OrderByDescending(x => x.PercentDropping);
-
-                return results.ToList();
-
-            }
-        }
+                var alldata = from c in context.CurrentStudentDatas
+                              select c;
 
 
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<ProgramFrequency> Get_Program_Frequency()
-        {
-            // Which programs have the most students switching?
+                if (year != null)
+                {
+                    alldata = from x in alldata
+                              where x.SearchYear == year
+                              select x;
+                }
+                if (month != null)
+                {
+                    alldata = from x in alldata
+                              where x.SearchMonth == month
+                              select x;
+                }
 
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                var results = from pd in context.ProgramDatas
-                              group pd by pd.Program into p
-                              select new ProgramFrequency
+                var results = from c in alldata
+                              group c by c.Program into swaps
+                              select new StudentsDroppingSummary
                               {
-                                  Program = p.Key.ProgramName,
-                                  Frequency = p.Count()
+                                  Program = swaps.Key.ProgramName,
+                                  PercentDropping = 100 * (from s in swaps
+                                                           where s.ChangeProgram
+                                                           select swaps).Count() / swaps.Count()
                               };
 
                 return results.ToList();
+            }
+        }
+
+        
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<ProgramFrequency> Get_Program_Frequency(int? year, int? month)
+        {
+            // How often do programs show up in search results?
+
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var alldata = from pd in context.ProgramDatas
+                              select pd;
+
+                if (year != null)
+                {
+                    alldata = from x in alldata
+                              where x.SearchYear == year
+                              select x;
+                }
+                if (month != null)
+                {
+                    alldata = from x in alldata
+                              where x.SearchMonth == month
+                              select x;
+                }
+
+                var results = from pd in alldata
+                                group pd by pd.Program into p
+                                  select new ProgramFrequency
+                                  {
+                                      Program = p.Key.ProgramName,
+                                      Frequency = p.Count()
+                                  };
+
+
+                return results.ToList();
+
             }
         }
 

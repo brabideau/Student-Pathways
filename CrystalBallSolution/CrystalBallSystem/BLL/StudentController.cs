@@ -261,7 +261,7 @@ namespace CrystalBallSystem.BLL
 
                 var programList = ((from q in context.ProgramPreferences.AsEnumerable()
                                 from sq in myPrefs
-                               where q.Program.ProgramPreferences.Any(pq => sq.QuestionID == q.QuestionID && sq.Answer == Convert.ToInt32(q.Answer))
+                               where q.Program.ProgramPreferences.Any(pq => sq.QuestionID == q.QuestionID && sq.Answer == q.Answer)
                                 select q.Program).Distinct());
 
                 var result = from p in programList

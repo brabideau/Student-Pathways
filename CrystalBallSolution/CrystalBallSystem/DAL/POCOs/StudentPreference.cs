@@ -9,9 +9,9 @@ namespace CrystalBallSystem.DAL.POCOs
     public class StudentPreference
     {
         public int QuestionID { get; set; }
-        public int Answer { get; set; }
+        public bool Answer { get; set; }
 
-        public StudentPreference(Int32 q, Int32 ans)
+        public StudentPreference(Int32 q, bool ans)
         {
             QuestionID = q;
             Answer = ans;

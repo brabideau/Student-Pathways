@@ -600,33 +600,73 @@ footer {
 
 
 /*------------------------------- STUDENT PREFERENCES ----------------------------------*/
-
 .prefQuestionsCSS {
-    
+    line-height: 2em;
+    vertical-align: middle;
+}
+
+
+
+.prefQuestionsCSS input[type="checkbox"] {
+    display: none;
+}
+
+.prefQuestionsCSS input[type="checkbox"] + label::after {
+    content: 'No';
+    width: 80px;
+    height: 2em;
+    background-color: rgba(255,0,0,.3);
+    cursor:pointer;
+    display: inline-block;
+    float: right;
+}
+
+.prefQuestionsCSS input[type="checkbox"]:checked + label::after {
+    background-color: rgba(41,128,185,.3);
+    content: 'Yes';
+}
+
+
+
+
+
+.courseCSS {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.courseCSS tr {
+    /*display: block;*/
+    float: left;
+    width: 24%;
+    padding: .5%;
+
+
 }
 
 .courseCSS td {
-    padding: 3px;
+    display: block;
+    padding: 2px;
 
 }
 
 
-.courseCSS input[type="checkbox"] {
+.courseCSS input {
     float: left;
     width: 1.2em;
     height: 1.2em;
     display: inline-block;
     position: relative;
     top: .2em; 
+
 }
 
-.courseCSS input[type="checkbox"] + label{
+.courseCSS input + label{
     display: block;
-    width: 100%;
-    height: 100%;
+
     background-color: rgba(235, 243, 249, 0.9);
     cursor:pointer;
-    padding: 5px 10px 5px 30px;
+    padding: .2em .5em .2em 1.2em;
 }
 
 
@@ -635,14 +675,6 @@ footer {
 }
 
 
-.prefQuestionsCSS td:first-child  {
-    display: none;
-}
-
-
-    .prefQuestionsCSS tr:first-child {
-        display: none;
-    }
 
 
  .radioButtonList td:first-child {

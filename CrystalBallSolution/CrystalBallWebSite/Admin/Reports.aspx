@@ -4,12 +4,12 @@
 
     <h1>Reports</h1>
 
-
-
+    <asp:LinkButton ID="Program_Data_Button" OnClick="Program_Button_Click" runat="server"><h3>Program Data</h3></asp:LinkButton>
+    <asp:LinkButton ID="Student_Data_Button" OnClick ="Student_Button_Click" runat="server"><h3>Student Data</h3></asp:LinkButton>
         <div class="search-bar col-6">
          Year:
         <asp:DropDownList ID="DL_Year" runat="server">
-            <asp:ListItem Text="Year" Value="-1"/>
+            <asp:ListItem Text="Any" Value="-1"/>
             <asp:ListItem Text="2015" Value="2015" />
             <asp:ListItem Text="2016" Value="2016" />
             <asp:ListItem Text="2017" Value="2017" />
@@ -17,7 +17,7 @@
 
         Month:
         <asp:DropDownList ID="DL_Month" runat="server">
-            <asp:ListItem Text="Month" Value="-1"/>
+            <asp:ListItem Text="Any" Value="-1"/>
             <asp:ListItem Text="January" Value="1" />
             <asp:ListItem Text="February" Value="2" />
             <asp:ListItem Text="March" Value="3" />
@@ -32,25 +32,29 @@
             <asp:ListItem Text="December" Value="12" />
         </asp:DropDownList>
 
-    </div>
+    </div><%-- end search bar--%>
 
     <div id="ProgramData" runat="server" visible="true" class="clearfix">
         <div class="col-12">
        <asp:LinkButton ID="Program_Search_Button" runat="server" OnClick="Program_Submit_Click" CssClass="button submit">Search</asp:LinkButton>
+            <p>Your filters:</p>
+            <p>Year: <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
+            <p>Month: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label></p>
         </div>
-        <div class="col-6 nait-courses">
-            <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
-        </div>
-
+ 
         <div class="col-6 nait-courses">
             <asp:GridView ID="GV_ProgramFrequency" runat="server"></asp:GridView>
         </div>
-     </div>
+
+        <div class="col-6 nait-courses">
+            <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
+        </div>
+     </div><%-- end ProgramData--%>
             
 
 
 
-    <div id="UserData" runat="server" visible="false">
+    <div id="StudentData" runat="server" visible="false">
   <%----------------------------------- Filters -------------------------------------%>
     <div class="clearfix">
      <div class="search-bar">
@@ -84,29 +88,44 @@
             <asp:ListItem Text="No" Value="0" />
         </asp:DropDownList>
     </div>
+
+   
+ <%----------------------------------- DATA -------------------------------------%>
     <div class="col-5">
         <asp:LinkButton ID="Search_Left" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
         <h3>Results</h3>
+        <p>Year: <asp:Label ID="Year_Left" runat="server" Text=""></asp:Label></p>
+        <p>Month: <asp:Label ID="Month_Left" runat="server" Text=""></asp:Label></p>
+        <p>Program: <asp:Label ID="Program_Left" runat="server" Text=""></asp:Label></p>
+        <p>Semester: <asp:Label ID="Semester_Left" runat="server" Text=""></asp:Label></p>
+        <p>Changing Programs: <asp:Label ID="Dropping_Left" runat="server" Text=""></asp:Label></p>
     </div>
+
     <div class="col-5">
         <asp:LinkButton ID="Search_Right" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
         <h3>Results</h3>
-    </div>
+
+        <p>Year: <asp:Label ID="Year_Right" runat="server" Text=""></asp:Label></p>
+        <p>Month: <asp:Label ID="Month_Right" runat="server" Text=""></asp:Label></p>
+        <p>Program: <asp:Label ID="Program_Right" runat="server" Text=""></asp:Label></p>
+        <p>Semester: <asp:Label ID="Semester_Right" runat="server" Text=""></asp:Label></p>
+        <p>Changing Programs: <asp:Label ID="Dropping_Right" runat="server" Text=""></asp:Label></p>
     </div>
 
- <%----------------------------------- DATA -------------------------------------%>
     <div class="col-5">
-        
         <asp:GridView ID="GV_PreferenceSummaries_Left" runat="server"></asp:GridView>
     </div>
+
+
+
     <div class="col-5">
-        
         <asp:GridView ID="GV_PreferenceSummaries_Right" runat="server"></asp:GridView>
     </div>
     <div class="col-2">
         <asp:GridView ID="GV_Compare" runat="server"></asp:GridView>
     </div>
-</div>
+</div> <%--end clearfix div--%>
+</div> <%--end student data div--%>
 
   <%----------------------------------- ODS -------------------------------------%>
 

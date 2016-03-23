@@ -11,6 +11,30 @@ using System.Data;
 
 public partial class Admin_Reports : System.Web.UI.Page
 {
+
+    protected void Page_Init()
+    {
+        int year = DateTime.Now.Year;
+        int month = DateTime.Now.Month;
+
+        Program_Year_Label.Text = year.ToString();
+        Program_Month_Label.Text = month.ToString();
+
+        DL_Year.SelectedValue = year.ToString();
+        DL_Month.SelectedValue = month.ToString();
+
+        ReportController sysmgr = new ReportController();
+
+        List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
+
+        GV_Program_Dropping.DataSource = dropping;
+        GV_Program_Dropping.DataBind();
+
+        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
+
+        GV_ProgramFrequency.DataSource = frequency;
+        GV_ProgramFrequency.DataBind();
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -19,20 +43,51 @@ public partial class Admin_Reports : System.Web.UI.Page
             ViewState["leftData"] = leftData;
             List<StudentPreferenceSummary> rightData = new List<StudentPreferenceSummary> { };
             ViewState["rightData"] = rightData;
+
         }
+    }
+
+
+    protected void Program_Button_Click(object sender, EventArgs e)
+    {
+        ProgramData.Visible = true;
+        StudentData.Visible = false;
+    }
+
+    protected void Student_Button_Click(object sender, EventArgs e)
+    {
+        ProgramData.Visible = false;
+        StudentData.Visible = true;
     }
 
     #region program data
     protected void Program_Submit_Click(object sender, EventArgs e)
     {
+
+        Program_Year_Label.Text = DL_Year.SelectedItem.Text;
+        Program_Month_Label.Text = DL_Month.SelectedItem.Text;
+
+        int? year = Convert.ToInt32(DL_Year.SelectedValue);
+        int? month = Convert.ToInt32(DL_Month.SelectedValue);
+        
+        if(year == -1)
+        {
+            year = null;
+        }
+
+        if (month == -1)
+        {
+            month = null;
+        }
+
         ReportController sysmgr = new ReportController();
 
-        List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program();
+        List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
         GV_Program_Dropping.DataSource = dropping;
         GV_Program_Dropping.DataBind();
 
-        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency();
+        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
         GV_ProgramFrequency.DataSource = frequency;
         GV_ProgramFrequency.DataBind();
@@ -44,14 +99,26 @@ public partial class Admin_Reports : System.Web.UI.Page
     #region student data
     protected void Submit_Click(object sender, EventArgs e)
     {
+        //retrieve stored data
        List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)ViewState["leftData"];
        List<StudentPreferenceSummary> rightData = (List<StudentPreferenceSummary>)ViewState["rightData"];
+
+        
+        
+
         if (((LinkButton)sender).ID == "Search_Left")
         {
             leftData = Get_Data();
             GV_PreferenceSummaries_Left.DataSource = leftData;
             GV_PreferenceSummaries_Left.DataBind();
             ViewState["leftData"] = leftData;
+
+            //fill out filter info
+            Year_Left.Text = DL_Year.SelectedItem.Text;
+            Month_Left.Text = DL_Month.SelectedItem.Text;
+            Program_Left.Text = DL_Program.SelectedItem.Text;
+            Semester_Left.Text = DL_Semester.SelectedItem.Text;
+            Dropping_Left.Text = DL_Change.SelectedItem.Text;
         }
         else
         {
@@ -59,6 +126,13 @@ public partial class Admin_Reports : System.Web.UI.Page
             GV_PreferenceSummaries_Right.DataSource = rightData;
             GV_PreferenceSummaries_Right.DataBind();
             ViewState["rightData"] = rightData;
+
+            //fill out filter info
+            Year_Right.Text = DL_Year.SelectedItem.Text;
+            Month_Right.Text = DL_Month.SelectedItem.Text;
+            Program_Right.Text = DL_Program.SelectedItem.Text;
+            Semester_Right.Text = DL_Semester.SelectedItem.Text;
+            Dropping_Right.Text = DL_Change.SelectedItem.Text;
         }
 
         if (leftData != null && rightData != null)
@@ -116,82 +190,118 @@ public partial class Admin_Reports : System.Web.UI.Page
             myData = controller.Get_CurrentStudent_Data();
         }
 
+        List<StudentPreferenceSummary> results = new List<StudentPreferenceSummary>();
 
+            results = Filter_Data(myData);
+ 
+        return results;
+    }
+
+    protected List<StudentPreferenceSummary> Filter_Data(DataTable myData)
+    {
+        ReportController controller = new ReportController();
         //Apply filters
-        if (Convert.ToInt32(DL_Year.SelectedValue) != -1)
-        {
-            int year = Convert.ToInt32(DL_Year.SelectedValue);
-            var rows = myData.Select("SearchYear <>" + year);
+        int year = Convert.ToInt32(DL_Year.SelectedValue);
+        int month = Convert.ToInt32(DL_Month.SelectedValue);
+        int programID = Convert.ToInt32(DL_Program.SelectedValue);
+        int sem = Convert.ToInt32(DL_Semester.SelectedValue);
+        int change = Convert.ToInt32(DL_Change.SelectedValue);
 
-            foreach (var row in rows)
+
+        if (year != -1 && myData.Rows.Count > 0)
+        {
+            var rows = from x in myData.AsEnumerable()
+                       where x.Field<int>("SearchYear") == year
+                       select x;
+            if (rows.Count() > 0)
             {
-                row.Delete();
+                myData = rows.CopyToDataTable();
             }
+            else
+                {
+                    myData.Clear();
+                }
         }
 
-        if (Convert.ToInt32(DL_Month.SelectedValue) != -1)
+        if (month != -1 && myData.Rows.Count > 0)
         {
-            int month = Convert.ToInt32(DL_Month.SelectedValue);
-            var rows = myData.Select("SearchMonth <>" + month);
-
-            foreach (var row in rows)
+            var rows = from x in myData.AsEnumerable()
+                       where x.Field<int>("SearchMonth") == month
+                       select x;
+            if (rows.Count() > 0)
             {
-                row.Delete();
+                myData = rows.CopyToDataTable();
             }
+            else
+                {
+                    myData.Clear();
+                }
         }
 
-        if (Convert.ToInt32(DL_Program.SelectedValue) != -1)
+        if (programID > 0 && myData.Rows.Count > 0) //only if a program was selected
         {
-            int programID = Convert.ToInt32(DL_Program.SelectedValue);
-
-            if (programID > 0)
+            var rows = from x in myData.AsEnumerable()
+                       where x.Field<int>("ProgramID") == programID
+                       select x;
+            if (rows.Count() > 0)
             {
-                var rows = myData.Select("ProgramID <> " +programID);
-
-                foreach (var row in rows)
-                {
-                    row.Delete();
-                }
+                myData = rows.CopyToDataTable();
             }
-
-            if (Convert.ToInt32(DL_Semester.SelectedValue) != -1)
-            {
-                int sem = Convert.ToInt32(DL_Semester.SelectedValue);
-
-                var rows = myData.Select("Semester <>" + sem);
-
-                foreach (var row in rows)
+            else
                 {
-                    row.Delete();
+                    myData.Clear();
                 }
-            }
+        }
 
-            if (Convert.ToInt32(DL_Change.SelectedValue) != -1)
+        if (programID > -1 && myData.Rows.Count > 0) //only if new students were NOT selected
+        {
+            if (sem != -1 && myData.Rows.Count > 0) //if a semester was selected
             {
-                if (Convert.ToInt32(DL_Change.SelectedValue) == 1)
+                var rows = from x in myData.AsEnumerable()
+                           where x.Field<int>("Semester") == sem
+                           select x;
+                if (rows.Count() > 0)
                 {
-                    int sem = Convert.ToInt32(DL_Semester.SelectedValue);
-
-                    var rows = myData.Select("ChangeProgram = false");
-
-                    foreach (var row in rows)
-                    {
-                        row.Delete();
-                    }
+                    myData = rows.CopyToDataTable();
                 }
                 else
                 {
-                    int sem = Convert.ToInt32(DL_Semester.SelectedValue);
-
-                    var rows = myData.Select("ChangeProgram = true");
-
-                    foreach (var row in rows)
-                    {
-                        row.Delete();
-                    }
+                    myData.Clear();
                 }
             }
+            
+            if (change == 1 && myData.Rows.Count > 0)
+            {
+                var rows = from x in myData.AsEnumerable()
+                           where x.Field<bool>("ChangeProgram") == true
+                           select x;
+                if (rows.Count() > 0)
+                {
+                    myData = rows.CopyToDataTable();
+                }
+                else
+                {
+                    myData.Clear();
+                }
+            }
+            else if (change == 0 )
+            {
+                var rows = from x in myData.AsEnumerable()
+                           where x.Field<bool>("ChangeProgram") == false
+                           select x;
+                if (rows.Count() > 0)
+                {
+                    myData = rows.CopyToDataTable();
+                }
+                else
+                {
+                    myData.Clear();
+                }
+            }
+
+            
         }
+        
          var summaryList = controller.Get_Summary_Data(myData);
         return summaryList;
     }

@@ -24,7 +24,7 @@ namespace CrystalBallSystem.DAL.Entities
         public int QuestionID { get; set; }
 
         [Required]
-        public int StudentAnswer { get; set; }
+        public bool StudentAnswer { get; set; }
 
         [Required]
         public int SearchMonth { get; set; }

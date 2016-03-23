@@ -105,13 +105,21 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             //step 2 - Gather the answers to the student preference questions
             List<StudentPreference> myPreferences = new List<StudentPreference>();
-            foreach (GridViewRow row in PrefQuestions.Rows)
+
+            foreach (ListItem item in PrefQuestions.Items)
             {
                 myPreferences.Add(new StudentPreference(
-                           Convert.ToInt32(row.Cells[0].Text),
-                           Convert.ToInt32((row.FindControl("RBL_YN") as RadioButtonList).SelectedValue)
-                                ));
+                    Convert.ToInt32(item.Value),
+                    item.Selected));
             }
+
+            //foreach (GridViewRow row in PrefQuestions.Rows)
+            //{
+            //    myPreferences.Add(new StudentPreference(
+            //               Convert.ToInt32(row.Cells[0].Text),
+            //               (row.FindControl("RBL_YN") as CheckBox).Checked)
+            //               );
+            //}
 
             //prior to first step towards getting results log the relevant data for metrics gathering
             //NEW STUDENT - QuestionID/AnswerValue
@@ -122,7 +130,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             {
                 currentProgID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 currentSemester = Convert.ToInt32(SemesterDropDown.SelectedValue);
-                changeProgram = true;
+                changeProgram = ChangeProgram.Checked;
                 report.InsertCurrentStudentMetrics(myPreferences, currentProgID, currentSemester, changeProgram);
             }
             else
@@ -216,29 +224,31 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     //======1
     protected void stepOneNext_Click(object sender, EventArgs e)
     {
-        while (ProgramDropDown.SelectedValue == "0")
-        {
-            MessageUserControl.ShowInfo("You must select a program");
-        }
         stepOne.Visible = false;
         stepTwo.Visible = true;
-        int programid;
-        int semester;
-        bool switchProgram;
+        PrefQuestions.DataBind();
+        //while (ProgramDropDown.SelectedValue == "0")
+        //{
+        //    MessageUserControl.ShowInfo("You must select a program");
+        //}
+      
+        //int programid;
+        //int semester;
+        //bool switchProgram;
 
-        if (CurrentStudent.Checked == true && int.TryParse(ProgramDropDown.SelectedValue, out programid) && int.TryParse(SemesterDropDown.SelectedValue, out semester))
-        {
-            programid = int.Parse(ProgramDropDown.SelectedValue);
-            semester = int.Parse(SemesterDropDown.SelectedValue);
-            if (ChangeProgram.Checked == true)
-            {
-                switchProgram = true;
-            }
-            else
-            {
-                switchProgram = false;
-            }
-        }
+        //if (CurrentStudent.Checked == true && int.TryParse(ProgramDropDown.SelectedValue, out programid) && int.TryParse(SemesterDropDown.SelectedValue, out semester))
+        //{
+        //    programid = int.Parse(ProgramDropDown.SelectedValue);
+        //    semester = int.Parse(SemesterDropDown.SelectedValue);
+        //    if (ChangeProgram.Checked == true)
+        //    {
+        //        switchProgram = true;
+        //    }
+        //    else
+        //    {
+        //        switchProgram = false;
+        //    }
+        //}
     }
     /*protected void onPreviousClick(object sender, EventArgs e)
     {
@@ -337,9 +347,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         results.Visible = false;
         stepOne.Visible = true;
         //add code to reset all fields for steps 1 -3
-        foreach (GridViewRow row in PrefQuestions.Rows)
+
+       
+
+        foreach (ListItem item in PrefQuestions.Items)
         {
-            (row.FindControl("RBL_YN") as RadioButtonList).SelectedValue = "1";
+            item.Selected = true;
         }
         foreach (ListItem item in CB_CourseList.Items)
         {

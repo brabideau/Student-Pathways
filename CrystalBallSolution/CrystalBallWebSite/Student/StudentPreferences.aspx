@@ -10,7 +10,7 @@
     <div id="stepOne" runat="server" visible="true">
     <h1>Select the Courses You've Taken</h1>
         <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
-        <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" RepeatColumns="4" CellPadding="5" CssClass="courseCSS">
+        <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" CssClass="courseCSS clearfix">
         </asp:CheckBoxList>
 
             <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
@@ -21,8 +21,9 @@
         <div runat="server" id="stepTwo" visible="false">
         <h1>Your Preferences</h1>
             <p>This will help us match you with programs you might enjoy!</p>
-          
-            <asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
+          <asp:CheckBoxList ID="PrefQuestions" runat="server" DataSourceID="QuestionDataSource" DataTextField="Description" DataValueField="QuestionID" CssClass="prefQuestionsCSS clearfix">
+        </asp:CheckBoxList>
+            <%--<asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
                 <Columns>
                     <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID"></asp:BoundField>
                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
@@ -33,14 +34,16 @@
                                 <asp:ListItem Value ="True">Yes</asp:ListItem>
                                 <asp:ListItem Value ="False">No</asp:ListItem>
                             </asp:DropDownList> -->
-                            <asp:RadioButtonList ID="RBL_YN" runat="server" CssClass="radioButtonList">
+                           <%-- <asp:RadioButtonList ID="RBL_YN" runat="server" CssClass="radioButtonList">
                                 <asp:ListItem Value="1" Selected="True">Yes</asp:ListItem>
                                 <asp:ListItem Value="0">No</asp:ListItem>
                             </asp:RadioButtonList>
+                            
+                            <asp:CheckBox ID="RBL_YN" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-            </asp:GridView>
+            </asp:GridView>--%>
             <asp:LinkButton ID="stepTwoPrevious" runat="server" OnClick="stepTwoPrevious_Click" CssClass ="button back">Previous</asp:LinkButton>
             <asp:LinkButton ID="stepTwoNext" runat="server" OnClick="stepTwoNext_Click" CssClass="button next">Next</asp:LinkButton>
             </div>
