@@ -736,6 +736,7 @@ footer {
     margin: 2.5%;
     min-width: 300px;
     height: 350px;
+    box-sizing: border-box;
 }
 
 .program-search-results td {
