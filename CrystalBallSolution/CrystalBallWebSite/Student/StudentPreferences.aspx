@@ -105,7 +105,8 @@
                               DataSourceID="SelectProgramODB" 
                               DataTextField="ProgramName" 
                               DataValueField="ProgramID"
-                              AppendDataBoundItems="True" >
+                              AppendDataBoundItems="True"
+                              OnSelectedIndexChanged="List_Change" >
                 <%--<asp:ListItem  Value=-1 Text="[---------------]" />--%>
                 <asp:ListItem  Value=0 Text="[Select All]" />
 
