@@ -115,6 +115,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //        Convert.ToInt32(item.Value),
             //        item.Selected));
             //}
+            foreach (GridViewRow row in prefGridView.Rows)
+            {
+                myPreferences.Add(new StudentPreference(
+                   Convert.ToInt32(row.Cells[0].Text),
+                   Convert.ToInt32((row.FindControl("prefSelection") as RadioButtonList).SelectedValue))
+                   );
+            }
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
             //{

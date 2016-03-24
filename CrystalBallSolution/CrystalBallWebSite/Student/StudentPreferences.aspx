@@ -45,6 +45,7 @@
         </asp:RadioButtonList>
             <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
                 <Columns>
+                    <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID" Visible="False" />
                     <asp:BoundField DataField="Description" HeaderText="Questions" SortExpression="Description" />
                     <asp:TemplateField AccessibleHeaderText="Preference">
                         <ItemTemplate>
