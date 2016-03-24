@@ -132,20 +132,40 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                var result = from x in context.Programs
-                             where programid.Contains(x.ProgramID)
+                //var result = from x in context.Programs
+                //             where programid.Contains(x.ProgramID)
+                //             select new GetCourseCredits
+                //             {
+                //                 ProgramID = x.ProgramID,
+                //                 ProgramName = x.ProgramName,
+                //                 ProgramDescription = x.ProgramDescription,
+                //                 ProgramLink = x.ProgramLink,
+                //                 Credits = (from c in x.ProgramCourses
+                //                            from ce in context.CourseEquivalencies
+                //                            where courseid.Contains(c.CourseID) || (courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID)
+                //                            select (double?)c.NaitCourse.CourseCredits).Sum()
+                //             };
+
+                var result = from p in context.Programs
+                             where programid.Contains(p.ProgramID)
                              select new GetCourseCredits
                              {
-                                 ProgramID = x.ProgramID,
-                                 ProgramName = x.ProgramName,
-                                 ProgramDescription = x.ProgramDescription,
-                                 ProgramLink = x.ProgramLink,
-                                 Credits = (from c in x.ProgramCourses
-                                            from ce in context.CourseEquivalencies
-                                            where courseid.Contains(c.CourseID) || (courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID)
-                                            select (double?)c.NaitCourse.CourseCredits).Sum()
-                             };
+                                 ProgramID = p.ProgramID,
+                                 ProgramName = p.ProgramName,
+                                 ProgramDescription = p.ProgramDescription,
+                                 ProgramLink = p.ProgramLink,
+                                 CredType = (from d in context.CredentialTypes
+                                                 where p.CredentialTypeID == d.CredentialTypeID
+                                                 select d.CredentialTypeName).FirstOrDefault(),
+                                 Credits = (from x in
+                                                (from ce in context.CourseEquivalencies
+                                                 from c in p.ProgramCourses
+                                                 where courseid.Contains(c.CourseID) || courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
+                                                 select c.NaitCourse).Distinct()
+                                            select (double?)x.CourseCredits).Sum()
 
+                             };
+			
 
                 return result.ToList();
             }
