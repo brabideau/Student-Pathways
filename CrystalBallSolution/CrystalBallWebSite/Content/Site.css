@@ -738,6 +738,7 @@ footer {
       float: left;
       background-color: #113e68;
       color: #ebf3f9;
+      font-size: .9em;
       width: 46%;
       height: 100px;
       margin: 2%;
@@ -746,18 +747,24 @@ footer {
       position: relative;
    }
 
-  .inner-rpt-div input {
-      float: right;
-      position: absolute;
-      bottom: 5px;
-      right: 15px;
-  }
-
   .inner-rpt-div span {
       display: block;
+      margin: 5px 0;
   }
 
+  .inner-rpt-div h6 {
+      margin-bottom: 0;
+  }
 
+  .inner-rpt-div a {
+      float: left;
+      background-color: #ebf3f9;
+      padding: 3px;
+      border-radius: 2px;
+  }
+   .inner-rpt-div a:hover {
+       background-color: #ffffff;
+   }
 
    /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
 
