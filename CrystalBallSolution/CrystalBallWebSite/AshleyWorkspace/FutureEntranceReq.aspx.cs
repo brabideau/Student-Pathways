@@ -59,7 +59,7 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
         testController sysmgr = new testController();
         int entReqID = Convert.ToInt32(LV_SubjectReq.DataKeys[e.RowIndex].Value);
         int programID = 2046;
-        sysmgr.Equivalency_Delete(entReqID);
+        sysmgr.ER_Delete(entReqID);
         LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
         LV_SubjectReq.DataBind();
     }

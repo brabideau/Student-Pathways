@@ -19,8 +19,7 @@ namespace CrystalBallSystem.DAL.Entities
         [Required]
         public int SubjectRequirementID { get; set; }
 
-        [Required]
-        public int ProgramID { get; set; }
+        public int? ProgramID { get; set; }
         
         public int? RequiredMark { get; set; }
 

@@ -56,47 +56,110 @@
 
     <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
-    <div runat="server" id="EntranceRequirements" visible="false" class="clearfix">
+    <div runat="server" id="EntranceRequirements" class="clearfix">
 
         <p>What high school courses does this program require?</p>
-        <asp:ListView ID="LV_SubjectReq" runat="server">
-            <LayoutTemplate>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th runat="server">Subject</th>
-                        <th runat="server">Courses</th>
-                    </tr>
-                    <tr id="itemPlaceholder" runat="server"></tr>
-                </table>
-            </LayoutTemplate>        
-            <ItemTemplate>
-                <tr>
-                    <td>
-                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Eval("SubjectRequirementID") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Eval("SubjectDescription") %>' />
-                    </td>
-                    <td>
-                        <asp:GridView ID="GV_EntranceReqs" runat="server" OnRowDeleting="GV_EntranceReqs_RowDeleting" DataKeyNames="CourseID">
-                            <Columns>
-                                <asp:ButtonField Text="Remove" CommandName="Delete"/>
-                            </Columns>          
+        <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
+            <Columns>
+                <asp:TemplateField HeaderText="Entrance Requirement ID" Visible="false">
+                    <ItemTemplate>
+                        <asp:Label ID="EntranceIDLabel" runat="server" Text='<%# Item.EntranceReqID %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField> 
+                <asp:TemplateField HeaderText="Subject Requirement ID" Visible="false">
+                    <ItemTemplate>
+                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Item.SubjectReqID %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField> 
+                <asp:TemplateField HeaderText="Subject Description">
+                    <ItemTemplate>
+                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Item.SubjectDesc %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Course Code">
+                    <ItemTemplate>
+                        <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.HSCourseCode %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mark">
+                    <ItemTemplate>
+                        <asp:Label ID="MarkLabel" runat="server" Text='<%# Item.HSCourseMark %>' />
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                <asp:ButtonField Text="Remove" CommandName="Delete"/>                
+            </Columns>               
+
+            <EmptyDataTemplate>
+                No Existing Entrance Requirements.
+            </EmptyDataTemplate>
             
-                            <EmptyDataTemplate>
-                                No Existing Entrance Requirements.
-                            </EmptyDataTemplate>
-                        </asp:GridView>
-                    </td>
-                </tr>
-            </ItemTemplate>
-        </asp:ListView>
+        </asp:GridView>
 
+        <div id="addRequirement" runat="server">
+            <!--Dropdown to select SubjectDescription and prepopulate gridview-->
+            <asp:DropDownList ID="DL_SubjDesc" runat="server" DataSourceID="ODS_SubjectRequirement" DataTextField="SubjectDescription" DataValueField="SubjectRequirementID" AppendDataBoundItems="true">
+                <asp:ListItem Value="0">[Create New Subject Requirement]</asp:ListItem>
+            </asp:DropDownList>
+            <asp:TextBox ID="SubReqDesc" runat="server" Visible="false" />
+            <asp:LinkButton ID="SubjectButton" runat="server" OnClick="SubjectButton_Click">Select</asp:LinkButton>
+        </div>
 
+        <div id="prePopulatedER" runat="server" visible="false">
+            <!--Pre-Populated Course Gridview-->
+            <asp:GridView ID="GV_NewEntrReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetEntranceReq" DataKeyNames="HSCourseID" OnSelectedIndexChanging="GV_NewEntrReq_SelectedIndexChanging">
+                <Columns>
+                    <asp:TemplateField HeaderText="Course ID" Visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="ID" runat="server" Text='<%# Item.HSCourseID %>' Visible="false"/>
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="Course">
+                        <ItemTemplate>
+                            <asp:Label ID="Course" runat="server" Text='<%# Item.HSCourseName %>' />
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="Mark (Optional)">
+                        <ItemTemplate>
+                            <asp:TextBox ID="Mark" runat="server" Width="50px" Text=<%# Item.Mark %> />
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+                    <asp:ButtonField Text="Remove" CommandName="Select"/>                
+                </Columns>
+            </asp:GridView>
+            <asp:LinkButton ID="addPPSubjectButton" runat="server" OnClick="addPPSubjectButton_Click">Add Requirement</asp:LinkButton>
+        </div>
 
+        <div id="manualER" runat="server" visible="true">
+            <asp:GridView ID="GV_ManualNewEntrReq" runat="server" AutoGenerateColumns="False" OnRowDeleting="GV_ManualNewEntrReq_RowDeleting" ShowFooter="true">            
+                <Columns>
+                    <asp:BoundField DataField="RowNumber" Visible="false"/>
+                    <asp:TemplateField HeaderText="Course">
+                        <FooterTemplate>
+                            <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
+                                OnClick="AddNew_Click" CssClass="wizard-course-buttons hvr-ripple-out add-align"  
+                                CausesValidation="false">Add Alternative Course</asp:LinkButton>
+                        </FooterTemplate>   
+                        <ItemTemplate>
+                            <asp:DropDownList ID="DL_Course" runat="server" DataSourceID="CourseList"
+                                            DataTextField="HighSchoolCourseDescription"
+                                            DataValueField="HighSchoolCourseID"
+                                            AppendDataBoundItems="True">
+                                            <asp:ListItem Value="">Select a Course</asp:ListItem>
+                            </asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Mark (Optional)">                                
+                        <ItemTemplate>
+                            <asp:TextBox ID="Marks" runat="server" Width="50px" />                            
+                        </ItemTemplate>
+                    </asp:TemplateField>                               
+                    <asp:CommandField ShowDeleteButton="True" />                
+                </Columns>
+            </asp:GridView>
+            <asp:LinkButton ID="addMSubjectButton" runat="server" OnClick="addMSubjectButton_Click">Add Requirement</asp:LinkButton>
+        </div>
 
-         <p>Does entry to this program require any previous post-secondary work?</p>
+        <%-- <p>Does entry to this program require any previous post-secondary work?</p>
 
          <asp:ListView ID="LV_DegreeEntranceReq" runat="server">
         <LayoutTemplate>
@@ -133,7 +196,7 @@
                 </tr>
             </ItemTemplate>
     </asp:ListView>
-         <asp:LinkButton ID="EntranceReq_Save" runat="server" OnClick="Save_EntranceReq" CssClass="button next button-long">Save & Continue</asp:LinkButton>
+         <asp:LinkButton ID="EntranceReq_Save" runat="server" OnClick="Save_EntranceReq" CssClass="button next button-long">Save & Continue</asp:LinkButton>--%>
      </div>
 
 
@@ -426,24 +489,22 @@
         </asp:GridView>    
 
         <div runat="server" id="addNewEquivalency" visible="true"  CssClass="add-equivalency-block">
-        <p class="clearfix"><asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID:" CssClass="label col-3"></asp:Label>
+        <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID:" CssClass="label col-3"></asp:Label>
         <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
-            DataTextField="CourseCode" DataValueField="CourseCode" AppendDataBoundItems="true" CssClass="col-2">
-             <asp:ListItem Value="-1">[Select Course Code]</asp:ListItem>
+            DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-2">
+             <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
         </asp:DropDownList>
-        <asp:Label ID="CurrentCourseName" runat="server"></asp:Label>
-        <asp:Label ID="CurrentCourseID" runat="server" Visible="false"></asp:Label>
-        </p>
-        <p class="clearfix">
-        <asp:Label ID="EmptyEquivalent" runat="server" Text="Equivalent Course Code:"  CssClass="label col-3"></asp:Label>
-        <asp:TextBox ID="EmptyEquivalentTextBox" runat="server" CssClass="col-3"></asp:TextBox>
-        <asp:Label ID="EquivalentCourseName" runat="server"></asp:Label>
-        <asp:Label ID="EquivalentCourseID" runat="server" Visible="false"></asp:Label>
-        </p>
+        
+        <asp:Label ID="EmptyEquivalent" runat="server" Text="Program: "  CssClass="label col-3"></asp:Label>
+        <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" CssClass="col-3" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true">
+            <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
+        </asp:DropDownList>
+        <asp:Label ID="EquivalentCourseName" runat="server" Text="Course: "></asp:Label>
+        <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true">
+            <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
+        </asp:DropDownList>
             <p class="clearfix">
-        <asp:LinkButton ID="CheckIDs" runat="server" OnClick="CheckIDs_Click" CssClass="button button-long submit">Check Equivalency</asp:LinkButton>
-        <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="button button-long next" Enabled="false">Enter Equivalency</asp:LinkButton>
-        <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click"  CssClass="button button-long back">Cancel</asp:LinkButton>
+        <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="button button-long next">Enter Equivalency</asp:LinkButton>
              </p>
     </div>
 
@@ -554,6 +615,16 @@
         </SelectParameters>
     </asp:ObjectDataSource>
 
+    <asp:ObjectDataSource ID="ProgramODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_All_Programs" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+    
+    <asp:ObjectDataSource ID="CourseByProgramODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByProgram" TypeName="CrystalBallSystem.BLL.AdminController">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="EmptyEquivalentProgram" Name="programID" PropertyName="SelectedValue" Type="Int32" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
+
+    <asp:ObjectDataSource ID="ODS_SubjectRequirement" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_SubjectRequirements" TypeName="CrystalBallSystem.BLL.testController"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
 </asp:Content>
 
 

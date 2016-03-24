@@ -15,7 +15,8 @@ namespace CrystalBallSystem.BLL
     [DataObject]
     public class testController
     {
-        #region EquivalentCourses
+        #region Equivalencies
+        #region List Equivalent Courses
         //List Equivalent Courses
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all categories
@@ -39,60 +40,25 @@ namespace CrystalBallSystem.BLL
             }
         }
         #endregion
+        #endregion
 
         #region Entrance Requirements
-        //for already existing entrance requirements
+        #region Delete Entrance Requirements
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public void Equivalency_Delete(int entReqID)
+        public void ER_Delete(int entReqID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                //lookup the instance and record if found (set pointer to instance)
                 EntranceRequirement existing = context.EntranceRequirements.Find(entReqID);
 
-                //setup the command to execute the delete
                 context.EntranceRequirements.Remove(existing);
-                //command is not executed until it is actually saved.
                 context.SaveChanges();
             }
         }
-        
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<SubjectRequirementAndCourses> Get_SubjectReq_ByProgram(int programID)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
+        #endregion        
 
-                var result = (from x in context.EntranceRequirements
-                              where x.ProgramID == programID
-                              orderby x.SubjectRequirementID
-                              select new SubjectRequirementAndCourses
-                              {
-                                  EntranceReqID = x.EntranceRequirementID,
-                                  SubjectReqID = x.SubjectRequirementID,
-                                  SubjectDesc = x.SubjectRequirement.SubjectDescription,
-                                  HSCourseCode = (from hs in context.HighSchoolCourses
-                                                     where x.HighSchoolCourseID == hs.HighSchoolCourseID
-                                                     select hs.HighSchoolCourseName).FirstOrDefault(),
-                                  HSCourseMark = (from hs in context.HighSchoolCourses
-                                                  where x.HighSchoolCourseID == hs.HighSchoolCourseID
-                                                  select x.RequiredMark).FirstOrDefault() == null ? 0 : (from hs in context.HighSchoolCourses
-                                                  where x.HighSchoolCourseID == hs.HighSchoolCourseID
-                                                  select x.RequiredMark).FirstOrDefault()          
-                              }).GroupBy(a => a.EntranceReqID);
-                
-                List<SubjectRequirementAndCourses> SRC = new List<SubjectRequirementAndCourses>();
-                foreach (var item in result)
-                {
-                    SRC.Add(item.FirstOrDefault());
-                }
-                return SRC.ToList();
-            }
-        }
-
-        //for new entrance requirements
+        #region Add Entrance Requirement Manual
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        // Adds the supplied category to the database
         public void AddEntranceRequirement(List<AddEntranceRequirements> er)
         {
             using (CrystalBallContext context = new CrystalBallContext())
@@ -113,6 +79,46 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
+        #region Add Entrance Requirement no Program ID
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddEntranceRequirementNPID(int hsID, int srID, int mark)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                EntranceRequirement data = null;
+                data = context.EntranceRequirements.Add(new EntranceRequirement()
+                {
+                    ProgramID = null,
+                    HighSchoolCourseID = hsID,
+                    SubjectRequirementID = srID,
+                    RequiredMark = mark
+                });
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Add Entrance Requirement - No Program ID, No Mark
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddEntranceRequirement_NPIDNM(int hsID, int srID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                EntranceRequirement data = null;
+                data = context.EntranceRequirements.Add(new EntranceRequirement()
+                {
+                    ProgramID = null,
+                    HighSchoolCourseID = hsID,
+                    SubjectRequirementID = srID,
+                    RequiredMark = null
+                });
+                context.SaveChanges();
+            }
+        }
+        #endregion
+        #endregion
+
+        #region Subject Requirements
         #region List Subject Requirements
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Adds the supplied category to the database
@@ -121,6 +127,41 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 return context.SubjectRequirements.OrderBy(x => x.SubjectDescription).ToList();
+            }
+        }
+        #endregion
+
+        #region List Subject Requirements in Program
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<SubjectRequirementAndCourses> Get_SubjectReq_ByProgram(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                var result = (from x in context.EntranceRequirements
+                              where x.ProgramID == programID
+                              orderby x.SubjectRequirementID
+                              select new SubjectRequirementAndCourses
+                              {
+                                  EntranceReqID = x.EntranceRequirementID,
+                                  SubjectReqID = x.SubjectRequirementID,
+                                  SubjectDesc = x.SubjectRequirement.SubjectDescription,
+                                  HSCourseCode = (from hs in context.HighSchoolCourses
+                                                  where x.HighSchoolCourseID == hs.HighSchoolCourseID
+                                                  select hs.HighSchoolCourseName).FirstOrDefault(),
+                                  HSCourseMark = (from hs in context.HighSchoolCourses
+                                                  where x.HighSchoolCourseID == hs.HighSchoolCourseID
+                                                  select x.RequiredMark).FirstOrDefault() == null ? 0 : (from hs in context.HighSchoolCourses
+                                                                                                         where x.HighSchoolCourseID == hs.HighSchoolCourseID
+                                                                                                         select x.RequiredMark).FirstOrDefault()
+                              }).GroupBy(a => a.EntranceReqID);
+
+                List<SubjectRequirementAndCourses> SRC = new List<SubjectRequirementAndCourses>();
+                foreach (var item in result)
+                {
+                    SRC.Add(item.FirstOrDefault());
+                }
+                return SRC.ToList();
             }
         }
         #endregion
@@ -162,6 +203,22 @@ namespace CrystalBallSystem.BLL
                 return data.SubjectRequirementID;
             }
         }
+        #endregion
+
+        #region Delete Subject Requirement
+        //WON'T WORK IF SUBJECT REQUIREMENT IS BEGIN USED - CHANGE TO ARCHIVE?
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void SR_Delete(int sReqID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                SubjectRequirement existing = context.SubjectRequirements.Find(sReqID);
+
+                context.SubjectRequirements.Remove(existing);
+                context.SaveChanges();
+            }
+        }
+        #endregion
         #endregion
     }
 }
