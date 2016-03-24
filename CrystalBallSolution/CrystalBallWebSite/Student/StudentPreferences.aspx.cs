@@ -13,6 +13,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     DataTable CoursesSelected;
     List<int> finalResults;
     List<GetCourseCredits> completeResults;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -54,6 +55,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 pCol[0] = CourseID;
                 CoursesSelected.PrimaryKey = pCol;
                 ViewState["CoursesSelected"] = CoursesSelected;
+
+                ViewState["BackupTable"] = CoursesSelected;
             }
             else
             {
@@ -357,6 +360,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     //=============4
     protected void stepFourPrevious_Click(object sender, EventArgs e)
     {
+        //clear the repeater
+        DataTable BackupTable = (DataTable)ViewState["BackupTable"];
+        Session["CoursesSelected"] = BackupTable;
+        ViewState["CoursesSelected"] = BackupTable;
+
+        CoursesSelected = null;
+        CourseGridView.DataSource = null;
+        CourseGridView.DataBind();
+        rptCourse.DataBind();
+        TotalCourseLabel.Text = "Total courses : 0";
         stepFour.Visible = false;
         stepThree.Visible = true;
     }
@@ -469,8 +482,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void reset_Click(object sender, EventArgs e)
     {
-        //Session["CoursesSelected"] = null;
-        //ViewState["CoursesSelected"] = null;
+        DataTable BackupTable = (DataTable)ViewState["BackupTable"];
+        Session["CoursesSelected"] = BackupTable;
+        ViewState["CoursesSelected"] = BackupTable;
+
         CoursesSelected = null;
         CourseGridView.DataSource = null;
         CourseGridView.DataBind();
