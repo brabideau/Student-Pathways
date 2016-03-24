@@ -11,6 +11,6 @@ namespace CrystalBallSystem.DAL.POCOs
         public int ProgramID { get; set; }
         public int QuestionID { get; set; }
         public string Question { get; set; }
-        public bool Answer { get; set; }
+        public int Answer { get; set; }
     }
 }

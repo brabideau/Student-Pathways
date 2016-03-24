@@ -460,24 +460,24 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
                 var idbox = GV_Questions.Rows[i].FindControl("QuestionID") as Label;
                 q_ID = Convert.ToInt32(idbox.Text);
                 
-                if (questionAns.Contains(q_ID))
-                {
-                question = (from x in progQuestions
-                            where x.QuestionID == q_ID
-                            select x).FirstOrDefault();
+                //if (questionAns.Contains(q_ID))
+                //{
+                //question = (from x in progQuestions
+                //            where x.QuestionID == q_ID
+                //            select x).FirstOrDefault();
 
-                    if (question != null)
-                    {
-                        if (question.Answer == true)
-                        {
-                            DL_List.SelectedValue = "Yes";
-                        }
-                        else
-                        {
-                            DL_List.SelectedValue = "No";
-                        }
-                    }
-                }
+                //    if (question != null)
+                //    {
+                //        if (question.Answer == true)
+                //        {
+                //            DL_List.SelectedValue = "Yes";
+                //        }
+                //        else
+                //        {
+                //            DL_List.SelectedValue = "No";
+                //        }
+                //    }
+                //}
 
             }
         }

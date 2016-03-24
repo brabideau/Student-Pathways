@@ -70,7 +70,7 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
         programPreference.QuestionID = int.Parse(questionId.Text);
         programPreference.Question = question.Text;
       
-        programPreference.Answer = Convert.ToBoolean(answer.SelectedValue);
+        programPreference.Answer = Convert.ToInt32(answer.SelectedValue);
 
 
         sysmr.UpdateProgramPreferenceQuestion(programPreference);
@@ -107,7 +107,7 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
 
         newQuestion.QuestionID = questionId;
         newQuestion.ProgramID = proId;
-        newQuestion.Answer= Convert.ToBoolean(answer.SelectedValue);
+        newQuestion.Answer= Convert.ToInt32(answer.SelectedValue);
        
             
         if (questionId != 0)

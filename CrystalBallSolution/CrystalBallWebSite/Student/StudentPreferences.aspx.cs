@@ -109,12 +109,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //step 2 - Gather the answers to the student preference questions
             List<StudentPreference> myPreferences = new List<StudentPreference>();
 
-            foreach (ListItem item in PrefQuestions.Items)
-            {
-                myPreferences.Add(new StudentPreference(
-                    Convert.ToInt32(item.Value),
-                    item.Selected));
-            }
+            //foreach (ListItem item in PrefQuestions.Items)
+            //{
+            //    myPreferences.Add(new StudentPreference(
+            //        Convert.ToInt32(item.Value),
+            //        item.Selected));
+            //}
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
             //{
