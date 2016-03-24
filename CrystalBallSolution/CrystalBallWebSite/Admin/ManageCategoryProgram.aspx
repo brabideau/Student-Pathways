@@ -4,9 +4,11 @@
     <asp:Label ID="Label1" runat="server" Text="Find your Program: "></asp:Label>
     <asp:TextBox ID="InputTextbox" runat="server"></asp:TextBox>
     in
-    <asp:DropDownList ID="CategoryDropDowList" runat="server" DataSourceID="ODSCategories" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
+    <asp:DropDownList ID="CategoryDropDowList" runat="server" DataSourceID="ODSCategories" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
+        <asp:ListItem Value="0">[All Categories]</asp:ListItem>
+    </asp:DropDownList>
     <asp:Button ID="SearchButton" runat="server" Text="Search" OnClick="SearchButton_Click" />
-    <asp:ListView ID="ProgramListView" runat="server" DataKeyNames="ProgramID" OnSelectedIndexChanging="ProgramListView_SelectedIndexChanging">       
+    <asp:ListView ID="ProgramListView" runat="server" OnSelectedIndexChanging="ProgramListView_SelectedIndexChanging" DataKeyNames="ProgramID">       
         
         <EmptyDataTemplate>
             <table runat="server" style="">
@@ -30,11 +32,7 @@
                     <td runat="server">
                         <table id="itemPlaceholderContainer" runat="server" border="0" style="">
                             <tr runat="server" style="">
-                                <th runat="server">ProgramID</th>
-                                <th runat="server">ProgramName</th>
-
-                            </tr>
-                            <tr id="itemPlaceholder" runat="server">
+                                <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server">
                             </tr>
                         </table>
                     </td>
@@ -52,8 +50,7 @@
                 <td>
                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                         <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                    </asp:LinkButton></td></tr></SelectedItemTemplate></asp:ListView>
-    <asp:ListView ID="categoryListview" runat="server">
+                    </asp:LinkButton></td></tr></SelectedItemTemplate></asp:ListView><asp:ListView ID="categoryListview" runat="server">
         <AlternatingItemTemplate>
             <tr style="">
                 <td><asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' /></td>
@@ -120,8 +117,7 @@
         </LayoutTemplate>
     </asp:ListView>
     <asp:ObjectDataSource ID="ODSCategories" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="ODSFindProgram" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Program_Search" TypeName="CrystalBallSystem.BLL.AdminController">
-        <SelectParameters>
+    <asp:ObjectDataSource ID="ODSFindProgram" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="findProgram" TypeName="CrystalBallSystem.BLL.AdminController"><SelectParameters>
             <asp:ControlParameter ControlID="CategoryDropDowList" Name="searchTerm" PropertyName="SelectedValue" Type="String" />
             <asp:Parameter Name="catID" Type="Int32" />
         </SelectParameters>

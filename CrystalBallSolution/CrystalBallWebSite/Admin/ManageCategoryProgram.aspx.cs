@@ -23,7 +23,7 @@ public partial class Admin_ManageCategoryProgram : System.Web.UI.Page
         AdminController sysmr = new AdminController();
 
 
-        ProgramListView.DataSource = sysmr.Program_Search(typeIn, category);
+        ProgramListView.DataSource = sysmr.findProgram(typeIn, category);
         ProgramListView.DataBind();
       
     }

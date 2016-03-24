@@ -303,6 +303,35 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all categories
+        public List<Program> findProgram(string searchTerm, int catID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                List<Program> results = new List<Program> { };
+
+                if (catID == 0 && searchTerm != null)
+                {
+                    results = (from p in context.Programs
+                               where p.ProgramName.Contains(searchTerm)
+                               select p).ToList();
+                }
+                else if (catID != 0 && searchTerm == null)
+                {
+                    results = (context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == catID))).ToList();
+                }
+                else
+                {
+                    results = (from p in context.Programs
+                               select p).ToList();
+                }
+
+                return results;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<Category> GetCategoryByProgram(int programid)
         {
             using (CrystalBallContext context = new CrystalBallContext())

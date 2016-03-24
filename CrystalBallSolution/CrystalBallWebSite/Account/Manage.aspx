@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <section id="passwordForm">
+            <section id="passwordForm" class="form-group">
                 <asp:PlaceHolder runat="server" ID="setPassword" Visible="false">
                     <p>
                         You do not have a local password for this site. Add a local
@@ -58,7 +58,7 @@
                 </asp:PlaceHolder>
 
                 <asp:PlaceHolder runat="server" ID="changePasswordHolder" Visible="false">
-                    <p>You're logged in as <strong><%: User.Identity.GetUserName() %></strong>.</p>
+                    
                     <div class="form-horizontal">
                         <h4>Change Password Form</h4>
                         <asp:ValidationSummary runat="server" ShowModelStateErrors="true" CssClass="text-danger" />
@@ -92,44 +92,16 @@
                                     ValidationGroup="ChangePassword" />
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="search-bar">
                             <div class="col-md-offset-2 col-md-10">
-                                <asp:Button runat="server" Text="Change password" OnClick="ChangePassword_Click" CssClass="btn btn-default" ValidationGroup="ChangePassword" />
+                                <asp:LinkButton runat="server" Text="Change password" OnClick="ChangePassword_Click" CssClass="button submit" Width="200px" ValidationGroup="ChangePassword" />
                             </div>
                         </div>
                     </div>
                 </asp:PlaceHolder>
             </section>
 
-            <section id="externalLoginsForm">
-
-                <asp:ListView runat="server"
-                    ItemType="Microsoft.AspNet.Identity.UserLoginInfo"
-                    SelectMethod="GetLogins" DeleteMethod="RemoveLogin" DataKeyNames="LoginProvider,ProviderKey">
-
-                    <LayoutTemplate>
-                        <h4>Registered Logins</h4>
-                        <table class="table">
-                            <tbody>
-                                <tr runat="server" id="itemPlaceholder"></tr>
-                            </tbody>
-                        </table>
-
-                    </LayoutTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td><%#: Item.LoginProvider %></td>
-                            <td>
-                                <asp:Button runat="server" Text="Remove" CommandName="Delete" CausesValidation="false"
-                                    ToolTip='<%# "Remove this " + Item.LoginProvider + " login from your account" %>'
-                                    Visible="<%# CanRemoveExternalLogins %>" CssClass="btn btn-default" />
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:ListView>
-
-                <uc:openauthproviders runat="server" returnurl="~/Account/Manage" />
-            </section>
+            
 
         </div>
     </div>
