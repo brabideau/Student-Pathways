@@ -43,17 +43,17 @@
 
               </asp:ListItem>
         </asp:RadioButtonList>
-            <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False">
+            <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
                 <Columns>
-                    <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                    <asp:BoundField DataField="Description" HeaderText="Questions" SortExpression="Description" />
                     <asp:TemplateField AccessibleHeaderText="Preference">
                         <ItemTemplate>
-                        <asp:RadioButtonList ID="prefSelection" runat="server" RepeatDirection="Horizontal" TextAlign="Left">
-                            <asp:ListItem Text="1" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="2" Value="2"></asp:ListItem>
-                            <asp:ListItem Text="3" Value="3"></asp:ListItem>
-                            <asp:ListItem Text="4" Value="4"></asp:ListItem>
-                            <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                        <asp:RadioButtonList ID="prefSelection" runat="server" RepeatLayout="OrderedList">
+                            <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem>
+                            <asp:ListItem Value="2" Text="No"></asp:ListItem>
+                            <asp:ListItem Value="3" Text="Don't Know" Selected="true"></asp:ListItem>
+                            <asp:ListItem Value="4" Text="Yes"></asp:ListItem>
+                            <asp:ListItem Value="5" Text="Definitely"></asp:ListItem>
                         </asp:RadioButtonList>
                         </ItemTemplate>
                     </asp:TemplateField>

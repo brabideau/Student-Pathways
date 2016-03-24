@@ -605,9 +605,43 @@ footer {
     vertical-align: middle;
 }
 
+.prefQuestionsCSS td {
+    display: block;
+    width: 200%;
+    position: relative;
+    left: -50%;
+}
 
+.prefQuestionsCSS td:nth-child(2) {
+    text-align: center;
+    margin-bottom: 2.5em;
+}
 
-.prefQuestionsCSS input[type="checkbox"] {
+.prefQuestionsCSS td:nth-child(2) li {
+    float: left;
+    width: 19%;
+    margin: 0 .5%;
+    font-size: 1.1em;
+}
+
+.prefQuestionsCSS input[type="radio"]{
+    display: none;
+}
+
+.prefQuestionsCSS input[type="radio"] +label {
+    display: inline-block ;
+    background-color: #ebf3f9;
+    color: #113e68;
+    width: 100%;
+    cursor: pointer;
+}
+
+.prefQuestionsCSS input[type="radio"]:checked +label {
+    background-color: #113e68;
+    color: #ebf3f9;
+}
+
+/*.prefQuestionsCSS input[type="checkbox"] {
     display: none;
 }
 
@@ -627,7 +661,7 @@ footer {
 .prefQuestionsCSS input[type="checkbox"]:checked + label::after {
     background-color: rgba(41,128,185,.3);
     content: 'Yes';
-}
+}*/
 
 
 
