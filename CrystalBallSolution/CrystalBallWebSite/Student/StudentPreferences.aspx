@@ -21,8 +21,44 @@
         <div runat="server" id="stepTwo" visible="false">
         <h1>Your Preferences</h1>
             <p>This will help us match you with programs you might enjoy!</p>
-          <asp:CheckBoxList ID="PrefQuestions" runat="server" DataSourceID="QuestionDataSource" DataTextField="Description" DataValueField="QuestionID" CssClass="prefQuestionsCSS clearfix">
-        </asp:CheckBoxList>
+          <asp:RadioButtonList ID="PrefQuestions" 
+              runat="server" 
+              DataSourceID="QuestionDataSource" 
+              DataTextField="Description" 
+              DataValueField="QuestionID"
+              Visible="false">
+              <asp:ListItem Text="1" Value="1">
+
+              </asp:ListItem>
+              <asp:ListItem Text="2" Value="2">
+
+              </asp:ListItem>
+              <asp:ListItem Text="3" Value="3">
+
+              </asp:ListItem>
+              <asp:ListItem Text="4" Value="4">
+
+              </asp:ListItem>
+              <asp:ListItem Text="5" Value="5">
+
+              </asp:ListItem>
+        </asp:RadioButtonList>
+            <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                    <asp:TemplateField AccessibleHeaderText="Preference">
+                        <ItemTemplate>
+                        <asp:RadioButtonList ID="prefSelection" runat="server" RepeatDirection="Horizontal" TextAlign="Left">
+                            <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                            <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                        </asp:RadioButtonList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
             <%--<asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
                 <Columns>
                     <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID"></asp:BoundField>
@@ -52,7 +88,7 @@
 
             <asp:ObjectDataSource ID="QuestionDataSource"
                 SelectMethod="GetQuestions"
-                TypeName="crystalBallSystem.BLL.StudentController"
+                TypeName="CrystalBallSystem.BLL.StudentController"
                 runat="server" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
     <!-- step 3 - metrics / nait student questions -->
     <!--Get student's program information-->
@@ -106,7 +142,7 @@
                               DataTextField="ProgramName" 
                               DataValueField="ProgramID"
                               AppendDataBoundItems="True"
-                              OnSelectedIndexChanged="List_Change" >
+                              OnSelectedIndexChanged="List_Change" AutoPostBack="True" >
                 <%--<asp:ListItem  Value=-1 Text="[---------------]" />--%>
                 <asp:ListItem  Value=0 Text="[Select All]" />
 

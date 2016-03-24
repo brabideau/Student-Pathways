@@ -317,8 +317,30 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     }
                     ViewState["CoursesSelected"] = CoursesSelected;
 
+                    int count = 0;
+                    foreach (DataRow row1 in CoursesSelected.Rows)
+                    {
+                        count++;
+                    }
+                    ViewState["CoursesSelected"] = CoursesSelected;
+
                     rptCourse.DataSource = CoursesSelected;
                     rptCourse.DataBind();
+
+                    TotalCourseLabel.Text = "Total courses : " + count;
+                    for (int i = 0; i < CourseGridView.Rows.Count; i++)
+                    {
+                        CourseGridView.Rows[i].Font.Bold = false;
+                        for (int j = 0; j < CoursesSelected.Rows.Count; j++)
+                        {
+                            if (CourseGridView.DataKeys[i]["CourseID"].ToString() == CoursesSelected.Rows[j]["CourseID"].ToString())
+                            {
+                                CourseGridView.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
+                                CourseGridView.Rows[i].Font.Bold = true;
+                                CourseGridView.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
+                            }
+                        }
+                    }
                 }
                 //set drop down list to programid
                 //filter search results based on programid
@@ -328,8 +350,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 CourseGridView.DataSource = course.SearchNaitCourses(null, programID);
                 CourseGridView.DataBind();
                 CourseGridView.Visible = true;
-            }
-            //ADD CODE TO CHANGE THE COUNT OF COURSES ACCORDINGLY
+            }            
             stepFour.Visible = true;
         }
     }
@@ -438,8 +459,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void Search_Click(object sender, EventArgs e)
     {
-        CourseGridView.Visible = true;
+        SelectNaitCourseController course = new SelectNaitCourseController();
+        List<NAITCourse> courses = new List<NAITCourse>();
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, 0);
         CourseGridView.DataBind();
+        CourseGridView.Visible = true;
+        SearchTextBox.Text = null;
 
     }
     protected void reset_Click(object sender, EventArgs e)
