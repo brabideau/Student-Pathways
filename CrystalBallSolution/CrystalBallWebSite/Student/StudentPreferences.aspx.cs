@@ -378,6 +378,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     //should I be resetting the values when they click search again? It was mentioned that they wanted this stuff to be saved.
     protected void searchAgain_Click(object sender, EventArgs e)
     {
+        //clear the repeater
+        DataTable BackupTable = (DataTable)ViewState["BackupTable"];
+        Session["CoursesSelected"] = BackupTable;
+        ViewState["CoursesSelected"] = BackupTable;
+
+        CoursesSelected = null;
+        CourseGridView.DataSource = null;
+        CourseGridView.DataBind();
+        rptCourse.DataBind();
+        TotalCourseLabel.Text = "Total courses : 0";
         results.Visible = false;
         stepOne.Visible = true;
         //add code to reset all fields for steps 1 -3
