@@ -207,7 +207,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = new List<GetCourseCredits>();
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
-            
+
+            finalProgramResults = (from x in finalProgramResults.AsEnumerable()
+                                  where x.MatchPercent > 60
+                                  orderby x.MatchPercent descending
+                                  select x).ToList();
+
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();
 

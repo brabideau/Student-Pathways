@@ -245,15 +245,26 @@
                         <td>
                            <h3><asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' /></h3>
                         </td>
-                        <td>
-                           <asp:Label ID="MatchPercentLabel" runat="server" Text='<%# Eval("MatchPercent") %>' /> match
+                        <td class="clearfix">
+                            <ul>
+                                <li><asp:Label ID="MatchPercentLabel" runat="server" Text='<%# Eval("MatchPercent") %>' />% match</li>
+                                <li><asp:Label ID="CredentialTypeLabel" runat="server" Text='<%# Eval("CredType") %>' /></li>
+                            </ul>
                         </td>
                         <td>
-                           <asp:Label ID="CredentialTypeLabel" runat="server" Text='<%# Eval("CredType") %>' />
+                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label></td>
+                        <td>
+                           <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
                         </td>
                         <td>
-                           <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
+                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server"><span class="button submit button-long">Learn More</span></asp:HyperLink>
+
                         </td>
-                        <td>
-                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits in this program</asp:Label></td><td>
-                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server"><span class="button submit">More Info</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView><asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton></div></asp:Content>
+
+                    </tr>
+
+                </ItemTemplate>
+
+            </asp:ListView>
+            
+            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton></div></asp:Content>

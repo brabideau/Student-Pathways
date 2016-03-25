@@ -213,10 +213,10 @@ namespace CrystalBallSystem.BLL
                                                  select c.NaitCourse).Distinct()
                                             select (double?)x.CourseCredits).Sum(),
 
-                                MatchPercent = (int)(100 - (from q in p.ProgramPreferences
+                                MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
                                              from mp in myPrefs
                                              where q.QuestionID == mp.QuestionID
-                                             select Math.Pow(Math.Abs(q.Answer - mp.Answer), 1.5)).Sum() / qCount / .08)
+                                             select Math.Pow(1 + Math.Abs(q.Answer - mp.Answer), 2) - 1)).Sum() / qCount / .24)
 
                              }).ToList();
 

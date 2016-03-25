@@ -365,8 +365,6 @@ textarea, .textarea {
       margin: 0 auto;
       font-size: .94em;
       margin-bottom: 15px;
-      text-align: center;
-     
   }
 
   .search
@@ -778,10 +776,10 @@ footer {
    /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
 
 
-.program-search-results{
-    background-color: rgba(255,255,255,.8);
+.program-search-results {
+    background-color: #113e68;
+    color: #ebf3f9;
     display: inline-block;
-    border: 1px solid #aaaaaa;
     box-shadow: 8px 8px 5px rgba(0,0,0,.3);
     float: left;
     width: 45%;
@@ -789,13 +787,35 @@ footer {
     min-width: 300px;
     height: 350px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .program-search-results td {
-    padding: 15px;
+    width: 80%;
     display: block;
+    margin: 0 auto;
 }
 
+.program-search-results ul {
+    overflow: auto;
+    display: block;
+    list-style-type: disc;
+    margin: 0 auto;
+}
+
+.program-search-results li {
+    font-family: 'Coda', Helvetica, Arial, sans-serif;
+    font-size: 1.1em;
+    float: left;
+    width: 40%;
+    margin: 0 5%;
+}
+.program-search-results td:last-child {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
 
 /* ------------------Management Menu -----------------------*/
 
