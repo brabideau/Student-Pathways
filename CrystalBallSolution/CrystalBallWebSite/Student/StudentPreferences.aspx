@@ -60,27 +60,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <%--<asp:GridView ID="PrefQuestions" runat="server" AutoGenerateColumns="False" DataSourceID="QuestionDataSource" CssClass="prefQuestionsCSS">
-                <Columns>
-                    <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID"></asp:BoundField>
-                    <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                           <!-- <asp:DropDownList ID="DL_StudentPreference" runat="server">
-                                <asp:ListItem Value="">(no preference)</asp:ListItem>
-                                <asp:ListItem Value ="True">Yes</asp:ListItem>
-                                <asp:ListItem Value ="False">No</asp:ListItem>
-                            </asp:DropDownList> -->
-                           <%-- <asp:RadioButtonList ID="RBL_YN" runat="server" CssClass="radioButtonList">
-                                <asp:ListItem Value="1" Selected="True">Yes</asp:ListItem>
-                                <asp:ListItem Value="0">No</asp:ListItem>
-                            </asp:RadioButtonList>
-                            
-                            <asp:CheckBox ID="RBL_YN" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>--%>
+
             <asp:LinkButton ID="stepTwoPrevious" runat="server" OnClick="stepTwoPrevious_Click" CssClass ="button back">Previous</asp:LinkButton>
             <asp:LinkButton ID="stepTwoNext" runat="server" OnClick="stepTwoNext_Click" CssClass="button next">Next</asp:LinkButton>
             </div>

@@ -23,6 +23,8 @@ namespace CrystalBallSystem.DAL.Entities
         [StringLength(200)]
         public string Description { get; set; }
 
+        public bool Active { get; set; }
+
         public virtual ICollection<ProgramPreference> ProgramPreferences { get; set; }
 
         public virtual ICollection<CurrentStudentData> CurrentStudentDatas { get; set; }

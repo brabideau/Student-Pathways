@@ -15,7 +15,7 @@ namespace CrystalBallSystem.DAL.POCOs
         public string CredType { get; set; }
         public double? Credits { get; set; }
 
-        public double MatchPercent { get; set; }
+        public int MatchPercent { get; set; }
         
     }
 }

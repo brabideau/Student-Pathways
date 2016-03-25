@@ -116,35 +116,35 @@ namespace CrystalBallSystem.BLL
             }
         }
         //Method will return a list of program ids and credits for each program returned based on the user course selection
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetCourseCredits> GetCourseCredits(List<int> courseid, List<int> programid)
-        {
-            using (var context = new CrystalBallContext())
-            {
-                  var result = from p in context.Programs
-                             where programid.Contains(p.ProgramID)
-                             select new GetCourseCredits
-                             {
-                                 ProgramID = p.ProgramID,
-                                 ProgramName = p.ProgramName,
-                                 ProgramDescription = p.ProgramDescription,
-                                 ProgramLink = p.ProgramLink,
-                                 CredType = (from d in context.CredentialTypes
-                                                 where p.CredentialTypeID == d.CredentialTypeID
-                                                 select d.CredentialTypeName).FirstOrDefault(),
-                                 Credits = (from x in
-                                                (from ce in context.CourseEquivalencies
-                                                 from c in p.ProgramCourses
-                                                 where courseid.Contains(c.CourseID) || courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
-                                                 select c.NaitCourse).Distinct()
-                                            select (double?)x.CourseCredits).Sum()
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<GetCourseCredits> GetCourseCredits(List<int> courseid, List<int> programid)
+        //{
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //          var result = from p in context.Programs
+        //                     where programid.Contains(p.ProgramID)
+        //                     select new GetCourseCredits
+        //                     {
+        //                         ProgramID = p.ProgramID,
+        //                         ProgramName = p.ProgramName,
+        //                         ProgramDescription = p.ProgramDescription,
+        //                         ProgramLink = p.ProgramLink,
+        //                         CredType = (from d in context.CredentialTypes
+        //                                         where p.CredentialTypeID == d.CredentialTypeID
+        //                                         select d.CredentialTypeName).FirstOrDefault(),
+        //                         Credits = (from x in
+        //                                        (from ce in context.CourseEquivalencies
+        //                                         from c in p.ProgramCourses
+        //                                         where courseid.Contains(c.CourseID) || courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
+        //                                         select c.NaitCourse).Distinct()
+        //                                    select (double?)x.CourseCredits).Sum()
 
-                             };
+        //                     };
 			
 
-                return result.ToList();
-            }
-        }
+        //        return result.ToList();
+        //    }
+        //}
 
 
 
@@ -161,8 +161,6 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-
-
 
 
         #endregion
@@ -193,8 +191,11 @@ namespace CrystalBallSystem.BLL
             using (var context = new CrystalBallContext())
             {
 
+                int qCount = (from x in context.PreferenceQuestions
+                              where x.Active
+                              select x).Count();
             
-            var initialresults = from p in context.Programs
+                var initialresults = from p in context.Programs
                              where programids.Contains(p.ProgramID)
                              select new ProgramResult
                              {
@@ -211,12 +212,14 @@ namespace CrystalBallSystem.BLL
                                                  where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
                                                  select c.NaitCourse).Distinct()
                                             select (double?)x.CourseCredits).Sum(),
-                                MatchPercent = 100 - (from q in p.ProgramPreferences
+                                MatchPercent = (int)(100 - (from q in p.ProgramPreferences
                                              from mp in myPrefs
                                              where mp.QuestionID == q.QuestionID
-                                             select Math.Pow(Math.Abs(mp.Answer - q.Answer), 1.5)).Average() / .08
-                          
+                                             select Math.Pow(Math.Abs(mp.Answer - q.Answer), 1.5)).Sum() / qCount / .08)
+
                              };
+
+
 
                 List<ProgramResult> results = (from x in initialresults
                               where x.MatchPercent > 50

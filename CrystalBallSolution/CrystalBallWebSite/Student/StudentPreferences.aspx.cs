@@ -117,13 +117,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //}
             foreach (GridViewRow row in prefGridView.Rows)
             {
+                
                 RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
                 int prefchoice = Convert.ToInt32(rlist.SelectedValue);
+
                 myPreferences.Add(new StudentPreference(
-                   Convert.ToInt32(row.Cells[0].Text),
-                   prefchoice
+                                Convert.ToInt32(row.Cells[0].Text),
+                                prefchoice
                    
-                   ));
+                ));
+                
             }
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
