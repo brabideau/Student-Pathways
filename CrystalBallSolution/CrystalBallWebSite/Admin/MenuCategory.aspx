@@ -36,7 +36,7 @@
 
 
         <div class="col-4 center">
-            <a href="UpdateProgram.aspx">
+            <a href="ProgramEdit.aspx">
             <div class="cat-img">
                 <img src="../images/update_program.png" alt="manage programs"> 
            </div>
