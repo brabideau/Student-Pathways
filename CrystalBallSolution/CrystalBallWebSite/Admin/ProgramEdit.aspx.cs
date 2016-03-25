@@ -159,6 +159,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #endregion
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
+        #region entrance requirements
+
 
     //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
     private void PopulateManual()
@@ -526,7 +528,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         Courses_Show(sender, e);
     }
-//#endregion
+ #endregion
     /*-- ----------------------------- COURSES ---------------------------------------*/
     #region courses
     protected void Courses_Show(object sender, EventArgs e)
@@ -718,42 +720,54 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         {
             for (int i = 0; i < GV_Questions.Rows.Count; i++)
             {
-                var DL_List = GV_Questions.Rows[i].FindControl("DL_Preference") as DropDownList;
-                DL_List.SelectedValue = "noPref";
-
+                var RB_List = GV_Questions.Rows[i].FindControl("RB_Preference") as RadioButtonList;
                 var idbox = GV_Questions.Rows[i].FindControl("QuestionID") as Label;
                 q_ID = Convert.ToInt32(idbox.Text);
-                
-                //if (questionAns.Contains(q_ID))
-                //{
-                //question = (from x in progQuestions
-                //            where x.QuestionID == q_ID
-                //            select x).FirstOrDefault();
 
-                //    if (question != null)
-                //    {
-                //        if (question.Answer == true)
-                //        {
-                //            DL_List.SelectedValue = "Yes";
-                //        }
-                //        else
-                //        {
-                //            DL_List.SelectedValue = "No";
-                //        }
-                //    }
-                //}
+                if (questionAns.Contains(q_ID))
+                {
+                    question = (from x in progQuestions
+                                where x.QuestionID == q_ID
+                                select x).FirstOrDefault();
 
+                    if (question != null)
+                    {
+
+                        RB_List.SelectedValue = question.Answer.ToString();
+                    }
+                }
             }
+
         }
-
-
-
-
-        
     }
     protected void Save_Questions(object sender, EventArgs e)
     {
+        AdminController sysmgr = new AdminController();
+        List<ProgramPreference> prefs = new List<ProgramPreference> {};
+        int programID = int.Parse(ProgramIDLabel.Text);
 
+
+       if (GV_Questions.Rows.Count > 0)
+        {
+            foreach (GridViewRow row in GV_Questions.Rows)
+            {
+                var RB_List = row.FindControl("RB_Preference") as RadioButtonList;
+                var idbox = row.FindControl("QuestionID") as Label;
+                int q_ID = Convert.ToInt32(idbox.Text);
+
+                if (RB_List.SelectedIndex > -1)
+                {
+                    prefs.Add(new ProgramPreference {
+                        QuestionID = q_ID,
+                        ProgramID = programID,
+                        Answer = Convert.ToInt32(RB_List.SelectedValue)
+                    });
+                }
+            }
+
+        }
+
+       sysmgr.UpdateProgramPreferences(prefs);
     }
     #endregion
 

@@ -442,6 +442,31 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
+
+
+
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void UpdateProgramPreferences(List<ProgramPreference> questions)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                foreach (ProgramPreference item in questions)
+                {
+                    bool exists = context.ProgramPreferences.Any(x => x.QuestionID == item.QuestionID && x.ProgramID == item.ProgramID);
+
+                    if (exists)
+                    {
+                        context.Entry<ProgramPreference>(context.ProgramPreferences.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                    }
+
+                    else
+                    {
+                        context.ProgramPreferences.Add(item);
+                    }
+                    context.SaveChanges();
+                }
+            }
+        }
         #endregion
 
         #region Equivalency Page

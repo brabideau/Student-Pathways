@@ -612,12 +612,11 @@ footer {
     left: -50%;
 }
 
-.prefQuestionsCSS td:nth-child(2) {
-    text-align: center;
-    margin-bottom: 2.5em;
+.prefQuestionsCSS ol {
+    margin-bottom: 40px;
 }
 
-.prefQuestionsCSS td:nth-child(2) li {
+.prefQuestionsCSS li {
     float: left;
     width: 19%;
     margin: 0 .5%;
@@ -628,42 +627,54 @@ footer {
     display: none;
 }
 
-.prefQuestionsCSS input[type="radio"] +label {
+
+.prefQuestionsCSS input[type="radio"] +label{
     display: inline-block ;
-    background-color: #ebf3f9;
-    color: #113e68;
     width: 100%;
-    cursor: pointer;
 }
 
-.prefQuestionsCSS input[type="radio"]:checked +label {
+
+
+
+.prefQuestionsCSS input[type="radio"] +label,
+.courseCSS input + label {
+
+    background-color: #ffffff;
+    color: #113e68;
+    cursor: pointer;
+    box-shadow: 3px 3px 7px rgba(0,0,0,.3)
+}
+
+
+
+
+
+.prefQuestionsCSS input[type="radio"] +label:hover,
+.courseCSS input + label:hover {
+    color: #1363a8;
+    background-color: #ebf3f9;
+
+}
+
+.prefQuestionsCSS input[type="radio"]:checked +label,
+.courseCSS input[type="checkbox"]:checked + label {
     background-color: #113e68;
     color: #ebf3f9;
 }
 
-/*.prefQuestionsCSS input[type="checkbox"] {
-    display: none;
+
+.prefQuestionsCSS input[type="radio"]:checked +label:hover,
+.courseCSS input[type="checkbox"]:checked + label:hover {
+    background-color: #003D7E;
+
 }
 
-.prefQuestionsCSS input[type="checkbox"] + label::after {
-    content: 'No';
-    font-family: 'Coda', Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    font-size: 1.2em;
-    width: 60px;
-    background-color: rgba(255,0,0,.3);
-    cursor:pointer;
-    display: inline-block;
-    float: right;
-    margin-left: 10px;
+.prefQuestionsCSS input[type="radio"] +label:active,
+.courseCSS input + label:active {
+    position:relative;
+	top:2px;
+
 }
-
-.prefQuestionsCSS input[type="checkbox"]:checked + label::after {
-    background-color: rgba(41,128,185,.3);
-    content: 'Yes';
-}*/
-
-
 
 .courseCSS {
     width: 80%;
@@ -671,7 +682,7 @@ footer {
 }
 
 .courseCSS tr {
-    /*display: block;*/
+
     float: left;
     width: 24%;
     padding: .5%;
@@ -699,16 +710,14 @@ footer {
 .courseCSS input + label{
     display: block;
 
-    background-color: rgba(235, 243, 249, 0.9);
-    cursor:pointer;
     padding: .2em .5em .2em 1.2em;
 }
 
 
-.courseCSS input[type="checkbox"]:checked + label {
+/*.courseCSS input[type="checkbox"]:checked + label {
     background-color: #113e68;
-      color: #ebf3f9;
-}
+    color: #ebf3f9;
+}*/
 
 
 

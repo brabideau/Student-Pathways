@@ -45,7 +45,11 @@
         </asp:RadioButtonList>
             <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
                 <Columns>
-                    <asp:BoundField DataField="QuestionID" HeaderText="QuestionID" SortExpression="QuestionID" Visible="False" />
+                    <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label>
+                   </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="Description" HeaderText="Questions" SortExpression="Description" />
                     <asp:TemplateField AccessibleHeaderText="Preference">
                         <ItemTemplate>

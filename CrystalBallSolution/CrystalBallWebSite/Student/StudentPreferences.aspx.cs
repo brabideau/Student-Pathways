@@ -121,8 +121,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
                 int prefchoice = Convert.ToInt32(rlist.SelectedValue);
 
+
                 myPreferences.Add(new StudentPreference(
-                                Convert.ToInt32(row.Cells[0].Text),
+                                Convert.ToInt32((row.FindControl("QuestionID") as Label).Text),
                                 prefchoice
                    
                 ));

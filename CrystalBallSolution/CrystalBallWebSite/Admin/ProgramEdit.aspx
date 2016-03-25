@@ -519,22 +519,25 @@
    
     <div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
         <p>Answer the questions below so that students can be better matched with this program:</p>
-        <asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:Label ID="QuestionID" runat="server"  Text='<%# Eval("QuestionID") %>'></asp:Label>
+                        <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label>
                    </ItemTemplate>
                 </asp:TemplateField>
 
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:DropDownList ID="DL_Preference" runat="server">
-                            <asp:ListItem Selected="True" Value="noPref">---</asp:ListItem>
-                            <asp:ListItem Value="Yes">Yes</asp:ListItem>
-                            <asp:ListItem Value="No">No</asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:RadioButtonList ID="RB_Preference" runat="server" RepeatLayout="OrderedList">
+                            <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem>
+                            <asp:ListItem Value="2" Text="No"></asp:ListItem>
+                            <asp:ListItem Value="3" Text="Don't Know" Selected="true"></asp:ListItem>
+                            <asp:ListItem Value="4" Text="Yes"></asp:ListItem>
+                            <asp:ListItem Value="5" Text="Definitely"></asp:ListItem>
+                        </asp:RadioButtonList>
+                        
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

@@ -212,21 +212,21 @@ namespace CrystalBallSystem.BLL
                                                  where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
                                                  select c.NaitCourse).Distinct()
                                             select (double?)x.CourseCredits).Sum(),
+
                                 MatchPercent = (int)(100 - (from q in p.ProgramPreferences
                                              from mp in myPrefs
-                                             where mp.QuestionID == q.QuestionID
+                                             where q.QuestionID == mp.QuestionID
                                              select Math.Pow(Math.Abs(mp.Answer - q.Answer), 1.5)).Sum() / qCount / .08)
 
                              };
 
 
 
-                List<ProgramResult> results = (from x in initialresults
+                var results = from x in initialresults
                               where x.MatchPercent > 50
-                              orderby x.MatchPercent descending
-                              select x).ToList();
+                              select x;
 			
-                return results;
+                return results.ToList();
 
             }
         }
