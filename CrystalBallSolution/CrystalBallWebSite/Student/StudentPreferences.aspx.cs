@@ -207,8 +207,14 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = new List<GetCourseCredits>();
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
+            
+            ResultsView.DataSource = finalProgramResults;
+            ResultsView.DataBind();
+
+
             //insert program results to db
-            report.InsertProgramResults(completeResults);
+            //report.InsertProgramResults(completeResults);
+
 
             //display results once queries are complete
             //ResultsView.DataSource = completeResults;

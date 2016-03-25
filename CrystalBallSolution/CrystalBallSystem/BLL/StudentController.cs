@@ -194,8 +194,8 @@ namespace CrystalBallSystem.BLL
                 int qCount = (from x in context.PreferenceQuestions
                               where x.Active
                               select x).Count();
-            
-                var initialresults = from p in context.Programs
+
+                var initialresults = (from p in context.Programs.AsEnumerable()
                              where programids.Contains(p.ProgramID)
                              select new ProgramResult
                              {
@@ -207,7 +207,7 @@ namespace CrystalBallSystem.BLL
                                                  where p.CredentialTypeID == d.CredentialTypeID
                                                  select d.CredentialTypeName).FirstOrDefault(),
                                  Credits = (from x in
-                                                (from ce in context.CourseEquivalencies
+                                                (from ce in context.CourseEquivalencies.AsEnumerable()
                                                  from c in p.ProgramCourses
                                                  where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
                                                  select c.NaitCourse).Distinct()
@@ -216,17 +216,17 @@ namespace CrystalBallSystem.BLL
                                 MatchPercent = (int)(100 - (from q in p.ProgramPreferences
                                              from mp in myPrefs
                                              where q.QuestionID == mp.QuestionID
-                                             select Math.Pow(Math.Abs(mp.Answer - q.Answer), 1.5)).Sum() / qCount / .08)
+                                             select Math.Pow(Math.Abs(q.Answer - mp.Answer), 1.5)).Sum() / qCount / .08)
 
-                             };
+                             }).ToList();
 
+                return initialresults;
 
-
-                var results = from x in initialresults
-                              where x.MatchPercent > 50
-                              select x;
+                //var results = from x in initialresults
+                //              where x.MatchPercent > 50
+                //              select x;
 			
-                return results.ToList();
+                //return results.ToList();
 
             }
         }
