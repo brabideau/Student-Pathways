@@ -12,6 +12,10 @@ namespace CrystalBallSystem.DAL.POCOs
         public string ProgramName { get; set; }
         public string ProgramDescription { get; set; }
         public string ProgramLink { get; set; }
+        public string CredType { get; set; }
+        public double? Credits { get; set; }
+
+        public double MatchPercent { get; set; }
         
     }
 }

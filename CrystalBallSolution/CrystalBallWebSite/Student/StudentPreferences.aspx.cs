@@ -117,10 +117,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //}
             foreach (GridViewRow row in prefGridView.Rows)
             {
+                RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
+                int prefchoice = Convert.ToInt32(rlist.SelectedValue);
                 myPreferences.Add(new StudentPreference(
                    Convert.ToInt32(row.Cells[0].Text),
-                   Convert.ToInt32((row.FindControl("prefSelection") as RadioButtonList).SelectedValue))
-                   );
+                   prefchoice
+                   
+                   ));
             }
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
@@ -149,8 +152,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             }
 
             //send preferences to the BLL for initial results
-            List<int> preferenceResults = new List<int>();
-            preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
+            //List<int> preferenceResults = new List<int>();
+            //preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
 
             //step 3 - Gather the selected courses provided by the student. Determine if any selected courses are the highest in a particular course group
             List<int> hsCourses = new List<int>();
@@ -184,8 +187,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             List<int> programResults = new List<int>();
             programResults = StudentController.FindProgramMatches(hsCourses);
 
-            finalResults = new List<int>();
-            finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
+            //finalResults = new List<int>();
+            //finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
             
             //send list of course codes to the db and retrieve courseids
             DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
@@ -197,15 +200,15 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //List<int> programIDs = sysmgr.GetProgramIDs(finalResults);
 
             //send list of courseids and list of programids to the db for final results
-            completeResults = new List<GetCourseCredits>();
-            completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
-
+            //completeResults = new List<GetCourseCredits>();
+            //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
+            List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
             //insert program results to db
             report.InsertProgramResults(completeResults);
 
             //display results once queries are complete
-            ResultsView.DataSource = completeResults;
-            ResultsView.DataBind();
+            //ResultsView.DataSource = completeResults;
+            //ResultsView.DataBind();
             results.Visible = true;
         }, "Success!", "Here are the pathways available to you!");
 

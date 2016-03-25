@@ -262,6 +262,12 @@
                            <h3><asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' /></h3>
                         </td>
                         <td>
+                           <asp:Label ID="MatchPercentLabel" runat="server" Text='<%# Eval("MatchPercent") %>' /> match
+                        </td>
+                        <td>
+                           <asp:Label ID="CredentialTypeLabel" runat="server" Text='<%# Eval("CredType") %>' />
+                        </td>
+                        <td>
                            <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
                         </td>
                         <td>

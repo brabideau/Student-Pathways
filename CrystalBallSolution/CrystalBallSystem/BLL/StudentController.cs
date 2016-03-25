@@ -68,18 +68,7 @@ namespace CrystalBallSystem.BLL
                 return intList;
             }
         }
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public List<int> GetProgramIDs(List<ProgramResult> programResults)
-        //{
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //        var results = (from program in context.Programs
-        //                       from programTwo in programResults
-        //                       where program.ProgramID == programTwo.ProgramID
-        //                       select program.ProgramID).Distinct();
-        //        return results.ToList();
-        //    }
-        //}
+
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int GetEntranceList(int courseID, int mark)
@@ -132,21 +121,7 @@ namespace CrystalBallSystem.BLL
         {
             using (var context = new CrystalBallContext())
             {
-                //var result = from x in context.Programs
-                //             where programid.Contains(x.ProgramID)
-                //             select new GetCourseCredits
-                //             {
-                //                 ProgramID = x.ProgramID,
-                //                 ProgramName = x.ProgramName,
-                //                 ProgramDescription = x.ProgramDescription,
-                //                 ProgramLink = x.ProgramLink,
-                //                 Credits = (from c in x.ProgramCourses
-                //                            from ce in context.CourseEquivalencies
-                //                            where courseid.Contains(c.CourseID) || (courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID)
-                //                            select (double?)c.NaitCourse.CourseCredits).Sum()
-                //             };
-
-                var result = from p in context.Programs
+                  var result = from p in context.Programs
                              where programid.Contains(p.ProgramID)
                              select new GetCourseCredits
                              {
@@ -172,41 +147,7 @@ namespace CrystalBallSystem.BLL
         }
 
 
-        //var test = (from x in ProgramCourses
-        //            from ce in CourseEquivalencies
-        //            where courseids.Contains(x.CourseID) || (courseids.Contains(ce.DestinationCourseID) && x.CourseID == ce.CourseID)
-        //            select x).Distinct();
 
-
-
-        //var result = from p in Programs
-        //            where programIDs.Contains(p.ProgramID)
-        //            select new {
-        //                    ProgramID = p.ProgramID,
-        //                    ProgramName = p.ProgramName,
-        //                    ProgramDescription = p.ProgramDescription,
-        //                    ProgramLink = p.ProgramLink,
-        //                    Credits = (from c in p.ProgramCourses
-        //                                where courseIDs.Contains(c.CourseID)
-        //                                select (double?) c.NaitCourses.CourseCredits).Sum()};
-
-        //result.Dump();
-
-        //        var result = from x in ProgramCourses
-        //            where programIDs.Contains(x.ProgramID) && courseIDs.Contains(x.CourseID)
-        //            group x by x.Program into c
-        //            select new {
-        //                    ProgramID = c.Key.ProgramID,
-        //                    ProgramName = c.Key.ProgramName,
-        //                    ProgramDescription = c.Key.ProgramDescription,
-        //                    ProgramLink = c.Key.ProgramLink,
-        //                    CourseCredits = (from y in c
-        //                                    select y.NaitCourses.CourseCredits).Sum()};
-
-
-
-
-        //result.Dump();
 
         #region preference questions
         [DataObjectMethod(DataObjectMethodType.Select, false)]
@@ -246,65 +187,46 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<int> FindPreferenceMatches(List<StudentPreference> myPrefs)
-            //  returns programs where the program and student have answered at least one question the same way
-            // and have not given conflicting answers to any questions
-            // unanswered questions are ignored
+        static public List<ProgramResult> EntranceReq_Pref_Match(List<StudentPreference> myPrefs, List<int> programids, List<int> naitcourseids)
         {
+            //takes the list of programs with matching entrance requirements, and returns results with preference matches
             using (var context = new CrystalBallContext())
             {
-               /*  
-                * ----------  Strict Preference Matching
-                * 
-                * var programList = ((from q in context.ProgramPreferences.AsEnumerable()
-                                from sq in myPrefs
 
-                                where (q.QuestionID == sq.QuestionID && Convert.ToInt32(q.Answer) == sq.Answer)
-                                select q.Program).Distinct()).Except((from q in context.ProgramPreferences.AsEnumerable()
-                                                                      from sq in myPrefs
-                                                                      where (q.QuestionID == sq.QuestionID && Convert.ToInt32(q.Answer) != sq.Answer)
-                                                                      select q.Program).Distinct());
-
-                var result = from p in programList
+            
+            var initialresults = from p in context.Programs
+                             where programids.Contains(p.ProgramID)
                              select new ProgramResult
-                                {
-                                    ProgramID = p.ProgramID,
-                                    ProgramName = p.ProgramName,
-                                    ProgramDescription = p.ProgramDescription,
-                                    ProgramLink = p.ProgramLink
-                                };
-                */
+                             {
+                                 ProgramID = p.ProgramID,
+                                 ProgramName = p.ProgramName,
+                                 ProgramDescription = p.ProgramDescription,
+                                 ProgramLink = p.ProgramLink,
+                                 CredType = (from d in context.CredentialTypes
+                                                 where p.CredentialTypeID == d.CredentialTypeID
+                                                 select d.CredentialTypeName).FirstOrDefault(),
+                                 Credits = (from x in
+                                                (from ce in context.CourseEquivalencies
+                                                 from c in p.ProgramCourses
+                                                 where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
+                                                 select c.NaitCourse).Distinct()
+                                            select (double?)x.CourseCredits).Sum(),
+                                MatchPercent = 100 - (from q in p.ProgramPreferences
+                                             from mp in myPrefs
+                                             where mp.QuestionID == q.QuestionID
+                                             select Math.Pow(Math.Abs(mp.Answer - q.Answer), 1.5)).Average() / .08
+                          
+                             };
 
+                List<ProgramResult> results = (from x in initialresults
+                              where x.MatchPercent > 50
+                              orderby x.MatchPercent descending
+                              select x).ToList();
+			
+                return results;
 
-                // -------------Less strict preference matching
-
-
-                var programList = ((from q in context.ProgramPreferences.AsEnumerable()
-                                from sq in myPrefs
-                               where q.Program.ProgramPreferences.Any(pq => sq.QuestionID == q.QuestionID && sq.Answer == q.Answer)
-                                select q.Program).Distinct());
-
-                var result = from p in programList
-                             select p.ProgramID;
-
-                return result.ToList();
             }
         }
-
-
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<int> EntranceReq_Pref_Match(List<int> myPrefs, List<int> myMatches)
-        {
-            // Compares the results from two lists of programs and returns the programs common to each
-            
-            var results = (from s in myPrefs
-				where myMatches.Contains(s)
-				select s).Distinct();
-
-                return results.ToList();
-            
-        }
-
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         static public List<NAITCourse> Prefill_Courses(int programID, int semester)
