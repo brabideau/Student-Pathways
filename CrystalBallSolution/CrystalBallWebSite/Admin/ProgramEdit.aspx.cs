@@ -28,6 +28,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Program_List.DataBind();
         ProgramList.Visible = true;
         ProgramEditDiv.Visible = false;
+        Buttons.Visible = false;
     }
 
     protected void Populate_Program_Info(object sender, EventArgs e)
@@ -65,7 +66,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         // show the appropriate info
         ProgramEditDiv.Visible = true;
-        buttons.Visible = true;
+        Buttons.Visible = true;
         ProgramInfo_Show(sender, e);
         ProgramList.Visible = false;
     }

@@ -148,6 +148,7 @@ input,
 select {
     /*max-width: 280px;*/
     height: 26px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 
@@ -159,6 +160,8 @@ input[type="checkbox"] {
 textarea, .textarea {
     height: 100px;
     resize: vertical;
+    font-family: Helvetica, Arial, sans-serif;
+
 }
 
 /* Responsive: Portrait tablets and up */
@@ -182,41 +185,6 @@ textarea, .textarea {
   }
 
 /* ------------------------------------- BUTTONS --------------------------------- */
-.tabs input[type="radio"]{
-    display: none;
-}
-
-
-
-.tabs input[type="radio"] +label{
-    display: block;
-    margin: 0 5px;
-    cursor: pointer;
-    float: left;
-    background-color: #a0b8c8;
-    /*background-color: rgba(0,0,0,.25);*/
-    padding: 5px 20px;
-    border: 1px solid #a0b8c8;
-    border-bottom: none;
-    border-radius: 5px 5px 0 0;
-    font-family: 'Coda', Helvetica, Arial, sans-serif;
-
-}
-
-.tabs input[type="radio"] +label:hover {
-    background-color: #8bb9d8;
-
-}
-
-.tabs input[type="radio"]:checked +label{
-    background-color: transparent;
-    font-weight: bold;
-}
-
-.tabs input[type="radio"]:checked +label:hover{
-    background-color: #ebf3f9;
-}
-
 
 
 
@@ -414,7 +382,7 @@ textarea, .textarea {
   }
 
   td {
-      padding: 3px 10px;
+      padding: 3px 20px;
   }
 
   th {
@@ -633,16 +601,40 @@ footer {
 
 
 /*------------------------------- STUDENT PREFERENCES ----------------------------------*/
+/*.tabs input[type="radio"]{
+    display: none;
+}*/
+
+.tabs {
+    border-bottom: 3px solid #113e68;
+    margin: 20px 0;
+}
+
+.tabs input[type="radio"] +label{
+    display: block;
+    margin: 0 10px 0 0;
+    float: left;
+    padding: 5px 20px 2px 20px;
+    font-family: 'Coda', Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #113e68;
+    cursor: pointer;
+    border: 1px solid #113e68;
+    border-bottom: none;
+}
+
+
 .prefQuestionsCSS {
+    width: 70%;
     line-height: 2em;
     vertical-align: middle;
 }
 
 .prefQuestionsCSS td {
     display: block;
-    width: 200%;
-    position: relative;
-    left: -50%;
+    width: 100%;
+    margin: 0 auto;
+
 }
 
 .prefQuestionsCSS ol {
@@ -656,7 +648,8 @@ footer {
     font-size: 1.1em;
 }
 
-.prefQuestionsCSS input[type="radio"]{
+.prefQuestionsCSS input[type="radio"],
+.tabs input[type="radio"] {
     display: none;
 }
 
@@ -666,11 +659,9 @@ footer {
     width: 100%;
 }
 
-
-
-
 .prefQuestionsCSS input[type="radio"] +label,
-.courseCSS input + label {
+.courseCSS input + label
+{
     text-align: center;
     background-color: #ffffff;
     color: #113e68;
@@ -683,21 +674,24 @@ footer {
 
 
 .prefQuestionsCSS input[type="radio"] +label:hover,
-.courseCSS input + label:hover {
+.courseCSS input + label:hover,
+.tabs input[type="radio"] +label:hover {
     color: #1363a8;
     background-color: #ebf3f9;
 
 }
 
 .prefQuestionsCSS input[type="radio"]:checked +label,
-.courseCSS input[type="checkbox"]:checked + label {
+.courseCSS input[type="checkbox"]:checked + label,
+.tabs input[type="radio"]:checked + label {
     background-color: #113e68;
     color: #ebf3f9;
 }
 
 
 .prefQuestionsCSS input[type="radio"]:checked +label:hover,
-.courseCSS input[type="checkbox"]:checked + label:hover {
+.courseCSS input[type="checkbox"]:checked + label:hover,
+.tabs input[type="radio"]:checked + label:hover {
     background-color: #003D7E;
 
 }

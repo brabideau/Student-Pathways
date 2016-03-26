@@ -2,12 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
     <h1>Edit Program</h1>
-   
+
+   <div runat="server" id="Buttons" visible="false" >
        <h2>
             <asp:Label ID="ProgramNameLabel" runat="server" Text=""></asp:Label></h2>
         
      <%-- ----------------------------- BUTTONS ---------------------------------------%>
-    <div runat="server" id="buttons" visible="false" > 
 
         <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
             <asp:ListItem Value="1" Text="Program Info" Selected="true"></asp:ListItem>
@@ -17,14 +17,7 @@
             <asp:ListItem Value="5" Text="Transfer Credits"></asp:ListItem>
             <asp:ListItem Value="6" Text="Program Preferences"></asp:ListItem>
         </asp:RadioButtonList>
-       <%-- <h5>
-    <asp:LinkButton ID="B_ProgramInfo" runat="server" OnClick="ProgramInfo_Show">Program Info</asp:LinkButton> >>> 
-    <asp:LinkButton ID="B_Categories" runat="server" OnClick="Categories_Show">Categories</asp:LinkButton> >>> 
-    <asp:LinkButton ID="B_EntranceReq" runat="server" OnClick="EntranceReq_Show">Entrance Requirements</asp:LinkButton> >>> 
-    <asp:LinkButton ID="B_Courses" runat="server" OnClick="Courses_Show" >Courses</asp:LinkButton> >>> 
-    <asp:LinkButton ID="B_CourseEquivalencies" runat="server" OnClick="CourseEquivalencies_Show">Equivalencies</asp:LinkButton> >>> 
-    <asp:LinkButton ID="B_ProgramPreferences" runat="server" OnClick="ProgramPreferences_Show" >Preferences</asp:LinkButton>
-            </h5>--%>
+
     </div>
        <div runat="server" id="ProgramEditDiv" visible="false">
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
@@ -397,11 +390,15 @@
             </ItemTemplate>
     </asp:ListView>
         </div>
-        <div class="search-bar">
+        <div runat="server" class="search-bar">
             <label>Search for a course to add:</label>
 
-            <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox><asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
+            <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox>
+            <asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
         </div>
+
+
+
         <div class="nait-courses">
          <asp:ListView ID="LV_ProgramCoursesSearch" runat="server"
                             OnItemCommand="Add_Program_Course" >
@@ -568,14 +565,11 @@
         <LayoutTemplate>
             <table>
                 <tr>
-                    <th></th>
+                    <th class="col-1"></th>
                     <th runat="server">Program Name</th>
                     <th runat="server">Description</th>
-                    <th runat="server">Total Credits</th>
-                    <th runat="server">Program Length</th>
-                    <th runat="server">Competitive Advantage</th>
-                    <th runat="server">Active</th>
-                    <th runat="server">Program Link</th>
+                    <th runat="server">Active?</th>
+                    <th runat="server">Link</th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -590,15 +584,6 @@
                     </td>
                     <td>
                         <asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="TotalCreditsLabel" runat="server" Text='<%# Eval("TotalCredits") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ProgramLengthLabel" runat="server" Text='<%# Eval("ProgramLength") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CompetitiveAdvantageLabel" runat="server" Text='<%# Eval("CompetitiveAdvantage") %>' />
                     </td>
                     <td>
                         <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false" />

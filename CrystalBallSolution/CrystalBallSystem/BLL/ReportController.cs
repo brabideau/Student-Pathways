@@ -87,7 +87,7 @@ namespace CrystalBallSystem.BLL
 
                 DataTable results = new DataTable();
                 results.Columns.Add("QuestionID", typeof(int));
-                results.Columns.Add("StudentAnswer", typeof(bool));
+                results.Columns.Add("StudentAnswer", typeof(int));
                 results.Columns.Add("SearchMonth", typeof(int));
                 results.Columns.Add("SearchYear", typeof(int));
 
@@ -115,7 +115,7 @@ namespace CrystalBallSystem.BLL
                     results.Columns.Add("Semester", typeof(int));
                     results.Columns.Add("ChangeProgram", typeof(bool));
                     results.Columns.Add("QuestionID", typeof(int));
-                    results.Columns.Add("StudentAnswer", typeof(bool));
+                    results.Columns.Add("StudentAnswer", typeof(int));
                     results.Columns.Add("SearchMonth", typeof(int));
                     results.Columns.Add("SearchYear", typeof(int));
 
@@ -144,40 +144,65 @@ namespace CrystalBallSystem.BLL
                 int qid;
                 int theCount;
                 int theTotal;
-                int? yes;
+                int defYes;
+                int yes;
+                int noPref;
+                int no;
+                int defNo;
 
                 foreach (var x in questions)
                 {
-                    yes = null;
+
+                    defNo= 0;
+                    no = 0;
+                    noPref = 0;
+                    yes = 0;
+                    defYes = 0;
+
                     quest = x.Description;
                     qid = x.QuestionID;
-                    theCount = myData.Select("StudentAnswer = true AND QuestionID = " + qid).Count();
+
+                    defNo = myData.Select("StudentAnswer = 1 AND QuestionID = " + qid).Count();
+                    no = myData.Select("StudentAnswer = 2 AND QuestionID = " + qid).Count();
+                    noPref = myData.Select("StudentAnswer = 3 AND QuestionID = " + qid).Count();
+                    yes = myData.Select("StudentAnswer = 4 AND QuestionID = " + qid).Count();
+                    defYes = myData.Select("StudentAnswer = 5 AND QuestionID = " + qid).Count();
+
                     theTotal = myData.Select("QuestionID =" + qid).Count();
 
                     if (theTotal != 0)
                     {
-                        yes = 100 * theCount / theTotal;
+                        defNo = 100 * defNo / theTotal;
+                        no = 100 * no / theTotal;
+                        noPref = 100 * noPref / theTotal;
+                        yes = 100 * yes / theTotal;
+                        defYes = 100 * defYes / theTotal;
                     }
                     
 
                     summaries.Add(new StudentPreferenceSummary
                     {
                         Question = quest,
-                        PercentYes = yes,
+                        DefinitelyNot =defNo,
+                        No = no,
+                        DontKnow = noPref,
+                        Yes = yes,
+                        Definitely = defYes
+
                     });
                 }
 
-                yes = null;
+                //yes = 0;
 
-                if (myData.Columns.Contains("ChangePrograms")) {
-                    yes = 100 * myData.Select("ChangePrograms = true").Count() / myData.AsEnumerable().Count();
-                }
+                //if (myData.Columns.Contains("ChangePrograms")) {
+                //    yes = 100 * myData.Select("ChangePrograms = true").Count() / myData.AsEnumerable().Count();
+                //}
 
-                summaries.Add(new StudentPreferenceSummary
-                {
-                    Question = "Do you want to change programs?",
-                    PercentYes = yes,
-                });
+                //summaries.Add(new StudentPreferenceSummary
+                //{
+                //    Question = "Do you want to change programs?",
+                //    PercentYes = yes,
+                //});
 
                 return summaries;
 

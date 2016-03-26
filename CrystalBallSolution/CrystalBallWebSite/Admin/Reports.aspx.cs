@@ -164,23 +164,23 @@ public partial class Admin_Reports : System.Web.UI.Page
 
             //DataRow dr = compareData.NewRow();
 
-            compareData.Columns.Add("Difference");
+            //compareData.Columns.Add("Difference");
 
-            for (int i = 0; i < leftData.Count; i++ )
-            {
-                if (leftData[i] != null && rightData[i] != null)
-                {
-                    diff = rightData[i].PercentYes - leftData[i].PercentYes;
-                }
-                else
-                {
-                    diff = null;
-                }
+            //for (int i = 0; i < leftData.Count; i++ )
+            //{
+            //    if (leftData[i] != null && rightData[i] != null)
+            //    {
+            //        diff = rightData[i].PercentYes - leftData[i].PercentYes;
+            //    }
+            //    else
+            //    {
+            //        diff = null;
+            //    }
 
-             //   dr["Difference"] = diff;
-                compareData.Rows.Add(compareData.NewRow()["Difference"] = diff);
+            // //   dr["Difference"] = diff;
+            //    compareData.Rows.Add(compareData.NewRow()["Difference"] = diff);
                 
-            }
+            //}
 
             GV_Compare.DataSource = compareData;
             GV_Compare.DataBind();
