@@ -778,6 +778,8 @@ footer {
 
 .program-search-results {
     background-color: #113e68;
+    background-image: url("../images/result-background.svg");
+    background-size: cover;
     color: #ebf3f9;
     display: inline-block;
     box-shadow: 8px 8px 5px rgba(0,0,0,.3);
