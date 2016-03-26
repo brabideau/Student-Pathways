@@ -23,15 +23,7 @@ namespace CrystalBallSystem.BLL
     public class StudentController
     {
         #region add nait course
-        public void AddCourse(NaitCours item)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                // TODO: Validation rules...
-                var added = context.NaitCourses.Add(item);
-                context.SaveChanges();
-            }
-        }
+
         #endregion
 
         //Method that will get all of the highschool courses and their relevant details
@@ -52,48 +44,9 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<int> GetCourseIDs(string[] courseCodes)
-        {
-            List<int> intList = new List<int>();
-            using (var context = new CrystalBallContext())
-            {
-                for (int i = 0; i < courseCodes.Length; i++)
-                {
-                    var results = (from course in context.NaitCourses
-                                  where course.CourseCode == courseCodes[i]
-                                  select course.CourseID).First();
-                    intList.Add(results);
-                }
-                return intList;
-            }
-        }
-
-
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public int GetEntranceList(int courseID, int mark)
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = (from entrance in context.EntranceRequirements
-                               orderby entrance.EntranceRequirementID
-                               where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
-                               select entrance.EntranceRequirementID).FirstOrDefault();
-                return results;
-            }
-        }
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<Program> GetPrograms()
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = from p in context.Programs
-                              select p;
-                return (results.OrderBy(x => x.ProgramName)).ToList();
-                
-            }
-
-        }
+        
+        
+        
         //Method returns the list of course ids in a given category
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public int[] GetParentCategory(int courseCode)
@@ -115,52 +68,12 @@ namespace CrystalBallSystem.BLL
                 return returnArray.ToArray();
             }
         }
-        //Method will return a list of program ids and credits for each program returned based on the user course selection
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public List<GetCourseCredits> GetCourseCredits(List<int> courseid, List<int> programid)
-        //{
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //          var result = from p in context.Programs
-        //                     where programid.Contains(p.ProgramID)
-        //                     select new GetCourseCredits
-        //                     {
-        //                         ProgramID = p.ProgramID,
-        //                         ProgramName = p.ProgramName,
-        //                         ProgramDescription = p.ProgramDescription,
-        //                         ProgramLink = p.ProgramLink,
-        //                         CredType = (from d in context.CredentialTypes
-        //                                         where p.CredentialTypeID == d.CredentialTypeID
-        //                                         select d.CredentialTypeName).FirstOrDefault(),
-        //                         Credits = (from x in
-        //                                        (from ce in context.CourseEquivalencies
-        //                                         from c in p.ProgramCourses
-        //                                         where courseid.Contains(c.CourseID) || courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
-        //                                         select c.NaitCourse).Distinct()
-        //                                    select (double?)x.CourseCredits).Sum()
-
-        //                     };
-			
-
-        //        return result.ToList();
-        //    }
-        //}
-
+       
 
 
 
         #region preference questions
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<PreferenceQuestion> GetQuestions()
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = from row in context.PreferenceQuestions
-                              orderby row.QuestionID
-                              select row;
-                return results.ToList();
-            }
-        }
+       
 
 
         #endregion
@@ -252,7 +165,104 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
-        #region Equivalency Matching
+
+
+        #region do we need these?
+        public void AddCourse(NaitCours item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                // TODO: Validation rules...
+                var added = context.NaitCourses.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<int> GetCourseIDs(string[] courseCodes)
+        {
+            List<int> intList = new List<int>();
+            using (var context = new CrystalBallContext())
+            {
+                for (int i = 0; i < courseCodes.Length; i++)
+                {
+                    var results = (from course in context.NaitCourses
+                                   where course.CourseCode == courseCodes[i]
+                                   select course.CourseID).First();
+                    intList.Add(results);
+                }
+                return intList;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public int GetEntranceList(int courseID, int mark)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = (from entrance in context.EntranceRequirements
+                               orderby entrance.EntranceRequirementID
+                               where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
+                               select entrance.EntranceRequirementID).FirstOrDefault();
+                return results;
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Program> GetPrograms()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from p in context.Programs
+                              select p;
+                return (results.OrderBy(x => x.ProgramName)).ToList();
+
+            }
+
+        }
+
+        //Method will return a list of program ids and credits for each program returned based on the user course selection
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<GetCourseCredits> GetCourseCredits(List<int> courseid, List<int> programid)
+        //{
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //          var result = from p in context.Programs
+        //                     where programid.Contains(p.ProgramID)
+        //                     select new GetCourseCredits
+        //                     {
+        //                         ProgramID = p.ProgramID,
+        //                         ProgramName = p.ProgramName,
+        //                         ProgramDescription = p.ProgramDescription,
+        //                         ProgramLink = p.ProgramLink,
+        //                         CredType = (from d in context.CredentialTypes
+        //                                         where p.CredentialTypeID == d.CredentialTypeID
+        //                                         select d.CredentialTypeName).FirstOrDefault(),
+        //                         Credits = (from x in
+        //                                        (from ce in context.CourseEquivalencies
+        //                                         from c in p.ProgramCourses
+        //                                         where courseid.Contains(c.CourseID) || courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
+        //                                         select c.NaitCourse).Distinct()
+        //                                    select (double?)x.CourseCredits).Sum()
+
+        //                     };
+
+
+        //        return result.ToList();
+        //    }
+        //}
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<PreferenceQuestion> GetQuestions()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from row in context.PreferenceQuestions
+                              orderby row.QuestionID
+                              select row;
+                return results.ToList();
+            }
+        }
 
         #endregion
     }

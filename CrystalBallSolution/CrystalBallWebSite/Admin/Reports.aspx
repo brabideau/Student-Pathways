@@ -3,9 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Reports</h1>
-
-    <asp:LinkButton ID="Program_Data_Button" OnClick="Program_Button_Click" runat="server"><h3>Program Data</h3></asp:LinkButton>
-    <asp:LinkButton ID="Student_Data_Button" OnClick ="Student_Button_Click" runat="server"><h3>Student Data</h3></asp:LinkButton>
+    <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
+            <asp:ListItem Value="1" Text="Program Data" Selected="true"></asp:ListItem>
+            <asp:ListItem Value="2" Text="Student Data"></asp:ListItem>
+            
+        </asp:RadioButtonList>
+    <%--<asp:LinkButton ID="Program_Data_Button" OnClick="Program_Button_Click" runat="server"><h3>Program Data</h3></asp:LinkButton>
+    <asp:LinkButton ID="Student_Data_Button" OnClick ="Student_Button_Click" runat="server"><h3>Student Data</h3></asp:LinkButton>--%>
         <div class="search-bar col-6">
          Year:
         <asp:DropDownList ID="DL_Year" runat="server">

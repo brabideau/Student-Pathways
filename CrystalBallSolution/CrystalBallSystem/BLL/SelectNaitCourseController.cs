@@ -104,6 +104,15 @@ namespace CrystalBallSystem.BLL
                 }
             }
 
+
+        #endregion
+
+        #region add new nait course
+         
+        #endregion
+
+
+        #region do we need these?
             [DataObjectMethod(DataObjectMethodType.Select, false)]
             public List<ProgramNameID> GetProgram()
             {
@@ -156,50 +165,48 @@ namespace CrystalBallSystem.BLL
                                  where courseids.Contains(x.CourseID)
                                  select x;
 
-                    
+
 
 
                     var result2 = (from x in result
-                                  orderby x.Program.ProgramName
-                                  select new ProgramAndCourses
-                                  {
-                                      ProgramID = x.Program.ProgramID,
-                                      ProgramName = x.Program.ProgramName,
-                                      ProgramCreditTotal = x.Program.TotalCredits == null ? 0 : x.Program.TotalCredits,
-                                      CreditTotal = (from y in result
-                                                     where y.Program.ProgramID == x.Program.ProgramID
-                                                     select y.NaitCourse.CourseCredits).Sum(),
-                                      ProgramCourseMatch = from y in result
-                                                           where y.Program.ProgramID == x.Program.ProgramID
-                                                           select new ProgramCourseMatch
-                                                           {
-                                                               CourseID = y.NaitCourse.CourseID,
-                                                               CourseCode = y.NaitCourse.CourseCode,
-                                                               CourseName = y.NaitCourse.CourseName,
-                                                               CourseCredits = y.NaitCourse.CourseCredits
-                                                           }
+                                   orderby x.Program.ProgramName
+                                   select new ProgramAndCourses
+                                   {
+                                       ProgramID = x.Program.ProgramID,
+                                       ProgramName = x.Program.ProgramName,
+                                       ProgramCreditTotal = x.Program.TotalCredits == null ? 0 : x.Program.TotalCredits,
+                                       CreditTotal = (from y in result
+                                                      where y.Program.ProgramID == x.Program.ProgramID
+                                                      select y.NaitCourse.CourseCredits).Sum(),
+                                       ProgramCourseMatch = from y in result
+                                                            where y.Program.ProgramID == x.Program.ProgramID
+                                                            select new ProgramCourseMatch
+                                                            {
+                                                                CourseID = y.NaitCourse.CourseID,
+                                                                CourseCode = y.NaitCourse.CourseCode,
+                                                                CourseName = y.NaitCourse.CourseName,
+                                                                CourseCredits = y.NaitCourse.CourseCredits
+                                                            }
 
 
-                                  }).GroupBy(a => a.ProgramID);
+                                   }).GroupBy(a => a.ProgramID);
 
                     List<ProgramAndCourses> PAC = new List<ProgramAndCourses>();
-                    foreach(var item in result2)
+                    foreach (var item in result2)
                     {
                         PAC.Add(item.FirstOrDefault());
                     }
                     return PAC;
                 }
             }
-        #endregion
 
-        #region add new nait course
             [DataObjectMethod(DataObjectMethodType.Select, false)]
             public List<NaitCours> NaitCourse_List(int programid)
             {
                 using (CrystalBallContext context = new CrystalBallContext())
                 {
-                    
-                    if(programid == 0 )
+
+                    if (programid == 0)
                     {
                         var step1 = from x in context.NaitCourses select x;
                         return step1.ToList();
@@ -220,7 +227,7 @@ namespace CrystalBallSystem.BLL
                         return step1.ToList();
                     }
 
-                              
+
 
                 }
             }

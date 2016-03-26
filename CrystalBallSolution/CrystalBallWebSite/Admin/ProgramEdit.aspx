@@ -2,21 +2,31 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
     <h1>Edit Program</h1>
-   <div runat="server" id="ProgramEditDiv" visible="false">
+   
        <h2>
             <asp:Label ID="ProgramNameLabel" runat="server" Text=""></asp:Label></h2>
         
      <%-- ----------------------------- BUTTONS ---------------------------------------%>
-    <div runat="server" id="buttons" visible="false" class="col-12 searchbox"> 
-        <h5>
+    <div runat="server" id="buttons" visible="false" > 
+
+        <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
+            <asp:ListItem Value="1" Text="Program Info" Selected="true"></asp:ListItem>
+            <asp:ListItem Value="2" Text="Categories"></asp:ListItem>
+            <asp:ListItem Value="3" Text="Entrance Requirements"></asp:ListItem>
+            <asp:ListItem Value="4" Text="Courses"></asp:ListItem>
+            <asp:ListItem Value="5" Text="Transfer Credits"></asp:ListItem>
+            <asp:ListItem Value="6" Text="Program Preferences"></asp:ListItem>
+        </asp:RadioButtonList>
+       <%-- <h5>
     <asp:LinkButton ID="B_ProgramInfo" runat="server" OnClick="ProgramInfo_Show">Program Info</asp:LinkButton> >>> 
     <asp:LinkButton ID="B_Categories" runat="server" OnClick="Categories_Show">Categories</asp:LinkButton> >>> 
     <asp:LinkButton ID="B_EntranceReq" runat="server" OnClick="EntranceReq_Show">Entrance Requirements</asp:LinkButton> >>> 
     <asp:LinkButton ID="B_Courses" runat="server" OnClick="Courses_Show" >Courses</asp:LinkButton> >>> 
     <asp:LinkButton ID="B_CourseEquivalencies" runat="server" OnClick="CourseEquivalencies_Show">Equivalencies</asp:LinkButton> >>> 
     <asp:LinkButton ID="B_ProgramPreferences" runat="server" OnClick="ProgramPreferences_Show" >Preferences</asp:LinkButton>
-            </h5>
+            </h5>--%>
     </div>
+       <div runat="server" id="ProgramEditDiv" visible="false">
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
        <div runat="server" id="ProgramInfo" visible="false" class="clearfix">
        <asp:Label ID="ProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>

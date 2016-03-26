@@ -46,7 +46,21 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         }
     }
+    protected void Change_Tab(object sender, EventArgs e)
+    {
+        string value = Tab_Labels.SelectedValue;
 
+        switch (value)
+        {
+            case "1":
+                Program_Button_Click(sender, e);
+                break;
+            case "2":
+                Student_Button_Click(sender, e);
+                break;
+           
+        }
+    }
 
     protected void Program_Button_Click(object sender, EventArgs e)
     {

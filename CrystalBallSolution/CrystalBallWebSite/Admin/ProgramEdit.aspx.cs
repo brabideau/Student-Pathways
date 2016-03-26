@@ -71,6 +71,32 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     }
 
     #endregion
+    protected void Change_Tab(object sender, EventArgs e)
+    {
+        string value = Tab_Labels.SelectedValue;
+
+        switch (value)
+        {
+            case "1":
+                ProgramInfo_Show(sender, e);
+                break;
+            case "2":
+                Categories_Show(sender, e);
+                break;
+            case "3":
+                EntranceReq_Show(sender, e);
+                break;
+            case "4":
+                Courses_Show(sender, e);
+                break;
+            case "5":
+                CourseEquivalencies_Show(sender, e);
+                break;
+            case "6":
+                ProgramPreferences_Show(sender, e);
+                break;
+        }
+    }
 
     /* -----------------------------------PROGRAM INFO --------------------*/
     #region program info
