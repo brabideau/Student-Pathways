@@ -259,15 +259,18 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         ProgramDropDown.DataBind();
     }
     //======1
-    protected void HighSchoolPage(object sender, EventArgs e)
-    {
-
-    }
     protected void stepOneNext_Click(object sender, EventArgs e)
     {
-        stepOne.Visible = false;
-        stepTwo.Visible = true;
-        PrefQuestions.DataBind();
+        if (RBL_GraduatedPostSecondary.SelectedValue == "true" && TB_GPA.Text == "")
+        {
+            MessageUserControl.ShowInfo("You must enter your GPA.");
+        }
+        else
+        {
+            stepOne.Visible = false;
+            stepTwo.Visible = true;
+            PrefQuestions.DataBind();
+        }
         //while (ProgramDropDown.SelectedValue == "0")
         //{
         //    MessageUserControl.ShowInfo("You must select a program");
@@ -438,14 +441,14 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
        
 
-        foreach (ListItem item in PrefQuestions.Items)
-        {
-            item.Selected = true;
-        }
-        foreach (ListItem item in CB_CourseList.Items)
-        {
-            item.Selected = false;
-        }
+        //foreach (ListItem item in PrefQuestions.Items)
+        //{
+        //    item.Selected = true;
+        //}
+        //foreach (ListItem item in CB_CourseList.Items)
+        //{
+        //    item.Selected = false;
+        //}
     }
     //===============================================select nait course==================================================================================
     protected void SelectCourses(object sender, GridViewSelectEventArgs e)
@@ -554,8 +557,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CourseGridView.DataSource = course.SearchNaitCourses(null, Convert.ToInt32(ProgramDropDownList.SelectedValue));
         CourseGridView.DataBind();
     }
-
-    //========================================================================================================================================
-
-
+    protected void RBL_GraduatedPostSecondary_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (RBL_GraduatedPostSecondary.SelectedValue == "true")
+            graduated.Visible = true;
+        else
+            graduated.Visible = false;
+    }
 }

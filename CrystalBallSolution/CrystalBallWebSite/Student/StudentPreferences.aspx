@@ -3,7 +3,9 @@
 <%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+    <asp:UpdatePanel runat="server">
+        <ContentTemplate>
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
 
     <!-- step 1 - high school courses -->
     <!-- student course selection section -->
@@ -15,7 +17,19 @@
         </asp:CheckBoxList>
 
             <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
-
+        <p>Have you graduated from a post secondary institution?</p>
+        <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True">
+            <asp:ListItem Value="true">Yes</asp:ListItem>
+            <asp:ListItem Value="false" Selected="True">No</asp:ListItem>
+        </asp:RadioButtonList>
+        <div id="graduated" runat="server" visible="false">
+        <asp:DropDownList ID="DDL_ProgramCategory" runat="server" DataSourceID="ODS_Category" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
+        <asp:ObjectDataSource ID="ODS_Category" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+        <asp:DropDownList ID="DDL_CredentialType" runat="server" DataSourceID="ODS_Credential" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
+        <asp:ObjectDataSource ID="ODS_Credential" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+        <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>
+        </div>
+        
         </div>
     <!-- step 2 - preference questions -->
     <!-- get student preference questions -->
@@ -80,9 +94,9 @@
     <!--Get student's program information-->
         <div runat="server" id="stepThree" visible="false" class="clearfix">
             <p>Have you previously taken courses at NAIT?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
-            <p>If you have taken courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
             
             <div runat="server" id="chooseProgram" class="clearfix">
+                <p>If you have taken courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
                 <p>Select Program Category: 
         <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true" AppendDataBoundItems="True">
 
@@ -108,11 +122,8 @@
             <asp:ListItem Text="Second" Value="2" />
             <asp:ListItem Text="Third" Value="3" />
             <asp:ListItem Text="Fourth" Value="4" />
-            <asp:ListItem Text="Fifth" Value="5" />
-            <asp:ListItem Text="Sixth" Value="6" />
-            <asp:ListItem Text="Already Completed" Value="-1" />
         </asp:DropDownList></p>
-                <p>Do you wish to continue your chosen program stream?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server"><asp:ListItem Value="true">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
+                <p>Do you wish to continue your chosen program stream?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server"><asp:ListItem Value="true" Selected="True">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
             </div>
             
             <asp:LinkButton ID="stepThreeNext" runat="server" OnClick="stepThreeNext_Click" CssClass="button next">Next</asp:LinkButton>
@@ -262,4 +273,4 @@
                            <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
                         </td>
                         <td>
-                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank"><span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></asp:Content>
+                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank"><span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></ContentTemplate></asp:UpdatePanel></asp:Content>
