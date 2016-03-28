@@ -8,6 +8,7 @@
         <asp:ListItem Value="0">[All Categories]</asp:ListItem>
     </asp:DropDownList>
     <asp:Button ID="SearchButton" runat="server" Text="Search" OnClick="SearchButton_Click" />
+  
     <asp:ListView ID="ProgramListView" runat="server" OnSelectedIndexChanging="ProgramListView_SelectedIndexChanging" DataKeyNames="ProgramID">       
         
         <EmptyDataTemplate>

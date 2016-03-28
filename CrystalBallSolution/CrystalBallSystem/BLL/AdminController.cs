@@ -714,6 +714,7 @@ namespace CrystalBallSystem.BLL
             {
 
                 List<Program> results = new List<Program> { };
+                List<Program> results2 = new List<Program> { };
 
                 if (catID == 0 && searchTerm != null)
                 {
@@ -721,9 +722,16 @@ namespace CrystalBallSystem.BLL
                                where p.ProgramName.Contains(searchTerm)
                                select p).ToList();
                 }
-                else if (catID != 0 && searchTerm == null)
+                else if (catID != 0 && string.IsNullOrEmpty(searchTerm))
                 {
                     results = (context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == catID))).ToList();
+                }
+                else if(catID !=0 && searchTerm != null)
+                {
+                    results2 = (context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == catID))).ToList();
+                    results = (from p in results2
+                               where p.ProgramName.ToUpper().Contains(searchTerm.ToUpper())
+                               select p).ToList();
                 }
                 else
                 {

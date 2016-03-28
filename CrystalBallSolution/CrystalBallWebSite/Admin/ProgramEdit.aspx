@@ -2,7 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
     <h1>Edit Program</h1>
+    <asp:UpdatePanel runat="server">
+        <ContentTemplate>
 
+       
    <div runat="server" id="Buttons" visible="false" >
        <h2>
             <asp:Label ID="ProgramNameLabel" runat="server" Text=""></asp:Label></h2>
@@ -568,6 +571,8 @@
     </asp:ListView>
     </div>
 
+             </ContentTemplate>
+    </asp:UpdatePanel>
 
 
     <%-- -----------------------------ODS---------------------------------------%>
