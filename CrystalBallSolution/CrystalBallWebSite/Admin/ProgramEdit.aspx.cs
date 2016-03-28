@@ -22,7 +22,9 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
         string search = Search_Box.Text;
         AdminController sysmgr = new AdminController();
-        var programData = sysmgr.Program_Search(search, null);
+        int category = int.Parse(CategoryDropDowList.SelectedValue.ToString());
+        var programData = sysmgr.findProgram(search, category);
+        //var programData = sysmgr.Program_Search(search, null);
 
         Program_List.DataSource = programData;
         Program_List.DataBind();

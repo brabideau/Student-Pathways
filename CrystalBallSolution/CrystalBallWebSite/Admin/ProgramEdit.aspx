@@ -530,7 +530,10 @@
     </div> <%--end program edit div--%>
       <%-- ----------------------------- SEARCH ---------------------------------------%>
     <div runat="server" id="search" class="search-bar" >
-        <asp:TextBox ID="Search_Box" runat="server"></asp:TextBox>
+        <asp:TextBox ID="Search_Box" runat="server" Width="200px" placeholder="Search Programs"></asp:TextBox> in
+        <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
+            <asp:ListItem Value="0">[All Subjects]</asp:ListItem>
+        </asp:DropDownList>
         <asp:Button ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search"/>
     </div>
 
