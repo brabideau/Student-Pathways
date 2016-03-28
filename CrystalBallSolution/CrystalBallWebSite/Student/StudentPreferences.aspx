@@ -8,7 +8,8 @@
     <!-- step 1 - high school courses -->
     <!-- student course selection section -->
     <div id="stepOne" runat="server" visible="true">
-    <h1>Select the Courses You've Taken</h1>
+    <h1>Your High School Courses</h1>
+        <h3>Check off all the high school courses you've taken</h3>
         <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" CssClass="courseCSS clearfix">
         </asp:CheckBoxList>
@@ -20,7 +21,7 @@
     <!-- get student preference questions -->
         <div runat="server" id="stepTwo" visible="false">
         <h1>Your Preferences</h1>
-            <p>This will help us match you with programs you might enjoy!</p>
+            <p>This will help us match you with programs you'll enjoy!</p>
           <asp:RadioButtonList ID="PrefQuestions" 
               runat="server" 
               DataSourceID="QuestionDataSource" 
@@ -101,7 +102,7 @@
                         </SelectParameters>
                     </asp:ObjectDataSource>
                 </p>
-                <p>Select Which Semester You Are In: 
+                <p>Select Which Year You Are In: 
         <asp:DropDownList ID="SemesterDropDown" runat="server">
             <asp:ListItem Text="First" Value="1" />
             <asp:ListItem Text="Second" Value="2" />
@@ -139,6 +140,7 @@
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
         </div>
     <div class="col-6 nait-courses">
+        <h3>Nait Course Search</h3>
         <!-- DataSourceID="NaitCourseODB" -->
         <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
             
@@ -184,6 +186,7 @@
    </div>
 
     <div class ="col-6 nait-courses">
+        <h3>My Courses</h3>
         <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
         <ItemTemplate>    
             <div class="inner-rpt-div">
@@ -205,7 +208,7 @@
 </div>
 <div class="col-12">
         
-        <asp:LinkButton ID="Next" runat="server" OnClick="Submit_Click" CssClass="button next button-long" >See Results</asp:LinkButton>
+        <asp:LinkButton ID="Next" runat="server" OnClick="Submit_Click" CssClass="button next button-long" >Next: See Results</asp:LinkButton>
         <asp:LinkButton ID="stepFourPrevious" runat="server" OnClick="stepFourPrevious_Click" CssClass="button back">Previous</asp:LinkButton>
        
     </div>
