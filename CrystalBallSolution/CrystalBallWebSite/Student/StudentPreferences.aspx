@@ -16,12 +16,13 @@
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" CssClass="courseCSS clearfix">
         </asp:CheckBoxList>
 
-            <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
+            
         <p>Have you graduated from a post secondary institution?</p>
         <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True">
             <asp:ListItem Value="true">Yes</asp:ListItem>
             <asp:ListItem Value="false" Selected="True">No</asp:ListItem>
         </asp:RadioButtonList>
+        
         <div id="graduated" runat="server" visible="false">
         <asp:DropDownList ID="DDL_ProgramCategory" runat="server" DataSourceID="ODS_Category" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
         <asp:ObjectDataSource ID="ODS_Category" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
@@ -29,7 +30,10 @@
         <asp:ObjectDataSource ID="ODS_Credential" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
         <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>
         </div>
-        
+        <div>
+        <hr />
+        <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
+            </div>
         </div>
     <!-- step 2 - preference questions -->
     <!-- get student preference questions -->

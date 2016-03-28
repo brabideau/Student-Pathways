@@ -565,10 +565,18 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
-        CourseGridView.DataSource = null;
+        SelectNaitCourseController course = new SelectNaitCourseController();
+        List<NAITCourse> courses = new List<NAITCourse>();
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, 0);
         CourseGridView.DataBind();
+        CourseGridView.Visible = true;
+        SearchTextBox.Text = null;
+        //CourseGridView.DataSource = null;
+        //CourseGridView.DataBind();
         rptCourse.DataBind();
         TotalCourseLabel.Text = "Total courses : 0";
+
+
         //Response.Redirect("../Student/SelectNaitCourses.aspx");
     }
     protected void List_Change(object sender, EventArgs e)
