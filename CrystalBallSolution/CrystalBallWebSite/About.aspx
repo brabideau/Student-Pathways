@@ -5,7 +5,7 @@
     <h3>About Nait's Crystal Ball system</h3>
     <p>The Crystal Ball system is designed to help students find the best educational pathways for them.</p>
 
-    <p>Crystal Ball was developed in the Winter semester of 2016 by 5k Software. We are:
+    <p>Crystal Ball was developed in the Winter semester of 2016 by 5k Software. We are:</p>
         <ul>
             <li>Ashley Condie</li>
             <li>Xin Du</li>
@@ -13,5 +13,5 @@
             <li>Yang Liu</li>
             <li>Briand Rabideau</li>
         </ul>
-    </p>
+
 </asp:Content>

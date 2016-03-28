@@ -29,9 +29,37 @@ namespace CrystalBallSystem.BLL
                     //searchinfo upper lower case
                     if (programID == 0)
                     {
-                        if (SearchInfo == null)
-                        {
-                            var result = from Ncourse in context.NaitCourses
+                        //if (SearchInfo == null)
+                        //{
+                        //    var result = from Ncourse in context.NaitCourses
+                        //                 select new NAITCourse
+                        //                 {
+                        //                     CourseID = Ncourse.CourseID,
+                        //                     CourseCode = Ncourse.CourseCode,
+                        //                     CourseName = Ncourse.CourseName,
+                        //                     CourseCredits = Ncourse.CourseCredits,
+
+                        //                 };
+                        //    return result.ToList();
+                        //}
+                        //else
+                        //{
+                        //    var result = from Ncourse in context.NaitCourses
+                        //                 where (Ncourse.CourseName.Contains(SearchInfo))
+                        //                 || (Ncourse.CourseCode.Contains(SearchInfo))
+                        //                 select new NAITCourse
+                        //                 {
+                        //                     CourseID = Ncourse.CourseID,
+                        //                     CourseCode = Ncourse.CourseCode,
+                        //                     CourseName = Ncourse.CourseName,
+                        //                     CourseCredits = Ncourse.CourseCredits,
+
+                        //                 };
+                        //    return result.ToList();
+                        //}
+                        var result1 =  from Ncourse in context.NaitCourses  
+                                      where ((SearchInfo==null) ? Ncourse.CourseName.Contains("")||(Ncourse.CourseCode.Contains("") ): (Ncourse.CourseName.Contains(SearchInfo))
+                                         || (Ncourse.CourseCode.Contains(SearchInfo)))
                                          select new NAITCourse
                                          {
                                              CourseID = Ncourse.CourseID,
@@ -40,65 +68,65 @@ namespace CrystalBallSystem.BLL
                                              CourseCredits = Ncourse.CourseCredits,
 
                                          };
-                            return result.ToList();
-                        }
-                        else
-                        {
-                            var result = from Ncourse in context.NaitCourses
-                                         where (Ncourse.CourseName.Contains(SearchInfo))
-                                         || (Ncourse.CourseCode.Contains(SearchInfo))
-                                         select new NAITCourse
-                                         {
-                                             CourseID = Ncourse.CourseID,
-                                             CourseCode = Ncourse.CourseCode,
-                                             CourseName = Ncourse.CourseName,
-                                             CourseCredits = Ncourse.CourseCredits,
-
-                                         };
-                            return result.ToList();
-                        }
+                        return result1.ToList();
+                                     
+                                     
                     }
                     else
                     {
 
 
-                        if (SearchInfo == null)
-                        {
-                            List<NAITCourse> CourseLIst = new List<NAITCourse>();
+                        //if (SearchInfo == null)
+                        //{
+                        //    List<NAITCourse> CourseLIst = new List<NAITCourse>();
                             
-                            var results = from pc in context.ProgramCourses
-                                      //  from n in pc.NaitCourses
-                                        where pc.ProgramID == programID
-                                        select new NAITCourse
-                                        {
-                                            CourseID = pc.CourseID,
-                                            CourseCode = pc.NaitCourse.CourseCode,
-                                            CourseName = pc.NaitCourse.CourseName,
-                                            CourseCredits = pc.NaitCourse.CourseCredits
-                                        };
-                            return results.ToList();
+                        //    var results = from pc in context.ProgramCourses
+                        //              //  from n in pc.NaitCourses
+                        //                where pc.ProgramID == programID
+                        //                select new NAITCourse
+                        //                {
+                        //                    CourseID = pc.CourseID,
+                        //                    CourseCode = pc.NaitCourse.CourseCode,
+                        //                    CourseName = pc.NaitCourse.CourseName,
+                        //                    CourseCredits = pc.NaitCourse.CourseCredits
+                        //                };
+                        //    return results.ToList();
 
                             
-                        }
-                        else
-                        {
-                            List<NAITCourse> CourseLIst = new List<NAITCourse>();
+                        //}
+                        //else
+                        //{
+                        //    List<NAITCourse> CourseLIst = new List<NAITCourse>();
 
-                            var result = from pc in context.ProgramCourses
-                                         where pc.ProgramID == programID && (pc.NaitCourse.CourseName.Contains(SearchInfo)
-                                          || ( pc.NaitCourse.CourseCode.Contains(SearchInfo)))
-                                          select new NAITCourse
-                                        {
-                                            CourseID = pc.CourseID,
-                                            CourseCode = pc.NaitCourse.CourseCode,
-                                            CourseName = pc.NaitCourse.CourseName,
-                                            CourseCredits = pc.NaitCourse.CourseCredits
-                                        };
+                        //    var result = from pc in context.ProgramCourses
+                        //                 where pc.ProgramID == programID && (pc.NaitCourse.CourseName.Contains(SearchInfo)
+                        //                  || ( pc.NaitCourse.CourseCode.Contains(SearchInfo)))
+                        //                  select new NAITCourse
+                        //                {
+                        //                    CourseID = pc.CourseID,
+                        //                    CourseCode = pc.NaitCourse.CourseCode,
+                        //                    CourseName = pc.NaitCourse.CourseName,
+                        //                    CourseCredits = pc.NaitCourse.CourseCredits
+                        //                };
 
-                            return result.ToList();
+                        //    return result.ToList();
 
                           
-                        }
+                        //}
+                        var result2 = from pc in context.ProgramCourses
+                                      where ((SearchInfo==null) ?
+                                      pc.ProgramID == programID && (pc.NaitCourse.CourseName.Contains("")
+                                          || ( pc.NaitCourse.CourseCode.Contains(""))) 
+                                          : pc.ProgramID == programID && (pc.NaitCourse.CourseName.Contains(SearchInfo)
+                                          || ( pc.NaitCourse.CourseCode.Contains(SearchInfo))))
+                                      select new NAITCourse
+                                        {
+                                            CourseID = pc.CourseID,
+                                            CourseCode = pc.NaitCourse.CourseCode,
+                                            CourseName = pc.NaitCourse.CourseName,
+                                            CourseCredits = pc.NaitCourse.CourseCredits
+                                        };
+                        return result2.ToList();
 
                     }
                 }
