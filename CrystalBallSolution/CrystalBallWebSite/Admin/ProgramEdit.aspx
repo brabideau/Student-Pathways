@@ -61,6 +61,7 @@
      
     <div runat="server" id="EntranceRequirements" class="clearfix">
 
+        <%--HIGH SCHOOL ENTRANCE REQUIREMENTS--%>        
         <p>What high school courses does this program require?</p>
         <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
             <Columns>
@@ -133,7 +134,10 @@
             <asp:LinkButton ID="addMSubjectButton" runat="server" OnClick="addMSubjectButton_Click">Add Requirement</asp:LinkButton>
         </div>
 
-        <%-- <p>Does entry to this program require any previous post-secondary work?</p>
+
+
+        <%--POST SECONDARY ENTRANCE REQUIREMENT--%>
+         <p>Does entry to this program require any previous post-secondary work?</p>
 
          <asp:ListView ID="LV_DegreeEntranceReq" runat="server">
         <LayoutTemplate>
@@ -170,7 +174,7 @@
                 </tr>
             </ItemTemplate>
     </asp:ListView>
-         <asp:LinkButton ID="EntranceReq_Save" runat="server" OnClick="Save_EntranceReq" CssClass="button next button-long">Save & Continue</asp:LinkButton>--%>
+         <asp:LinkButton ID="EntranceReq_Save" runat="server" OnClick="Save_EntranceReq" CssClass="button next button-long">Save & Continue</asp:LinkButton>
      </div>
 
 
