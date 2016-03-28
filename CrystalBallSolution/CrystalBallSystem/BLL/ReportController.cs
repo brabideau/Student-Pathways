@@ -296,7 +296,7 @@ namespace CrystalBallSystem.BLL
                               select x;
                 }
 
-                var results = from c in alldata
+                var results = (from c in alldata
                               group c by c.Program into swaps
                               select new StudentsDroppingSummary
                               {
@@ -304,7 +304,7 @@ namespace CrystalBallSystem.BLL
                                   PercentDropping = 100 * (from s in swaps
                                                            where s.ChangeProgram
                                                            select swaps).Count() / swaps.Count()
-                              };
+                              }).OrderByDescending(x => x.PercentDropping);
 
                 return results.ToList();
             }
@@ -334,13 +334,13 @@ namespace CrystalBallSystem.BLL
                               select x;
                 }
 
-                var results = from pd in alldata
+                var results = (from pd in alldata
                                 group pd by pd.Program into p
                                   select new ProgramFrequency
                                   {
                                       Program = p.Key.ProgramName,
                                       Frequency = p.Count()
-                                  };
+                                  }).OrderByDescending(x => x.Frequency);
 
 
                 return results.ToList();

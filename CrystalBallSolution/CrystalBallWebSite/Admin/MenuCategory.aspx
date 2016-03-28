@@ -7,7 +7,6 @@
     </div>   
     <div class="admin-menu">  
 
-
         <div class="col-4 center">
             <a href="ProgramEdit.aspx">
             <div class="cat-img">
@@ -25,7 +24,6 @@
             <h5>View Useage Data</h5>
             </a> 
        </div>
-
         
         <div class="col-4 center">
             <a href="ManageCategory.aspx">

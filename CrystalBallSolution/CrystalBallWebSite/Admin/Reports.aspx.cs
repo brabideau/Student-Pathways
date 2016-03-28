@@ -12,16 +12,34 @@ using System.Data;
 public partial class Admin_Reports : System.Web.UI.Page
 {
 
+
+
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        
+        if (!IsPostBack)
+        {
+            List<StudentPreferenceSummary> leftData = new List<StudentPreferenceSummary> { };
+            ViewState["leftData"] = leftData;
+            List<StudentPreferenceSummary> rightData = new List<StudentPreferenceSummary> { };
+            ViewState["rightData"] = rightData;
+
+        }
+    }
+
     protected void Page_Init()
     {
+        //Fills out the program data with current month/year on first page load
+
         int year = DateTime.Now.Year;
         int month = DateTime.Now.Month;
 
-        Program_Year_Label.Text = year.ToString();
-        Program_Month_Label.Text = month.ToString();
-
         DL_Year.SelectedValue = year.ToString();
         DL_Month.SelectedValue = month.ToString();
+
+        Program_Year_Label.Text = year.ToString();
+        Program_Month_Label.Text = DL_Month.SelectedItem.Text;
 
         ReportController sysmgr = new ReportController();
 
@@ -35,17 +53,6 @@ public partial class Admin_Reports : System.Web.UI.Page
         GV_ProgramFrequency.DataSource = frequency;
         GV_ProgramFrequency.DataBind();
     }
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if (!IsPostBack)
-        {
-            List<StudentPreferenceSummary> leftData = new List<StudentPreferenceSummary> { };
-            ViewState["leftData"] = leftData;
-            List<StudentPreferenceSummary> rightData = new List<StudentPreferenceSummary> { };
-            ViewState["rightData"] = rightData;
-
-        }
-    }
     protected void Change_Tab(object sender, EventArgs e)
     {
         string value = Tab_Labels.SelectedValue;
@@ -58,7 +65,7 @@ public partial class Admin_Reports : System.Web.UI.Page
             case "2":
                 Student_Button_Click(sender, e);
                 break;
-           
+
         }
     }
 
@@ -96,15 +103,17 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         ReportController sysmgr = new ReportController();
 
+        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
+
+        GV_ProgramFrequency.DataSource = frequency;
+        GV_ProgramFrequency.DataBind();
+
         List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
         GV_Program_Dropping.DataSource = dropping;
         GV_Program_Dropping.DataBind();
 
-        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
-        GV_ProgramFrequency.DataSource = frequency;
-        GV_ProgramFrequency.DataBind();
 
     }
 

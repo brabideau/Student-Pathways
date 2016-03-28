@@ -3,17 +3,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Reports</h1>
-    <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
+
+
+    <asp:UpdatePanel ID="ButtonsPanel" runat="server">
+        <ContentTemplate>
+ <%--           <ul class="tabs">
+                <li><asp:LinkButton ID="LinkButton1" runat="server" OnClick="Program_Button_Click">Programs</asp:LinkButton>
+                </li><asp:LinkButton ID="LinkButton2" runat="server" OnClick="Student_Button_Click">Students</asp:LinkButton>
+            </ul>
+--%> <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
             <asp:ListItem Value="1" Text="Program Data" Selected="true"></asp:ListItem>
             <asp:ListItem Value="2" Text="Student Data"></asp:ListItem>
             
         </asp:RadioButtonList>
-    <%--<asp:LinkButton ID="Program_Data_Button" OnClick="Program_Button_Click" runat="server"><h3>Program Data</h3></asp:LinkButton>
-    <asp:LinkButton ID="Student_Data_Button" OnClick ="Student_Button_Click" runat="server"><h3>Student Data</h3></asp:LinkButton>--%>
+
+
         <div class="search-bar col-6">
          Year:
         <asp:DropDownList ID="DL_Year" runat="server">
-            <asp:ListItem Text="Any" Value="-1"/>
+            <asp:ListItem Text="Any Year" Value="-1"/>
             <asp:ListItem Text="2015" Value="2015" />
             <asp:ListItem Text="2016" Value="2016" />
             <asp:ListItem Text="2017" Value="2017" />
@@ -21,7 +29,7 @@
 
         Month:
         <asp:DropDownList ID="DL_Month" runat="server">
-            <asp:ListItem Text="Any" Value="-1"/>
+            <asp:ListItem Text="Any Month" Value="-1"/>
             <asp:ListItem Text="January" Value="1" />
             <asp:ListItem Text="February" Value="2" />
             <asp:ListItem Text="March" Value="3" />
@@ -38,12 +46,11 @@
 
     </div><%-- end search bar--%>
 
-    <div id="ProgramData" runat="server" visible="true" class="clearfix">
+       <div id="ProgramData" runat="server" class="clearfix" visible="true">
         <div class="col-12">
        <asp:LinkButton ID="Program_Search_Button" runat="server" OnClick="Program_Submit_Click" CssClass="button submit">Search</asp:LinkButton>
-            <p>Your filters:</p>
-            <p>Year: <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
-            <p>Month: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label></p>
+            <p>You are viewing: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label>, <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
+
         </div>
  
         <div class="col-6 nait-courses">
@@ -53,12 +60,12 @@
         <div class="col-6 nait-courses">
             <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
         </div>
+
      </div><%-- end ProgramData--%>
             
+     
 
-
-
-    <div id="StudentData" runat="server" visible="false">
+       <div id="StudentData" runat="server" class="clearfix" visible="false">
   <%----------------------------------- Filters -------------------------------------%>
     <div class="clearfix">
      <div class="search-bar">
@@ -72,17 +79,14 @@
         </div>
 
     <div class="search-bar">
-       Semester:
+       Year:
        <asp:DropDownList ID="DL_Semester" runat="server">
-            <asp:ListItem Text="Unspecified" Value="-1" />
+            <asp:ListItem Text="Any Semester" Value="0" />
             <asp:ListItem Text="1" Value="1" />
             <asp:ListItem Text="2" Value="2" />
             <asp:ListItem Text="3" Value="3" />
             <asp:ListItem Text="4" Value="4" />
-            <asp:ListItem Text="5" Value="5" />
-            <asp:ListItem Text="6" Value="6" />
-            <asp:ListItem Text="7" Value="7" />
-            <asp:ListItem Text="8" Value="8" />
+            <asp:ListItem Text="Graduated" Value="-1" />
         </asp:DropDownList>
 
         Switching Programs:
@@ -93,7 +97,7 @@
         </asp:DropDownList>
     </div>
 
-   
+
  <%----------------------------------- DATA -------------------------------------%>
     <div class="col-5">
         <asp:LinkButton ID="Search_Left" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
@@ -129,7 +133,11 @@
         <asp:GridView ID="GV_Compare" runat="server"></asp:GridView>
     </div>
 </div> <%--end clearfix div--%>
-</div> <%--end student data div--%>
+            </div>
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
 
   <%----------------------------------- ODS -------------------------------------%>
 

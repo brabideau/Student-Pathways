@@ -605,6 +605,7 @@ footer {
     display: none;
 }*/
 
+
 .tabs {
     border-bottom: 3px solid #113e68;
     margin: 20px 0;
@@ -828,10 +829,12 @@ footer {
 }
 
 .program-search-results ul {
-    overflow: auto;
+
     display: block;
     list-style-type: disc;
     margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .program-search-results li {
@@ -851,14 +854,11 @@ footer {
 /* ------------------Management Menu -----------------------*/
 
 .admin-menu .col-4 {
-    height: 230px;
+    height: 265px;
     padding: 20px 0;
+    margin: 10px 0;
+    display: block;
 }
-
-.admin-menu .col-4:hover {
-    background-color: rgba(162,194,219,.4);
-}
-
 
 .cat-img {
     height: 200px;
@@ -867,12 +867,24 @@ footer {
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: inline-block;
+    
 }
 
 .cat-img img {
     vertical-align: middle;
-
+    width: 75%;
+    transition: .1s linear;
 }
+
+
+.admin-menu .col-4:hover img {
+    width: 80%;
+}
+
+
+
+
+
 
 /*---------------------Login Page---------------------------*/
 
