@@ -257,6 +257,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
         ProgramDropDown.DataBind();
+        
     }
     //======1
     protected void stepOneNext_Click(object sender, EventArgs e)
@@ -320,6 +321,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void stepThreeNext_Click(object sender, EventArgs e)
     {
+        DataTable CoursesSelected;
         if (RBL_NAIT_Student.SelectedValue == "0")
         {
             //skip the nait course selection page
@@ -352,7 +354,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     double CCredits = item.CourseCredits;
                     string CCode = item.CourseCode, CName = item.CourseName;
                     DataRow dr;
-                    DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+                    CoursesSelected = (DataTable)ViewState["CoursesSelected"];
                     dr = CoursesSelected.NewRow();
                     dr["CourseID"] = id;
                     dr["CourseCode"] = CCode;
@@ -367,30 +369,18 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     }
                     ViewState["CoursesSelected"] = CoursesSelected;
 
-                    int count = 0;
-                    foreach (DataRow row1 in CoursesSelected.Rows)
-                    {
-                        count++;
-                    }
+                    //int count = 0;
+                    //foreach (DataRow row1 in CoursesSelected.Rows)
+                    //{
+                        //count++;
+                    //}
                     ViewState["CoursesSelected"] = CoursesSelected;
 
                     rptCourse.DataSource = CoursesSelected;
                     rptCourse.DataBind();
 
-                    TotalCourseLabel.Text = "Total courses : " + count;
-                    for (int i = 0; i < CourseGridView.Rows.Count; i++)
-                    {
-                        CourseGridView.Rows[i].Font.Bold = false;
-                        for (int j = 0; j < CoursesSelected.Rows.Count; j++)
-                        {
-                            if (CourseGridView.DataKeys[i]["CourseID"].ToString() == CoursesSelected.Rows[j]["CourseID"].ToString())
-                            {
-                                CourseGridView.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
-                                CourseGridView.Rows[i].Font.Bold = true;
-                                CourseGridView.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
-                            }
-                        }
-                    }
+                    //TotalCourseLabel.Text = "Total courses : " + count;
+                    
                 }
                 //set drop down list to programid
                 //filter search results based on programid
@@ -400,7 +390,30 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 CourseGridView.DataSource = course.SearchNaitCourses(null, programID);
                 CourseGridView.DataBind();
                 CourseGridView.Visible = true;
-            }            
+                CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+                int count = 0;
+                foreach (DataRow row1 in CoursesSelected.Rows)
+                {
+                    count++;
+                }
+                TotalCourseLabel.Text = "Total courses : " + count;
+                
+                for (int i = 0; i < CourseGridView.Rows.Count; i++)
+                {
+                    CourseGridView.Rows[i].Font.Bold = false;
+                    for (int j = 0; j < CoursesSelected.Rows.Count; j++)
+                    {
+                        if (CourseGridView.DataKeys[i]["CourseID"].ToString() == CoursesSelected.Rows[j]["CourseID"].ToString())
+                        {
+                            CourseGridView.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
+                            CourseGridView.Rows[i].Font.Bold = true;
+                            CourseGridView.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
+                        }
+                    }
+                }
+                
+            }
+            
             stepFour.Visible = true;
         }
     }
@@ -524,8 +537,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             rptCourse.DataSource = CoursesSelected;
             rptCourse.DataBind();
         }
-
+        SelectNaitCourseController course = new SelectNaitCourseController();
+        List<NAITCourse> courses = new List<NAITCourse>();
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue));
         CourseGridView.DataBind();
+        int count = 0;
+        foreach (DataRow row1 in CoursesSelected.Rows)
+        {
+            count++;
+        }
+        TotalCourseLabel.Text = "Total courses : " + count;
     }
     protected void Search_Click(object sender, EventArgs e)
     {

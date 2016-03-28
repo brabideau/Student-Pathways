@@ -200,6 +200,7 @@
 
     <div class ="col-6 nait-courses">
         <h3>My Courses</h3>
+        
         <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
         <ItemTemplate>    
             <div class="inner-rpt-div">
