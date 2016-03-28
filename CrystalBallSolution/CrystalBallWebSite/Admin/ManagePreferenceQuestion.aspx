@@ -12,11 +12,13 @@
         <AlternatingItemTemplate>
             <tr >
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button"/>
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                 </td>
                 <td>
                     <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
+                </td>
+                <td>
+                    <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false" />
                 </td>
             </tr>
         </AlternatingItemTemplate>
@@ -27,14 +29,25 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    QuestionID: </th><td>
+                                    QuestionID: </th>
+                                <td>
                                     <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Bind("QuestionID") %>' />
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Question Description: </th><td>
+                                    Question Description: </th>
+                                <td>
                                     <asp:TextBox ID="QuestionDescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Active:
+                                </th>
+                                <td>
+                                    
+                                      <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' />
                                 </td>
                             </tr>
                             <tr>
@@ -52,7 +65,11 @@
         <EmptyDataTemplate>
             <table runat="server">
                 <tr>
-                    <td>No data was returned.</td></tr></table></EmptyDataTemplate><InsertItemTemplate>
+                    <td>No data was returned.</td>
+                </tr>
+            </table>
+        </EmptyDataTemplate>
+        <InsertItemTemplate>
             <tr>
                 <td>
                     <asp:LinkButton ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="admin_button2" />
@@ -61,16 +78,21 @@
                 <td>
                     <asp:TextBox ID="DescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
                 </td>
+                <td>
+                    <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />       
+                </td>
             </tr>
         </InsertItemTemplate>
         <ItemTemplate>
             <tr>
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button" />
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                 </td>
                 <td>
                     <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
+                </td>
+                <td>
+                    <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false"/>
                 </td>
             </tr>
         </ItemTemplate>
@@ -81,7 +103,9 @@
                         <table id="itemPlaceholderContainer" runat="server">
                             <tr runat="server">
                                 <th runat="server"></th>
-                                <th runat="server">Description</th></tr><tr id="itemPlaceholder" runat="server">
+                                <th runat="server">Description</th>
+                                <th runat="server">Active</th>
+                            </tr><tr id="itemPlaceholder" runat="server">
                             </tr>
                         </table>
                     </td>
@@ -91,17 +115,19 @@
         <SelectedItemTemplate>
             <tr>  
                 <td>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button" />
                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                 </td>
                 <td>
-                    <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
+                    <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />        
+                </td>
+                <td>
+                    <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false"/>
                 </td>
             </tr>
         </SelectedItemTemplate>
     </asp:ListView>
 
-    <div >
+    <div>
         <h4 class="table_header">Manage Questions for Each Program</h4>
         <div class="search">
 
@@ -168,7 +194,8 @@
                                                                OnItemUpdating="QuestionListView_ItemUpdating" 
                                                                OnItemEditing="QuestionListView_ItemEditing" 
                                                                OnItemCanceling="QuestionListView_ItemCanceling"
-                                                               InsertItemPosition="LastItem" OnItemInserting="QuestionListView_ItemInserting"><AlternatingItemTemplate>
+                                                               InsertItemPosition="LastItem" OnItemInserting="QuestionListView_ItemInserting">
+                                            <AlternatingItemTemplate>
                 <tr style="">
                     <td>
                         <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
