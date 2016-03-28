@@ -83,16 +83,17 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     protected void Submit_Click(object sender, EventArgs e)
     {
         //step 1 - Gather program information from the student. This is primarily used in metrics data to see what programs see students looking to transfer.
-        int? programCategoryID, programID, programChange, semester;
+        int? programCategoryID, programID, semester;
+        bool? programChange;
         StudentController sysmgr = new StudentController();
         int tempInt;
         stepFour.Visible = false;
 
-        if (CurrentStudent.Checked == true && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
+        if (RBL_NAIT_Student.SelectedValue == "1" && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
         {
             programCategoryID = Convert.ToInt32(CategoryDropDown.SelectedValue);
             programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
-            programChange = Convert.ToInt32(ChangeProgram.Checked);
+            programChange = Convert.ToBoolean(RBL_SwapPrograms.SelectedValue);
             semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
         }
         else
@@ -143,11 +144,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ReportController report = new ReportController();
             int currentProgID, currentSemester;
             bool changeProgram = true;
-            if(CurrentStudent.Checked)
+            if(RBL_NAIT_Student.SelectedValue == "1")
             {
                 currentProgID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 currentSemester = Convert.ToInt32(SemesterDropDown.SelectedValue);
-                changeProgram = ChangeProgram.Checked;
+                changeProgram = Convert.ToBoolean(RBL_SwapPrograms.SelectedValue);
                 report.InsertCurrentStudentMetrics(myPreferences, currentProgID, currentSemester, changeProgram);
             }
             else
@@ -231,7 +232,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
-        if (CurrentStudent.Checked)
+        if(RBL_NAIT_Student.SelectedValue == "1")
         {
             chooseProgram.Visible = true;
         }
@@ -239,6 +240,14 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             chooseProgram.Visible = false;
         }
+        //if (CurrentStudent.Checked)
+        //{
+        //    chooseProgram.Visible = true;
+        //}
+        //else
+        //{
+        //    chooseProgram.Visible = false;
+        //}
     }
 
 
@@ -250,6 +259,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         ProgramDropDown.DataBind();
     }
     //======1
+    protected void HighSchoolPage(object sender, EventArgs e)
+    {
+
+    }
     protected void stepOneNext_Click(object sender, EventArgs e)
     {
         stepOne.Visible = false;
@@ -304,7 +317,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void stepThreeNext_Click(object sender, EventArgs e)
     {
-        if (CurrentStudent.Checked && CategoryDropDown.SelectedValue == "0")
+        if (RBL_NAIT_Student.SelectedValue == "0")
+        {
+            //skip the nait course selection page
+            Submit_Click(sender, e);
+            stepThree.Visible = false;
+        }
+        else if (RBL_NAIT_Student.SelectedValue == "1" && CategoryDropDown.SelectedValue == "0")
         {
             MessageUserControl.ShowInfo("If you are a current student you must select a program.");
         }
@@ -316,7 +335,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             List<NAITCourse> courses = new List<NAITCourse>();
             //add code to populate drop down list and auto add courses
             //run the search for for the program automatically and fill the basket based on prefill results
-            if (CurrentStudent.Checked)
+            if (RBL_NAIT_Student.SelectedValue == "1")
             {
                 programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 semester = Convert.ToInt32(SemesterDropDown.SelectedValue);

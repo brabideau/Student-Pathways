@@ -79,7 +79,7 @@
     <!-- step 3 - metrics / nait student questions -->
     <!--Get student's program information-->
         <div runat="server" id="stepThree" visible="false" class="clearfix">
-            <p>Are you a current NAIT student?<asp:CheckBox ID="CurrentStudent" runat="server" OnCheckedChanged="CurrentStudent_CheckedChanged" autopostback="true" Checked="true"/></p>
+            <p>Have you previously taken courses at NAIT?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
             <p>If you have taken courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
             
             <div runat="server" id="chooseProgram" class="clearfix">
@@ -108,9 +108,11 @@
             <asp:ListItem Text="Second" Value="2" />
             <asp:ListItem Text="Third" Value="3" />
             <asp:ListItem Text="Fourth" Value="4" />
-            <asp:ListItem Text="Other" Value="5" />
+            <asp:ListItem Text="Fifth" Value="5" />
+            <asp:ListItem Text="Sixth" Value="6" />
+            <asp:ListItem Text="Already Completed" Value="-1" />
         </asp:DropDownList></p>
-                <p>Are you considering switching programs?<span style="margin-right: 15px;"></span><asp:CheckBox ID="ChangeProgram" runat="server" /></p>
+                <p>Do you wish to continue your chosen program stream?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server"><asp:ListItem Value="true">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
             </div>
             
             <asp:LinkButton ID="stepThreeNext" runat="server" OnClick="stepThreeNext_Click" CssClass="button next">Next</asp:LinkButton>
@@ -237,6 +239,7 @@
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
         <div id="results" runat="server" visible="false" >
             <h1>Results</h1>
+            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
             <asp:ListView ID="ResultsView" runat="server" >
                         <LayoutTemplate>
                             <table>
@@ -255,19 +258,8 @@
                             </ul>
                         </td>
                         <td>
-                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label></td>
-                        <td>
+                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label></td><td>
                            <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
                         </td>
                         <td>
-                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server"><span class="button submit button-long">Learn More</span></asp:HyperLink>
-
-                        </td>
-
-                    </tr>
-
-                </ItemTemplate>
-
-            </asp:ListView>
-            
-            <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton></div></asp:Content>
+                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank"><span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></asp:Content>
