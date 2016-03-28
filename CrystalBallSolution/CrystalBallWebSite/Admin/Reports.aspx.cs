@@ -105,8 +105,8 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
-        GV_ProgramFrequency.DataSource = frequency;
-        GV_ProgramFrequency.DataBind();
+        LV_ProgramFrequency.DataSource = frequency;
+        LV_ProgramFrequency.DataBind();
 
         List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 

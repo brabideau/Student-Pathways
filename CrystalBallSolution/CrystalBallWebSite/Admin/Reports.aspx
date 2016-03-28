@@ -7,11 +7,8 @@
 
     <asp:UpdatePanel ID="ButtonsPanel" runat="server">
         <ContentTemplate>
- <%--           <ul class="tabs">
-                <li><asp:LinkButton ID="LinkButton1" runat="server" OnClick="Program_Button_Click">Programs</asp:LinkButton>
-                </li><asp:LinkButton ID="LinkButton2" runat="server" OnClick="Student_Button_Click">Students</asp:LinkButton>
-            </ul>
---%> <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
+
+     <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
             <asp:ListItem Value="1" Text="Program Data" Selected="true"></asp:ListItem>
             <asp:ListItem Value="2" Text="Student Data"></asp:ListItem>
             
@@ -53,13 +50,36 @@
 
         </div>
  
-        <div class="col-6 nait-courses">
+        <div class="col-6">
+            <asp:ListView ID="LV_ProgramFrequency" runat="server">
+                <LayoutTemplate>
+                    <table class="nait-courses">
+                        <thead>
+                            <th>Program</th>
+                            <th>Frequency</th>
+                        </thead>
+                        <tbody>
+                        <tr id="itemPlaceholder" runat="server"></tr>
+                        </tbody>
+                    </table>
+                </LayoutTemplate>        
+                <ItemTemplate>
+                        <tr>
+                            <td><asp:Label ID="ProgramLabel" runat="server" Text='<%# Eval("Program") %>' /></td>
+                            <td><asp:Label ID="FrequencyLabel" runat="server" Text='<%# Eval("Frequency") %>' /></td>
+                        </tr>
+                </ItemTemplate>
+            </asp:ListView>
             <asp:GridView ID="GV_ProgramFrequency" runat="server"></asp:GridView>
         </div>
 
         <div class="col-6 nait-courses">
             <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
         </div>
+
+
+
+            </div>
 
      </div><%-- end ProgramData--%>
             
