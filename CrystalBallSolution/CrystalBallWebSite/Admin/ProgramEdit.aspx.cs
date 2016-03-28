@@ -229,7 +229,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
         testController sysmgr = new testController();
         int entReqID = Convert.ToInt32(LV_SubjectReq.DataKeys[e.RowIndex].Value);
-        int programID = 2046;
+        int programID = Int32.Parse(ProgramIDLabel.Text);
         sysmgr.ER_Delete(entReqID);
         LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
         LV_SubjectReq.DataBind();
@@ -241,55 +241,10 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void SubjectButton_Click(object sender, EventArgs e)
     {
         testController sysmgr = new testController();
-        int subjectReq = Convert.ToInt32(DL_SubjDesc.SelectedValue);
-        if (subjectReq != 0)
-        {
-            prePopulatedER.Visible = true;
-            manualER.Visible = false;
-            SubReqDesc.Visible = false;
-            GV_NewEntrReq.DataSource = sysmgr.Get_CoursesBySubjectRequirement(subjectReq);
-            GV_NewEntrReq.DataBind();
-        }
-        else
-        {
-            manualER.Visible = true;
-            SubReqDesc.Visible = true;
-            prePopulatedER.Visible = false;
-            PopulateManual();
-        }
-        
+        manualER.Visible = true;
+        SubReqDesc.Visible = true;
+        PopulateManual();       
     }
-
-    //remove course from requirement list
-    protected void GV_NewEntrReq_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-    {
-        GridView ER_GridView = sender as GridView;
-        
-        List<GetEntranceReq> items = new List<GetEntranceReq>();
-        for (int index = 0; index < ER_GridView.Rows.Count; index++)
-        {
-            if (index != e.NewSelectedIndex)
-            {
-                GridViewRow keepRow = ER_GridView.Rows[index];
-                var id = keepRow.FindControl("ID") as Label;
-                var course = keepRow.FindControl("Course") as Label;
-                var mark = keepRow.FindControl("Mark") as TextBox;
-                if (mark.Text.Trim() == "")
-                {
-                    mark.Text = "0";
-                }
-                items.Add(new GetEntranceReq()
-                {
-                    HSCourseID = Convert.ToInt32(id.Text),
-                    HSCourseName = course.Text,
-                    Mark = Convert.ToInt32(mark.Text),
-                });
-            }
-        }
-
-        ER_GridView.DataSource = items;
-        ER_GridView.DataBind();
-    }    
     #endregion
 
 
@@ -297,12 +252,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
     protected void AddNew_Click(object sender, EventArgs e)
     {
-        //foreach (GridViewRow row in GV_ManualNewEntrReq.Rows)
-        //{
-            //var course = row.FindControl("DL_Course") as DropDownList;
-            //var poQtyLabel = row.FindControl("Marks") as TextBox;
-            AddNewRowToCourse();
-        //}
+        AddNewRowToCourse();
     }
 
     private void AddNewRowToCourse()
@@ -422,42 +372,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
             }
 
             ViewState["CurrentTableCourse"] = dtCurrentTable;
-            //grvStudentDetails.DataSource = dtCurrentTable;
-            //grvStudentDetails.DataBind();
         }
-        //SetPreviousData();
-    }
-
-    protected void addPPSubjectButton_Click(object sender, EventArgs e)
-    {
-        testController sysmgr = new testController();
-        List<AddEntranceRequirements> er = new List<AddEntranceRequirements>();
-
-        int programID = Int32.Parse(ProgramIDLabel.Text);
-        int subReqID = Convert.ToInt32(DL_SubjDesc.SelectedValue);
-        int mark;
-
-        foreach (GridViewRow row in GV_NewEntrReq.Rows)
-        {
-            int hsID = Convert.ToInt32((row.FindControl("ID") as Label).Text);
-            if ((row.FindControl("Mark") as TextBox).Text.Trim() != "")
-            {
-                mark = Convert.ToInt32((row.FindControl("Mark") as TextBox).Text);
-            }
-            else
-            {
-                mark = 0;
-            }
-            er.Add(new AddEntranceRequirements(
-                hsID,
-                subReqID,
-                programID,
-                mark));
-        }
-            sysmgr.AddEntranceRequirement(er);
-
-            LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
-            LV_SubjectReq.DataBind();
     }
 
     protected void addMSubjectButton_Click(object sender, EventArgs e)
@@ -492,6 +407,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
         LV_SubjectReq.DataBind();
+        manualER.Visible = false;
     }
 
     //#region entrance requirements
@@ -503,51 +419,6 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
-    }
-
-    //protected void Populate_EntranceReqs(int programID) 
-    //{
-    //    AdminController sysmgr = new AdminController();
-    //    //populate High School Entrance Requirements
-    //    List<SubjectRequirement> subjectList = sysmgr.Get_SubjectReq_ByProgram(programID);
-    //    LV_SubjectReq.DataSource = subjectList;
-    //    LV_SubjectReq.DataBind();
-
-    //    List<GetHSCourseIDName> ereqList = new List<GetHSCourseIDName> { };
-    //    int subjectID;
-
-    //    //and the classes for each subject
-
-    //    foreach (ListViewItem x in LV_SubjectReq.Items)
-    //    {
-    //        subjectID = Convert.ToInt32((x.FindControl("SubjectIDLabel") as Label).Text);
-    //        var courses = x.FindControl("GV_EntranceReqs") as GridView;
-    //        ereqList = sysmgr.Get_EntReq_ByProgram_Subject(programID, subjectID);
-    //        courses.DataSource = ereqList;
-    //        courses.DataBind();            
-    //    }
-
-
-
-
-    //    //populate Degree Entrance Requirements
-        
-    //    List<DegreeEntranceRequirement> degEntList = sysmgr.Get_DegEntReq_ByProgram(programID);
-
-    //    LV_DegreeEntranceReq.DataSource = degEntList;
-    //    LV_DegreeEntranceReq.DataBind();        
-    //}
-
-    protected void GV_EntranceReqs_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        //int subjectID = Convert.ToInt32(LV_SubjectReq.DataKeys[e.RowIndex].Value);
-        //int subjectID = Convert.ToInt32((x.FindControl("SubjectIDLabel") as Label).Text);
-        //int programID = Int32.Parse(ProgramIDLabel.Text);
-        //int eReqid = Convert.ToInt32(GV_EntranceReqs.DataKeys[e.RowIndex].Value);
-        //AdminController sysmgr = new AdminController();
-        //sysmgr.EntranceReq_Delete(eReqid);
-        //GV_EntranceReqs.DataSource = sysmgr.Get_EntReq_ByProgram_Subject(programID, subjectID);
-        //GV_EntranceReqs.DataBind();
     }
 
     protected void Save_EntranceReq(object sender, EventArgs e)

@@ -70,12 +70,35 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
     protected void SubjectButton_Click(object sender, EventArgs e)
     {
         testController sysmgr = new testController();
+        StudentController sys = new StudentController();
         int subjectReq = Convert.ToInt32(DL_SubjDesc.SelectedValue);
         if (subjectReq != 0)
         {
             prePopulatedER.Visible = true;
             manualER.Visible = false;
             SubReqDesc.Visible = false;
+
+            //List<int> hsCourses = new List<int>();
+            //List<GetHSCourses> courseList = new List<GetHSCourses>();
+            //courseList = sys.GetCourseList();
+
+            //foreach (GetHSCourses testItem in courseList)
+            //{               
+            //    if (testItem.HighSchoolHighestCourse == true)
+            //    {
+            //        int[] childCourses = sys.GetParentCategory(Convert.ToInt32(testItem.Value));
+            //        for (int i = 0; i < childCourses.Length; i++)
+            //        {
+            //            hsCourses.Add(Convert.ToInt32(childCourses[i]));
+            //        }
+            //    }
+            //    else if (item.Selected)
+            //    {
+            //        hsCourses.Add(Convert.ToInt32(item.Value));
+            //    }
+            //}
+
+
             GV_NewEntrReq.DataSource = sysmgr.Get_CoursesBySubjectRequirement(subjectReq);
             GV_NewEntrReq.DataBind();
         }

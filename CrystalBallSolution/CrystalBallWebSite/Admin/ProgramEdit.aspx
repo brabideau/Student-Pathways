@@ -99,37 +99,8 @@
         </asp:GridView>
 
         <div id="addRequirement" runat="server">
-            <!--Dropdown to select SubjectDescription and prepopulate gridview-->
-            <asp:DropDownList ID="DL_SubjDesc" runat="server" DataSourceID="ODS_SubjectRequirement" DataTextField="SubjectDescription" DataValueField="SubjectRequirementID" AppendDataBoundItems="true">
-                <asp:ListItem Value="0">[Create New Subject Requirement]</asp:ListItem>
-            </asp:DropDownList>
-            <asp:TextBox ID="SubReqDesc" runat="server" Visible="false" />
+            <asp:TextBox ID="SubReqDesc" runat="server" />
             <asp:LinkButton ID="SubjectButton" runat="server" OnClick="SubjectButton_Click">Select</asp:LinkButton>
-        </div>
-
-        <div id="prePopulatedER" runat="server" visible="false">
-            <!--Pre-Populated Course Gridview-->
-            <asp:GridView ID="GV_NewEntrReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetEntranceReq" DataKeyNames="HSCourseID" OnSelectedIndexChanging="GV_NewEntrReq_SelectedIndexChanging">
-                <Columns>
-                    <asp:TemplateField HeaderText="Course ID" Visible="false">
-                        <ItemTemplate>
-                            <asp:Label ID="ID" runat="server" Text='<%# Item.HSCourseID %>' Visible="false"/>
-                        </ItemTemplate>  
-                    </asp:TemplateField> 
-                    <asp:TemplateField HeaderText="Course">
-                        <ItemTemplate>
-                            <asp:Label ID="Course" runat="server" Text='<%# Item.HSCourseName %>' />
-                        </ItemTemplate>  
-                    </asp:TemplateField> 
-                    <asp:TemplateField HeaderText="Mark (Optional)">
-                        <ItemTemplate>
-                            <asp:TextBox ID="Mark" runat="server" Width="50px" Text=<%# Item.Mark %> />
-                        </ItemTemplate>  
-                    </asp:TemplateField> 
-                    <asp:ButtonField Text="Remove" CommandName="Select"/>                
-                </Columns>
-            </asp:GridView>
-            <asp:LinkButton ID="addPPSubjectButton" runat="server" OnClick="addPPSubjectButton_Click">Add Requirement</asp:LinkButton>
         </div>
 
         <div id="manualER" runat="server" visible="true">
@@ -456,7 +427,7 @@
     <div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
         <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p>
 
-                <!--Add new equivalency to empty gridview--> 
+        <!--Add new equivalency to empty gridview--> 
    
         <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
             <Columns>
@@ -514,9 +485,6 @@
         <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="button button-long next">Enter Equivalency</asp:LinkButton>
              </p>
     </div>
-
-
-
 
          <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
