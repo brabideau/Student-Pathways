@@ -13,10 +13,51 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-//        //hardCoding programID for testing = CHANGE THIS LATER
-//        int programID = 2046;
-//        Populate_EntranceReqs(programID);
+        //hardCoding programID for testing = CHANGE THIS LATER
+        int programID = 2046;
+        Populate_DER(programID);
     }
+
+    protected void Populate_DER(int programID)
+    {
+        testController sysmgr = new testController();
+        GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
+        GV_DegreeEntranceReq.DataBind();
+    }
+
+    protected void GV_DegReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        testController sysmgr = new testController();
+        int degReqID = Convert.ToInt32(GV_DegreeEntranceReq.DataKeys[e.RowIndex].Value);
+        int programID = 2046;
+        sysmgr.DER_Delete(degReqID);
+        GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
+        GV_DegreeEntranceReq.DataBind();
+    }
+
+    protected void addDER_Click(object sender, EventArgs e)
+    {
+        AddRequirements.Visible = true;
+    }
+    protected void Add_DER_Click(object sender, EventArgs e)
+    {
+        testController sysmgr = new testController();
+        int programID = 2046;
+        int credentialID = int.Parse(DL_Credential.SelectedValue);
+        int categoryID = int.Parse(DL_Category.SelectedValue);
+        decimal gpa = decimal.Parse(TB_GPA.Text);
+        sysmgr.AddDER(programID, credentialID, categoryID, gpa);
+        GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
+        GV_DegreeEntranceReq.DataBind();
+        
+    }
+
+
+
+
+
+
+
 
 //    //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
 //    private void PopulateManual()
@@ -351,5 +392,4 @@ public partial class AshleyWorkspace_FutureEntranceReq : System.Web.UI.Page
 //    {
 
 //    }
-
 }

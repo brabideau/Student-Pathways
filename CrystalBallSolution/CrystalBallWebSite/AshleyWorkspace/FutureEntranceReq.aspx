@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="FutureEntranceReq.aspx.cs" Inherits="AshleyWorkspace_FutureEntranceReq" %>
 
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <div runat="server" id="EntranceRequirements" class="clearfix">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+   <%-- <div runat="server" id="EntranceRequirements" class="clearfix">
 
         <p>What high school courses does this program require?</p>
         <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
@@ -114,41 +114,59 @@
 
     <p>Does entry to this program require any previous post-secondary work?</p>
 
-    <asp:ListView ID="LV_DegreeEntranceReq" runat="server">
-        <LayoutTemplate>
-            <table>
-                <tr>
-                    <th></th>
-                    <th runat="server">Credential Type</th>
-                    <th runat="server">Category</th>
-                    <th runat="server">GPA</th>
-                </tr>
-                <tr id="itemPlaceholder" runat="server"></tr>
-            </table>
-        </LayoutTemplate>        
-        <ItemTemplate>
-            <tr>
-                <td>
-                    <asp:Label ID="DegreeEntranceReqLabel" runat="server" Text='<%# Eval("DegreeEntranceReqID") %>' />
-                </td>
-                <td>
-                    <asp:DropDownList ID="DL_DegEnt_CredType" runat="server" DataSourceID="ODSCredentialType" 
-                                                                DataTextField="CredentialTypeName" 
-                                                                DataValueField="CredentialTypeID" SelectedValue='<%# Eval("CredentialTypeID") %>'></asp:DropDownList>
+    <asp:GridView ID="GV_DegreeEntranceReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetDegEntReqs" DataKeyNames="DegreeEntranceRequirementID" OnRowDeleting="GV_DegReq_RowDeleting">
+        <Columns>
+            <asp:TemplateField HeaderText="Degree Requirement ID" Visible="false">
+                <ItemTemplate>
+                    <asp:Label ID="DegreeEntranceRequirementID" runat="server" Text='<%# Item.DegreeEntranceRequirementID %>' />
+                </ItemTemplate>  
+            </asp:TemplateField> 
+            <asp:TemplateField HeaderText="Program">
+                <ItemTemplate>
+                    <asp:Label ID="Program" runat="server" Text='<%# Item.Program %>' />
+                </ItemTemplate>  
+            </asp:TemplateField> 
+            <asp:TemplateField HeaderText="Credential Name">
+                <ItemTemplate>
+                    <asp:Label ID="CredentialName" runat="server" Text='<%# Item.CredentialName %>' />
+                </ItemTemplate>  
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Category">
+                <ItemTemplate>
+                    <asp:Label ID="Category" runat="server" Text='<%# Item.Category %>' />
+                </ItemTemplate>  
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="GPA">
+                <ItemTemplate>
+                    <asp:Label ID="GPA" runat="server" Text='<%# Item.GPA %>' />
+                </ItemTemplate>  
+            </asp:TemplateField>
+            <asp:ButtonField Text="Remove" CommandName="Delete"/> 
+        </Columns>
 
-                </td>
-                <td>
-                    <asp:DropDownList ID="DL_DegEnt_Cat" runat="server" DataSourceID="CategoryList" 
-                                                                DataTextField="CategoryDescription" 
-                                                                DataValueField="CategoryID" SelectedValue='<%# Eval("CategoryID") %>'></asp:DropDownList>
-                </td>
-                <td>
-                    <asp:TextBox ID="GPA_TextBox" runat="server" Text='<%# Eval("GPA") %>'></asp:TextBox>
-                </td>
-                    
-            </tr>
-        </ItemTemplate>
-    </asp:ListView>
+        <EmptyDataTemplate>
+            No Existing Entrance Requirements.
+        </EmptyDataTemplate>
+    </asp:GridView>
+
+    <asp:LinkButton ID="addDER" runat="server" OnClick="addDER_Click" >Add Requirement</asp:LinkButton>
+
+    <div runat="server" id="AddRequirements" class="clearfix" visible="false">
+        <p>Credential Type: </p>
+        <asp:DropDownList ID="DL_Credential" runat="server" DataSourceID="CredentialODS" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
+        <p>Category: </p>
+        <asp:DropDownList ID="DL_Category" runat="server" DataSourceID="CategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
+        <p>GPA: </p>
+        <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>        
+        
+        <asp:LinkButton ID="Add_DER" runat="server" OnClick="Add_DER_Click">Add Equivalency</asp:LinkButton>
+    </div>
+
+    <asp:ObjectDataSource ID="CredentialODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>    
+    <asp:ObjectDataSource ID="CategoryODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+    
+
+    
 <%--    <asp:LinkButton ID="EntranceReq_Save" runat="server" OnClick="Save_EntranceReq" CssClass="button next button-long">Save & Continue</asp:LinkButton>--%>
 </div>
 </asp:Content>

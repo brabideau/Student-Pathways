@@ -90,6 +90,7 @@
     <Compile Include="DAL\POCOs\AddEntranceRequirements.cs" />
     <Compile Include="DAL\POCOs\GetCourseCredits.cs" />
     <Compile Include="DAL\POCOs\GetCredentials.cs" />
+    <Compile Include="DAL\POCOs\GetDegEntReqs.cs" />
     <Compile Include="DAL\POCOs\GetEntranceReq.cs" />
     <Compile Include="DAL\POCOs\GetEquivalencyNames.cs" />
     <Compile Include="DAL\POCOs\GetHSCourseIDName.cs" />
