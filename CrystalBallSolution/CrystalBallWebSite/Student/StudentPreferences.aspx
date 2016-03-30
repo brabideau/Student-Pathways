@@ -272,6 +272,11 @@
                             <table>
                                 <tr id="itemPlaceholder" runat="server"></tr>
                             </table>
+                            <asp:DataPager runat="server" ID="DataPager" PageSize="8">
+                                <Fields>
+                                    <asp:NumericPagerField ButtonType="Link" ButtonCount="5"    PreviousPageText="<--"   NextPageText="-->" />
+                                </Fields>
+                            </asp:DataPager>
                         </LayoutTemplate>
                 <ItemTemplate>
                     <tr class="program-search-results">
