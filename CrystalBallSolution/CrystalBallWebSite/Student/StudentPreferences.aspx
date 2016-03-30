@@ -289,4 +289,14 @@
                            <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
                         </td>
                         <td>
-                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank"><span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></ContentTemplate></asp:UpdatePanel></asp:Content>
+                            <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank">
+                                <span class="button submit button-long">Learn More</span></asp:HyperLink>
+
+                        </td>
+                    </tr>
+                </ItemTemplate>
+            </asp:ListView>
+        </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>
