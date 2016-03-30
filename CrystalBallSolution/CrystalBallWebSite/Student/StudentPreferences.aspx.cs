@@ -547,6 +547,19 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             count++;
         }
         TotalCourseLabel.Text = "Total courses : " + count;
+        for (int i = 0; i < CourseGridView.Rows.Count; i++)
+        {
+            CourseGridView.Rows[i].Font.Bold = false;
+            for (int j = 0; j < CoursesSelected.Rows.Count; j++)
+            {
+                if (CourseGridView.DataKeys[i]["CourseID"].ToString() == CoursesSelected.Rows[j]["CourseID"].ToString())
+                {
+                    CourseGridView.Rows[i].BackColor = System.Drawing.Color.FromName("#D1DDF1");
+                    CourseGridView.Rows[i].Font.Bold = true;
+                    CourseGridView.Rows[i].ForeColor = System.Drawing.Color.FromName("#333333");
+                }
+            }
+        }
     }
     protected void Search_Click(object sender, EventArgs e)
     {
