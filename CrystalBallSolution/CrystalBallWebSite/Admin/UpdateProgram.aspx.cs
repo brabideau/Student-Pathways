@@ -204,7 +204,7 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         }
         else
         {            
-            MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
+            //MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
 
             CloseInsert();
         }

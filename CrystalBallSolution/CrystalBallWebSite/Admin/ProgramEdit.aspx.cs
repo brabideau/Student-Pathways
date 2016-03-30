@@ -13,7 +13,11 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if (!Request.IsAuthenticated)
+        {
+            //NO
+            Response.Redirect("~/Account/Login.aspx");
+        }
     }
 
     /* ----------------------------------- SEARCH --------------------*/
@@ -37,7 +41,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     {
         // Get the program
         LinkButton button = (LinkButton)(sender);
-        
+
         int programID = Convert.ToInt32(button.CommandArgument);
         AdminController sysmgr = new AdminController();
         Program myProgram = sysmgr.Get_Program(programID);
@@ -102,6 +106,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         }
     }
 
+
     /* -----------------------------------PROGRAM INFO --------------------*/
     #region program info
     protected void ProgramInfo_Show(object sender, EventArgs e)
@@ -152,7 +157,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region categories
     protected void Categories_Show(object sender, EventArgs e)
     {
-
+        AddNewProgram.Visible = false;
         ProgramInfo.Visible = false;
         Categories.Visible = true;
         EntranceRequirements.Visible = false;
@@ -169,8 +174,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         List<int> catList = sysmgr.Get_Categories_By_Program(programID);
 
         int catID;
-    
-        if(CB_Categories.Items.Count > 0)
+
+        if (CB_Categories.Items.Count > 0)
         {
             foreach (ListItem x in CB_Categories.Items)
             {
@@ -180,7 +185,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
                     x.Selected = true;
                 }
             }
-        }        
+        }
     }
     protected void Save_Categories(object sender, EventArgs e)
     {
@@ -191,35 +196,35 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #endregion
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
-        #region entrance requirements
+    #region entrance requirements
 
 
     //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
     private void PopulateManual()
-     {
-         //Create DataTable
-         DataTable dt = new DataTable();
-         DataRow dr = null;
- 
-         //Add initail values to DataTable
-         dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-         dt.Columns.Add(new DataColumn("Column1Course", typeof(string)));
-         dt.Columns.Add(new DataColumn("Column2Course", typeof(string)));
- 
-         dr = dt.NewRow();
-         dr["RowNumber"] = 1;
-         dr["Column1Course"] = string.Empty;
-         dr["Column2Course"] = string.Empty;
- 
-         dt.Rows.Add(dr);
-         dr = dt.NewRow();
- 
-         //Store the DataTable in ViewState
-         ViewState["CurrentTableCourse"] = dt;
-         GV_ManualNewEntrReq.DataSource = dt;
-         GV_ManualNewEntrReq.DataBind();
- 
-     }
+    {
+        //Create DataTable
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+
+        //Add initail values to DataTable
+        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt.Columns.Add(new DataColumn("Column1Course", typeof(string)));
+        dt.Columns.Add(new DataColumn("Column2Course", typeof(string)));
+
+        dr = dt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Column1Course"] = string.Empty;
+        dr["Column2Course"] = string.Empty;
+
+        dt.Rows.Add(dr);
+        dr = dt.NewRow();
+
+        //Store the DataTable in ViewState
+        ViewState["CurrentTableCourse"] = dt;
+        GV_ManualNewEntrReq.DataSource = dt;
+        GV_ManualNewEntrReq.DataBind();
+
+    }
 
     #region for existing entrance requirements
     protected void Populate_EntranceReqs(int programID)
@@ -248,7 +253,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         testController sysmgr = new testController();
         manualER.Visible = true;
         SubReqDesc.Visible = true;
-        PopulateManual();       
+        PopulateManual();
     }
     #endregion
 
@@ -301,7 +306,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         }
         //Set Previous Data on Postbacks
         SetPreviousCourseData();
-    }    
+    }
 
     protected void GV_ManualNewEntrReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -388,7 +393,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         int subReqID = sysmgr.AddSubjectRequirement(description);
 
-        int programID = Int32.Parse(ProgramIDLabel.Text);       
+        int programID = Int32.Parse(ProgramIDLabel.Text);
         int mark;
 
         foreach (GridViewRow row in GV_ManualNewEntrReq.Rows)
@@ -432,7 +437,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         Courses_Show(sender, e);
     }
- #endregion
+    #endregion
     /*-- ----------------------------- COURSES ---------------------------------------*/
     #region courses
     protected void Courses_Show(object sender, EventArgs e)
@@ -446,7 +451,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Tab_Labels.SelectedValue = "4";
     }
 
-    protected void Populate_Courses (int programID){
+    protected void Populate_Courses(int programID)
+    {
         AdminController sysmgr = new AdminController();
         var courseData = sysmgr.GetCoursesByProgramSemester(programID, 1);
 
@@ -559,27 +565,27 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void EmptyEquivalentProgram_SelectedIndexChanged(object sender, EventArgs e)
     {
         EquivalentCourseID.DataBind();
-    }    
+    }
 
     protected void Enter_Click(object sender, EventArgs e)
     {
         //MessageUserControl.TryRun(() =>
         //{
-            AdminController sysmgr = new AdminController();
-            int programID = Int32.Parse(ProgramIDLabel.Text);
-            int courseID = int.Parse(EmptyCurrentDropdown.SelectedValue);
-            int destinationCourseID = int.Parse(EquivalentCourseID.SelectedValue);
-            sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
-            GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
-            GV_Equivalencies.DataBind();
+        AdminController sysmgr = new AdminController();
+        int programID = Int32.Parse(ProgramIDLabel.Text);
+        int courseID = int.Parse(EmptyCurrentDropdown.SelectedValue);
+        int destinationCourseID = int.Parse(EquivalentCourseID.SelectedValue);
+        sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
+        GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
+        GV_Equivalencies.DataBind();
 
-            //reset add equivalency screen
-            EmptyCurrentDropdown.Items.Clear();
-            EmptyCurrentDropdown.DataBind();
-            EmptyEquivalentProgram.Items.Clear();
-            EmptyEquivalentProgram.DataBind();
-            EquivalentCourseID.Items.Clear();
-            EquivalentCourseID.DataBind();
+        //reset add equivalency screen
+        EmptyCurrentDropdown.Items.Clear();
+        EmptyCurrentDropdown.DataBind();
+        EmptyEquivalentProgram.Items.Clear();
+        EmptyEquivalentProgram.DataBind();
+        EquivalentCourseID.Items.Clear();
+        EquivalentCourseID.DataBind();
 
         //}, "", "Equivalency Successfully Added");
     }
@@ -650,11 +656,11 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     protected void Save_Questions(object sender, EventArgs e)
     {
         AdminController sysmgr = new AdminController();
-        List<ProgramPreference> prefs = new List<ProgramPreference> {};
+        List<ProgramPreference> prefs = new List<ProgramPreference> { };
         int programID = int.Parse(ProgramIDLabel.Text);
 
 
-       if (GV_Questions.Rows.Count > 0)
+        if (GV_Questions.Rows.Count > 0)
         {
             foreach (GridViewRow row in GV_Questions.Rows)
             {
@@ -664,7 +670,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
                 if (RB_List.SelectedIndex > -1)
                 {
-                    prefs.Add(new ProgramPreference {
+                    prefs.Add(new ProgramPreference
+                    {
                         QuestionID = q_ID,
                         ProgramID = programID,
                         Answer = Convert.ToInt32(RB_List.SelectedValue)
@@ -674,8 +681,87 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         }
 
-       sysmgr.UpdateProgramPreferences(prefs);
+        sysmgr.UpdateProgramPreferences(prefs);
     }
     #endregion
+
+    /* -----------------------------------ADD NEW PROGRAM --------------------*/
+    #region AddProgram
+    protected void Add_Program_Button_Click(object sender, EventArgs e)
+    {
+        ProgramEditDiv.Visible = true;
+        Buttons.Visible = true;
+        ProgramList.Visible = false;
+
+        AddNewProgram.Visible = true;
+        ProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = false;
+        ProgramCourses.Visible = false;
+        CourseEquivalencies.Visible = false;
+        ProgramPreferences.Visible = false;
+        Add_Program_Button.Visible = false;
+    }
+
+    protected void Add_Program(object sender, EventArgs e)
+    {
+
+        string CredentialTypeId = CredentialDropDownList.SelectedValue.ToString();
+        string length = lengthDropDownList.SelectedValue.ToString();
+        string credits = NewProgramTotalCredits.Text;
+        string competitiveAdvantage = NewProgramCompetitive.Text;
+
+        var program = new Program();
+        program.CredentialTypeID = int.Parse(CredentialTypeId);
+        program.ProgramName = NewProgramNameTextBox.Text;
+        program.ProgramDescription = NewProgramDescription.Text;
+
+        if (string.IsNullOrEmpty(credits))
+        {
+            program.TotalCredits = null;
+
+        }
+        else
+        {
+            program.TotalCredits = double.Parse(credits);
+        }
+
+        program.ProgramLength = length;
+
+
+        if (string.IsNullOrEmpty(competitiveAdvantage))
+        {
+            program.CompetitiveAdvantage = null;
+        }
+        else
+        {
+            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+        }
+
+        program.Active = NewProgramActive.Checked;
+        program.ProgramLink = NewProgramLink.Text;
+
+        List<Program> NewProgram = new List<Program>();
+        NewProgram.Add(program);
+
+
+        AdminController sysmr = new AdminController();
+
+        if (string.IsNullOrEmpty(NewProgramNameTextBox.Text))
+        {
+            MessageUserControl.ShowInfo("The Program Name is required.");
+        }
+        else
+        {
+            MessageUserControl.TryRun(() => sysmr.AddProgram(NewProgram), "Add Success.", "You added new program");
+            Categories_Show(sender, e);
+        }
+
+
+        
+    }
+
+    #endregion
+
 
 }

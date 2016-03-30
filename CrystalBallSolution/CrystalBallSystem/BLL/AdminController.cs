@@ -544,8 +544,43 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
+        //public void AddProgram(List<Program> program, int categoryid)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
+        //        Program added = null;
+
+        //        var newProgram = new Program();
+        //        int newProgramID = newProgram.ProgramID;
+
+        //        foreach (var item in program)
+        //        {
+        //            added = context.Programs.Add(new Program()
+        //            {
+        //                ProgramID = newProgramID,
+        //                CredentialTypeID = item.CredentialTypeID,
+        //                ProgramName = item.ProgramName,
+        //                ProgramDescription = item.ProgramDescription,
+        //                TotalCredits = item.TotalCredits,
+        //                ProgramLength = item.ProgramLength,
+        //                CompetitiveAdvantage = item.CompetitiveAdvantage,
+        //                Active = item.Active,
+        //                ProgramLink = item.ProgramLink
+        //            });
+        //        }
+
+        //        Category newCategory = new Category { CategoryID = categoryid };
+        //        context.Categories.Add(newCategory);
+        //        context.Categories.Attach(newCategory);
+        //        added.Categories.Add(newCategory);
+
+        //        context.SaveChanges();
+        //    }
+        //}
+
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddProgram(List<Program> program, int categoryid)
+        public void AddProgram(List<Program> program)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
@@ -570,10 +605,6 @@ namespace CrystalBallSystem.BLL
                     });
                 }
 
-                Category newCategory = new Category { CategoryID = categoryid };
-                context.Categories.Add(newCategory);
-                context.Categories.Attach(newCategory);
-                added.Categories.Add(newCategory);
 
                 context.SaveChanges();
             }
@@ -637,24 +668,6 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
-
-        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
-        //public void AddCourse(NaitCours item, int programID)
-        //{
-        //    using (CrystalBallContext context = new CrystalBallContext())
-        //    {
-        //        NaitCours added = null;
-
-        //        added = context.NaitCourses.Add(item);
-
-        //        Program newProgram = new Program { ProgramID = programID };
-        //        context.Programs.Add(newProgram);
-        //        context.Programs.Attach(newProgram);
-        //        added.Program.Add(newProgram);
-
-        //        context.SaveChanges();
-        //    }
-        //}
 
         [DataObjectMethod(DataObjectMethodType.Update, false)]
         public void UpdateNaitCourse(NaitCours item)

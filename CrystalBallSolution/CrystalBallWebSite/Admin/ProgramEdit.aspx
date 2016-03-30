@@ -1,8 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ProgramEdit.aspx.cs" Inherits="Briand_Workspace_ProgramEdit" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
+
     <h1>Manage Programs</h1>
     <asp:UpdatePanel runat="server">
+        
         <ContentTemplate>
 
        
@@ -20,9 +25,45 @@
             <asp:ListItem Value="5" Text="Transfer Credits"></asp:ListItem>
             <asp:ListItem Value="6" Text="Program Preferences"></asp:ListItem>
         </asp:RadioButtonList>
-
+       <uc1:MessageUserControl runat="server" id="MessageUserControl" />
     </div>
-       <div runat="server" id="ProgramEditDiv" visible="false">
+
+    <div runat="server" id="ProgramEditDiv" visible="false">
+     <%-- -------------------------------ADD NEW PROGRAM------------------------------------------ --%>
+        <div runat="server" id="AddNewProgram" visible="false" class="clearfix">
+       <asp:Label ID="NewProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
+    
+       <p class="clearfix"><span class="label col-3">Program Name:</span> <asp:TextBox ID="NewProgramNameTextBox" runat="server" CssClass="col-4"/></p> 
+
+        <p class="clearfix"><span class="label col-3">Credential Type:</span><asp:DropDownList ID="CredentialDropDownList" runat="server" 
+                                                                  DataSourceID="ODSCredentialType" 
+                                                                  DataTextField="CredentialTypeName" 
+                                                                  DataValueField="CredentialTypeID"
+                                                                  CssClass="col-2"
+                                                                  />   
+        </p>
+
+        <p class="clearfix"><span class="label col-3">Description:</span> <asp:TextBox ID="NewProgramDescription" TextMode="multiline" runat="server" CssClass="col-6"/></p>
+        <p class="clearfix"><span class="label col-3">Total Credits:</span> <asp:TextBox ID="NewProgramTotalCredits" runat="server" CssClass="col-1"/></p>
+
+        <p class="clearfix"><span class="label col-3">Program Length: </span><asp:DropDownList ID="lengthDropDownList" runat="server" CssClass="col-2">
+                                                        <asp:ListItem Value="0">[Select Length]</asp:ListItem>
+                                                        <asp:ListItem>3 months</asp:ListItem>
+                                                        <asp:ListItem>6 months</asp:ListItem>
+                                                        <asp:ListItem>1 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>2 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>3 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>4 Year(s)</asp:ListItem>
+                                                    </asp:DropDownList></p>
+
+        <p class="clearfix"><span class="label col-3">Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
+
+        <p class="clearfix"><span class="label col-3">Check if Active: </span> <asp:Checkbox ID="NewProgramActive" runat="server" CssClass="col-1"/></p> 
+
+        <p class="clearfix"><span class="label col-3">Program Link: </span><asp:TextBox ID="NewProgramLink" runat="server"  CssClass="col-4"/></p>
+        <asp:LinkButton ID="SaveButton" runat="server" OnClick="Add_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
+      </div>
+           
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
        <div runat="server" id="ProgramInfo" visible="false" class="clearfix">
        <asp:Label ID="ProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
@@ -534,7 +575,8 @@
         <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
             <asp:ListItem Value="0">[All Subjects]</asp:ListItem>
         </asp:DropDownList>
-        <asp:Button ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search"/>
+        <asp:LinkButton ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search" CssClass="admin_button2"/>
+        <asp:LinkButton ID="Add_Program_Button" runat="server" Text="Add New Program" CssClass="admin_button2" OnClick="Add_Program_Button_Click"/>
     </div>
 
      <%-- ----------------------------- PROGRAM LIST ---------------------------------------%>
@@ -604,5 +646,3 @@
     <asp:ObjectDataSource ID="ODS_SubjectRequirement" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_SubjectRequirements" TypeName="CrystalBallSystem.BLL.testController"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
 </asp:Content>
-
-
