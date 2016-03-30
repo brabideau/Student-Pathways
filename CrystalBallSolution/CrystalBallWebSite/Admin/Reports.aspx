@@ -46,14 +46,14 @@
        <div id="ProgramData" runat="server" class="clearfix" visible="true">
         <div class="col-12">
        <asp:LinkButton ID="Program_Search_Button" runat="server" OnClick="Program_Submit_Click" CssClass="button submit">Search</asp:LinkButton>
-            <p>You are viewing: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label>, <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
+            <p></td>You are viewing data for: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label>, <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
 
         </div>
  
-        <div class="col-6">
+        <div class="col-6 nait-courses">
             <asp:ListView ID="LV_ProgramFrequency" runat="server">
                 <LayoutTemplate>
-                    <table class="nait-courses">
+                    <table>
                         <thead>
                             <th>Program</th>
                             <th>Frequency</th>
