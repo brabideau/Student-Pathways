@@ -214,6 +214,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                                   orderby x.MatchPercent descending
                                   select x).ToList();
 
+            ViewState["finalProgramResults"] = finalProgramResults;
+
+
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();
 
@@ -605,5 +608,18 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             graduated.Visible = true;
         else
             graduated.Visible = false;
+    }
+    protected void ResultsView_PagePropertiesChanged(object sender, PagePropertiesChangingEventArgs e)
+    {
+
+        //var finalProgramResults = ViewState["finalProgramResults"];
+        
+        (ResultsView.FindControl("DataPager") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+
+        //ResultsView.DataSource = finalProgramResults;
+        ResultsView.DataBind();
+        //ListViewUpdatePanel.Update();
+
+ 
     }
 }
