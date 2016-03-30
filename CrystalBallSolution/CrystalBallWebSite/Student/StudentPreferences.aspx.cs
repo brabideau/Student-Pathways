@@ -118,7 +118,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //}
             foreach (GridViewRow row in prefGridView.Rows)
             {
-                
+
                 RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
                 int prefchoice = Convert.ToInt32(rlist.SelectedValue);
 
@@ -126,9 +126,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 myPreferences.Add(new StudentPreference(
                                 Convert.ToInt32((row.FindControl("QuestionID") as Label).Text),
                                 prefchoice
-                   
+
                 ));
-                
+
             }
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
@@ -144,7 +144,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ReportController report = new ReportController();
             int currentProgID, currentSemester;
             bool changeProgram = true;
-            if(RBL_NAIT_Student.SelectedValue == "1")
+            if (RBL_NAIT_Student.SelectedValue == "1")
             {
                 currentProgID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 currentSemester = Convert.ToInt32(SemesterDropDown.SelectedValue);
@@ -208,7 +208,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
             //finalResults = new List<int>();
             //finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
-            
+
             //send list of course codes to the db and retrieve courseids
             DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
             List<int> courseIDs = new List<int>();
@@ -223,9 +223,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
-            
-
-            ViewState["finalProgramResults"] = finalProgramResults;
 
 
             ResultsView.DataSource = finalProgramResults;
@@ -246,7 +243,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
-        if(RBL_NAIT_Student.SelectedValue == "1")
+        if (RBL_NAIT_Student.SelectedValue == "1")
         {
             chooseProgram.Visible = true;
         }
@@ -271,7 +268,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
         ProgramDropDown.DataBind();
-        
+
     }
     //======1
     protected void stepOneNext_Click(object sender, EventArgs e)
@@ -290,7 +287,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         //{
         //    MessageUserControl.ShowInfo("You must select a program");
         //}
-      
+
         //int programid;
         //int semester;
         //bool switchProgram;
@@ -386,7 +383,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     //int count = 0;
                     //foreach (DataRow row1 in CoursesSelected.Rows)
                     //{
-                        //count++;
+                    //count++;
                     //}
                     ViewState["CoursesSelected"] = CoursesSelected;
 
@@ -394,13 +391,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     rptCourse.DataBind();
 
                     //TotalCourseLabel.Text = "Total courses : " + count;
-                    
+
                 }
                 //set drop down list to programid
                 //filter search results based on programid
                 ProgramDropDownList.DataBind();
                 ProgramDropDownList.SelectedValue = programID.ToString();
-                
+
                 CourseGridView.DataSource = course.SearchNaitCourses(null, programID);
                 CourseGridView.DataBind();
                 CourseGridView.Visible = true;
@@ -411,7 +408,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     count++;
                 }
                 TotalCourseLabel.Text = "Total courses : " + count;
-                
+
                 for (int i = 0; i < CourseGridView.Rows.Count; i++)
                 {
                     CourseGridView.Rows[i].Font.Bold = false;
@@ -425,9 +422,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                         }
                     }
                 }
-                
+
             }
-            
+
             stepFour.Visible = true;
         }
     }
@@ -466,7 +463,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         stepOne.Visible = true;
         //add code to reset all fields for steps 1 -3
 
-       
+
 
         //foreach (ListItem item in PrefQuestions.Items)
         //{
@@ -619,18 +616,5 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             graduated.Visible = true;
         else
             graduated.Visible = false;
-    }
-    protected void ResultsView_PagePropertiesChanged(object sender, PagePropertiesChangingEventArgs e)
-    {
-
-        //var finalProgramResults = ViewState["finalProgramResults"];
-        
-        (ResultsView.FindControl("DataPager") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
-
-        //ResultsView.DataSource = finalProgramResults;
-        ResultsView.DataBind();
-        //ListViewUpdatePanel.Update();
-
- 
     }
 }
