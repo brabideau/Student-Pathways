@@ -168,29 +168,43 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //Search for checked items in the check box list - if a checked item is a 30 level that
             //is flagged in the database as being the highest of a category
             //add all other courses in that category to hsCourses
-            foreach (GetHSCourses testItem in courseList)
+            //foreach (GetHSCourses testItem in courseList)
+            //{
+            //    foreach (ListItem item in CB_CourseList.Items)
+            //    {
+            //        if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
+            //        {
+            //            int[] childCourses = sysmgr.GetHighestCourseLevel(Convert.ToInt32(item.Value));
+            //            for (int i = 0; i < childCourses.Length; i++)
+            //            {
+            //                hsCourses.Add(Convert.ToInt32(childCourses[i]));
+            //            }
+            //        }
+            //        else if (item.Selected)
+            //        {
+            //            hsCourses.Add(Convert.ToInt32(item.Value));
+            //        }
+            //    }
+            //}
+
+            //new code
+            List<int> demoCourses = new List<int>();
+            foreach (ListItem item in CB_CourseList.Items)
             {
-                foreach (ListItem item in CB_CourseList.Items)
-                {
-                    if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
-                    {
-                        int[] childCourses = sysmgr.GetParentCategory(Convert.ToInt32(item.Value));
-                        for (int i = 0; i < childCourses.Length; i++)
-                        {
-                            hsCourses.Add(Convert.ToInt32(childCourses[i]));
-                        }
-                    }
-                    else if (item.Selected)
-                    {
-                        hsCourses.Add(Convert.ToInt32(item.Value));
-                    }
-                }
+                if (item.Selected)
+                    demoCourses.Add(Convert.ToInt32(item.Value));
             }
+            //call method to get a list of HSCourses that will then be sent to the HighSchoolCourses method
+            List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
+            hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
+            //pass list of hs courses to get the final list of ints
+            List<int> fullCourses = new List<int>();
+            fullCourses = sysmgr.GetHighestCourseLevel(hsCoursesTwo);
 
             //step 4 - Determine initial program results and then filter those results based on student preference questions. Display final results
             //send information to BLL for processing and narrow down possible results
             List<int> programResults = new List<int>();
-            programResults = StudentController.FindProgramMatches(hsCourses);
+            programResults = StudentController.FindProgramMatches(fullCourses);
 
             //finalResults = new List<int>();
             //finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
@@ -209,10 +223,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
-            finalProgramResults = (from x in finalProgramResults.AsEnumerable()
-                                  where x.MatchPercent > 60
-                                  orderby x.MatchPercent descending
-                                  select x).ToList();
+            
 
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();

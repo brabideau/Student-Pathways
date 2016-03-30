@@ -698,8 +698,8 @@ namespace CrystalBallSystem.BLL
                 {
                     HighSchoolCourseID = item.HighSchoolCourseID,
                     HighSchoolCourseName = item.HighSchoolCourseName,
-                    CourseGroup = item.CourseGroup,
-                    Highest = item.Highest
+                    CourseGroupID = item.CourseGroupID,
+                    CourseLevel = item.CourseLevel
                 };
 
                 context.Entry<HighSchoolCours>(context.HighSchoolCourses.Attach(data)).State = System.Data.Entity.EntityState.Modified;

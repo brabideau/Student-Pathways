@@ -23,9 +23,9 @@ namespace CrystalBallSystem.DAL.Entities
         [StringLength(30)]
         public string HighSchoolCourseName { get; set; }
         [Required(ErrorMessage = "A Course Group is required")]
-        public string CourseGroup { get; set; }
-        [Required(ErrorMessage = "A Highest is required")]
-        public bool Highest { get; set; }
+        public int CourseGroupID { get; set; }
+        [Required(ErrorMessage = "A CourseLevel is required")]
+        public int CourseLevel { get; set; }
 
         public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
     }
