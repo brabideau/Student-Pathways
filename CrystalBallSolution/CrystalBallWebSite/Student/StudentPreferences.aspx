@@ -10,25 +10,34 @@
     <!-- step 1 - high school courses -->
     <!-- student course selection section -->
     <div id="stepOne" runat="server" visible="true">
-    <h1>Your High School Courses</h1>
-        <h3>Check off all the high school courses you've taken</h3>
-        <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
+    <h1>Your Coursework</h1>
+         <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
+
+        <h3>High School Coursework</h3>
+       
+       <p>Please choose all the high school courses you've taken.</p>
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" CssClass="courseCSS clearfix">
         </asp:CheckBoxList>
 
-            
-        <p>Have you graduated from a post secondary institution?</p>
+          <h3>Post-Secondary Credentials</h3>  
+        <p>Have you graduated from a post-secondary institution?</p>
         <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True">
             <asp:ListItem Value="true">Yes</asp:ListItem>
             <asp:ListItem Value="false" Selected="True">No</asp:ListItem>
         </asp:RadioButtonList>
         
         <div id="graduated" runat="server" visible="false">
-        <asp:DropDownList ID="DDL_ProgramCategory" runat="server" DataSourceID="ODS_Category" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
-        <asp:ObjectDataSource ID="ODS_Category" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-        <asp:DropDownList ID="DDL_CredentialType" runat="server" DataSourceID="ODS_Credential" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
+
+        <p>What field was your previous program in? <asp:DropDownList ID="DDL_ProgramCategory" runat="server" DataSourceID="ODS_Category" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList></p>
+
+            <asp:ObjectDataSource ID="ODS_Category" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+
+        <p>What kind of credential did you earn? <asp:DropDownList ID="DDL_CredentialType" runat="server" DataSourceID="ODS_Credential" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList></p>
+        
+        
         <asp:ObjectDataSource ID="ODS_Credential" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-        <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>
+
+        <p>Your GPA in that program: <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox></p>
         </div>
         <div>
         <hr />
@@ -97,11 +106,13 @@
     <!-- step 3 - metrics / nait student questions -->
     <!--Get student's program information-->
         <div runat="server" id="stepThree" visible="false" class="clearfix">
-            <p>Have you previously taken courses at NAIT?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
+            <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
+
+            <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
             
             <div runat="server" id="chooseProgram" class="clearfix">
-                <p>If you have taken courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
-                <p>Select Program Category: 
+                
+                <p>What field is your NAIT program in?
         <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true" AppendDataBoundItems="True">
 
             
@@ -110,7 +121,7 @@
                     <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
                 </p>
 
-                <p>Select Current Program: 
+                <p>Select your current or most recent program: 
         <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
             
         </asp:DropDownList>
@@ -120,14 +131,14 @@
                         </SelectParameters>
                     </asp:ObjectDataSource>
                 </p>
-                <p>Select Which Year You Are In: 
+                <p>What year of studies are you in?
         <asp:DropDownList ID="SemesterDropDown" runat="server">
             <asp:ListItem Text="First" Value="1" />
             <asp:ListItem Text="Second" Value="2" />
             <asp:ListItem Text="Third" Value="3" />
             <asp:ListItem Text="Fourth" Value="4" />
         </asp:DropDownList></p>
-                <p>Do you wish to continue your chosen program stream?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server"><asp:ListItem Value="true" Selected="True">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
+                <p>Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server"><asp:ListItem Value="true" Selected="True">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
             </div>
             
             <asp:LinkButton ID="stepThreeNext" runat="server" OnClick="stepThreeNext_Click" CssClass="button next">Next</asp:LinkButton>
@@ -203,7 +214,7 @@
    </div>
 
     <div class ="col-6 nait-courses">
-        <h3>My Courses</h3>
+        <h3>Your Courses</h3>
         
         <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
         <ItemTemplate>    
@@ -254,7 +265,7 @@
     <!-- step 5 - results -->
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
         <div id="results" runat="server" visible="false" >
-            <h1>Results</h1>
+            <h1>Your Program Matches</h1>
             <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
             <asp:ListView ID="ResultsView" runat="server" >
                         <LayoutTemplate>
@@ -269,12 +280,12 @@
                         </td>
                         <td class="clearfix">
                             <ul>
-                                <li><asp:Label ID="MatchPercentLabel" runat="server" Text='<%# Eval("MatchPercent") %>' />% match</li>
+                                <li><asp:Label ID="MatchPercentLabel" runat="server" Text='<%# Eval("MatchPercent") %>' />% Match to your preferences</li>
                                 <li><asp:Label ID="CredentialTypeLabel" runat="server" Text='<%# Eval("CredType") %>' /></li>
                             </ul>
                         </td>
                         <td>
-                            <asp:Label ID="Label1" runat="server" Visible=<%# Eval("Credits") != null %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label></td><td>
+                            <asp:Label ID="ResultsCreditsLabel" runat="server" Visible=<%# Convert.ToBoolean(Eval("Credits")) %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label></td><td>
                            <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
                         </td>
                         <td>

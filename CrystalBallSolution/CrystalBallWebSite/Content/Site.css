@@ -832,7 +832,6 @@ footer {
 
     display: block;
     list-style-type: disc;
-    margin: 0 auto;
     margin-top: 5px;
     margin-bottom: 5px;
 }
@@ -840,9 +839,7 @@ footer {
 .program-search-results li {
     font-family: 'Coda', Helvetica, Arial, sans-serif;
     font-size: 1.1em;
-    float: left;
-    width: 40%;
-    margin: 0 5%;
+
 }
 .program-search-results td:last-child {
     position: absolute;

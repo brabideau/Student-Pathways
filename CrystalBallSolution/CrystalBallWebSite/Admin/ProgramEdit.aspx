@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ProgramEdit.aspx.cs" Inherits="Briand_Workspace_ProgramEdit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
-    <h1>Edit Program</h1>
+    <h1>Manage Programs</h1>
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
 

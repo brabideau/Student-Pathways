@@ -71,6 +71,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Buttons.Visible = true;
         ProgramInfo_Show(sender, e);
         ProgramList.Visible = false;
+        Tab_Labels.SelectedValue = "1";
     }
 
     #endregion
@@ -111,6 +112,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "1";
     }
 
     protected void Save_Program(object sender, EventArgs e)
@@ -157,6 +159,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "2";
 
     }
 
@@ -421,6 +424,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "3";
     }
 
     protected void Save_EntranceReq(object sender, EventArgs e)
@@ -439,6 +443,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = true;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "4";
     }
 
     protected void Populate_Courses (int programID){
@@ -540,6 +545,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = true;
         ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "5";
     }
 
     protected void Populate_Equivalencies(int programID)
@@ -603,6 +609,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = true;
+        Tab_Labels.SelectedValue = "6";
     }
 
     protected void Populate_Preferences(int programID)
