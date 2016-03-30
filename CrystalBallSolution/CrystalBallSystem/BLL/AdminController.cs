@@ -544,6 +544,36 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddProgramInCategories(List<int> categoryId, int programId)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+               
+                Category add = null;
+
+                Program newProgram = null;
+                newProgram = context.Programs.Find(programId);           
+                
+                if(newProgram.Categories.Count() != 0)
+                {
+                    var deletedCategory = newProgram.Categories.ToList<Category>();
+                    deletedCategory.ForEach(dc => newProgram.Categories.Remove(dc));
+                }          
+                
+                foreach (var item in categoryId)
+                {
+                    add = context.Categories.Find(item);
+                    newProgram.Categories.Add(add);
+                }
+                
+
+                context.SaveChanges();
+
+
+            }
+        }
+
         //[DataObjectMethod(DataObjectMethodType.Insert, false)]
         //public void AddProgram(List<Program> program, int categoryid)
         //{
@@ -607,6 +637,17 @@ namespace CrystalBallSystem.BLL
 
 
                 context.SaveChanges();
+            }
+        }
+
+        public int GetProgramIDByName(string name)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                int programId = (from row in context.Programs
+                                 where row.ProgramName == name
+                                 select row.ProgramID).FirstOrDefault();
+                return programId;
             }
         }
 
