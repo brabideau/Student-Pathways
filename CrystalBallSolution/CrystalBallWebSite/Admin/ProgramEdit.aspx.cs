@@ -201,7 +201,9 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         }
         
         AdminController sysmr = new AdminController();
-        int programid = sysmr.GetProgramIDByName(NewProgramNameTextBox.Text);
+        //int programid = sysmr.GetProgramIDByName(NewProgramNameTextBox.Text);
+
+        int programid = Convert.ToInt32(ProgramIDLabel.Text);
 
         sysmr.AddProgramInCategories(categories, programid);
 
