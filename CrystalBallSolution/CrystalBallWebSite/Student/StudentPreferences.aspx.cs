@@ -223,7 +223,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
-            ViewState["finalProgramResults"] = finalProgramResults;
+            Session["finalProgramResults"] = finalProgramResults;
 
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();
@@ -625,7 +625,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
 
         //var finalProgramResults = ViewState["finalProgramResults"];
-        List<ProgramResult> finalProgramResults = (List<ProgramResult>)ViewState["finalProgramResults"];
+        List<ProgramResult> finalProgramResults = (List<ProgramResult>)Session["finalProgramResults"];
 
         (ResultsView.FindControl("DataPager") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
 
