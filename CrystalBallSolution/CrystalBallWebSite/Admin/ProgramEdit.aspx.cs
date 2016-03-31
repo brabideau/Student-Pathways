@@ -184,7 +184,6 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region categories
     protected void Categories_Show(object sender, EventArgs e)
     {
-        Add_Program_Button.Visible = false;
         ProgramInfo.Visible = false;
         Categories.Visible = true;
         EntranceRequirements.Visible = false;

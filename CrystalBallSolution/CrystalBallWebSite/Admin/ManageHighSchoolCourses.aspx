@@ -32,18 +32,18 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Gourse Group:
+                                    Gourse GroupID:
                                 </th>
                                 <td>
-                                    <asp:TextBox ID="CourseGroupLabel" runat="server" Text='<%# Bind("CourseGroup") %>' />
+                                    <asp:TextBox ID="CourseGroupIDTextBox" runat="server" Text='<%# Bind("CourseGroupID") %>' />
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Highest:
+                                    CourseLevel:
                                 </th>
                                 <td>
-                                    <asp:CheckBox ID="HighestCheckBox" runat ="server" Checked='<%# Bind("Highest") %>' />
+                                    <asp:TextBox ID="CourseLevelTextBox" runat ="server" Text='<%# Bind("CourseLevel") %>' />
                                 </td>
                             </tr>
                             <tr>
@@ -79,10 +79,10 @@
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
                 </td>
                 <td>
-                    <asp:TextBox ID="CourseGroupLabel" runat="server" Text='<%# Bind("CourseGroup") %>' />
+                    <asp:TextBox ID="CourseGroupIDTextBox" runat="server" Text='<%# Bind("CourseGroupID") %>' />
                 </td>
                 <td>
-                    <asp:CheckBox ID="HighestCheckBox" runat ="server" Checked='<%# Bind("Highest") %>' />
+                     <asp:TextBox ID="CourseLevelTextBox" runat ="server" Text='<%# Bind("CourseLevel") %>' />
                 </td>
             </tr>
         </InsertItemTemplate>
@@ -97,10 +97,10 @@
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="CourseGroupLabel" runat="server" Text='<%# Eval("CourseGroup") %>' />
+                    <asp:Label ID="CourseGroupIDLabel" runat="server" Text='<%# Eval("CourseGroupID") %>' />
                 </td>
                 <td>
-                    <asp:CheckBox ID="HighestCheckBox" runat ="server" Checked='<%# Eval("Highest") %>' Enabled="false"/>
+                    <asp:Label ID="CourseLevelLabel" runat ="server" Text='<%# Eval("CourseLevel") %>' />
                 </td>
             </tr>
         </ItemTemplate>
@@ -114,8 +114,8 @@
                             <tr runat="server">
                                 <th runat="server"></th>
                                 <th runat="server">High School Course Name</th>
-                                <th runat="server">Course Group</th>
-                                <th runat="server">Highest</th>
+                                <th runat="server">Course GroupID</th>
+                                <th runat="server">Course Level</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server">
                             </tr>
