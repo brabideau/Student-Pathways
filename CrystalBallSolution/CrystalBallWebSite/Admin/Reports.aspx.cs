@@ -344,8 +344,8 @@ public partial class Admin_Reports : System.Web.UI.Page
     #region pdf
     protected void Program_PDF_Download(object sender, EventArgs e)
     {
-        var myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
-
+        Document myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
+        //Document myPdf = new Document(PageSize.A4, 36, 72, 108, 180);
         Font h1 = FontFactory.GetFont("Arial", 28);
 
         Font h2 = FontFactory.GetFont("Arial", 18);
@@ -361,29 +361,66 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         // Table designed for pdfs. Value in () is number of columns.
         PdfPTable programFreq = new PdfPTable(2);
+        programFreq.WidthPercentage = 80;//a4 paper width is 595.0 and 80% of it is 476f
+        float[] cellWidth = new float[2];
+        cellWidth[0] = 375f;
+        cellWidth[1] = 119f;
+        programFreq.SetWidths(cellWidth);
+        
 
         // Create and add the header and subheader
         PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results", h1));
+        header.Padding = 10;
         header.Colspan = 2;
         header.HorizontalAlignment = 1;
+        //the PdfPTable doesn't support that natively. However, the PdfPCell supports a property that takes a custom implementation of IPdfPCellEvent which will get called whenever a cell layout happens.
+        //http://stackoverflow.com/questions/10231770/itextsharp-table-cell-spacing-possible 
+        programFreq.DefaultCell.Padding = 10;
         programFreq.AddCell(header);
-        programFreq.AddCell(new Phrase("Program Name", h2));
-        programFreq.AddCell(new Phrase("# of times shown", h2));
+        //pdf cell guideline http://www.coderanch.com/how-to/javadoc/itext-2.1.7/com/lowagie/text/pdf/PdfCell.html
+        PdfPCell secondHeader1 = new PdfPCell(new Phrase("Program Name", h2));
+        secondHeader1.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+        secondHeader1.Padding = 5;
+        programFreq.AddCell(secondHeader1);
+        PdfPCell secondHeader2 = new PdfPCell(new Phrase("# of times shown", h2));
+        secondHeader2.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+        secondHeader2.Padding = 5;
+        programFreq.AddCell(secondHeader2);
 
         // Get data to put in this table
-        List<ProgramFrequency> frequency = (List<ProgramFrequency>)ViewState["ProgramFrequency"]; 
+        List<ProgramFrequency> frequency = (List<ProgramFrequency>)ViewState["ProgramFrequency"];
 
-
+        //align paragraph.Alignment = Element.ALIGN_CENTER
         //iterate through the data and put it in the table
         foreach(var item in frequency)
         {
-            programFreq.AddCell(item.Program.ToString());
-            programFreq.AddCell(item.Frequency.ToString());
-
-
+            PdfPCell cell1 = new PdfPCell(new Phrase(item.Program.ToString()));
+            //cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell1.Padding = 5;
+            programFreq.AddCell(cell1);
+            PdfPCell cell2 = new PdfPCell(new Phrase(item.Frequency.ToString()));
+            cell2.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell2.Padding = 5;
+            programFreq.AddCell(cell2);
+            //------------how to set up cell-------------------------------------
+            //PdfPTable table = new PdfPTable(3);
+            //table.AddCell("Cell 1");
+            //PdfPCell cell = new PdfPCell(new Phrase("Cell 2", new Font(Font.HELVETICA, 8f, Font.NORMAL, Color.YELLOW)));
+            //cell.BackgroundColor = new Color(0, 150, 0);
+            //cell.BorderColor = new Color(255, 242, 0);
+            //cell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
+            //cell.BorderWidthBottom = 3f;
+            //cell.BorderWidthTop = 3f;
+            //cell.PaddingBottom = 10f;
+            //cell.PaddingLeft = 20f;
+            //cell.PaddingTop = 4f;
+            //table.AddCell(cell);
+            //table.AddCell("Cell 3");
+            //doc.Add(table);
 
         }
 
+        
 
         // Add the table to the pdf
         myPdf.Add(programFreq);
