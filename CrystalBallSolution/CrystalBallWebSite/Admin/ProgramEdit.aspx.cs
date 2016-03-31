@@ -69,6 +69,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Populate_Preferences(programID);
 
         Populate_EntranceReqs(programID);
+        Populate_DER(programID);
 
         // show the appropriate info
         ProgramEditDiv.Visible = true;
@@ -198,7 +199,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
     #region entrance requirements
 
-
+    #region high school
     //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
     private void PopulateManual()
     {
@@ -223,13 +224,12 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ViewState["CurrentTableCourse"] = dt;
         GV_ManualNewEntrReq.DataSource = dt;
         GV_ManualNewEntrReq.DataBind();
-
     }
 
     #region for existing entrance requirements
     protected void Populate_EntranceReqs(int programID)
     {
-        testController sysmgr = new testController();
+        AdminController sysmgr = new AdminController();
         var entReq = sysmgr.Get_SubjectReq_ByProgram(programID);
         LV_SubjectReq.DataSource = entReq;
         LV_SubjectReq.DataBind();
@@ -237,7 +237,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
     protected void LV_SubjectReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        testController sysmgr = new testController();
+        AdminController sysmgr = new AdminController();
         int entReqID = Convert.ToInt32(LV_SubjectReq.DataKeys[e.RowIndex].Value);
         int programID = Int32.Parse(ProgramIDLabel.Text);
         sysmgr.ER_Delete(entReqID);
@@ -250,15 +250,12 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     //pre-populate subject requirement courses
     protected void SubjectButton_Click(object sender, EventArgs e)
     {
-        testController sysmgr = new testController();
+        AdminController sysmgr = new AdminController();
         manualER.Visible = true;
         SubReqDesc.Visible = true;
         PopulateManual();
     }
     #endregion
-
-
-
 
     protected void AddNew_Click(object sender, EventArgs e)
     {
@@ -387,7 +384,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
     protected void addMSubjectButton_Click(object sender, EventArgs e)
     {
-        testController sysmgr = new testController();
+        AdminController sysmgr = new AdminController();
         List<AddEntranceRequirements> er = new List<AddEntranceRequirements>();
         string description = SubReqDesc.Text;
 
@@ -431,6 +428,41 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramPreferences.Visible = false;
         Tab_Labels.SelectedValue = "3";
     }
+    #endregion
+
+    #region post-secondary
+    protected void Populate_DER(int programID)
+    {
+        AdminController sysmgr = new AdminController();
+        GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
+        GV_DegreeEntranceReq.DataBind();
+    }
+
+    protected void GV_DegReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        AdminController sysmgr = new AdminController();
+        int degReqID = Convert.ToInt32(GV_DegreeEntranceReq.DataKeys[e.RowIndex].Value);
+        int programID = Int32.Parse(ProgramIDLabel.Text);
+        sysmgr.DER_Delete(degReqID);
+        Populate_DER(programID);
+    }
+
+    protected void addDER_Click(object sender, EventArgs e)
+    {
+        AddRequirements.Visible = true;
+    }
+    protected void Add_DER_Click(object sender, EventArgs e)
+    {
+        AdminController sysmgr = new AdminController();
+        int programID = Int32.Parse(ProgramIDLabel.Text);
+        int credentialID = int.Parse(DL_Credential.SelectedValue);
+        int categoryID = int.Parse(DL_Category.SelectedValue);
+        decimal gpa = decimal.Parse(TB_GPA.Text);
+        sysmgr.AddDER(programID, credentialID, categoryID, gpa);
+        Populate_DER(programID);
+        AddRequirements.Visible = false;
+    }
+    #endregion
 
     protected void Save_EntranceReq(object sender, EventArgs e)
     {

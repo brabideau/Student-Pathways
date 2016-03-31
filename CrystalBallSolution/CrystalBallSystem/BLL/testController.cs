@@ -234,7 +234,6 @@ namespace CrystalBallSystem.BLL
                              select new GetDegEntReqs
                              {
                                  DegreeEntranceRequirementID = der.DegreeEntranceReqID,
-                                 Program = der.Program.ProgramName,
                                  CredentialName = der.CredentialType.CredentialTypeName,
                                  Category = der.Category.CategoryDescription,
                                  GPA = der.GPA

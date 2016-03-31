@@ -190,6 +190,7 @@ namespace CrystalBallSystem.BLL
         #endregion
 
         #region Entrance Requirements
+        #region HS Requirements
         #region Delete Entrance Requirements
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
         public void ER_Delete(int entReqID)
@@ -264,6 +265,59 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
         #endregion
+
+        #region Degree Entrance Requirements
+        #region List Degree Entrance Requirements
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Adds the supplied category to the database
+        public List<GetDegEntReqs> Get_DERByProgram(int programID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var result = from der in context.DegreeEntranceRequirements
+                             where der.ProgramID == programID
+                             select new GetDegEntReqs
+                             {
+                                 DegreeEntranceRequirementID = der.DegreeEntranceReqID,
+                                 CredentialName = der.CredentialType.CredentialTypeName,
+                                 Category = der.Category.CategoryDescription,
+                                 GPA = der.GPA
+                             };
+
+                return result.ToList();
+            }
+        }
+        #endregion
+
+        #region Delete Entrance Requirements
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void DER_Delete(int degReqID)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                DegreeEntranceRequirement existing = context.DegreeEntranceRequirements.Find(degReqID);
+
+                context.DegreeEntranceRequirements.Remove(existing);
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Add DER
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddDER(int programID, int credentialID, int categoryID, decimal gpa)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                DegreeEntranceRequirement added = null;
+                added = context.DegreeEntranceRequirements.Add(new DegreeEntranceRequirement() { ProgramID = programID, CredentialTypeID = credentialID, CategoryID = categoryID, GPA = gpa });
+                context.SaveChanges();
+            }
+        }
+        #endregion
+        #endregion
+        #endregion
+
 
         #region Subject Requirements
         #region List Subject Requirements
