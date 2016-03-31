@@ -95,10 +95,22 @@
                         </p>
                         <p>
                         </p>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
                     </p>
                 </div>
                 <asp:LinkButton ID="goToNaitCourses" runat="server" CssClass="button next" OnClick="Goto_NAITCourse">Next</asp:LinkButton>
                 <asp:LinkButton ID="MetricsToHSCourse" runat="server" CssClass="button back" OnClick="Show_HSCourses">Previous</asp:LinkButton>
+                <p>
+                </p>
+                <p>
+                </p>
+                <p>
+                </p>
                 <p>
                 </p>
                 <p>
@@ -293,7 +305,7 @@
                             </table>
                             <asp:DataPager runat="server" ID="DataPager" PageSize="4">
                                 <Fields>
-                                    <asp:NumericPagerField ButtonType="Link" ButtonCount="5"    PreviousPageText="<--"   NextPageText="-->" />
+                                    <asp:NextPreviousPagerField />
                                 </Fields>
                             </asp:DataPager>
                         </LayoutTemplate>
@@ -315,3 +327,4 @@
                         <td>
                             <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank">
                 <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></div></ContentTemplate></asp:UpdatePanel></asp:Content>
+
