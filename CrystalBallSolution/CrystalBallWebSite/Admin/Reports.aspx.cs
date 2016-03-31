@@ -428,7 +428,7 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         // Close the pdf when you are finished with it
         myPdf.Close();
-
+        Response.Redirect("../PDFs/myPdf.pdf");
 
 
     }
