@@ -28,43 +28,7 @@
        <uc1:MessageUserControl runat="server" id="MessageUserControl" />
     </div>
 
-    <div runat="server" id="ProgramEditDiv" visible="false">
-     <%-- -------------------------------ADD NEW PROGRAM------------------------------------------ --%>
-        <div runat="server" id="AddNewProgram" visible="false" class="clearfix">
-       <asp:Label ID="NewProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
-    
-       <p class="clearfix"><span class="label col-3">Program Name:</span> <asp:TextBox ID="NewProgramNameTextBox" runat="server" CssClass="col-4"/></p> 
-
-        <p class="clearfix"><span class="label col-3">Credential Type:</span><asp:DropDownList ID="CredentialDropDownList" runat="server" 
-                                                                  DataSourceID="ODSCredentialType" 
-                                                                  DataTextField="CredentialTypeName" 
-                                                                  DataValueField="CredentialTypeID"
-                                                                  CssClass="col-2"
-                                                                  />   
-        </p>
-
-        <p class="clearfix"><span class="label col-3">Description:</span> <asp:TextBox ID="NewProgramDescription" TextMode="multiline" runat="server" CssClass="col-6"/></p>
-        <p class="clearfix"><span class="label col-3">Total Credits:</span> <asp:TextBox ID="NewProgramTotalCredits" runat="server" CssClass="col-1"/></p>
-
-        <p class="clearfix"><span class="label col-3">Program Length: </span><asp:DropDownList ID="lengthDropDownList" runat="server" CssClass="col-2">
-                                                        <asp:ListItem Value="0">[Select Length]</asp:ListItem>
-                                                        <asp:ListItem>3 months</asp:ListItem>
-                                                        <asp:ListItem>6 months</asp:ListItem>
-                                                        <asp:ListItem>1 Year(s)</asp:ListItem>
-                                                        <asp:ListItem>2 Year(s)</asp:ListItem>
-                                                        <asp:ListItem>3 Year(s)</asp:ListItem>
-                                                        <asp:ListItem>4 Year(s)</asp:ListItem>
-                                                    </asp:DropDownList></p>
-
-        <p class="clearfix"><span class="label col-3">
-            Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
-
-        <p class="clearfix"><span class="label col-3">Check if Active: </span> <asp:Checkbox ID="NewProgramActive" runat="server" CssClass="col-1"/></p> 
-
-        <p class="clearfix"><span class="label col-3">Program Link: </span><asp:TextBox ID="NewProgramLink" runat="server"  CssClass="col-4"/></p>
-        <asp:LinkButton ID="SaveButton" runat="server" OnClick="Add_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-      </div>
-           
+    <div runat="server" id="ProgramEditDiv" visible="false">         
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
        <div runat="server" id="ProgramInfo" visible="false" class="clearfix">
        <asp:Label ID="ProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
@@ -82,7 +46,15 @@
 
         <p class="clearfix"><span class="label col-3">Total Credits:</span> <asp:TextBox ID="TB_Credits" runat="server" CssClass="col-1"/></p>
 
-        <p class="clearfix"><span class="label col-3">Program Length: </span><asp:TextBox ID="TB_Length" runat="server" CssClass="col-1"/></p>
+        <p class="clearfix"><span class="label col-3">Program Length: </span><asp:DropDownList ID="TB_Length" runat="server" CssClass="col-2">
+                                                        <asp:ListItem Value="0">[Select Length]</asp:ListItem>
+                                                        <asp:ListItem>3 months</asp:ListItem>
+                                                        <asp:ListItem>6 months</asp:ListItem>
+                                                        <asp:ListItem>1 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>2 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>3 Year(s)</asp:ListItem>
+                                                        <asp:ListItem>4 Year(s)</asp:ListItem>
+                                                    </asp:DropDownList></p>
 
         <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="The minimum high school GPA that students generally need to enter" />Competitive Average (Competitive Advantage): </span><asp:TextBox ID="TB_CompetitiveAdvantage" runat="server" CssClass="col-1"/></p>
 
@@ -90,6 +62,7 @@
 
         <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="Link to the main program page on the NAIT website" />Program Link: </span><asp:TextBox ID="TB_Link" runat="server"  CssClass="col-4"/></p>
         <asp:LinkButton ID="Program_Save" runat="server" OnClick="Save_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
+        <asp:LinkButton ID="Program_Add" runat="server" OnClick="Add_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
       
     </div>
 
