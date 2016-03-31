@@ -56,15 +56,8 @@
                                                         <asp:ListItem>4 Year(s)</asp:ListItem>
                                                     </asp:DropDownList></p>
 
-<<<<<<< HEAD
         <p class="clearfix"><span class="label col-3">
             Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
-||||||| merged common ancestors
-        <p class="clearfix"><span class="label col-3">Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
-=======
-        <p class="clearfix"><span class="label col-3">
-Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
->>>>>>> origin/master
 
         <p class="clearfix"><span class="label col-3">Check if Active: </span> <asp:Checkbox ID="NewProgramActive" runat="server" CssClass="col-1"/></p> 
 
@@ -85,14 +78,8 @@ Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramC
                                                                   CssClass="col-2"
                                                                   />   </p>
 
-<<<<<<< HEAD
         <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="A short (500 character) description of your program to get students excited about it" />Description:</span> <asp:TextBox ID="TB_Description" TextMode="multiline" runat="server" CssClass="col-6"/></p>
-||||||| merged common ancestors
-        <p class="clearfix"><span class="label col-3">Description:</span> <asp:TextBox ID="TB_Description" TextMode="multiline" runat="server" CssClass="col-6"/></p>
-=======
-        <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="A short (500 character) description of your program to get students excited about it
-" />Description:</span> <asp:TextBox ID="TB_Description" TextMode="multiline" runat="server" CssClass="col-6"/></p>
->>>>>>> origin/master
+
         <p class="clearfix"><span class="label col-3">Total Credits:</span> <asp:TextBox ID="TB_Credits" runat="server" CssClass="col-1"/></p>
 
         <p class="clearfix"><span class="label col-3">Program Length: </span><asp:TextBox ID="TB_Length" runat="server" CssClass="col-1"/></p>
@@ -121,7 +108,6 @@ Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramC
     <div runat="server" id="EntranceRequirements" class="clearfix">
 
         <%--HIGH SCHOOL ENTRANCE REQUIREMENTS--%>        
-<<<<<<< HEAD
         <p><asp:Label runat="server" CssClass="tooltip" ToolTip="Courses in the same Subject are considered equivalent. A student only needs one course in each group to enter." />What high school courses does this program require?</p>
         <div runat="server" id="HSRequirements">
             <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
@@ -153,69 +139,6 @@ Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramC
                     </asp:TemplateField>
                     <asp:ButtonField Text="Remove" CommandName="Delete"/>                
                 </Columns>               
-||||||| merged common ancestors
-        <p>What high school courses does this program require?</p>
-        <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
-            <Columns>
-                <asp:TemplateField HeaderText="Entrance Requirement ID" Visible="false">
-                    <ItemTemplate>
-                        <asp:Label ID="EntranceIDLabel" runat="server" Text='<%# Item.EntranceReqID %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField> 
-                <asp:TemplateField HeaderText="Subject Requirement ID" Visible="false">
-                    <ItemTemplate>
-                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Item.SubjectReqID %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField> 
-                <asp:TemplateField HeaderText="Subject Description">
-                    <ItemTemplate>
-                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Item.SubjectDesc %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Course Code">
-                    <ItemTemplate>
-                        <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.HSCourseCode %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Mark">
-                    <ItemTemplate>
-                        <asp:Label ID="MarkLabel" runat="server" Text='<%# Item.HSCourseMark %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField>
-                <asp:ButtonField Text="Remove" CommandName="Delete"/>                
-            </Columns>               
-=======
-        <p><asp:Label runat="server" CssClass="tooltip" ToolTip="Courses in the same Subject are considered equivalent. A student only needs one course in each group to enter." />What high school courses does this program require?</p>
-        <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
-            <Columns>
-                <asp:TemplateField HeaderText="Entrance Requirement ID" Visible="false">
-                    <ItemTemplate>
-                        <asp:Label ID="EntranceIDLabel" runat="server" Text='<%# Item.EntranceReqID %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField> 
-                <asp:TemplateField HeaderText="Subject Requirement ID" Visible="false">
-                    <ItemTemplate>
-                        <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Item.SubjectReqID %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField> 
-                <asp:TemplateField HeaderText="Subject Description">
-                    <ItemTemplate>
-                        <asp:Label ID="SubjectLabel" runat="server" Text='<%# Item.SubjectDesc %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Course Code">
-                    <ItemTemplate>
-                        <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.HSCourseCode %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Mark">
-                    <ItemTemplate>
-                        <asp:Label ID="MarkLabel" runat="server" Text='<%# Item.HSCourseMark %>' />
-                    </ItemTemplate>  
-                </asp:TemplateField>
-                <asp:ButtonField Text="Remove" CommandName="Delete"/>                
-            </Columns>               
->>>>>>> origin/master
 
                 <EmptyDataTemplate>
                     No Existing Entrance Requirements.

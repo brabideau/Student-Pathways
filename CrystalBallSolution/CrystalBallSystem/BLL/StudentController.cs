@@ -44,7 +44,7 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-        
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<GetHSCourses> FindHSCourses(List<int> courseIDs)
         {
@@ -54,63 +54,22 @@ namespace CrystalBallSystem.BLL
                 foreach (var item in courseIDs)
                 {
                     var results = (from course in context.HighSchoolCourses
-                                  where course.HighSchoolCourseID == item
-                                  orderby course.HighSchoolCourseName
-                                  select new GetHSCourses
-                                  {
-                                      HighSchoolCourseID = course.HighSchoolCourseID,
-                                      HighSchoolCourseDescription = course.HighSchoolCourseName,
-                                      CourseGroupID = course.CourseGroupID,
-                                      CourseLevel = course.CourseLevel
-                                  }).First();
+                                   where course.HighSchoolCourseID == item
+                                   orderby course.HighSchoolCourseName
+                                   select new GetHSCourses
+                                   {
+                                       HighSchoolCourseID = course.HighSchoolCourseID,
+                                       HighSchoolCourseDescription = course.HighSchoolCourseName,
+                                       CourseGroupID = course.CourseGroupID,
+                                       CourseLevel = course.CourseLevel
+                                   }).First();
                     hsCourses.Add(results);
                 }
-<<<<<<< HEAD
-                return hsCourses;
-||||||| merged common ancestors
-                return returnArray.ToArray();
-=======
                 return hsCourses;
             }
         }
-        
-        //Method returns the list of course ids in a given category
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public int[] GetParentCategory(int courseCode)
-        //{
-        //    List<int> returnArray = new List<int>();
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //        string results = (from program in context.HighSchoolCourses
-        //                      where program.HighSchoolCourseID == courseCode
-        //                      select program.CourseGroup).FirstOrDefault();
 
-        //        var returnArrayTemp = from x in context.HighSchoolCourses
-        //                          where x.CourseGroup == results
-        //                          select x.HighSchoolCourseID;
-        //        foreach(int item in returnArrayTemp)
-        //        {
-        //            returnArray.Add(item);
-        //        }
-        //        return returnArray.ToArray();
-        //    }
-        //}
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<int> GetHighestCourseLevel (List<GetHSCourses> courses)
-        {
-            List<int> items = new List<int>();
-            using (var context = new CrystalBallContext())
-            {
-                var results = (from x in context.HighSchoolCourses.AsEnumerable()
-                               from y in courses
-                               where x.CourseGroupID == y.CourseGroupID && x.CourseLevel == y.CourseLevel
-                               select x.HighSchoolCourseID).Distinct();
-                return results.ToList();
->>>>>>> origin/master
-            }
-        }
-       
-         //Method returns the list of course ids in a given category
+        //Method returns the list of course ids in a given category
         //[DataObjectMethod(DataObjectMethodType.Select, false)]
         //public int[] GetParentCategory(int courseCode)
         //{
@@ -144,12 +103,7 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-
-
         #region preference questions
-       
-
-
         #endregion
 
 
@@ -183,56 +137,36 @@ namespace CrystalBallSystem.BLL
                               select x).Count();
 
                 var initialresults = (from p in context.Programs.AsEnumerable()
-                             where programids.Contains(p.ProgramID)
-                             select new ProgramResult
-                             {
-                                 ProgramID = p.ProgramID,
-                                 ProgramName = p.ProgramName,
-                                 ProgramDescription = p.ProgramDescription,
-                                 ProgramLink = p.ProgramLink,
-                                 CredType = (from d in context.CredentialTypes
-                                                 where p.CredentialTypeID == d.CredentialTypeID
-                                                 select d.CredentialTypeName).FirstOrDefault(),
-                                 Credits = (from x in
-                                                (from ce in context.CourseEquivalencies.AsEnumerable()
-                                                 from c in p.ProgramCourses
-                                                 where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
-                                                 select c.NaitCourse).Distinct()
-                                            select (double?)x.CourseCredits).Sum(),
+                                      where programids.Contains(p.ProgramID)
+                                      select new ProgramResult
+                                      {
+                                          ProgramID = p.ProgramID,
+                                          ProgramName = p.ProgramName,
+                                          ProgramDescription = p.ProgramDescription,
+                                          ProgramLink = p.ProgramLink,
+                                          CredType = (from d in context.CredentialTypes
+                                                      where p.CredentialTypeID == d.CredentialTypeID
+                                                      select d.CredentialTypeName).FirstOrDefault(),
+                                          Credits = (from x in
+                                                         (from ce in context.CourseEquivalencies.AsEnumerable()
+                                                          from c in p.ProgramCourses
+                                                          where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
+                                                          select c.NaitCourse).Distinct()
+                                                     select (double?)x.CourseCredits).Sum(),
 
-                                MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
-                                             from mp in myPrefs
-                                             where q.QuestionID == mp.QuestionID
-                                             select Math.Pow(1 + Math.Abs(q.Answer - mp.Answer), 2) - 1)).Sum() / qCount / .24)
+                                          MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
+                                                                       from mp in myPrefs
+                                                                       where q.QuestionID == mp.QuestionID
+                                                                       select Math.Pow(1 + Math.Abs(q.Answer - mp.Answer), 2) - 1)).Sum() / qCount / .24)
 
-                             }).ToList();
+                                      }).ToList();
 
-<<<<<<< HEAD
                 var finalProgramResults = (from x in initialresults.AsEnumerable()
-                                       where x.MatchPercent > 60
-                                       orderby x.MatchPercent descending
-                                       select x).ToList();
-                
-                return finalProgramResults;
-||||||| merged common ancestors
-                return initialresults;
-
-                //var results = from x in initialresults
-                //              where x.MatchPercent > 50
-                //              select x;
-			
-                //return results.ToList();
-
-=======
-        
-                var finalProgramResults = (from x in initialresults.AsEnumerable()
-                                       where x.MatchPercent > 60
-                                       orderby x.MatchPercent descending
-                                       select x).ToList();
+                                           where x.MatchPercent > 60
+                                           orderby x.MatchPercent descending
+                                           select x).ToList();
 
                 return finalProgramResults;
-
->>>>>>> origin/master
             }
         }
 
@@ -244,7 +178,8 @@ namespace CrystalBallSystem.BLL
 
                 var results = from c in context.ProgramCourses
                               where c.ProgramID == programID && c.Semester <= semester
-                              select new NAITCourse {
+                              select new NAITCourse
+                              {
                                   CourseID = c.NaitCourse.CourseID,
                                   CourseCode = c.NaitCourse.CourseCode,
                                   CourseName = c.NaitCourse.CourseName,

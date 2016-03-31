@@ -82,13 +82,13 @@ namespace CrystalBallSystem.BLL
 
         }
 
-       
+
         #endregion
 
 
         #region Preference Questions
 
-        
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all questions and answers for the specified program
         public List<GetProgramPreferenceQuestions> GetQuestionsByProgram(int programID)
@@ -101,7 +101,7 @@ namespace CrystalBallSystem.BLL
                              {
                                  QuestionID = x.QuestionID,
                                  Question = x.PreferenceQuestion.Description,
-                                 Answer = x.Answer                     
+                                 Answer = x.Answer
                              };
                 return result.ToList();
                 //
@@ -109,7 +109,7 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        
+
 
         [DataObjectMethod(DataObjectMethodType.Update, false)]
         public void UpdateProgramPreferences(List<ProgramPreference> questions)
@@ -160,7 +160,7 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-       
+
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void AddEquivalency(int programID, int courseID, int destinationCourseID)
@@ -203,7 +203,7 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
-        #endregion        
+        #endregion
 
         #region Add Entrance Requirement Manual
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
@@ -377,7 +377,7 @@ namespace CrystalBallSystem.BLL
                 var result = from course in context.EntranceRequirements
                              where course.SubjectRequirementID == subjectReqID
                              select new GetEntranceReq
-                             {           
+                             {
                                  HSCourseID = course.HighSchoolCours.HighSchoolCourseID,
                                  HSCourseName = course.HighSchoolCours.HighSchoolCourseName,
                                  //Mark = null
@@ -424,7 +424,7 @@ namespace CrystalBallSystem.BLL
 
         #region Briand Playspace
 
-        
+
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all categories
@@ -438,8 +438,8 @@ namespace CrystalBallSystem.BLL
                 if (catID == null && searchTerm != null)
                 {
                     results = (from p in context.Programs
-                                  where p.ProgramName.Contains(searchTerm)
-                                  select p).ToList();
+                               where p.ProgramName.Contains(searchTerm)
+                               select p).ToList();
                 }
                 else if (catID != null && searchTerm == null)
                 {
@@ -448,14 +448,14 @@ namespace CrystalBallSystem.BLL
                 else
                 {
                     results = (from p in context.Programs
-                                  select p).ToList();
+                               select p).ToList();
                 }
 
                 return results;
             }
         }
 
-        
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Get one program by ID
         public Program Get_Program(int programID)
@@ -463,7 +463,7 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 var result = (from p in context.Programs
-                             where p.ProgramID == programID
+                              where p.ProgramID == programID
                               select p).FirstOrDefault();
                 return result;
             }
@@ -488,7 +488,7 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                if ( 0 < sem && sem < 5)
+                if (0 < sem && sem < 5)
                 {
                     var result = from x in context.ProgramCourses
                                  where x.ProgramID == programID && x.Semester == sem
@@ -498,10 +498,10 @@ namespace CrystalBallSystem.BLL
                 else
                 {
                     var result = (from x in context.ProgramCourses
-                                 where x.ProgramID == programID
-                                 select x.NaitCourse).Except(from y in context.ProgramCourses
-                                                                 where y.Semester > 0 && y.Semester < 5
-                                                                 select y.NaitCourse);
+                                  where x.ProgramID == programID
+                                  select x.NaitCourse).Except(from y in context.ProgramCourses
+                                                              where y.Semester > 0 && y.Semester < 5
+                                                              select y.NaitCourse);
 
                     return result.ToList();
                 }
@@ -524,9 +524,9 @@ namespace CrystalBallSystem.BLL
             using (CrystalBallContext context = new CrystalBallContext())
             {
 
-               ProgramCourse existing = context.ProgramCourses.Find(item.CourseID, item.ProgramID);
+                ProgramCourse existing = context.ProgramCourses.Find(item.CourseID, item.ProgramID);
 
-               context.ProgramCourses.Remove(existing);
+                context.ProgramCourses.Remove(existing);
 
                 context.SaveChanges();
             }
@@ -598,47 +598,12 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-<<<<<<< HEAD
-      [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddProgramInCategories(List<int> categoryId, int programId)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-               
-                Category add = null;
-
-                Program newProgram = null;
-                newProgram = context.Programs.Find(programId);           
-                
-                if (newProgram.Categories.Count() != 0)
-                {
-                    var deletedCategory = newProgram.Categories.ToList<Category>();
-                    deletedCategory.ForEach(dc => newProgram.Categories.Remove(dc));
-                    context.SaveChanges();
-                }          
-                
-                foreach (var item in categoryId)
-                {
-                    add = context.Categories.Find(item);
-                    newProgram.Categories.Add(add);
-                }
-
-                context.Programs.Add(newProgram);
-                context.Programs.Attach(newProgram);
-                add.Programs.Add(newProgram);
-                context.SaveChanges();
- 
-             }
-        }
-
-||||||| merged common ancestors
-=======
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void AddProgramInCategories(List<int> categoryId, int programId)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-               
+
                 Category add = null;
 
                 Program newProgram = null;
@@ -649,28 +614,22 @@ namespace CrystalBallSystem.BLL
                     var deletedCategory = newProgram.Categories.ToList<Category>();
                     deletedCategory.ForEach(dc => newProgram.Categories.Remove(dc));
                     context.SaveChanges();
-                }   
-       
+                }
 
                 foreach (var item in categoryId)
                 {
                     add = context.Categories.Find(item);
                     newProgram.Categories.Add(add);
-                    
                 }
 
                 context.Programs.Add(newProgram);
                 context.Programs.Attach(newProgram);
                 add.Programs.Add(newProgram);
-
-
                 context.SaveChanges();
-
 
             }
         }
 
->>>>>>> origin/master
         //[DataObjectMethod(DataObjectMethodType.Insert, false)]
         //public void AddProgram(List<Program> program, int categoryid)
         //{
@@ -877,7 +836,7 @@ namespace CrystalBallSystem.BLL
                 {
                     results = (context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == catID))).ToList();
                 }
-                else if(catID !=0 && searchTerm != null)
+                else if (catID != 0 && searchTerm != null)
                 {
                     results2 = (context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == catID))).ToList();
                     results = (from p in results2

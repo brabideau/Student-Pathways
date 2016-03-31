@@ -117,34 +117,15 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //        item.Selected));
             //}
             foreach (GridViewRow row in prefGridView.Rows)
-<<<<<<< HEAD
-            {                
-||||||| merged common ancestors
             {
-                
-=======
-            {
-
->>>>>>> origin/master
                 RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
                 int prefchoice = Convert.ToInt32(rlist.SelectedValue);
 
                 myPreferences.Add(new StudentPreference(
                                 Convert.ToInt32((row.FindControl("QuestionID") as Label).Text),
-<<<<<<< HEAD
-                                prefchoice                 
-                ));                
-||||||| merged common ancestors
-                                prefchoice
-                   
-                ));
-                
-=======
-                                prefchoice
 
+                                prefchoice
                 ));
-
->>>>>>> origin/master
             }
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
@@ -207,37 +188,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             List<int> demoCourses = new List<int>();
             foreach (ListItem item in CB_CourseList.Items)
             {
-<<<<<<< HEAD
-                if (item.Selected)
-                    demoCourses.Add(Convert.ToInt32(item.Value));                    
-||||||| merged common ancestors
-                foreach (ListItem item in CB_CourseList.Items)
-                {
-                    if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
-                    {
-                        int[] childCourses = sysmgr.GetParentCategory(Convert.ToInt32(item.Value));
-                        for (int i = 0; i < childCourses.Length; i++)
-                        {
-                            hsCourses.Add(Convert.ToInt32(childCourses[i]));
-                        }
-                    }
-                    else if (item.Selected)
-                    {
-                        hsCourses.Add(Convert.ToInt32(item.Value));
-                    }
-                }
-=======
                 if (item.Selected)
                     demoCourses.Add(Convert.ToInt32(item.Value));
->>>>>>> origin/master
             }
-            //call method to get a list of HSCourses that will then be sent to the HighSchoolCourses method
-            List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
-            hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
-            //pass list of hs courses to get the final list of ints
-            List<int> fullCourses = new List<int>();
-            fullCourses = sysmgr.GetHighestCourseLevel(hsCoursesTwo);
-
             //call method to get a list of HSCourses that will then be sent to the HighSchoolCourses method
             List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
             hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
@@ -267,18 +220,13 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
-<<<<<<< HEAD
-            Session["finalProgramResults"] = finalProgramResults;
-||||||| merged common ancestors
             finalProgramResults = (from x in finalProgramResults.AsEnumerable()
-                                  where x.MatchPercent > 60
-                                  orderby x.MatchPercent descending
-                                  select x).ToList();
+                                   where x.MatchPercent > 60
+                                   orderby x.MatchPercent descending
+                                   select x).ToList();
 
-=======
             Session["finalProgramResults"] = finalProgramResults;
 
->>>>>>> origin/master
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();
 
@@ -321,15 +269,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         AdminController sysmgr = new AdminController();
         int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
-<<<<<<< HEAD
-        ProgramDropDown.DataBind();        
-||||||| merged common ancestors
         ProgramDropDown.DataBind();
-        
-=======
-        ProgramDropDown.DataBind();
-
->>>>>>> origin/master
     }
     //======1
     protected void stepOneNext_Click(object sender, EventArgs e)
@@ -678,7 +618,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         else
             graduated.Visible = false;
     }
-<<<<<<< HEAD
 
     protected void ResultsView_PagePropertiesChanged(object sender, PagePropertiesChangingEventArgs e)
     {
@@ -694,25 +633,4 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
 
     }
-||||||| merged common ancestors
-=======
-
-
-
-
-    protected void ResultsView_PagePropertiesChanged(object sender, PagePropertiesChangingEventArgs e)
-    {
-
-        //var finalProgramResults = ViewState["finalProgramResults"];
-        List<ProgramResult> finalProgramResults = (List<ProgramResult>)Session["finalProgramResults"];
-
-        (ResultsView.FindControl("DataPager") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
-
-        ResultsView.DataSource = finalProgramResults;
-        ResultsView.DataBind();
-        //ListViewUpdatePanel.Update();
-
-
-    }
->>>>>>> origin/master
 }

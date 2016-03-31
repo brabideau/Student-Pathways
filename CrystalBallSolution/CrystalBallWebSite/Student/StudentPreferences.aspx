@@ -296,21 +296,4 @@
                         </td>
                         <td>
                             <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank">
-<<<<<<< HEAD
-        <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></div></ContentTemplate></asp:UpdatePanel>
-
-</asp:Content>
-||||||| merged common ancestors
-                                <span class="button submit button-long">Learn More</span></asp:HyperLink>
-
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:ListView>
-        </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-</asp:Content>
-=======
-                                <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></ContentTemplate></asp:UpdatePanel></asp:Content>
->>>>>>> origin/master
+                <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></div></ContentTemplate></asp:UpdatePanel></asp:Content>
