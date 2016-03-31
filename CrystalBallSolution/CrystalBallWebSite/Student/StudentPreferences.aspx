@@ -21,7 +21,7 @@
 
           <h3>Post-Secondary Credentials</h3>  
         <p>Have you graduated from a post-secondary institution?</p>
-        <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True">
+        <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix">
             <asp:ListItem Value="true">Yes</asp:ListItem>
             <asp:ListItem Value="false" Selected="True">No</asp:ListItem>
         </asp:RadioButtonList>
@@ -108,7 +108,7 @@
         <div runat="server" id="stepThree" visible="false" class="clearfix">
             <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
 
-            <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
+            <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
             
             <div runat="server" id="chooseProgram" class="clearfix">
                 
@@ -138,7 +138,7 @@
             <asp:ListItem Text="Third" Value="3" />
             <asp:ListItem Text="Fourth" Value="4" />
         </asp:DropDownList></p>
-                <p>Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server"><asp:ListItem Value="true" Selected="True">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
+                <p>Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="true" Selected="True">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
             </div>
             
             <asp:LinkButton ID="stepThreeNext" runat="server" OnClick="stepThreeNext_Click" CssClass="button next">Next</asp:LinkButton>

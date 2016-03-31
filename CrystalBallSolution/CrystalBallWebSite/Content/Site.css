@@ -605,8 +605,34 @@ footer {
     font-family: 'Coda', Helvetica, Arial, sans-serif;
 }
 
-.tabs input[type="radio"] +label,
-.radiochecks input[type="radio"] +label{
+.radiochecks input
+ {
+    float: left;
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    position: relative;
+    top: .2em;
+}
+
+
+.radiochecks li {
+    display: block;
+    margin: 0px 20px;
+}
+
+
+.radiochecks input + label {
+    display: block;
+    float: left;
+    height: 1.2em;
+    padding: .2em 1.2em;
+    margin-right: 1.3em;
+
+}
+
+.tabs input[type="radio"] +label
+/*.radiochecks input +label*/{
     display: block;
     margin: 0 10px 0 0;
     float: left;
@@ -617,6 +643,8 @@ footer {
     border: 1px solid #113e68;
     border-bottom: none;
 }
+
+
 
 
 .prefQuestionsCSS {
@@ -655,7 +683,8 @@ footer {
 }
 
 .prefQuestionsCSS input[type="radio"] +label,
-.courseCSS input + label
+.courseCSS input + label,
+.radiochecks input + label
 {
     text-align: center;
     background-color: #ffffff;
@@ -733,7 +762,8 @@ footer {
 
 }
 
-.courseCSS input + label{
+.courseCSS input + label
+{
     display: block;
 
     padding: .2em .5em .2em 1.2em;

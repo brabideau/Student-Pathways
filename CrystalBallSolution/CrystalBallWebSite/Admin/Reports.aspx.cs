@@ -52,10 +52,14 @@ public partial class Admin_Reports : System.Web.UI.Page
         GV_Program_Dropping.DataSource = dropping;
         GV_Program_Dropping.DataBind();
 
+        ViewState["StudentsDropping"] = dropping;
+
         List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
         GV_ProgramFrequency.DataSource = frequency;
         GV_ProgramFrequency.DataBind();
+
+        ViewState["ProgramFrequency"] = frequency;
     }
     protected void Change_Tab(object sender, EventArgs e)
     {
@@ -112,7 +116,7 @@ public partial class Admin_Reports : System.Web.UI.Page
         LV_ProgramFrequency.DataSource = frequency;
         LV_ProgramFrequency.DataBind();
         ViewState["ProgramFrequency"] = frequency;
-
+        
 
         List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
@@ -120,7 +124,6 @@ public partial class Admin_Reports : System.Web.UI.Page
         GV_Program_Dropping.DataBind();
 
         ViewState["StudentsDropping"] = dropping;
-
 
 
     }
@@ -343,7 +346,11 @@ public partial class Admin_Reports : System.Web.UI.Page
     {
         var myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
 
-        string path = Server.MapPath("PDFs");
+        Font h1 = FontFactory.GetFont("Arial", 28);
+
+        Font h2 = FontFactory.GetFont("Arial", 18);
+
+        string path = Server.MapPath("../PDFs");
 
 
         // Requires 'using System.IO'  -- this allows you to create files
@@ -356,22 +363,22 @@ public partial class Admin_Reports : System.Web.UI.Page
         PdfPTable programFreq = new PdfPTable(2);
 
         // Create and add the header and subheader
-        PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results"));
+        PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results", h1));
         header.Colspan = 2;
         header.HorizontalAlignment = 1;
-        programFreq.AddCell("header");
-        programFreq.AddCell("Program Name");
-        programFreq.AddCell("# of times shown");
+        programFreq.AddCell(header);
+        programFreq.AddCell(new Phrase("Program Name", h2));
+        programFreq.AddCell(new Phrase("# of times shown", h2));
 
         // Get data to put in this table
-        DataTable frequency = (DataTable)ViewState["ProgramFrequency"]; 
+        List<ProgramFrequency> frequency = (List<ProgramFrequency>)ViewState["ProgramFrequency"]; 
 
 
         //iterate through the data and put it in the table
-        foreach(DataRow item in frequency.Rows)
+        foreach(var item in frequency)
         {
-            programFreq.AddCell(item["Program"].ToString());
-            programFreq.AddCell(item["Frequency"].ToString());
+            programFreq.AddCell(item.Program.ToString());
+            programFreq.AddCell(item.Frequency.ToString());
 
 
 

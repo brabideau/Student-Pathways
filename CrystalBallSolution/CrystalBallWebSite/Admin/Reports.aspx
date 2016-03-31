@@ -77,9 +77,7 @@
             <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
         </div>
 
-
-
-            </div>
+           <asp:LinkButton ID="Program_Pdf_Button" runat="server" OnClick="Program_PDF_Download">Download PDF</asp:LinkButton>
 
      </div><%-- end ProgramData--%>
             
