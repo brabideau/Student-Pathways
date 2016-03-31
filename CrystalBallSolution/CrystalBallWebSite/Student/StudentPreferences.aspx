@@ -267,11 +267,17 @@
         <div id="results" runat="server" visible="false" >
             <h1>Your Program Matches</h1>
             <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
-            <asp:ListView ID="ResultsView" runat="server" >
+            <div class="resultsviewscroll clearfix">
+            <asp:ListView ID="ResultsView" runat="server" OnPagePropertiesChanging="ResultsView_PagePropertiesChanged">
                         <LayoutTemplate>
                             <table>
                                 <tr id="itemPlaceholder" runat="server"></tr>
                             </table>
+                            <asp:DataPager runat="server" ID="DataPager" PageSize="8">
+                                <Fields>
+                                    <asp:NumericPagerField ButtonType="Link" ButtonCount="5"    PreviousPageText="<--"   NextPageText="-->" />
+                                </Fields>
+                            </asp:DataPager>
                         </LayoutTemplate>
                 <ItemTemplate>
                     <tr class="program-search-results">
@@ -290,13 +296,6 @@
                         </td>
                         <td>
                             <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank">
-                                <span class="button submit button-long">Learn More</span></asp:HyperLink>
+        <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></div></ContentTemplate></asp:UpdatePanel>
 
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:ListView>
-        </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
 </asp:Content>

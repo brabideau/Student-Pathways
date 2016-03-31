@@ -56,7 +56,8 @@
                                                         <asp:ListItem>4 Year(s)</asp:ListItem>
                                                     </asp:DropDownList></p>
 
-        <p class="clearfix"><span class="label col-3">Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
+        <p class="clearfix"><span class="label col-3">
+            Competitive Average (Competitive Advantage): </span><asp:TextBox ID="NewProgramCompetitive" runat="server" CssClass="col-1"/></p>
 
         <p class="clearfix"><span class="label col-3">Check if Active: </span> <asp:Checkbox ID="NewProgramActive" runat="server" CssClass="col-1"/></p> 
 
@@ -77,16 +78,16 @@
                                                                   CssClass="col-2"
                                                                   />   </p>
 
-        <p class="clearfix"><span class="label col-3">Description:</span> <asp:TextBox ID="TB_Description" TextMode="multiline" runat="server" CssClass="col-6"/></p>
+        <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="A short (500 character) description of your program to get students excited about it" />Description:</span> <asp:TextBox ID="TB_Description" TextMode="multiline" runat="server" CssClass="col-6"/></p>
         <p class="clearfix"><span class="label col-3">Total Credits:</span> <asp:TextBox ID="TB_Credits" runat="server" CssClass="col-1"/></p>
 
         <p class="clearfix"><span class="label col-3">Program Length: </span><asp:TextBox ID="TB_Length" runat="server" CssClass="col-1"/></p>
 
-        <p class="clearfix"><span class="label col-3">Competitive Average (Competitive Advantage): </span><asp:TextBox ID="TB_CompetitiveAdvantage" runat="server" CssClass="col-1"/></p>
+        <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="The minimum high school GPA that students generally need to enter" />Competitive Average (Competitive Advantage): </span><asp:TextBox ID="TB_CompetitiveAdvantage" runat="server" CssClass="col-1"/></p>
 
-        <p class="clearfix"><span class="label col-3">Check if Active: </span> <asp:Checkbox ID="CB_Active" runat="server" CssClass="col-1"/></p> 
+        <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="Active programs will show up in student's search results" />Check if Active: </span> <asp:Checkbox ID="CB_Active" runat="server" CssClass="col-1"/></p> 
 
-        <p class="clearfix"><span class="label col-3">Program Link: </span><asp:TextBox ID="TB_Link" runat="server"  CssClass="col-4"/></p>
+        <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="Link to the main program page on the NAIT website" />Program Link: </span><asp:TextBox ID="TB_Link" runat="server"  CssClass="col-4"/></p>
         <asp:LinkButton ID="Program_Save" runat="server" OnClick="Save_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
       
     </div>
@@ -106,7 +107,7 @@
     <div runat="server" id="EntranceRequirements" class="clearfix">
 
         <%--HIGH SCHOOL ENTRANCE REQUIREMENTS--%>        
-        <p>What high school courses does this program require?</p>
+        <p><asp:Label runat="server" CssClass="tooltip" ToolTip="Courses in the same Subject are considered equivalent. A student only needs one course in each group to enter." />What high school courses does this program require?</p>
         <div runat="server" id="HSRequirements">
             <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
                 <Columns>
@@ -179,7 +180,6 @@
                 <asp:LinkButton ID="addMSubjectButton" runat="server" OnClick="addMSubjectButton_Click">Add Requirement</asp:LinkButton>
             </div>
         </div>
-
 
 
         <%--POST SECONDARY ENTRANCE REQUIREMENT--%>
@@ -630,7 +630,7 @@
 
     <%-- -----------------------------ODS---------------------------------------%>
 
-    <asp:ObjectDataSource ID="CategoryList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+     <asp:ObjectDataSource ID="CategoryList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
 
     <asp:ObjectDataSource ID="ODSCredentialType" runat="server" SelectMethod="CredentialType_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
 

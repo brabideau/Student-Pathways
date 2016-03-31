@@ -38,8 +38,8 @@ namespace CrystalBallSystem.BLL
                               {
                                   HighSchoolCourseID = course.HighSchoolCourseID,
                                   HighSchoolCourseDescription = course.HighSchoolCourseName,
-                                  HighSchoolCourseGroup = course.CourseGroup,
-                                  HighSchoolHighestCourse = course.Highest
+                                  CourseGroupID = course.CourseGroupID,
+                                  CourseLevel = course.CourseLevel
                               };
                 return results.ToList();
             }
@@ -49,27 +49,63 @@ namespace CrystalBallSystem.BLL
         
         //Method returns the list of course ids in a given category
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public int[] GetParentCategory(int courseCode)
+        public List<GetHSCourses> FindHSCourses(List<int> courseIDs)
         {
-            List<int> returnArray = new List<int>();
+            List<GetHSCourses> hsCourses = new List<GetHSCourses>();
             using (var context = new CrystalBallContext())
             {
-                string results = (from program in context.HighSchoolCourses
-                              where program.HighSchoolCourseID == courseCode
-                              select program.CourseGroup).FirstOrDefault();
-
-                var returnArrayTemp = from x in context.HighSchoolCourses
-                                  where x.CourseGroup == results
-                                  select x.HighSchoolCourseID;
-                foreach(int item in returnArrayTemp)
+                foreach (var item in courseIDs)
                 {
-                    returnArray.Add(item);
+                    var results = (from course in context.HighSchoolCourses
+                                  where course.HighSchoolCourseID == item
+                                  orderby course.HighSchoolCourseName
+                                  select new GetHSCourses
+                                  {
+                                      HighSchoolCourseID = course.HighSchoolCourseID,
+                                      HighSchoolCourseDescription = course.HighSchoolCourseName,
+                                      CourseGroupID = course.CourseGroupID,
+                                      CourseLevel = course.CourseLevel
+                                  }).First();
+                    hsCourses.Add(results);
                 }
-                return returnArray.ToArray();
+                return hsCourses;
             }
         }
        
+         //Method returns the list of course ids in a given category
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public int[] GetParentCategory(int courseCode)
+        //{
+        //    List<int> returnArray = new List<int>();
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        string results = (from program in context.HighSchoolCourses
+        //                      where program.HighSchoolCourseID == courseCode
+        //                      select program.CourseGroup).FirstOrDefault();
 
+        //        var returnArrayTemp = from x in context.HighSchoolCourses
+        //                          where x.CourseGroup == results
+        //                          select x.HighSchoolCourseID;
+        //        foreach(int item in returnArrayTemp)
+        //        {
+        //            returnArray.Add(item);
+        //        }
+        //        return returnArray.ToArray();
+        //    }
+        //}
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<int> GetHighestCourseLevel(List<GetHSCourses> courses)
+        {
+            List<int> items = new List<int>();
+            using (var context = new CrystalBallContext())
+            {
+                var results = (from x in context.HighSchoolCourses.AsEnumerable()
+                               from y in courses
+                               where x.CourseGroupID == y.CourseGroupID && x.CourseLevel == y.CourseLevel
+                               select x.HighSchoolCourseID).Distinct();
+                return results.ToList();
+            }
+        }
 
 
         #region preference questions
@@ -133,14 +169,12 @@ namespace CrystalBallSystem.BLL
 
                              }).ToList();
 
-                return initialresults;
-
-                //var results = from x in initialresults
-                //              where x.MatchPercent > 50
-                //              select x;
-			
-                //return results.ToList();
-
+                var finalProgramResults = (from x in initialresults.AsEnumerable()
+                                       where x.MatchPercent > 60
+                                       orderby x.MatchPercent descending
+                                       select x).ToList();
+                
+                return finalProgramResults;
             }
         }
 

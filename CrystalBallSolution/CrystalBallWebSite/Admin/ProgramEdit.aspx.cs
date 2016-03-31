@@ -188,9 +188,23 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
             }
         }
     }
+
     protected void Save_Categories(object sender, EventArgs e)
     {
-
+        List<int> categories = new List<int>();
+        for (int i = 0; i < CB_Categories.Items.Count; i++)
+        {
+            if (CB_Categories.Items[i].Selected)
+            {                
+                categories.Add(int.Parse(CB_Categories.Items[i].Value));               
+            }
+        }
+        
+        AdminController sysmr = new AdminController();
+        //int programid = sysmr.GetProgramIDByName(NewProgramNameTextBox.Text);
+        int programid = Convert.ToInt32(ProgramIDLabel.Text);
+  
+        sysmr.AddProgramInCategories(categories, programid);
 
         EntranceReq_Show(sender, e);
     }

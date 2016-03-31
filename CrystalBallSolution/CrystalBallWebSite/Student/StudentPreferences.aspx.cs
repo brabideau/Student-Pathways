@@ -117,18 +117,14 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //        item.Selected));
             //}
             foreach (GridViewRow row in prefGridView.Rows)
-            {
-                
+            {                
                 RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
                 int prefchoice = Convert.ToInt32(rlist.SelectedValue);
 
-
                 myPreferences.Add(new StudentPreference(
                                 Convert.ToInt32((row.FindControl("QuestionID") as Label).Text),
-                                prefchoice
-                   
-                ));
-                
+                                prefchoice                 
+                ));                
             }
 
             //foreach (GridViewRow row in PrefQuestions.Rows)
@@ -144,7 +140,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ReportController report = new ReportController();
             int currentProgID, currentSemester;
             bool changeProgram = true;
-            if(RBL_NAIT_Student.SelectedValue == "1")
+            if (RBL_NAIT_Student.SelectedValue == "1")
             {
                 currentProgID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 currentSemester = Convert.ToInt32(SemesterDropDown.SelectedValue);
@@ -168,29 +164,44 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //Search for checked items in the check box list - if a checked item is a 30 level that
             //is flagged in the database as being the highest of a category
             //add all other courses in that category to hsCourses
-            foreach (GetHSCourses testItem in courseList)
+            //foreach (GetHSCourses testItem in courseList)
+            //{
+            //    foreach (ListItem item in CB_CourseList.Items)
+            //    {
+            //        if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
+            //        {
+            //            int[] childCourses = sysmgr.GetHighestCourseLevel(Convert.ToInt32(item.Value));
+            //            for (int i = 0; i < childCourses.Length; i++)
+            //            {
+            //                hsCourses.Add(Convert.ToInt32(childCourses[i]));
+            //            }
+            //        }
+            //        else if (item.Selected)
+            //        {
+            //            hsCourses.Add(Convert.ToInt32(item.Value));
+            //        }
+            //    }
+            //}
+
+            //new code
+            List<int> demoCourses = new List<int>();
+            foreach (ListItem item in CB_CourseList.Items)
             {
-                foreach (ListItem item in CB_CourseList.Items)
-                {
-                    if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
-                    {
-                        int[] childCourses = sysmgr.GetParentCategory(Convert.ToInt32(item.Value));
-                        for (int i = 0; i < childCourses.Length; i++)
-                        {
-                            hsCourses.Add(Convert.ToInt32(childCourses[i]));
-                        }
-                    }
-                    else if (item.Selected)
-                    {
-                        hsCourses.Add(Convert.ToInt32(item.Value));
-                    }
-                }
+                if (item.Selected)
+                    demoCourses.Add(Convert.ToInt32(item.Value));                    
             }
+
+            //call method to get a list of HSCourses that will then be sent to the HighSchoolCourses method
+            List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
+            hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
+            //pass list of hs courses to get the final list of ints
+            List<int> fullCourses = new List<int>();
+            fullCourses = sysmgr.GetHighestCourseLevel(hsCoursesTwo);
 
             //step 4 - Determine initial program results and then filter those results based on student preference questions. Display final results
             //send information to BLL for processing and narrow down possible results
             List<int> programResults = new List<int>();
-            programResults = StudentController.FindProgramMatches(hsCourses);
+            programResults = StudentController.FindProgramMatches(fullCourses);
 
             //finalResults = new List<int>();
             //finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
@@ -209,11 +220,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
-            finalProgramResults = (from x in finalProgramResults.AsEnumerable()
-                                  where x.MatchPercent > 60
-                                  orderby x.MatchPercent descending
-                                  select x).ToList();
-
+            Session["finalProgramResults"] = finalProgramResults;
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();
 
@@ -232,7 +239,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
-        if(RBL_NAIT_Student.SelectedValue == "1")
+        if (RBL_NAIT_Student.SelectedValue == "1")
         {
             chooseProgram.Visible = true;
         }
@@ -256,8 +263,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         AdminController sysmgr = new AdminController();
         int category = Convert.ToInt32(CategoryDropDown.SelectedValue);
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
-        ProgramDropDown.DataBind();
-        
+        ProgramDropDown.DataBind();        
     }
     //======1
     protected void stepOneNext_Click(object sender, EventArgs e)
@@ -605,5 +611,20 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             graduated.Visible = true;
         else
             graduated.Visible = false;
+    }
+
+    protected void ResultsView_PagePropertiesChanged(object sender, PagePropertiesChangingEventArgs e)
+    {
+
+        //var finalProgramResults = ViewState["finalProgramResults"];
+        List<ProgramResult> finalProgramResults = (List<ProgramResult>)Session["finalProgramResults"];
+
+        (ResultsView.FindControl("DataPager") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+
+        ResultsView.DataSource = finalProgramResults;
+        ResultsView.DataBind();
+        //ListViewUpdatePanel.Update();
+
+
     }
 }

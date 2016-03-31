@@ -236,20 +236,6 @@ textarea, .textarea {
     margin-bottom: 5px;   
 }
 
-/*.button2 {
-    display: inline-block;
-    height: 40px;
-    width: 100px;
-    background-color: #ffffff;
-    line-height: 40px;
-    font-size: 1.2em;
-    text-align: center;
-    color: #003D7E;
-    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
-    margin-top: 5px;
-    margin-bottom: 5px;    
-}*/
-
 .button::after {
     content: '';
     display: block;
@@ -359,6 +345,15 @@ textarea, .textarea {
     display: inline;
     text-align: right;
     vertical-align: top;
+}
+
+.tooltip {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/help-icon-small.png");
+    cursor: pointer;
+    margin: 0 5px;
 }
 
    /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
@@ -611,12 +606,11 @@ footer {
     margin: 20px 0;
 }
 
-.tabs input[type="radio"] +label{
+.tabs input[type="radio"] +label, .radiochecks input[type="radio"] +label{
     display: block;
     margin: 0 10px 0 0;
     float: left;
     padding: 5px 20px 2px 20px;
-    font-family: 'Coda', Helvetica, Arial, sans-serif;
     background-color: #ffffff;
     color: #113e68;
     cursor: pointer;
@@ -676,7 +670,8 @@ footer {
 
 .prefQuestionsCSS input[type="radio"] +label:hover,
 .courseCSS input + label:hover,
-.tabs input[type="radio"] +label:hover {
+.tabs input[type="radio"] +label:hover,
+.radiochecks input[type="radio"] +label:hover{
     color: #1363a8;
     background-color: #ebf3f9;
 
@@ -684,7 +679,8 @@ footer {
 
 .prefQuestionsCSS input[type="radio"]:checked +label,
 .courseCSS input[type="checkbox"]:checked + label,
-.tabs input[type="radio"]:checked + label {
+.tabs input[type="radio"]:checked + label,
+.radiochecks input[type="radio"]:checked + label {
     background-color: #113e68;
     color: #ebf3f9;
 }
@@ -692,7 +688,9 @@ footer {
 
 .prefQuestionsCSS input[type="radio"]:checked +label:hover,
 .courseCSS input[type="checkbox"]:checked + label:hover,
-.tabs input[type="radio"]:checked + label:hover {
+.tabs input[type="radio"]:checked + label:hover,
+.radiochecks input[type="radio"]:checked + label:hover
+ {
     background-color: #003D7E;
 
 }
@@ -805,6 +803,13 @@ footer {
 
    /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
 
+.resultsviewscroll {
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    left: 0;
+    top: 0;
+}
 
 .program-search-results {
     background-color: #113e68;
