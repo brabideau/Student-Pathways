@@ -35,6 +35,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramList.Visible = true;
         ProgramEditDiv.Visible = false;
         Buttons.Visible = false;
+        Add_Program_Button.Visible = true;
     }
 
     protected void Populate_Program_Info(object sender, EventArgs e)
@@ -112,6 +113,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region program info
     protected void ProgramInfo_Show(object sender, EventArgs e)
     {
+        Program_Add.Visible = false;
         ProgramInfo.Visible = true;
         Categories.Visible = false;
         EntranceRequirements.Visible = false;
@@ -142,15 +144,39 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
             program.TotalCredits = double.Parse(credits);
         }
 
-        program.ProgramLength = TB_Length.Text;
-        program.CompetitiveAdvantage = int.Parse(TB_CompetitiveAdvantage.Text);
+        string length = TB_Length.SelectedValue;
+        if (length != "0")
+        {
+            program.ProgramLength = length;
+        }
+        
+        string competitiveAdvantage = TB_CompetitiveAdvantage.Text;
+        if (string.IsNullOrEmpty(competitiveAdvantage))
+        {
+            program.CompetitiveAdvantage = null;
+        }
+        else
+        {
+            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+        }
+
         program.Active = CB_Active.Checked;
         program.ProgramLink = TB_Link.Text;
 
-        sysmr.Program_Update(program);
-
-        // go to next
-        Categories_Show(sender, e);
+        if (string.IsNullOrEmpty(TB_ProgramName.Text))
+        {
+            MessageUserControl.ShowInfo("The Program Name is required.");
+        }
+        else if(TB_Length.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("The program length is required.");
+        }
+        else
+        {
+            MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You uppdated the program");
+            Categories_Show(sender, e);
+        }
+        
     }
     #endregion
     /*-- ----------------------------- CATEGORIES ---------------------------------------*/
@@ -158,7 +184,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region categories
     protected void Categories_Show(object sender, EventArgs e)
     {
-        AddNewProgram.Visible = false;
+        Add_Program_Button.Visible = false;
         ProgramInfo.Visible = false;
         Categories.Visible = true;
         EntranceRequirements.Visible = false;
@@ -201,8 +227,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         }
 
         AdminController sysmr = new AdminController();
-        //int programid = sysmr.GetProgramIDByName(NewProgramNameTextBox.Text);
-        int programid = Convert.ToInt32(ProgramIDLabel.Text);
+        int programid = sysmr.GetProgramIDByName(TB_ProgramName.Text);
+        //int programid = Convert.ToInt32(ProgramIDLabel.Text);
 
         sysmr.AddProgramInCategories(categories, programid);
 
@@ -489,6 +515,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region courses
     protected void Courses_Show(object sender, EventArgs e)
     {
+        Add_Program_Button.Visible = false;
         ProgramInfo.Visible = false;
         Categories.Visible = false;
         EntranceRequirements.Visible = false;
@@ -592,6 +619,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region equivalencies
     protected void CourseEquivalencies_Show(object sender, EventArgs e)
     {
+        Add_Program_Button.Visible = false;
         ProgramInfo.Visible = false;
         Categories.Visible = false;
         EntranceRequirements.Visible = false;
@@ -656,6 +684,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #region preferences
     protected void ProgramPreferences_Show(object sender, EventArgs e)
     {
+        Add_Program_Button.Visible = false;
         ProgramInfo.Visible = false;
         Categories.Visible = false;
         EntranceRequirements.Visible = false;
@@ -739,29 +768,40 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         ProgramEditDiv.Visible = true;
         Buttons.Visible = true;
         ProgramList.Visible = false;
-
-        AddNewProgram.Visible = true;
-        ProgramInfo.Visible = false;
+        Program_Save.Visible = false;
+        Program_Add.Visible = true;
+        ProgramInfo.Visible = true;
         Categories.Visible = false;
         EntranceRequirements.Visible = false;
         ProgramCourses.Visible = false;
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
         Add_Program_Button.Visible = false;
+
+        ProgramNameLabel.Text = "";
+        ProgramIDLabel.Text = "";
+        TB_ProgramName.Text = "";
+        DL_CredentialType.SelectedValue = "1";
+        TB_Description.Text = "";
+        TB_Credits.Text = "";
+        TB_Length.SelectedValue = "0";
+        TB_CompetitiveAdvantage.Text = "";
+        CB_Active.Checked = false;
+        TB_Link.Text = "";
+
     }
 
     protected void Add_Program(object sender, EventArgs e)
     {
-
-        string CredentialTypeId = CredentialDropDownList.SelectedValue.ToString();
-        string length = lengthDropDownList.SelectedValue.ToString();
-        string credits = NewProgramTotalCredits.Text;
-        string competitiveAdvantage = NewProgramCompetitive.Text;
+        string CredentialTypeId = DL_CredentialType.SelectedValue.ToString();
+        string length = TB_Length.SelectedValue;
+        string credits = TB_Credits.Text;
+        string competitiveAdvantage = TB_CompetitiveAdvantage.Text;
 
         var program = new Program();
         program.CredentialTypeID = int.Parse(CredentialTypeId);
-        program.ProgramName = NewProgramNameTextBox.Text;
-        program.ProgramDescription = NewProgramDescription.Text;
+        program.ProgramName = TB_ProgramName.Text;
+        program.ProgramDescription = TB_Description.Text;
 
         if (string.IsNullOrEmpty(credits))
         {
@@ -773,7 +813,11 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
             program.TotalCredits = double.Parse(credits);
         }
 
-        program.ProgramLength = length;
+        if (TB_Length.SelectedValue != "0")
+        {
+            program.ProgramLength = length;
+        }
+        
 
 
         if (string.IsNullOrEmpty(competitiveAdvantage))
@@ -785,8 +829,8 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
             program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
         }
 
-        program.Active = NewProgramActive.Checked;
-        program.ProgramLink = NewProgramLink.Text;
+        program.Active = CB_Active.Checked;
+        program.ProgramLink = TB_Link.Text;
 
         List<Program> NewProgram = new List<Program>();
         NewProgram.Add(program);
@@ -794,14 +838,19 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
         AdminController sysmr = new AdminController();
 
-        if (string.IsNullOrEmpty(NewProgramNameTextBox.Text))
+        if (string.IsNullOrEmpty(TB_ProgramName.Text))
         {
             MessageUserControl.ShowInfo("The Program Name is required.");
+        }
+        else if(TB_Length.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("The program length is required.");
         }
         else
         {
             MessageUserControl.TryRun(() => sysmr.AddProgram(NewProgram), "Add Success.", "You added new program");
             Categories_Show(sender, e);
+            ProgramNameLabel.Text = TB_ProgramName.Text;
         }
 
 
