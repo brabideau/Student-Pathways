@@ -103,9 +103,6 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-        #region preference questions
-        #endregion
-
 
         #region briand playspace
 
@@ -190,48 +187,16 @@ namespace CrystalBallSystem.BLL
                 return results.ToList();
             }
         }
-        #endregion
-
-
-
-        #region do we need these?
-        public void AddCourse(NaitCours item)
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                // TODO: Validation rules...
-                var added = context.NaitCourses.Add(item);
-                context.SaveChanges();
-            }
-        }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<int> GetCourseIDs(string[] courseCodes)
-        {
-            List<int> intList = new List<int>();
-            using (var context = new CrystalBallContext())
-            {
-                for (int i = 0; i < courseCodes.Length; i++)
-                {
-                    var results = (from course in context.NaitCourses
-                                   where course.CourseCode == courseCodes[i]
-                                   select course.CourseID).First();
-                    intList.Add(results);
-                }
-                return intList;
-            }
-        }
-
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public int GetEntranceList(int courseID, int mark)
+        public List<PreferenceQuestion> GetQuestions()
         {
             using (var context = new CrystalBallContext())
             {
-                var results = (from entrance in context.EntranceRequirements
-                               orderby entrance.EntranceRequirementID
-                               where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
-                               select entrance.EntranceRequirementID).FirstOrDefault();
-                return results;
+                var results = from row in context.PreferenceQuestions
+                              orderby row.QuestionID
+                              select row;
+                return results.ToList();
             }
         }
 
@@ -247,6 +212,54 @@ namespace CrystalBallSystem.BLL
             }
 
         }
+
+        public void AddCourse(NaitCours item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                // TODO: Validation rules...
+                var added = context.NaitCourses.Add(item);
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+
+
+        #region do we need these?
+        
+
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<int> GetCourseIDs(string[] courseCodes)
+        //{
+        //    List<int> intList = new List<int>();
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        for (int i = 0; i < courseCodes.Length; i++)
+        //        {
+        //            var results = (from course in context.NaitCourses
+        //                           where course.CourseCode == courseCodes[i]
+        //                           select course.CourseID).First();
+        //            intList.Add(results);
+        //        }
+        //        return intList;
+        //    }
+        //}
+
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public int GetEntranceList(int courseID, int mark)
+        //{
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        var results = (from entrance in context.EntranceRequirements
+        //                       orderby entrance.EntranceRequirementID
+        //                       where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
+        //                       select entrance.EntranceRequirementID).FirstOrDefault();
+        //        return results;
+        //    }
+        //}
+        //this is used in the reporting section
+        
 
         //Method will return a list of program ids and credits for each program returned based on the user course selection
         //[DataObjectMethod(DataObjectMethodType.Select, false)]
@@ -278,18 +291,8 @@ namespace CrystalBallSystem.BLL
         //        return result.ToList();
         //    }
         //}
-
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<PreferenceQuestion> GetQuestions()
-        {
-            using (var context = new CrystalBallContext())
-            {
-                var results = from row in context.PreferenceQuestions
-                              orderby row.QuestionID
-                              select row;
-                return results.ToList();
-            }
-        }
+        //This is used in student preferences
+        
 
         #endregion
     }

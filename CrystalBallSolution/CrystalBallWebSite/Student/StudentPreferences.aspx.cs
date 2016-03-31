@@ -11,8 +11,6 @@ using System.Web.UI.WebControls;
 public partial class Student_StudentPreferences : System.Web.UI.Page
 {
     DataTable CoursesSelected;
-    List<int> finalResults;
-    List<GetCourseCredits> completeResults;
 
     /*
      * On page load create the session, view, and repeater that will house the select NAIT courses view
@@ -210,7 +208,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
         ProgramDropDown.DataBind();
     }
-    //Proceeds to step two
     protected void Goto_Metrics(object sender, EventArgs e)
     {
         if (RBL_GraduatedPostSecondary.SelectedValue == "true" && TB_GPA.Text == "")
@@ -223,7 +220,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             PrefQuestions.DataBind();
         }
     }
-    //Proceeds to step three
     protected void Prefs_To_NAITCourse(object sender, EventArgs e)
     {
         if (RBL_NAIT_Student.SelectedValue == "0")
@@ -232,20 +228,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         else
             Goto_NAITCourse(sender, e);
     }
-    //Goes back to step one
     protected void Goto_HSCourse(object sender, EventArgs e)
     {
         StudentPrefs.Visible = false;
         HighSchoolCourses.Visible = true;
     }
 
-    //Goes back to step two
-    protected void stepThreePrevious_Click(object sender, EventArgs e)
-    {
-        ProgramMetrics.Visible = false;
-        StudentPrefs.Visible = true;
-    }
-    //Proceeds to step four
     //Populates the data for the gridview and repeater based on the program selected by the user
     //will not proceed to step four if the user selects no program
     //will skip step four completely if the user is not a NAIT student
