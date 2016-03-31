@@ -93,10 +93,14 @@
                         </p>
                         <p>
                         </p>
+                        <p>
+                        </p>
                     </p>
                 </div>
                 <asp:LinkButton ID="goToNaitCourses" runat="server" CssClass="button next" OnClick="Goto_NAITCourse">Next</asp:LinkButton>
                 <asp:LinkButton ID="MetricsToHSCourse" runat="server" CssClass="button back" OnClick="Show_HSCourses">Previous</asp:LinkButton>
+                <p>
+                </p>
                 <p>
                 </p>
                 <p>
@@ -287,7 +291,7 @@
                             <table>
                                 <tr id="itemPlaceholder" runat="server"></tr>
                             </table>
-                            <asp:DataPager runat="server" ID="DataPager" PageSize="8">
+                            <asp:DataPager runat="server" ID="DataPager" PageSize="4">
                                 <Fields>
                                     <asp:NumericPagerField ButtonType="Link" ButtonCount="5"    PreviousPageText="<--"   NextPageText="-->" />
                                 </Fields>
