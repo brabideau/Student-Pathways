@@ -191,6 +191,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
 
     protected void Save_Categories(object sender, EventArgs e)
     {
+<<<<<<< HEAD
         List<int> categories = new List<int>();
         for (int i = 0; i < CB_Categories.Items.Count; i++)
         {
@@ -205,6 +206,27 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         int programid = Convert.ToInt32(ProgramIDLabel.Text);
   
         sysmr.AddProgramInCategories(categories, programid);
+||||||| merged common ancestors
+
+=======
+        List<int> categories = new List<int>();
+        for (int i = 0; i < CB_Categories.Items.Count; i++)
+        {
+            if (CB_Categories.Items[i].Selected)
+            {
+                
+                categories.Add(int.Parse(CB_Categories.Items[i].Value));
+                
+            }
+        }
+        
+        AdminController sysmr = new AdminController();
+        //int programid = sysmr.GetProgramIDByName(NewProgramNameTextBox.Text);
+
+        int programid = Convert.ToInt32(ProgramIDLabel.Text);
+
+        sysmr.AddProgramInCategories(categories, programid);
+>>>>>>> origin/master
 
         EntranceReq_Show(sender, e);
     }
@@ -239,6 +261,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         GV_ManualNewEntrReq.DataSource = dt;
         GV_ManualNewEntrReq.DataBind();
     }
+    #endregion
 
     #region for existing entrance requirements
     protected void Populate_EntranceReqs(int programID)
@@ -431,7 +454,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         manualER.Visible = false;
     }
 
-    //#region entrance requirements
+    #region entrance requirements
     protected void EntranceReq_Show(object sender, EventArgs e)
     {
         ProgramInfo.Visible = false;

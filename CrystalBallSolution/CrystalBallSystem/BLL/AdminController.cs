@@ -598,6 +598,7 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+<<<<<<< HEAD
       [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void AddProgramInCategories(List<int> categoryId, int programId)
         {
@@ -630,6 +631,46 @@ namespace CrystalBallSystem.BLL
              }
         }
 
+||||||| merged common ancestors
+=======
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void AddProgramInCategories(List<int> categoryId, int programId)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+               
+                Category add = null;
+
+                Program newProgram = null;
+                newProgram = context.Programs.Find(programId);
+
+                if (newProgram.Categories.Count() != 0)
+                {
+                    var deletedCategory = newProgram.Categories.ToList<Category>();
+                    deletedCategory.ForEach(dc => newProgram.Categories.Remove(dc));
+                    context.SaveChanges();
+                }   
+       
+
+                foreach (var item in categoryId)
+                {
+                    add = context.Categories.Find(item);
+                    newProgram.Categories.Add(add);
+                    
+                }
+
+                context.Programs.Add(newProgram);
+                context.Programs.Attach(newProgram);
+                add.Programs.Add(newProgram);
+
+
+                context.SaveChanges();
+
+
+            }
+        }
+
+>>>>>>> origin/master
         //[DataObjectMethod(DataObjectMethodType.Insert, false)]
         //public void AddProgram(List<Program> program, int categoryid)
         //{

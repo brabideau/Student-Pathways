@@ -236,6 +236,25 @@ textarea, .textarea {
     margin-bottom: 5px;   
 }
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+/*.button2 {
+    display: inline-block;
+    height: 40px;
+    width: 100px;
+    background-color: #ffffff;
+    line-height: 40px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #003D7E;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    margin-top: 5px;
+    margin-bottom: 5px;    
+}*/
+
+=======
+
+>>>>>>> origin/master
 .button::after {
     content: '';
     display: block;
@@ -347,6 +366,7 @@ textarea, .textarea {
     vertical-align: top;
 }
 
+<<<<<<< HEAD
 .tooltip {
     display: inline-block;
     width: 15px;
@@ -356,6 +376,20 @@ textarea, .textarea {
     margin: 0 5px;
 }
 
+||||||| merged common ancestors
+=======
+
+.tooltip {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/help-icon-small.png");
+    cursor: pointer;
+    margin: 0 5px;
+
+}
+
+>>>>>>> origin/master
    /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
   table {
@@ -604,9 +638,17 @@ footer {
 .tabs {
     border-bottom: 3px solid #113e68;
     margin: 20px 0;
+    font-family: 'Coda', Helvetica, Arial, sans-serif;
 }
 
+<<<<<<< HEAD
 .tabs input[type="radio"] +label, .radiochecks input[type="radio"] +label{
+||||||| merged common ancestors
+.tabs input[type="radio"] +label{
+=======
+.tabs input[type="radio"] +label,
+.radiochecks input[type="radio"] +label{
+>>>>>>> origin/master
     display: block;
     margin: 0 10px 0 0;
     float: left;
@@ -670,8 +712,15 @@ footer {
 
 .prefQuestionsCSS input[type="radio"] +label:hover,
 .courseCSS input + label:hover,
+<<<<<<< HEAD
 .tabs input[type="radio"] +label:hover,
 .radiochecks input[type="radio"] +label:hover{
+||||||| merged common ancestors
+.tabs input[type="radio"] +label:hover {
+=======
+.tabs input[type="radio"] +label:hover,
+.radiochecks input[type="radio"] +label:hover {
+>>>>>>> origin/master
     color: #1363a8;
     background-color: #ebf3f9;
 
@@ -679,8 +728,15 @@ footer {
 
 .prefQuestionsCSS input[type="radio"]:checked +label,
 .courseCSS input[type="checkbox"]:checked + label,
+<<<<<<< HEAD
 .tabs input[type="radio"]:checked + label,
 .radiochecks input[type="radio"]:checked + label {
+||||||| merged common ancestors
+.tabs input[type="radio"]:checked + label {
+=======
+.tabs input[type="radio"]:checked + label,
+.radiochecks input[type="radio"]:checked +label {
+>>>>>>> origin/master
     background-color: #113e68;
     color: #ebf3f9;
 }
@@ -688,9 +744,16 @@ footer {
 
 .prefQuestionsCSS input[type="radio"]:checked +label:hover,
 .courseCSS input[type="checkbox"]:checked + label:hover,
+<<<<<<< HEAD
 .tabs input[type="radio"]:checked + label:hover,
 .radiochecks input[type="radio"]:checked + label:hover
  {
+||||||| merged common ancestors
+.tabs input[type="radio"]:checked + label:hover {
+=======
+.tabs input[type="radio"]:checked + label:hover,
+.radiochecks input[type="radio"]:checked +label:hover {
+>>>>>>> origin/master
     background-color: #003D7E;
 
 }
@@ -803,6 +866,7 @@ footer {
 
    /* --------------PROGRAM SEARCH RESULTS STYLING------------------*/
 
+<<<<<<< HEAD
 .resultsviewscroll {
     position: relative;
     overflow-y: hidden;
@@ -810,6 +874,16 @@ footer {
     left: 0;
     top: 0;
 }
+||||||| merged common ancestors
+=======
+   .resultsviewscroll {
+       position: relative;
+       overflow-y: hidden;
+       overflow-x: hidden;
+       left: 0;
+       top: 0;
+   }
+>>>>>>> origin/master
 
 .program-search-results {
     background-color: #113e68;
