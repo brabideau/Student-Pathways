@@ -14,6 +14,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     List<int> finalResults;
     List<GetCourseCredits> completeResults;
 
+    /*
+     * On page load create the session, view, and repeater that will house the select NAIT courses view
+     * This page will allow the user to add courses to a 'basket' and automatically calculate the number of
+     * courses added. Allows for add/delete functionality in addition to searching programs.
+     */
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -48,9 +53,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 CourseCredits.ColumnName = "CourseCredits";
                 CourseCredits.Caption = "CourseCredits";
                 CoursesSelected.Columns.Add(CourseCredits);
-                //DataColumn CrsCode = new DataColumn("CrsCode");
-                //CrsCode.DataType = Type.GetType("System.String");
-                //CoursesSelected.Columns.Add(CrsCode);
+
                 DataColumn[] pCol = new DataColumn[1];
                 pCol[0] = CourseID;
                 CoursesSelected.PrimaryKey = pCol;
@@ -63,7 +66,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 CoursesSelected = (DataTable)Session["CoursesSelected"];
                 ViewState["CoursesSelected"] = CoursesSelected;
             }
-            //Session["table"] = CoursesSelected;
+
             int count = 0;
             foreach (DataRow row1 in CoursesSelected.Rows)
             {
@@ -87,7 +90,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         bool? programChange;
         StudentController sysmgr = new StudentController();
         int tempInt;
-        stepFour.Visible = false;
 
         if (RBL_NAIT_Student.SelectedValue == "1" && int.TryParse((CategoryDropDown.SelectedValue), out tempInt) && int.TryParse(ProgramDropDown.SelectedValue, out tempInt) && int.TryParse(SemesterDropDown.SelectedValue, out tempInt))
         {
@@ -109,13 +111,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             //step 2 - Gather the answers to the student preference questions
             List<StudentPreference> myPreferences = new List<StudentPreference>();
-
-            //foreach (ListItem item in PrefQuestions.Items)
-            //{
-            //    myPreferences.Add(new StudentPreference(
-            //        Convert.ToInt32(item.Value),
-            //        item.Selected));
-            //}
             foreach (GridViewRow row in prefGridView.Rows)
             {
                 RadioButtonList rlist = row.FindControl("prefSelection") as RadioButtonList;
@@ -128,16 +123,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 ));
             }
 
-            //foreach (GridViewRow row in PrefQuestions.Rows)
-            //{
-            //    myPreferences.Add(new StudentPreference(
-            //               Convert.ToInt32(row.Cells[0].Text),
-            //               (row.FindControl("RBL_YN") as CheckBox).Checked)
-            //               );
-            //}
-
-            //prior to first step towards getting results log the relevant data for metrics gathering
-            //NEW STUDENT - QuestionID/AnswerValue
+            //prior to first step towards getting results log the student data for metrics gathering
+            //including their current program, semester, and desire to change programs.
             ReportController report = new ReportController();
             int currentProgID, currentSemester;
             bool changeProgram = true;
@@ -153,48 +140,21 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 report.InsertNewStudentMetrics(myPreferences);
             }
 
-            //send preferences to the BLL for initial results
-            //List<int> preferenceResults = new List<int>();
-            //preferenceResults = StudentController.FindPreferenceMatches(myPreferences);
+            //step 3 - Gather the selected courses provided by the student. If a selected course has a higher
+            //level than others in the same course group it will add that course in addition to the one selected
 
-            //step 3 - Gather the selected courses provided by the student. Determine if any selected courses are the highest in a particular course group
-            List<int> hsCourses = new List<int>();
-            List<GetHSCourses> courseList = new List<GetHSCourses>();
-            courseList = sysmgr.GetCourseList();
-
-            //Search for checked items in the check box list - if a checked item is a 30 level that
-            //is flagged in the database as being the highest of a category
-            //add all other courses in that category to hsCourses
-            //foreach (GetHSCourses testItem in courseList)
-            //{
-            //    foreach (ListItem item in CB_CourseList.Items)
-            //    {
-            //        if (item.Selected && item.Value == testItem.HighSchoolCourseID.ToString() && testItem.HighSchoolHighestCourse == true)
-            //        {
-            //            int[] childCourses = sysmgr.GetHighestCourseLevel(Convert.ToInt32(item.Value));
-            //            for (int i = 0; i < childCourses.Length; i++)
-            //            {
-            //                hsCourses.Add(Convert.ToInt32(childCourses[i]));
-            //            }
-            //        }
-            //        else if (item.Selected)
-            //        {
-            //            hsCourses.Add(Convert.ToInt32(item.Value));
-            //        }
-            //    }
-            //}
-
-            //new code
+            //search for all checked items in the high school course list
             List<int> demoCourses = new List<int>();
             foreach (ListItem item in CB_CourseList.Items)
             {
                 if (item.Selected)
                     demoCourses.Add(Convert.ToInt32(item.Value));
             }
-            //call method to get a list of HSCourses that will then be sent to the HighSchoolCourses method
+            //Get all possible high school courses based on user selection
             List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
             hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
-            //pass list of hs courses to get the final list of ints
+            //pass list of high sschool courses to get the final list of ints that will be used to
+            //determine potential program options
             List<int> fullCourses = new List<int>();
             fullCourses = sysmgr.GetHighestCourseLevel(hsCoursesTwo);
 
@@ -203,9 +163,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             List<int> programResults = new List<int>();
             programResults = StudentController.FindProgramMatches(fullCourses);
 
-            //finalResults = new List<int>();
-            //finalResults = StudentController.EntranceReq_Pref_Match(preferenceResults, programResults);
-
             //send list of course codes to the db and retrieve courseids
             DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
             List<int> courseIDs = new List<int>();
@@ -213,11 +170,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             {
                 courseIDs.Add(Convert.ToInt32(x["CourseID"]));
             }
-            //List<int> programIDs = sysmgr.GetProgramIDs(finalResults);
 
             //send list of courseids and list of programids to the db for final results
-            //completeResults = new List<GetCourseCredits>();
-            //completeResults = sysmgr.GetCourseCredits(courseIDs, finalResults);
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
             finalProgramResults = (from x in finalProgramResults.AsEnumerable()
@@ -230,19 +184,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ResultsView.DataSource = finalProgramResults;
             ResultsView.DataBind();
 
-
-            //insert program results to db
-            //report.InsertProgramResults(completeResults);
-
-
-            //display results once queries are complete
-            //ResultsView.DataSource = completeResults;
-            //ResultsView.DataBind();
-            results.Visible = true;
+            Show_Results(sender, e);
         }, "Success!", "Here are the pathways available to you!");
 
 
     }
+    //changes student information gathering page to invisible if the user is not a student
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
     {
         if (RBL_NAIT_Student.SelectedValue == "1")
@@ -253,17 +200,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             chooseProgram.Visible = false;
         }
-        //if (CurrentStudent.Checked)
-        //{
-        //    chooseProgram.Visible = true;
-        //}
-        //else
-        //{
-        //    chooseProgram.Visible = false;
-        //}
     }
 
-
+    //populates the program drop down list on the student information gathering page
     protected void Populate_Program(object sender, EventArgs e)
     {
         AdminController sysmgr = new AdminController();
@@ -271,8 +210,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         ProgramDropDown.DataSource = sysmgr.GetProgramByCategory(category);
         ProgramDropDown.DataBind();
     }
-    //======1
-    protected void stepOneNext_Click(object sender, EventArgs e)
+    //Proceeds to step two
+    protected void Goto_Metrics(object sender, EventArgs e)
     {
         if (RBL_GraduatedPostSecondary.SelectedValue == "true" && TB_GPA.Text == "")
         {
@@ -280,65 +219,43 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
         else
         {
-            stepOne.Visible = false;
-            stepTwo.Visible = true;
+            Show_Metrics(sender, e);
             PrefQuestions.DataBind();
         }
-        //while (ProgramDropDown.SelectedValue == "0")
-        //{
-        //    MessageUserControl.ShowInfo("You must select a program");
-        //}
-
-        //int programid;
-        //int semester;
-        //bool switchProgram;
-
-        //if (CurrentStudent.Checked == true && int.TryParse(ProgramDropDown.SelectedValue, out programid) && int.TryParse(SemesterDropDown.SelectedValue, out semester))
-        //{
-        //    programid = int.Parse(ProgramDropDown.SelectedValue);
-        //    semester = int.Parse(SemesterDropDown.SelectedValue);
-        //    if (ChangeProgram.Checked == true)
-        //    {
-        //        switchProgram = true;
-        //    }
-        //    else
-        //    {
-        //        switchProgram = false;
-        //    }
-        //}
     }
-    /*protected void onPreviousClick(object sender, EventArgs e)
+    //Proceeds to step three
+    protected void Prefs_To_NAITCourse(object sender, EventArgs e)
     {
-        stepTwo.Visible = false;
-        stepOne.Visible = true;
+        if (RBL_NAIT_Student.SelectedValue == "0")
+            //skip the nait course selection page
+            Goto_Metrics(sender, e);
+        else
+            Goto_NAITCourse(sender, e);
     }
-     */
-    //==========2
-    protected void stepTwoNext_Click(object sender, EventArgs e)
+    //Goes back to step one
+    protected void Goto_HSCourse(object sender, EventArgs e)
     {
-        stepTwo.Visible = false;
-        stepThree.Visible = true;
-    }
-    protected void stepTwoPrevious_Click(object sender, EventArgs e)
-    {
-        stepTwo.Visible = false;
-        stepOne.Visible = true;
+        StudentPrefs.Visible = false;
+        HighSchoolCourses.Visible = true;
     }
 
-    //===========3
+    //Goes back to step two
     protected void stepThreePrevious_Click(object sender, EventArgs e)
     {
-        stepThree.Visible = false;
-        stepTwo.Visible = true;
+        ProgramMetrics.Visible = false;
+        StudentPrefs.Visible = true;
     }
-    protected void stepThreeNext_Click(object sender, EventArgs e)
+    //Proceeds to step four
+    //Populates the data for the gridview and repeater based on the program selected by the user
+    //will not proceed to step four if the user selects no program
+    //will skip step four completely if the user is not a NAIT student
+    protected void Goto_NAITCourse(object sender, EventArgs e)
     {
         DataTable CoursesSelected;
         if (RBL_NAIT_Student.SelectedValue == "0")
         {
             //skip the nait course selection page
-            Submit_Click(sender, e);
-            stepThree.Visible = false;
+            Show_StudentPrefs(sender, e);
         }
         else if (RBL_NAIT_Student.SelectedValue == "1" && CategoryDropDown.SelectedValue == "0")
         {
@@ -346,11 +263,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
         else
         {
-            stepThree.Visible = false;
+            ProgramMetrics.Visible = false;
             SelectNaitCourseController course = new SelectNaitCourseController();
             int programID, semester;
             List<NAITCourse> courses = new List<NAITCourse>();
-            //add code to populate drop down list and auto add courses
             //run the search for for the program automatically and fill the basket based on prefill results
             if (RBL_NAIT_Student.SelectedValue == "1")
             {
@@ -379,19 +295,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     {
                         CoursesSelected.Rows.Add(dr);
                     }
-                    ViewState["CoursesSelected"] = CoursesSelected;
-
-                    //int count = 0;
-                    //foreach (DataRow row1 in CoursesSelected.Rows)
-                    //{
-                    //count++;
-                    //}
+                    //ViewState["CoursesSelected"] = CoursesSelected;
                     ViewState["CoursesSelected"] = CoursesSelected;
 
                     rptCourse.DataSource = CoursesSelected;
                     rptCourse.DataBind();
-
-                    //TotalCourseLabel.Text = "Total courses : " + count;
 
                 }
                 //set drop down list to programid
@@ -426,11 +334,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
 
             }
 
-            stepFour.Visible = true;
+            Show_NaitCourses(sender, e);
         }
     }
-    //=============4
-    protected void stepFourPrevious_Click(object sender, EventArgs e)
+    //Goes to metrics page and clear repeater data
+    protected void Goto_Metrics_ClearData(object sender, EventArgs e)
     {
         //clear the repeater
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
@@ -442,12 +350,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CourseGridView.DataBind();
         rptCourse.DataBind();
         TotalCourseLabel.Text = "Total courses : 0";
-        stepFour.Visible = false;
-        stepThree.Visible = true;
+        Show_Metrics(sender, e);
     }
-
-
-    //should I be resetting the values when they click search again? It was mentioned that they wanted this stuff to be saved.
+    //Returns to step one, saving the previous user inputs
+    //Will clear the repeater to avoid duplicate data
     protected void searchAgain_Click(object sender, EventArgs e)
     {
         //clear the repeater
@@ -460,22 +366,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CourseGridView.DataBind();
         rptCourse.DataBind();
         TotalCourseLabel.Text = "Total courses : 0";
-        results.Visible = false;
-        stepOne.Visible = true;
-        //add code to reset all fields for steps 1 -3
-
-
-
-        //foreach (ListItem item in PrefQuestions.Items)
-        //{
-        //    item.Selected = true;
-        //}
-        //foreach (ListItem item in CB_CourseList.Items)
-        //{
-        //    item.Selected = false;
-        //}
+        Show_HSCourses(sender, e);
     }
-    //===============================================select nait course==================================================================================
+    //Populates the select NAIT course page and sets the session view
     protected void SelectCourses(object sender, GridViewSelectEventArgs e)
     {
 
@@ -484,8 +377,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         string CName = (row.FindControl("CourseName") as Label).Text;
         int id = int.Parse((row.FindControl("CourseID") as Label).Text);
         double CCredits = double.Parse((row.FindControl("CourseCredits") as Label).Text);
-        //CourseRepeater.CourseCodeLabel.Text = id;
-        //MultiSelect(CCode, id, CCredits);
         DataRow dtrow;
         DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
         dtrow = CoursesSelected.NewRow();
@@ -500,11 +391,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             CoursesSelected.Rows.Add(dtrow);
         }
-        //else
-        //{
-        //    CoursesSelected.Rows.Find(id).Delete();
-        //    CoursesSelected.Rows.Add(dtrow);
-        //}
         int count = 0;
         foreach (DataRow row1 in CoursesSelected.Rows)
         {
@@ -538,7 +424,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         Response.Redirect("../Student/testpage.aspx");
     }
 
-
+    //Functionality for deleting items from the repeater
     protected void rptCourse_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         int courserId = Convert.ToInt32(e.CommandArgument);
@@ -573,6 +459,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             }
         }
     }
+    //Will search for courses and populate the gridview based on what the user inputs into the textbox
     protected void Search_Click(object sender, EventArgs e)
     {
         SelectNaitCourseController course = new SelectNaitCourseController();
@@ -583,6 +470,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         SearchTextBox.Text = null;
 
     }
+    //Clears the repeater and search options
     protected void reset_Click(object sender, EventArgs e)
     {
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
@@ -596,14 +484,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CourseGridView.DataBind();
         CourseGridView.Visible = true;
         SearchTextBox.Text = null;
-        //CourseGridView.DataSource = null;
-        //CourseGridView.DataBind();
         rptCourse.DataBind();
         TotalCourseLabel.Text = "Total courses : 0";
 
-
-        //Response.Redirect("../Student/SelectNaitCourses.aspx");
     }
+    //Automatically searches for courses based on what the user selects in the drop down list
     protected void List_Change(object sender, EventArgs e)
     {
         SelectNaitCourseController course = new SelectNaitCourseController();
@@ -611,6 +496,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CourseGridView.DataSource = course.SearchNaitCourses(null, Convert.ToInt32(ProgramDropDownList.SelectedValue));
         CourseGridView.DataBind();
     }
+    //Hides/shows the graduated post secondary section of the high school courses page
     protected void RBL_GraduatedPostSecondary_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (RBL_GraduatedPostSecondary.SelectedValue == "true")
@@ -618,19 +504,53 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         else
             graduated.Visible = false;
     }
-
+    //Adds pagination to the results page
     protected void ResultsView_PagePropertiesChanged(object sender, PagePropertiesChangingEventArgs e)
     {
-
-        //var finalProgramResults = ViewState["finalProgramResults"];
         List<ProgramResult> finalProgramResults = (List<ProgramResult>)Session["finalProgramResults"];
 
         (ResultsView.FindControl("DataPager") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
 
         ResultsView.DataSource = finalProgramResults;
         ResultsView.DataBind();
-        //ListViewUpdatePanel.Update();
 
 
+    }
+    protected void Show_HSCourses(object sender, EventArgs e)
+    {
+        HighSchoolCourses.Visible = true;
+        ProgramMetrics.Visible = false;
+        NaitCourses.Visible = false;
+        StudentPrefs.Visible = false;
+        ResultsList.Visible = false;
+    }
+    protected void Show_Metrics(object sender, EventArgs e)
+    {
+        HighSchoolCourses.Visible = false;
+        ProgramMetrics.Visible = true;
+        NaitCourses.Visible = false;
+        StudentPrefs.Visible = false;
+    }
+    protected void Show_NaitCourses(object sender, EventArgs e)
+    {
+        HighSchoolCourses.Visible = false;
+        ProgramMetrics.Visible = false;
+        NaitCourses.Visible = true;
+        StudentPrefs.Visible = false;
+    }
+    protected void Show_StudentPrefs(object sender, EventArgs e)
+    {
+        HighSchoolCourses.Visible = false;
+        ProgramMetrics.Visible = false;
+        NaitCourses.Visible = false;
+        StudentPrefs.Visible = true;
+    }
+    protected void Show_Results(object sender, EventArgs e)
+    {
+        HighSchoolCourses.Visible = false;
+        ProgramMetrics.Visible = false;
+        NaitCourses.Visible = false;
+        StudentPrefs.Visible = false;
+        ResultsList.Visible = true;
     }
 }

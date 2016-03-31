@@ -9,7 +9,7 @@
 
     <!-- step 1 - high school courses -->
     <!-- student course selection section -->
-    <div id="stepOne" runat="server" visible="true">
+    <div id="HighSchoolCourses" runat="server" visible="true">
     <h1>Your Coursework</h1>
          <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
 
@@ -41,12 +41,185 @@
         </div>
         <div>
         <hr />
-        <asp:LinkButton ID="stepOneNext" runat="server" OnClick="stepOneNext_Click" CssClass="button next">Next</asp:LinkButton>
+        <asp:LinkButton ID="goToMetrics" runat="server" OnClick="Goto_Metrics" CssClass="button next">Next</asp:LinkButton>
             </div>
         </div>
-    <!-- step 2 - preference questions -->
+
+    <!-- step 2 - metrics / nait student questions -->
+    <!--Get student's program information-->
+        <div runat="server" id="ProgramMetrics" visible="false" class="clearfix">
+            <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
+
+            <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList>
+                <p>
+                </p>
+                <div id="chooseProgram" runat="server" class="clearfix">
+                    <p>
+                        What field is your NAIT program in?
+                        <asp:DropDownList ID="CategoryDropDown" runat="server" AppendDataBoundItems="True" AutoPostBack="true" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program">
+                            <asp:ListItem Selected="True" Value="0">[Select a Category] </asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
+                    </p>
+                    <p>
+                        Select your current or most recent program:
+                        <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
+                        </asp:DropDownList>
+                        <asp:ObjectDataSource ID="GetProgram" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController">
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="CategoryDropDown" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
+                            </SelectParameters>
+                        </asp:ObjectDataSource>
+                    </p>
+                    <p>
+                        What year of studies are you in?
+                        <asp:DropDownList ID="SemesterDropDown" runat="server">
+                            <asp:ListItem Text="First" Value="1" />
+                            <asp:ListItem Text="Second" Value="2" />
+                            <asp:ListItem Text="Third" Value="3" />
+                            <asp:ListItem Text="Fourth" Value="4" />
+                        </asp:DropDownList>
+                    </p>
+                    <p>
+                        Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server" CssClass="radiochecks clearfix" RepeatLayout="OrderedList">
+                            <asp:ListItem Selected="True" Value="true">Continue</asp:ListItem>
+                            <asp:ListItem Value="false">Switch</asp:ListItem>
+                        </asp:RadioButtonList>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                    </p>
+                </div>
+                <asp:LinkButton ID="goToNaitCourses" runat="server" CssClass="button next" OnClick="Goto_NAITCourse">Next</asp:LinkButton>
+                <asp:LinkButton ID="MetricsToHSCourse" runat="server" CssClass="button back" OnClick="Show_HSCourses">Previous</asp:LinkButton>
+                <p>
+                </p>
+                <p>
+                </p>
+                <p>
+                </p>
+            </p>
+            
+        </div>
+
+    <!-- step 3 - nait courses -->
+    <div id="NaitCourses" runat="server" visible="false">
+        <h1>Select NAIT Course</h1>
+
+        <div class="search-bar" >
+            <label>Filter courses by program</label>
+            <br />
+            <asp:DropDownList runat="server" ID="ProgramDropDownList" 
+                              DataSourceID="SelectProgramODB" 
+                              DataTextField="ProgramName" 
+                              DataValueField="ProgramID"
+                              AppendDataBoundItems="True"
+                              OnSelectedIndexChanged="List_Change" AutoPostBack="True" >
+                <asp:ListItem  Value=0 Text="[Select All]" />
+
+            </asp:DropDownList>
+        </div>
+        <div class="search-bar">
+            <label >Search by course name or course code</label>
+            <br />
+            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
+        </div>
+    <div class="col-6 nait-courses">
+        <h3>Nait Course Search</h3>
+        <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
+            
+            
+            <Columns>
+                <asp:TemplateField HeaderText="CourseID" Visible ="false">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseID" Text='<%# Eval("CourseID") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Course Code" >
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseCode" Text='<%# Eval("CourseCode") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Name" >
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseName" Text='<%# Eval("CourseName") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Credits" Visible ="false" >
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="CourseCredits" Text='<%# Eval("CourseCredits") %>'/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:CommandField ShowSelectButton="True" />
+            </Columns>
+           
+            <EmptyDataTemplate>
+                No data found.
+
+            </EmptyDataTemplate>
+        </asp:GridView>
+   </div>
+
+    <div class ="col-6 nait-courses">
+        <h3>Your Courses</h3>
+        
+        <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
+        <ItemTemplate>    
+            <div class="inner-rpt-div">
+                <span><h6><%# Eval("CourseCode") %></h6></span>
+                <span><%# Eval("CourseName") %></span>
+                <span><asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>'>Remove</asp:LinkButton></span>
+            </div>      
+        </ItemTemplate>
+        </asp:Repeater>
+    </div>
+    
+     
+        
+    <div class="col-12">
+        
+        <asp:Label ID="TotalCourseLabel" runat="server" Text="Total courses : " Font-Size="Larger"></asp:Label>
+         <p><asp:LinkButton ID="reset" runat="server"  CssClass="button back button-long" OnClick="reset_Click" >Clear Courses</asp:LinkButton></p>
+</div>
+<div class="col-12">
+        
+        <asp:LinkButton ID="NAITCourseToMetrics" runat="server" OnClick="Show_StudentPrefs" CssClass="button next button-long" >Next</asp:LinkButton>
+        <asp:LinkButton ID="NAITCourseToPrefs" runat="server" OnClick="Goto_Metrics_ClearData" CssClass="button back">Previous</asp:LinkButton>
+       
+    </div>
+
+        <asp:ObjectDataSource ID="SelectProgramODB" runat="server" 
+            SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
+            OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="NaitCourseODB" runat="server" 
+            OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses"
+             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="ProgramDropDownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="SelectedCourseODB" 
+            runat="server" SelectMethod="SelectedNaitCourses"
+             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
+            OldValuesParameterFormatString="original_{0}">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="CourseGridView" Name="courseID" PropertyName="SelectedValue" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+    </div>
+    <!-- step 4 - preference questions -->
     <!-- get student preference questions -->
-        <div runat="server" id="stepTwo" visible="false">
+        <div runat="server" id="StudentPrefs" visible="false">
         <h1>Your Preferences</h1>
             <p>This will help us match you with programs you'll enjoy!</p>
           <asp:RadioButtonList ID="PrefQuestions" 
@@ -92,9 +265,8 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-
-            <asp:LinkButton ID="stepTwoPrevious" runat="server" OnClick="stepTwoPrevious_Click" CssClass ="button back">Previous</asp:LinkButton>
-            <asp:LinkButton ID="stepTwoNext" runat="server" OnClick="stepTwoNext_Click" CssClass="button next">Next</asp:LinkButton>
+            <asp:LinkButton ID="PrefsToNAITCourse" runat="server" OnClick="Prefs_To_NAITCourse" CssClass ="button back">Previous</asp:LinkButton>
+            <asp:LinkButton ID="PrefsToResults" runat="server" OnClick="Submit_Click" CssClass="button next">Next</asp:LinkButton>
             </div>
 
 
@@ -103,168 +275,10 @@
                 SelectMethod="GetQuestions"
                 TypeName="CrystalBallSystem.BLL.StudentController"
                 runat="server" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
-    <!-- step 3 - metrics / nait student questions -->
-    <!--Get student's program information-->
-        <div runat="server" id="stepThree" visible="false" class="clearfix">
-            <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
 
-            <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
-            
-            <div runat="server" id="chooseProgram" class="clearfix">
-                
-                <p>What field is your NAIT program in?
-        <asp:DropDownList ID="CategoryDropDown" runat="server" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program" AutoPostBack="true" AppendDataBoundItems="True">
-
-            
-            <asp:ListItem Selected="True" Value="0">[Select a Category] </asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
-                </p>
-
-                <p>Select your current or most recent program: 
-        <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
-            
-        </asp:DropDownList>
-                    <asp:ObjectDataSource ID="GetProgram" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController">
-                        <SelectParameters>
-                            <asp:ControlParameter ControlID="CategoryDropDown" Name="categoryID" PropertyName="SelectedValue" Type="Int32" />
-                        </SelectParameters>
-                    </asp:ObjectDataSource>
-                </p>
-                <p>What year of studies are you in?
-        <asp:DropDownList ID="SemesterDropDown" runat="server">
-            <asp:ListItem Text="First" Value="1" />
-            <asp:ListItem Text="Second" Value="2" />
-            <asp:ListItem Text="Third" Value="3" />
-            <asp:ListItem Text="Fourth" Value="4" />
-        </asp:DropDownList></p>
-                <p>Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="true" Selected="True">Continue</asp:ListItem><asp:ListItem Value="false">Switch</asp:ListItem></asp:RadioButtonList></p>
-            </div>
-            
-            <asp:LinkButton ID="stepThreeNext" runat="server" OnClick="stepThreeNext_Click" CssClass="button next">Next</asp:LinkButton>
-            <asp:LinkButton ID="stepThreePrevious" runat="server" OnClick="stepThreePrevious_Click" CssClass="button back">Previous</asp:LinkButton>
-        </div>
-    <!-- step 4 - nait courses -->
-    <div id="stepFour" runat="server" visible="false">
-        <h1>Select NAIT Course</h1>
-
-        <div class="search-bar" >
-            <label>Filter courses by program</label>
-            <br />
-            <asp:DropDownList runat="server" ID="ProgramDropDownList" 
-                              DataSourceID="SelectProgramODB" 
-                              DataTextField="ProgramName" 
-                              DataValueField="ProgramID"
-                              AppendDataBoundItems="True"
-                              OnSelectedIndexChanged="List_Change" AutoPostBack="True" >
-                <%--<asp:ListItem  Value=-1 Text="[---------------]" />--%>
-                <asp:ListItem  Value=0 Text="[Select All]" />
-
-            </asp:DropDownList>
-        </div>
-        <div class="search-bar">
-            <label >Search by course name or course code</label>
-            <br />
-            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
-        </div>
-    <div class="col-6 nait-courses">
-        <h3>Nait Course Search</h3>
-        <!-- DataSourceID="NaitCourseODB" -->
-        <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
-            
-            
-            <Columns>
-                <asp:TemplateField HeaderText="CourseID" Visible ="false">
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="CourseID" Text='<%# Eval("CourseID") %>'/>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Course Code" >
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="CourseCode" Text='<%# Eval("CourseCode") %>'/>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Name" >
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="CourseName" Text='<%# Eval("CourseName") %>'/>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Credits" Visible ="false" >
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="CourseCredits" Text='<%# Eval("CourseCredits") %>'/>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <%--<asp:BoundField DataField="CourseID" HeaderText="CourseID" SortExpression="CourseID" Visible="false"/>
-                <asp:BoundField DataField="CourseCode" HeaderText="CourseCode" SortExpression="CourseCode" />
-                <asp:BoundField DataField="CourseName" HeaderText="CourseName" SortExpression="CourseName" />
-                <asp:BoundField DataField="CourseCredits" HeaderText="CourseCredits" SortExpression="CourseCredits" />--%>
-                <asp:CommandField ShowSelectButton="True" />
-            </Columns>
-           
-            <EmptyDataTemplate>
-                No data found.
-
-            </EmptyDataTemplate>
-            <%--<PagerSettings FirstPageText="First" LastPageText="Last" Mode="NumericFirstLast" NextPageText="--&gt;" PageButtonCount="5" PreviousPageText="&lt;--" />--%>
-        </asp:GridView>
-   </div>
-
-    <div class ="col-6 nait-courses">
-        <h3>Your Courses</h3>
-        
-        <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
-        <ItemTemplate>    
-            <div class="inner-rpt-div">
-                <span><h6><%# Eval("CourseCode") %></h6></span>
-                <span><%# Eval("CourseName") %></span>
-                <%--<span>credit: <%# Eval("CourseCredits") %></span>--%>
-                <span><asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>'>Remove</asp:LinkButton></span>
-            </div>      
-        </ItemTemplate>
-        </asp:Repeater>
-    </div>
-    
-     
-        
-    <div class="col-12">
-        
-        <asp:Label ID="TotalCourseLabel" runat="server" Text="Total courses : " Font-Size="Larger"></asp:Label>
-         <p><asp:LinkButton ID="reset" runat="server"  CssClass="button back button-long" OnClick="reset_Click" >Clear Courses</asp:LinkButton></p>
-</div>
-<div class="col-12">
-        
-        <asp:LinkButton ID="Next" runat="server" OnClick="Submit_Click" CssClass="button next button-long" >Next: See Results</asp:LinkButton>
-        <asp:LinkButton ID="stepFourPrevious" runat="server" OnClick="stepFourPrevious_Click" CssClass="button back">Previous</asp:LinkButton>
-       
-    </div>
-
-        <asp:ObjectDataSource ID="SelectProgramODB" runat="server" 
-            SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
-            OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="NaitCourseODB" runat="server" 
-            OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses"
-             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
-            <SelectParameters>
-                <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="ProgramDropDownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
-            </SelectParameters>
-        </asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="SelectedCourseODB" 
-            runat="server" SelectMethod="SelectedNaitCourses"
-             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
-            OldValuesParameterFormatString="original_{0}">
-            <SelectParameters>
-                <asp:ControlParameter ControlID="CourseGridView" Name="courseID" PropertyName="SelectedValue" Type="Int32" />
-            </SelectParameters>
-        </asp:ObjectDataSource>
-    </div>
     <!-- step 5 - results -->
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
-        <div id="results" runat="server" visible="false" >
+        <div id="ResultsList" runat="server" visible="false" >
             <h1>Your Program Matches</h1>
             <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
             <div class="resultsviewscroll clearfix">
