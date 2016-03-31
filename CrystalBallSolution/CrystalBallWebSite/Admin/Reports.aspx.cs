@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+
 
 public partial class Admin_Reports : System.Web.UI.Page
 {
@@ -107,11 +111,15 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         LV_ProgramFrequency.DataSource = frequency;
         LV_ProgramFrequency.DataBind();
+        ViewState["ProgramFrequency"] = frequency;
+
 
         List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
         GV_Program_Dropping.DataSource = dropping;
         GV_Program_Dropping.DataBind();
+
+        ViewState["StudentsDropping"] = dropping;
 
 
 
@@ -328,5 +336,59 @@ public partial class Admin_Reports : System.Web.UI.Page
          var summaryList = controller.Get_Summary_Data(myData);
         return summaryList;
     }
+    #endregion
+
+    #region pdf
+    protected void Program_PDF_Download(object sender, EventArgs e)
+    {
+        var myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
+
+        string path = Server.MapPath("PDFs");
+
+
+        // Requires 'using System.IO'  -- this allows you to create files
+        PdfWriter.GetInstance(myPdf, new FileStream(path + "/myPdf.pdf", FileMode.Create));
+
+        // Open the pdf so you can start working on it
+        myPdf.Open();
+
+        // Table designed for pdfs. Value in () is number of columns.
+        PdfPTable programFreq = new PdfPTable(2);
+
+        // Create and add the header and subheader
+        PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results"));
+        header.Colspan = 2;
+        header.HorizontalAlignment = 1;
+        programFreq.AddCell("header");
+        programFreq.AddCell("Program Name");
+        programFreq.AddCell("# of times shown");
+
+        // Get data to put in this table
+        DataTable frequency = (DataTable)ViewState["ProgramFrequency"]; 
+
+
+        //iterate through the data and put it in the table
+        foreach(DataRow item in frequency.Rows)
+        {
+            programFreq.AddCell(item["Program"].ToString());
+            programFreq.AddCell(item["Frequency"].ToString());
+
+
+
+        }
+
+
+        // Add the table to the pdf
+        myPdf.Add(programFreq);
+        
+
+        // Close the pdf when you are finished with it
+        myPdf.Close();
+
+
+
+    }
+
+
     #endregion
 }
