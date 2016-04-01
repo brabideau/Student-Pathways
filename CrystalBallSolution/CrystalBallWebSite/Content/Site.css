@@ -130,7 +130,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: 'Coda', Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
-  margin: .5em 0;
+  margin: 1em 0 .5em 0;
 }
 
 h1, h2, h3, h4 {
@@ -991,7 +991,7 @@ footer {
 
  
  .entreqcss > table > tbody > tr {
-     border-bottom: 1px solid #276873;
+     border-bottom: 1px solid #aaaaaa;
 
  }
 

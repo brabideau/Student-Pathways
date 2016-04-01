@@ -236,7 +236,21 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     #endregion
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
-    #region entrance requirements
+     #region entrance requirements
+      protected void EntranceReq_Show(object sender, EventArgs e)
+    {
+        ProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = true;
+        ProgramCourses.Visible = false;
+        CourseEquivalencies.Visible = false;
+        ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "3";
+    }
+    #endregion
+
+
+    #region high schoolentrance requirements
 
     protected void Populate_EntranceReqs(int programID)
     {
@@ -299,16 +313,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Populate_EntranceReqs(programID);
     }
  
-    protected void EntranceReq_Show(object sender, EventArgs e)
-    {
-        ProgramInfo.Visible = false;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = true;
-        ProgramCourses.Visible = false;
-        CourseEquivalencies.Visible = false;
-        ProgramPreferences.Visible = false;
-        Tab_Labels.SelectedValue = "3";
-    }
+
 
     protected void Add_Ent_Req(object sender, EventArgs e)
     {
@@ -334,248 +339,18 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Populate_EntranceReqs(programID);
     }
 
+    #endregion  
 
-    #region testing a thing
-    /*
-    #region high school
-    //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
-    private void PopulateManual()
-    {
-        //Create DataTable
-        DataTable dt = new DataTable();
-        DataRow dr = null;
 
-        //Add initail values to DataTable
-        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-        dt.Columns.Add(new DataColumn("Column1Course", typeof(string)));
-        dt.Columns.Add(new DataColumn("Column2Course", typeof(string)));
 
-        dr = dt.NewRow();
-        dr["RowNumber"] = 1;
-        dr["Column1Course"] = string.Empty;
-        dr["Column2Course"] = string.Empty;
-
-        dt.Rows.Add(dr);
-        dr = dt.NewRow();
-
-        //Store the DataTable in ViewState
-        ViewState["CurrentTableCourse"] = dt;
-        GV_ManualNewEntrReq.DataSource = dt;
-        GV_ManualNewEntrReq.DataBind();
-    }
-    #endregion
-
-    #region for existing entrance requirements
-    protected void Populate_EntranceReqs(int programID)
-    {
-        AdminController sysmgr = new AdminController();
-        var entReq = sysmgr.Get_SubjectReq_ByProgram(programID);
-        LV_SubjectReq.DataSource = entReq;
-        LV_SubjectReq.DataBind();
-    }
-
-    protected void LV_SubjectReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        AdminController sysmgr = new AdminController();
-        int entReqID = Convert.ToInt32(LV_SubjectReq.DataKeys[e.RowIndex].Value);
-        int programID = Int32.Parse(ProgramIDLabel.Text);
-        sysmgr.ER_Delete(entReqID);
-        LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
-        LV_SubjectReq.DataBind();
-    }
-    #endregion
-
-    #region for adding an entrance requirement
-    //pre-populate subject requirement courses
-    protected void SubjectButton_Click(object sender, EventArgs e)
-    {
-        AdminController sysmgr = new AdminController();
-        manualER.Visible = true;
-        SubReqDesc.Visible = true;
-        PopulateManual();
-    }
-    #endregion
-
-    protected void AddNew_Click(object sender, EventArgs e)
-    {
-        AddNewRowToCourse();
-    }
-
-    private void AddNewRowToCourse()
-    {
-        int rowIndex = 0;
-
-        if (ViewState["CurrentTableCourse"] != null)
-        {
-            //create new datatable, cast datatable of viewstate
-            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
-            DataRow drCurrentRow = null;
-
-            if (dtCurrentTable.Rows.Count > 0)
-            {
-                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-                {
-                    //extract the values
-                    DropDownList courseList = (DropDownList)GV_ManualNewEntrReq.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-                    TextBox marks = (TextBox)GV_ManualNewEntrReq.Rows[rowIndex].Cells[2].FindControl("Marks");
-
-                    drCurrentRow = dtCurrentTable.NewRow();
-                    drCurrentRow["RowNumber"] = i + 1;
-
-                    dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.Text;
-                    dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
-
-                    rowIndex++;
-                }
-
-                dtCurrentTable.Rows.Add(drCurrentRow);
-                ViewState["CurrentTableCourse"] = dtCurrentTable;
-
-                GV_ManualNewEntrReq.DataSource = dtCurrentTable;
-                GV_ManualNewEntrReq.DataBind();
-            }
-        }
-
-        else
-        {
-            Response.Write("ViewState is null");
-        }
-        //Set Previous Data on Postbacks
-        SetPreviousCourseData();
-    }
-
-    protected void GV_ManualNewEntrReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        if (ViewState["CurrentTableCourse"] != null)
-        {
-            SetRowData();
-            DataTable dt = (DataTable)ViewState["CurrentTableCourse"];
-            DataRow drCurrentRow = null;
-            int rowIndex = Convert.ToInt32(e.RowIndex);
-            if (dt.Rows.Count > 1)
-            {
-                dt.Rows.Remove(dt.Rows[rowIndex]);
-                drCurrentRow = dt.NewRow();
-                ViewState["CurrentTableCourse"] = dt;
-                GV_ManualNewEntrReq.DataSource = dt;
-                GV_ManualNewEntrReq.DataBind();
-
-                for (int i = 0; i < GV_ManualNewEntrReq.Rows.Count - 1; i++)
-                {
-                    GV_ManualNewEntrReq.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
-                }
-                SetPreviousCourseData();
-            }
-        }
-        else
-        {
-            Response.Write("ViewState is null");
-        }
-    }
-
-    private void SetPreviousCourseData()
-    {
-        int rowIndex = 0;
-
-        if (ViewState["CurrentTableCourse"] != null)
-        {
-            DataTable dt = (DataTable)ViewState["CurrentTableCourse"];
-            if (dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    DropDownList courseList = (DropDownList)GV_ManualNewEntrReq.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-                    TextBox marks = (TextBox)GV_ManualNewEntrReq.Rows[rowIndex].Cells[2].FindControl("Marks");
-
-                    courseList.Text = dt.Rows[i]["Column1Course"].ToString();
-                    marks.Text = dt.Rows[i]["Column2Course"].ToString();
-
-                    rowIndex++;
-                }
-            }
-        }
-    }
-
-    private void SetRowData()
-    {
-        int rowIndex = 0;
-
-        DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableCourse"];
-        DataRow drCurrentRow = null;
-        if (dtCurrentTable.Rows.Count > 0)
-        {
-            for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-            {
-                DropDownList courseList = (DropDownList)GV_ManualNewEntrReq.Rows[rowIndex].Cells[1].FindControl("DL_Course");
-                TextBox marks = (TextBox)GV_ManualNewEntrReq.Rows[rowIndex].Cells[2].FindControl("Marks");
-
-                drCurrentRow = dtCurrentTable.NewRow();
-                drCurrentRow["RowNumber"] = i + 1;
-                dtCurrentTable.Rows[i - 1]["Column1Course"] = courseList.SelectedValue;
-                dtCurrentTable.Rows[i - 1]["Column2Course"] = marks.Text;
-
-                rowIndex++;
-            }
-
-            ViewState["CurrentTableCourse"] = dtCurrentTable;
-        }
-    }
-
-    protected void addMSubjectButton_Click(object sender, EventArgs e)
-    {
-        AdminController sysmgr = new AdminController();
-        List<AddEntranceRequirements> er = new List<AddEntranceRequirements>();
-        string description = SubReqDesc.Text;
-
-        int subReqID = sysmgr.AddSubjectRequirement(description);
-
-        int programID = Int32.Parse(ProgramIDLabel.Text);
-        int mark;
-
-        foreach (GridViewRow row in GV_ManualNewEntrReq.Rows)
-        {
-            int hsID = Convert.ToInt32((row.FindControl("DL_Course") as DropDownList).SelectedValue);
-            if ((row.FindControl("Marks") as TextBox).Text.Trim() != "")
-            {
-                mark = Convert.ToInt32((row.FindControl("Marks") as TextBox).Text);
-            }
-            else
-            {
-                mark = 0;
-            }
-            er.Add(new AddEntranceRequirements(
-                hsID,
-                subReqID,
-                programID,
-                mark));
-        }
-        sysmgr.AddEntranceRequirement(er);
-
-        LV_SubjectReq.DataSource = sysmgr.Get_SubjectReq_ByProgram(programID);
-        LV_SubjectReq.DataBind();
-        manualER.Visible = false;
-    }
-
-    #region entrance requirements
-    protected void EntranceReq_Show(object sender, EventArgs e)
-    {
-        ProgramInfo.Visible = false;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = true;
-        ProgramCourses.Visible = false;
-        CourseEquivalencies.Visible = false;
-        ProgramPreferences.Visible = false;
-        Tab_Labels.SelectedValue = "3";
-    }
-    #endregion
+   
+  
 
     #region post-secondary
-    protected void Populate_DER(int programID)
-    {
-        AdminController sysmgr = new AdminController();
-        GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
-        GV_DegreeEntranceReq.DataBind();
-    }
+   
+
+
+
 
     protected void GV_DegReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -586,32 +361,32 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Populate_DER(programID);
     }
 
-    protected void addDER_Click(object sender, EventArgs e)
+     protected void Populate_DER(int programID)
     {
-        AddRequirements.Visible = true;
+        AdminController sysmgr = new AdminController();
+        GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
+        GV_DegreeEntranceReq.DataBind();
     }
+
+  
+
     protected void Add_DER_Click(object sender, EventArgs e)
     {
         AdminController sysmgr = new AdminController();
+
+        DegreeEntranceRequirement req = new DegreeEntranceRequirement();
         int programID = Int32.Parse(ProgramIDLabel.Text);
-        int credentialID = int.Parse(DL_Credential.SelectedValue);
-        int categoryID = int.Parse(DL_Category.SelectedValue);
-        decimal gpa = decimal.Parse(TB_GPA.Text);
-        sysmgr.AddDER(programID, credentialID, categoryID, gpa);
+
+        req.ProgramID = programID;
+        req.CredentialTypeID = int.Parse(DL_Credential.SelectedValue);
+        req.CategoryID = int.Parse(DL_Category.SelectedValue);
+        req.GPA = decimal.Parse(TB_GPA.Text);
+
+        sysmgr.AddDER(req);
         Populate_DER(programID);
-        AddRequirements.Visible = false;
+        
+
     }
-    #endregion
-
-
-    #endregion
-    protected void Save_EntranceReq(object sender, EventArgs e)
-    {
-
-        Courses_Show(sender, e);
-    }
-     */
-    #endregion
 
     #endregion
 

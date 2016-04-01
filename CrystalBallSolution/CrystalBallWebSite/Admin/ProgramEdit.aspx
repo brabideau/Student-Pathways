@@ -78,14 +78,18 @@
 
     <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
-    <div runat="server" id="EntranceRequirements" class="clearfix entreqcss">
-        <h4>Current Entrance Requirements</h4>
+    <div runat="server" id="EntranceRequirements" class="clearfix">
+       <h3>High School</h3> 
+        <p>Please indicate which high school classes a student must have to enter this program.</p>
+        <div runat="server" id="HighSchoolentReqs" class="entreqcss">
+
+             <h5>Current Entrance Requirements</h5>
         <asp:ListView ID="LV_SubjectReq" runat="server">
 
          <LayoutTemplate>
             <table>
                 <tr>
-                    <th runat="server">Subject</th>
+                    <th runat="server">Subject <asp:Label runat="server" CssClass="tooltip" ToolTip="High school courses in the same subject grouping will be considered equivalent." /></th>
                     <th runat="server">Classes</th>
                     <th></th>
                 </tr>
@@ -99,7 +103,7 @@
                     <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Eval("SubjectRequirementID") %>'></asp:Label>
                 </td>
                 <td runat="server" >
-                    <h5><asp:Label ID="Label1" runat="server" Text='<%# Eval("SubjectDescription") %>'></asp:Label></h5>
+                    <h6><asp:Label ID="Label1" runat="server" Text='<%# Eval("SubjectDescription") %>'></asp:Label></h6>
                 </td>
                 <td runat="server">
                     <asp:ListView ID="LV_EntranceReq" runat="server" DataSource='<%# Eval("EntranceReqs") %>' ItemPlaceholderID="EntrancePlaceHolder"  OnItemCommand="Ent_Req_Commands">
@@ -136,7 +140,7 @@
         </ItemTemplate>
         </asp:ListView>
 
-        <h4>Add a New Entrance Requirement</h4>
+        <h5>Add a New Entrance Requirement</h5>
         Subject: 
         <asp:DropDownList ID="DL_New_Subject" runat="server" DataSourceID="ODS_SubjectRequirement"
                                                 DataTextField="SubjectDescription"
@@ -152,89 +156,15 @@
                                                 <asp:ListItem Value="">Select a Course</asp:ListItem>
                                 </asp:DropDownList>
         <asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add" CssClass="admin_button" OnClick ="Add_Ent_Req"/>
-        <div id="highschool">
-         <%--
-        <%--HIGH SCHOOL ENTRANCE REQUIREMENTS       
-        <p><asp:Label runat="server" CssClass="tooltip" ToolTip="Courses in the same Subject are considered equivalent. A student only needs one course in each group to enter." />What high school courses does this program require?</p>
-        <div runat="server" id="HSRequirements">
-            <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
-                <Columns>
-                    <asp:TemplateField HeaderText="Entrance Requirement ID" Visible="false">
-                        <ItemTemplate>
-                            <asp:Label ID="EntranceIDLabel" runat="server" Text='<%# Item.EntranceReqID %>' />
-                        </ItemTemplate>  
-                    </asp:TemplateField> 
-                    <asp:TemplateField HeaderText="Subject Requirement ID" Visible="false">
-                        <ItemTemplate>
-                            <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Item.SubjectReqID %>' />
-                        </ItemTemplate>  
-                    </asp:TemplateField> 
-                    <asp:TemplateField HeaderText="Subject Description">
-                        <ItemTemplate>
-                            <asp:Label ID="SubjectLabel" runat="server" Text='<%# Item.SubjectDesc %>' />
-                        </ItemTemplate>  
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Course Code">
-                        <ItemTemplate>
-                            <asp:Label ID="CourseLabel" runat="server" Text='<%# Item.HSCourseCode %>' />
-                        </ItemTemplate>  
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Mark">
-                        <ItemTemplate>
-                            <asp:Label ID="MarkLabel" runat="server" Text='<%# Item.HSCourseMark %>' />
-                        </ItemTemplate>  
-                    </asp:TemplateField>
-                    <asp:ButtonField Text="Remove" CommandName="Delete"/>                
-                </Columns>               
-
-                <EmptyDataTemplate>
-                    No Existing Entrance Requirements.
-                </EmptyDataTemplate>
-            
-            </asp:GridView>
-
-            <div id="addRequirement" runat="server">                
-                <asp:LinkButton ID="SubjectButton" runat="server" CssClass="button submit button-long" OnClick="SubjectButton_Click">Add Requirement</asp:LinkButton>
-            </div>
-
-            <div id="manualER" runat="server" visible="false">
-                <asp:TextBox ID="SubReqDesc" runat="server" />
-                <asp:GridView ID="GV_ManualNewEntrReq" runat="server" AutoGenerateColumns="False" OnRowDeleting="GV_ManualNewEntrReq_RowDeleting" ShowFooter="true">            
-                    <Columns>
-                        <asp:BoundField DataField="RowNumber" Visible="false"/>
-                        <asp:TemplateField HeaderText="Course">
-                            <FooterTemplate>
-                                <asp:LinkButton ID="Add_Btn" runat="server" Font-Underline="false"
-                                    OnClick="AddNew_Click" CssClass="wizard-course-buttons hvr-ripple-out add-align"  
-                                    CausesValidation="false">Add Alternative Course</asp:LinkButton>
-                            </FooterTemplate>   
-                            <ItemTemplate>
-                                <asp:DropDownList ID="DL_Course" runat="server" DataSourceID="CourseList"
-                                                DataTextField="HighSchoolCourseDescription"
-                                                DataValueField="HighSchoolCourseID"
-                                                AppendDataBoundItems="True">
-                                                <asp:ListItem Value="">Select a Course</asp:ListItem>
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Mark (Optional)">                                
-                            <ItemTemplate>
-                                <asp:TextBox ID="Marks" runat="server" Width="50px" />                            
-                            </ItemTemplate>
-                        </asp:TemplateField>                               
-                        <asp:CommandField ShowDeleteButton="True" />                
-                    </Columns>
-                </asp:GridView>
-                <asp:LinkButton ID="addMSubjectButton" runat="server" OnClick="addMSubjectButton_Click">Add Requirement</asp:LinkButton>
-            </div>
         </div>
 
-
+        <hr />
         <%--POST SECONDARY ENTRANCE REQUIREMENT--%>
-</div>
-<%--
-        <p>Does entry to this program require any previous post-secondary work?</p>
+
+        <h3>Post-Secondary</h3>
+        <p>If this program requires any previous post-secondary credientials, such as a diploma or certificate, add them here.</p>
         <div runat="server" id="PSRequirements">
+            <h5>Current Entrance Requirements</h5>
             <asp:GridView ID="GV_DegreeEntranceReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetDegEntReqs" DataKeyNames="DegreeEntranceRequirementID" OnRowDeleting="GV_DegReq_RowDeleting">
                 <Columns>
                     <asp:TemplateField HeaderText="Degree Requirement ID" Visible="false">
@@ -265,19 +195,18 @@
                 </EmptyDataTemplate>
             </asp:GridView>
 
-            <asp:LinkButton ID="addDER" runat="server" CssClass="button submit button-long" OnClick="addDER_Click" >Add Requirement</asp:LinkButton>
-
-            <div runat="server" id="AddRequirements" class="clearfix" visible="false">
+            <h5>Add a New Entrance Requirement</h5>
+            <div runat="server" id="AddRequirements" class="clearfix">
                 <p>Credential Type: </p>
                 <asp:DropDownList ID="DL_Credential" runat="server" DataSourceID="CredentialODS" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
-                <p>Category: </p>
+                <p>Industry Category: </p>
                 <asp:DropDownList ID="DL_Category" runat="server" DataSourceID="CategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
-                <p>GPA: </p>
+                <p>Overall GPA: </p>
                 <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>        
         
-                <asp:LinkButton ID="Add_DER" runat="server" CssClass="button submit button-long" OnClick="Add_DER_Click">Add Equivalency</asp:LinkButton>
+                <asp:LinkButton ID="Add_DER" runat="server" CssClass="admin_button2" OnClick="Add_DER_Click">Add Requirement</asp:LinkButton>
             </div>
-        </div> --%>
+        </div> 
      </div>
     </div>
 

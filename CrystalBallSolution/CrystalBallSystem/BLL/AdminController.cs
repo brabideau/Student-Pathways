@@ -305,13 +305,14 @@ namespace CrystalBallSystem.BLL
 
         #region Add DER
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddDER(int programID, int credentialID, int categoryID, decimal gpa)
+        public void AddDER(DegreeEntranceRequirement item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                DegreeEntranceRequirement added = null;
-                added = context.DegreeEntranceRequirements.Add(new DegreeEntranceRequirement() { ProgramID = programID, CredentialTypeID = credentialID, CategoryID = categoryID, GPA = gpa });
+
+                var added = context.DegreeEntranceRequirements.Add(item);
                 context.SaveChanges();
+
             }
         }
         #endregion
