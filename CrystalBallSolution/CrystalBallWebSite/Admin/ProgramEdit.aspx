@@ -10,12 +10,10 @@
         
         <ContentTemplate>
 
-       
+        <%-- ----------------------------- BUTTONS ---------------------------------------%>
    <div runat="server" id="Buttons" visible="false" >
        <h2>
             <asp:Label ID="ProgramNameLabel" runat="server" Text=""></asp:Label></h2>
-        
-     <%-- ----------------------------- BUTTONS ---------------------------------------%>
 
         <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
             <asp:ListItem Value="1" Text="Program Info" Selected="true"></asp:ListItem>
@@ -208,7 +206,7 @@
             </div>
         </div> 
      </div>
-    </div>
+    
 
     <%-- ----------------------------- PROGRAM COURSES ---------------------------------------%>
      
@@ -555,11 +553,12 @@
         </asp:GridView>
         <asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
-        <hr />
+        
     </div> <%--end program edit div--%>
       <%-- ----------------------------- SEARCH ---------------------------------------%>
+     <hr />
     <div runat="server" id="search" class="search-bar" >
-        <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox> in
+        Program Search: <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox> in
         <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
             <asp:ListItem Value="0">[All Subjects]</asp:ListItem>
         </asp:DropDownList>
