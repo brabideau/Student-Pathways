@@ -70,7 +70,7 @@
     
     <div runat="server" id="Categories" visible="false" class="clearfix">
         <p>Select the categories that this program belongs to:</p>
-        <asp:CheckBoxList ID="CB_Categories" runat="server" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" >
+        <asp:CheckBoxList ID="CB_Categories" runat="server" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID"  CssClass="radiochecks" >
         </asp:CheckBoxList>
         <asp:LinkButton ID="Categories_Save" runat="server" OnClick="Save_Categories" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
@@ -78,9 +78,83 @@
 
     <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
-    <div runat="server" id="EntranceRequirements" class="clearfix">
+    <div runat="server" id="EntranceRequirements" class="clearfix entreqcss">
+        <h4>Current Entrance Requirements</h4>
+        <asp:ListView ID="LV_SubjectReq" runat="server">
 
-        <%--HIGH SCHOOL ENTRANCE REQUIREMENTS--%>        
+         <LayoutTemplate>
+            <table>
+                <tr>
+                    <th runat="server">Subject</th>
+                    <th runat="server">Classes</th>
+                    <th></th>
+                </tr>
+                <tr id="itemPlaceholder" runat="server"></tr>
+            </table>
+        </LayoutTemplate>
+        <ItemTemplate>
+
+            <tr>
+                <td runat="server" visible="false">
+                    <asp:Label ID="SubjectIDLabel" runat="server" Text='<%# Eval("SubjectRequirementID") %>'></asp:Label>
+                </td>
+                <td runat="server" >
+                    <h5><asp:Label ID="Label1" runat="server" Text='<%# Eval("SubjectDescription") %>'></asp:Label></h5>
+                </td>
+                <td runat="server">
+                    <asp:ListView ID="LV_EntranceReq" runat="server" DataSource='<%# Eval("EntranceReqs") %>' ItemPlaceholderID="EntrancePlaceHolder"  OnItemCommand="Ent_Req_Commands">
+                        <LayoutTemplate>
+                            <table>
+                         
+                                <tr id="EntrancePlaceHolder" runat="server"></tr>
+                           </table>
+                        </LayoutTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td runat="server" visible="false">
+                                     <asp:Label ID="EntIDLabel" runat="server" Text='<%# Eval("EntranceRequirementID") %>'></asp:Label>
+                                </td>
+                                <td runat="server">
+                                    <asp:Label ID="Label4" runat="server" ><asp:TextBox ID="Ent_Marks" runat="server" Width="50px" Text='<%# Eval("Mark") %>' /> % in </asp:Label>
+                                
+                                    <asp:DropDownList ID="DL_HS_Course" runat="server" DataSourceID="CourseList"
+                                                DataTextField="HighSchoolCourseDescription"
+                                                DataValueField="HighSchoolCourseID"
+                                                SelectedValue='<%# Eval("HSCourseID") %>'>
+                                               
+                                </asp:DropDownList>
+                                </td>
+                                <td>
+                                    <asp:LinkButton ID="EditButton" runat="server" Text="Save" CommandArgument="Save" CssClass="admin_button" /> - or -
+                                    <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument="Remove" Text="Remove" CssClass="admin_button" />
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </td>
+            </tr>
+        </ItemTemplate>
+        </asp:ListView>
+
+        <h4>Add a New Entrance Requirement</h4>
+        Subject: 
+        <asp:DropDownList ID="DL_New_Subject" runat="server" DataSourceID="ODS_SubjectRequirement"
+                                                DataTextField="SubjectDescription"
+                                                DataValueField="SubjectRequirementID">
+                                               
+                                </asp:DropDownList>
+        - - - - -
+        <asp:TextBox ID="NewMark" runat="server" Width="50px" /> % in 
+        <asp:DropDownList ID="DL_New_EntReq" runat="server" DataSourceID="CourseList"
+                                                DataTextField="HighSchoolCourseDescription"
+                                                DataValueField="HighSchoolCourseID"
+                                                AppendDataBoundItems="True">
+                                                <asp:ListItem Value="">Select a Course</asp:ListItem>
+                                </asp:DropDownList>
+        <asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add" CssClass="admin_button" OnClick ="Add_Ent_Req"/>
+        <div id="highschool">
+         <%--
+        <%--HIGH SCHOOL ENTRANCE REQUIREMENTS       
         <p><asp:Label runat="server" CssClass="tooltip" ToolTip="Courses in the same Subject are considered equivalent. A student only needs one course in each group to enter." />What high school courses does this program require?</p>
         <div runat="server" id="HSRequirements">
             <asp:GridView ID="LV_SubjectReq" runat="server"  AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.DTOs.SubjectRequirementAndCourses" DataKeyNames="EntranceReqID" OnRowDeleting="LV_SubjectReq_RowDeleting" ShowFooter="true">
@@ -157,6 +231,8 @@
 
 
         <%--POST SECONDARY ENTRANCE REQUIREMENT--%>
+</div>
+<%--
         <p>Does entry to this program require any previous post-secondary work?</p>
         <div runat="server" id="PSRequirements">
             <asp:GridView ID="GV_DegreeEntranceReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetDegEntReqs" DataKeyNames="DegreeEntranceRequirementID" OnRowDeleting="GV_DegReq_RowDeleting">
@@ -201,8 +277,9 @@
         
                 <asp:LinkButton ID="Add_DER" runat="server" CssClass="button submit button-long" OnClick="Add_DER_Click">Add Equivalency</asp:LinkButton>
             </div>
-        </div>
+        </div> --%>
      </div>
+    </div>
 
     <%-- ----------------------------- PROGRAM COURSES ---------------------------------------%>
      
@@ -496,7 +573,7 @@
                        
         </asp:GridView>    
 
-        <div runat="server" id="addNewEquivalency" visible="true"  CssClass="add-equivalency-block">
+        <div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block">
         <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID:" CssClass="label col-3"></asp:Label>
         <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
             DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-2">
@@ -553,7 +630,7 @@
     </div> <%--end program edit div--%>
       <%-- ----------------------------- SEARCH ---------------------------------------%>
     <div runat="server" id="search" class="search-bar" >
-        <asp:TextBox ID="Search_Box" runat="server" Width="200px" placeholder="Search Programs"></asp:TextBox> in
+        <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox> in
         <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
             <asp:ListItem Value="0">[All Subjects]</asp:ListItem>
         </asp:DropDownList>

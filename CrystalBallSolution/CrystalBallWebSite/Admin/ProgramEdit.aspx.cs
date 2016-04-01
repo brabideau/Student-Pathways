@@ -70,7 +70,7 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
         Populate_Preferences(programID);
 
         Populate_EntranceReqs(programID);
-        Populate_DER(programID);
+        //Populate_DER(programID);
 
         // show the appropriate info
         ProgramEditDiv.Visible = true;
@@ -238,6 +238,105 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
     #region entrance requirements
 
+    protected void Populate_EntranceReqs(int programID)
+    {
+        AdminController sysmgr = new AdminController();
+        var entReq = sysmgr.Get_Subject_Requirement_Details(programID);
+        LV_SubjectReq.DataSource = entReq;
+        LV_SubjectReq.DataBind();
+    }
+
+    protected void Ent_Req_Commands(object sender, ListViewCommandEventArgs args)
+    {
+        string arg = args.CommandArgument.ToString();
+        ListViewItem item = args.Item;
+
+        int programID = int.Parse(ProgramIDLabel.Text);
+
+        EntranceRequirement req = new EntranceRequirement();
+
+        req.ProgramID = programID;
+
+        req.HighSchoolCourseID = Convert.ToInt32((item.FindControl("DL_HS_Course") as DropDownList).SelectedValue);
+        int subID = Convert.ToInt32(((sender as ListView).Parent.FindControl("SubjectIDLabel") as Label).Text);
+        req.SubjectRequirementID = subID;
+
+
+        string mark = (item.FindControl("Ent_Marks") as TextBox).Text;
+
+        if (mark != "")
+        {        
+            req.RequiredMark = int.Parse(mark);
+        }
+
+        int entID = Convert.ToInt32((item.FindControl("EntIDLabel") as Label).Text);
+        req.EntranceRequirementID = entID;
+
+        if (arg == "Save")
+        {
+            Ent_Req_Save(programID, req);
+        }
+        else if (arg == "Remove")
+        {
+            Ent_Req_Remove(programID, req);
+        }
+
+    }
+
+    protected void Ent_Req_Save(int programID, EntranceRequirement req)
+    {
+        AdminController sysmgr = new AdminController();
+        sysmgr.EntranceRequirement_Update(req);
+
+        Populate_EntranceReqs(programID);
+    }
+
+    protected void Ent_Req_Remove(int programID, EntranceRequirement req)
+    {
+        AdminController sysmgr = new AdminController();
+        sysmgr.EntranceReq_Delete(req);
+
+        Populate_EntranceReqs(programID);
+    }
+ 
+    protected void EntranceReq_Show(object sender, EventArgs e)
+    {
+        ProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = true;
+        ProgramCourses.Visible = false;
+        CourseEquivalencies.Visible = false;
+        ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "3";
+    }
+
+    protected void Add_Ent_Req(object sender, EventArgs e)
+    {
+        EntranceRequirement newReq = new EntranceRequirement();
+       
+        //newReq.EntranceRequirementID = int.Parse(DL_CredentialType.SelectedValue);
+        int programID = int.Parse(ProgramIDLabel.Text);
+
+        newReq.ProgramID = programID;
+        newReq.HighSchoolCourseID = Convert.ToInt32(DL_New_EntReq.SelectedValue);
+        newReq.SubjectRequirementID = Convert.ToInt32(DL_New_Subject.SelectedValue);
+
+        if (NewMark.Text != "")
+        {
+            newReq.RequiredMark = int.Parse(NewMark.Text);
+        }
+
+
+        AdminController sysmgr = new AdminController();
+
+        sysmgr.AddEntranceRequirement(newReq);
+
+        Populate_EntranceReqs(programID);
+    }
+
+
+    #region testing a thing
+    /*
     #region high school
     //CREATE NO SUBJECTREQUIREMENT GRIDVIEW
     private void PopulateManual()
@@ -504,12 +603,18 @@ public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
     }
     #endregion
 
+
+    #endregion
     protected void Save_EntranceReq(object sender, EventArgs e)
     {
 
         Courses_Show(sender, e);
     }
+     */
     #endregion
+
+    #endregion
+
     /*-- ----------------------------- COURSES ---------------------------------------*/
     #region courses
     protected void Courses_Show(object sender, EventArgs e)

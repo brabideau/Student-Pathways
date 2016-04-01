@@ -700,7 +700,7 @@ footer {
 .prefQuestionsCSS input[type="radio"] +label:hover,
 .courseCSS input + label:hover,
 .tabs input[type="radio"] +label:hover,
-.radiochecks input[type="radio"] +label:hover {
+.radiochecks input +label:hover {
     color: #1363a8;
     background-color: #ebf3f9;
 
@@ -709,7 +709,7 @@ footer {
 .prefQuestionsCSS input[type="radio"]:checked +label,
 .courseCSS input[type="checkbox"]:checked + label,
 .tabs input[type="radio"]:checked + label,
-.radiochecks input[type="radio"]:checked + label {
+.radiochecks input:checked + label {
     background-color: #113e68;
     color: #ebf3f9;
 }
@@ -718,7 +718,7 @@ footer {
 .prefQuestionsCSS input[type="radio"]:checked +label:hover,
 .courseCSS input[type="checkbox"]:checked + label:hover,
 .tabs input[type="radio"]:checked + label:hover,
-.radiochecks input[type="radio"]:checked + label:hover
+.radiochecks input:checked + label:hover
  {
     background-color: #003D7E;
 
@@ -975,6 +975,56 @@ footer {
 }*/
 
 
+ /*-------------------------other ---------------------------------------------*/
+
+
+ .entreqcss {
+     width: 65%;
+     margin: 0 auto;
+
+ }
+
+ .entreqcss > table {
+    margin-bottom: 70px;
+     
+ }
+
+ 
+ .entreqcss > table > tbody > tr {
+     border-bottom: 1px solid #276873;
+
+ }
+
+
+
+.entreqcss table {
+     width: 100%;
+     
+ }
+
+.entreqcss td td {
+    padding: 3px 7px;
+     
+ }
+
+underscored {
+   
+}
+
+/*.entreqcss td td {
+      width: 55%;
+      display: inline-block;
+      float: left;
+      text-align: left;
+      padding-left: 0;
+
+ }
+
+.entreqcss td tr td:first-child {
+     width: 35%;
+     text-align: right;
+     padding-right: .3em;
+ }*/
 
 
 

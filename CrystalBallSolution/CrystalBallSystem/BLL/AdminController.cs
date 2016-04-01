@@ -422,6 +422,36 @@ namespace CrystalBallSystem.BLL
         #endregion
         #endregion
 
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        // Returns all categories
+        public List<SubjectRequirementsDetail> Get_Subject_Requirement_Details(int programid)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var results = from p in context.Programs
+                              from x in p.EntranceRequirements
+                              where x.ProgramID == programid
+                              group x by x.SubjectRequirement into y
+                              select new SubjectRequirementsDetail
+                              {
+                                  SubjectRequirementID = y.Key.SubjectRequirementID,
+                                  SubjectDescription = y.Key.SubjectDescription,
+                                  EntranceReqs = (from z in y
+                                                  select new EntranceRequirementDetail
+                                                  {
+                                                      EntranceRequirementID = z.EntranceRequirementID,
+                                                      HSCourseID = z.HighSchoolCourseID,
+                                                      HSCourseName = z.HighSchoolCours.HighSchoolCourseName,
+                                                      Mark = z.RequiredMark
+                                                  }).ToList()
+                              };
+
+                return results.ToList();
+
+            }
+        }
+
         #region Briand Playspace
 
 
@@ -1029,18 +1059,31 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
-        public void EntranceReq_Delete(int courseEquivalencyID)
+        public void EntranceReq_Delete(EntranceRequirement req)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 //lookup the instance and record if found (set pointer to instance)
-                CourseEquivalency existing = context.CourseEquivalencies.Find(courseEquivalencyID);
-
+                EntranceRequirement existing = context.EntranceRequirements.Find(req.EntranceRequirementID);
+                 
                 //setup the command to execute the delete
-                context.CourseEquivalencies.Remove(existing);
+
+                context.EntranceRequirements.Remove(existing);
                 //command is not executed until it is actually saved.
                 context.SaveChanges();
             }
+        }
+
+        public void EntranceRequirement_Update(EntranceRequirement item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                context.Entry<EntranceRequirement>(context.EntranceRequirements.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+
+                context.SaveChanges();
+            }
+
         }
 
         #endregion
