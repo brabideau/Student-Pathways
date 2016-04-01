@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Briand_Workspace_ProgramEdit : System.Web.UI.Page
+public partial class Admin_ProgramEdit : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
