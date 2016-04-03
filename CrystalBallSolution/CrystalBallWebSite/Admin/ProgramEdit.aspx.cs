@@ -322,36 +322,34 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         //newReq.EntranceRequirementID = int.Parse(DL_CredentialType.SelectedValue);
         int programID = int.Parse(ProgramIDLabel.Text);
 
-        newReq.ProgramID = programID;
-        newReq.HighSchoolCourseID = Convert.ToInt32(DL_New_EntReq.SelectedValue);
-        newReq.SubjectRequirementID = Convert.ToInt32(DL_New_Subject.SelectedValue);
-
-        if (NewMark.Text != "")
+        if (DL_New_EntReq.SelectedValue == "-3")
         {
-            newReq.RequiredMark = int.Parse(NewMark.Text);
+            MessageUserControl.ShowInfo("A course must selected to add a high school entrance requirement.");
         }
+        else
+        {
+            newReq.ProgramID = programID;
+            newReq.HighSchoolCourseID = Convert.ToInt32(DL_New_EntReq.SelectedValue);
+            newReq.SubjectRequirementID = Convert.ToInt32(DL_New_Subject.SelectedValue);
+
+            if (NewMark.Text != "")
+            {
+                newReq.RequiredMark = int.Parse(NewMark.Text);
+            }
 
 
-        AdminController sysmgr = new AdminController();
+            AdminController sysmgr = new AdminController();
 
-        sysmgr.AddEntranceRequirement(newReq);
+            sysmgr.AddEntranceRequirement(newReq);
 
-        Populate_EntranceReqs(programID);
+            Populate_EntranceReqs(programID);
+        }
+        
     }
 
     #endregion  
-
-
-
-   
-  
-
+    
     #region post-secondary
-   
-
-
-
-
     protected void GV_DegReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         AdminController sysmgr = new AdminController();
@@ -376,14 +374,37 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
         DegreeEntranceRequirement req = new DegreeEntranceRequirement();
         int programID = Int32.Parse(ProgramIDLabel.Text);
+        decimal gpa; 
 
-        req.ProgramID = programID;
-        req.CredentialTypeID = int.Parse(DL_Credential.SelectedValue);
-        req.CategoryID = int.Parse(DL_Category.SelectedValue);
-        req.GPA = decimal.Parse(TB_GPA.Text);
+        if (TB_GPA.Text.Trim() == "")
+        {
+            PSMessageUserControl.ShowInfo("A GPA must be entered to add a post-secondary entrance requirement.");
+        }
+        else if (Decimal.TryParse(TB_GPA.Text.Trim(), out gpa))
+        {
+            if (Decimal.Parse(TB_GPA.Text.Trim()) > 4)
+            {
+                PSMessageUserControl.ShowInfo("GPA cannot be greater than 4.0 to add a post-secondary entrance requirement.");
+            }
+            else if (Decimal.Parse(TB_GPA.Text.Trim()) < 0)
+            {
+                PSMessageUserControl.ShowInfo("GPA cannot be less than 0 to add a post-secondary entrance requirement.");
+            }
+            else
+            {
+                req.ProgramID = programID;
+                req.CredentialTypeID = int.Parse(DL_Credential.SelectedValue);
+                req.CategoryID = int.Parse(DL_Category.SelectedValue);
+                req.GPA = decimal.Parse(TB_GPA.Text.Trim());
 
-        sysmgr.AddDER(req);
-        Populate_DER(programID);
+                sysmgr.AddDER(req);
+                Populate_DER(programID);
+            }            
+        }
+        else
+        {
+            PSMessageUserControl.ShowInfo("GPA must be a decimal value to add a post-secondary entrance requirement.");
+        }
         
 
     }
@@ -529,18 +550,29 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         int programID = Int32.Parse(ProgramIDLabel.Text);
         int courseID = int.Parse(EmptyCurrentDropdown.SelectedValue);
         int destinationCourseID = int.Parse(EquivalentCourseID.SelectedValue);
-        sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
-        GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
-        GV_Equivalencies.DataBind();
 
-        //reset add equivalency screen
-        EmptyCurrentDropdown.Items.Clear();
-        EmptyCurrentDropdown.DataBind();
-        EmptyEquivalentProgram.Items.Clear();
-        EmptyEquivalentProgram.DataBind();
-        EquivalentCourseID.Items.Clear();
-        EquivalentCourseID.DataBind();
+        if (courseID == -1)
+        {
+            MessageUserControl.ShowInfo("Current program course must be selected to add a course equivalency.");
+        }
+        else if (destinationCourseID == -1)
+        {
+            MessageUserControl.ShowInfo("Equivalent program course must be selected to add a course equivalency.");
+        }
+        else
+        {
+            sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
+            GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
+            GV_Equivalencies.DataBind();
 
+            //reset add equivalency screen
+            EmptyCurrentDropdown.Items.Clear();
+            EmptyCurrentDropdown.DataBind();
+            EmptyEquivalentProgram.Items.Clear();
+            EmptyEquivalentProgram.DataBind();
+            EquivalentCourseID.Items.Clear();
+            EquivalentCourseID.DataBind();
+        }
         //}, "", "Equivalency Successfully Added");
     }
 

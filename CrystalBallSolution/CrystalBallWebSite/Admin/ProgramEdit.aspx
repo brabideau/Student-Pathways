@@ -151,14 +151,14 @@
                                                 DataTextField="HighSchoolCourseDescription"
                                                 DataValueField="HighSchoolCourseID"
                                                 AppendDataBoundItems="True">
-                                                <asp:ListItem Value="">Select a Course</asp:ListItem>
+                                                <asp:ListItem Value="-3">Select a Course</asp:ListItem>
                                 </asp:DropDownList>
         <asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add" CssClass="admin_button" OnClick ="Add_Ent_Req"/>
         </div>
 
         <hr />
         <%--POST SECONDARY ENTRANCE REQUIREMENT--%>
-
+        <uc1:MessageUserControl runat="server" id="PSMessageUserControl" />
         <h3>Post-Secondary</h3>
         <p>If this program requires any previous post-secondary credientials, such as a diploma or certificate, add them here.</p>
         <div runat="server" id="PSRequirements">
@@ -491,7 +491,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>      
                   
-                <asp:ButtonField Text="Remove" CommandName="Delete"/>
+                <asp:ButtonField Text="Remove" CommandName="Delete" ControlStyle-CssClass="admin_button"/>
             </Columns>          
             
             <EmptyDataTemplate>
@@ -501,24 +501,25 @@
         </asp:GridView>    
 
         <div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block">
-        <asp:Label ID="EmptyCurrent" runat="server" Text="Current Program Course ID:" CssClass="label col-3"></asp:Label>
-        <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
-            DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-2">
-             <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-        </asp:DropDownList>
+            <asp:Label ID="EmptyCurrent" runat="server" Text="Program course "></asp:Label>
         
-        <asp:Label ID="EmptyEquivalent" runat="server" Text="Program: "  CssClass="label col-3"></asp:Label>
-        <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" CssClass="col-3" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true">
-            <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
-        </asp:DropDownList>
-        <asp:Label ID="EquivalentCourseName" runat="server" Text="Course: "></asp:Label>
-        <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true">
-            <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-        </asp:DropDownList>
-            <p class="clearfix">
-        <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="button button-long next">Enter Equivalency</asp:LinkButton>
-             </p>
-    </div>
+            <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
+                DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True">
+                 <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
+            </asp:DropDownList>
+        
+            <asp:Label ID="EmptyEquivalent" runat="server" Text=" will take equivalencies from "></asp:Label>
+        
+            <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true">
+                <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
+            </asp:DropDownList>
+
+            <asp:Label ID="EquivalentCourseName" runat="server" Text=" "></asp:Label>
+            <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true">
+                <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
+            </asp:DropDownList>
+            <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="admin_button">Add Equivalency</asp:LinkButton>
+        </div>
 
          <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
