@@ -507,9 +507,8 @@
                 DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True">
                  <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
             </asp:DropDownList>
-        
-            <asp:Label ID="EmptyEquivalent" runat="server" Text=" will take equivalencies from "></asp:Label>
-        
+
+            <asp:Label ID="EmptyEquivalent" runat="server" Text=" will take equivalencies from "></asp:Label>        
             <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true">
                 <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
             </asp:DropDownList>
@@ -518,7 +517,8 @@
             <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true">
                 <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
             </asp:DropDownList>
-            <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="admin_button">Add Equivalency</asp:LinkButton>
+            <br />
+            <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="admin_button submit">Add Equivalency</asp:LinkButton>
         </div>
 
          <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>

@@ -527,6 +527,14 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         CourseEquivalencies.Visible = true;
         ProgramPreferences.Visible = false;
         Tab_Labels.SelectedValue = "5";
+
+        //reset add equivalency screen
+        EmptyCurrentDropdown.Items.Clear();
+        EmptyCurrentDropdown.DataBind();
+        EmptyEquivalentProgram.Items.Clear();
+        EmptyEquivalentProgram.DataBind();
+        EquivalentCourseID.Items.Clear();
+        EquivalentCourseID.DataBind();
     }
 
     protected void Populate_Equivalencies(int programID)
@@ -551,13 +559,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         int courseID = int.Parse(EmptyCurrentDropdown.SelectedValue);
         int destinationCourseID = int.Parse(EquivalentCourseID.SelectedValue);
 
-        if (courseID == -1)
+        if (courseID == -1 || destinationCourseID == -1)
         {
-            MessageUserControl.ShowInfo("Current program course must be selected to add a course equivalency.");
-        }
-        else if (destinationCourseID == -1)
-        {
-            MessageUserControl.ShowInfo("Equivalent program course must be selected to add a course equivalency.");
+            MessageUserControl.ShowInfo("Current program course and equivalent program course must be selected to add a course equivalency.");
         }
         else
         {
