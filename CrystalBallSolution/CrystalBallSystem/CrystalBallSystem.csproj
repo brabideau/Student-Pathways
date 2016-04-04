@@ -66,12 +66,9 @@
     <Compile Include="DAL\Entities\Administrator.cs" />
     <Compile Include="DAL\Entities\Security\ApplicationUser.cs" />
     <Compile Include="BLL\Security\UserManager.cs" />
-    <Compile Include="BLL\SelectNaitCourseController.cs" />
     <Compile Include="BLL\StudentController.cs" />
-    <Compile Include="BLL\testController.cs" />
     <Compile Include="BusinessRuleException.cs" />
     <Compile Include="DAL\DTOs\CategoryProgram.cs" />
-    <Compile Include="DAL\DTOs\ProgramAndCourses.cs" />
     <Compile Include="DAL\Entities\SubjectRequirementAndCourses.cs" />
     <Compile Include="DAL\Entities\Category.cs" />
     <Compile Include="DAL\CrystalBallContext.cs" />
@@ -90,29 +87,20 @@
     <Compile Include="DAL\Entities\ProgramPreference.cs" />
     <Compile Include="DAL\Entities\Security\SecurityRole.cs" />
     <Compile Include="DAL\Entities\SubjectRequirement.cs" />
-    <Compile Include="DAL\POCOs\AddEntranceRequirements.cs" />
     <Compile Include="DAL\POCOs\EntranceRequirementDetail.cs" />
     <Compile Include="DAL\POCOs\GetCourseCredits.cs" />
-    <Compile Include="DAL\POCOs\GetCredentials.cs" />
     <Compile Include="DAL\POCOs\GetDegEntReqs.cs" />
-    <Compile Include="DAL\POCOs\GetEntranceReq.cs" />
     <Compile Include="DAL\POCOs\GetEquivalencyNames.cs" />
-    <Compile Include="DAL\POCOs\GetHSCourseIDName.cs" />
     <Compile Include="DAL\POCOs\GetHSCourses.cs" />
-    <Compile Include="DAL\POCOs\GetPreferenceQuestions.cs" />
-    <Compile Include="DAL\POCOs\GetProgramList.cs" />
     <Compile Include="DAL\POCOs\GetProgramPreferenceQuestions.cs" />
     <Compile Include="DAL\POCOs\NAITCourse.cs" />
-    <Compile Include="DAL\POCOs\ProgramCourseMatch.cs" />
     <Compile Include="DAL\POCOs\ProgramFrequency.cs" />
     <Compile Include="DAL\POCOs\StudentPreferenceSummary.cs" />
     <Compile Include="DAL\POCOs\ProgramNameID.cs" />
     <Compile Include="DAL\POCOs\ProgramResult.cs" />
-    <Compile Include="DAL\POCOs\StudentHighSchoolCourses.cs" />
     <Compile Include="DAL\POCOs\StudentPreference.cs" />
     <Compile Include="DAL\POCOs\StudentsDroppingSummary.cs" />
     <Compile Include="DAL\POCOs\SubjectRequirementsDetail.cs" />
-    <Compile Include="DAL\POCOs\SubjReq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -12,6 +12,7 @@ using CrystalBallSystem.DAL;
 using System.ComponentModel;
 using CrystalBallSystem.DAL.POCOs;
 using System.Data;
+using CrystalBallSystem.DAL.DTOs;
 using System.Data.SqlClient;
 
 #endregion
@@ -22,8 +23,169 @@ namespace CrystalBallSystem.BLL
     [DataObject]
     public class StudentController
     {
-        #region add nait course
+        #region select nait course
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<NAITCourse> SearchNaitCourses(string SearchInfo, int programID)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                //searchinfo upper lower case
+                if (programID == 0)
+                {
+                    //if (SearchInfo == null)
+                    //{
+                    //    var result = from Ncourse in context.NaitCourses
+                    //                 select new NAITCourse
+                    //                 {
+                    //                     CourseID = Ncourse.CourseID,
+                    //                     CourseCode = Ncourse.CourseCode,
+                    //                     CourseName = Ncourse.CourseName,
+                    //                     CourseCredits = Ncourse.CourseCredits,
 
+                    //                 };
+                    //    return result.ToList();
+                    //}
+                    //else
+                    //{
+                    //    var result = from Ncourse in context.NaitCourses
+                    //                 where (Ncourse.CourseName.Contains(SearchInfo))
+                    //                 || (Ncourse.CourseCode.Contains(SearchInfo))
+                    //                 select new NAITCourse
+                    //                 {
+                    //                     CourseID = Ncourse.CourseID,
+                    //                     CourseCode = Ncourse.CourseCode,
+                    //                     CourseName = Ncourse.CourseName,
+                    //                     CourseCredits = Ncourse.CourseCredits,
+
+                    //                 };
+                    //    return result.ToList();
+                    //}
+                    var result1 = from Ncourse in context.NaitCourses
+                                  where ((SearchInfo == null) ? Ncourse.CourseName.Contains("") || (Ncourse.CourseCode.Contains("")) : (Ncourse.CourseName.Contains(SearchInfo))
+                                     || (Ncourse.CourseCode.Contains(SearchInfo)))
+                                  select new NAITCourse
+                                  {
+                                      CourseID = Ncourse.CourseID,
+                                      CourseCode = Ncourse.CourseCode,
+                                      CourseName = Ncourse.CourseName,
+                                      CourseCredits = Ncourse.CourseCredits,
+
+                                  };
+                    return result1.ToList();
+
+
+                }
+                else
+                {
+                    var result2 = from pc in context.ProgramCourses
+                                  where ((SearchInfo == null) ?
+                                  pc.ProgramID == programID && (pc.NaitCourse.CourseName.Contains("")
+                                      || (pc.NaitCourse.CourseCode.Contains("")))
+                                      : pc.ProgramID == programID && (pc.NaitCourse.CourseName.Contains(SearchInfo)
+                                      || (pc.NaitCourse.CourseCode.Contains(SearchInfo))))
+                                  select new NAITCourse
+                                  {
+                                      CourseID = pc.CourseID,
+                                      CourseCode = pc.NaitCourse.CourseCode,
+                                      CourseName = pc.NaitCourse.CourseName,
+                                      CourseCredits = pc.NaitCourse.CourseCredits
+                                  };
+                    return result2.ToList();
+
+                }
+            }
+        }
+
+
+        #endregion
+
+
+        #region do we need these?
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<ProgramNameID> GetProgram()
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var results = from x in context.Programs
+                              orderby x.ProgramName
+                              select new ProgramNameID
+                              {
+                                  ProgramID = x.ProgramID,
+                                  ProgramName = x.ProgramName
+                              };
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<NAITCourse> SelectedNaitCourses(int courseID)
+        {
+            using (var context = new CrystalBallContext())
+            {
+                var result = from x in context.NaitCourses
+                             where x.CourseID == courseID
+                             select new NAITCourse
+                             {
+                                 CourseID = x.CourseID,
+                                 CourseCode = x.CourseCode,
+                                 CourseName = x.CourseName,
+                                 CourseCredits = x.CourseCredits
+                             };
+                return result.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<NaitCours> NaitCourse_List(int programid)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+
+                if (programid == 0)
+                {
+                    var step1 = from x in context.NaitCourses select x;
+                    return step1.ToList();
+                }
+                else if (programid == -1)
+                {
+                    var step1 = from x in context.NaitCourses
+                                where
+                                    (x.ProgramCourses).Count() == 0
+                                select x;
+                    return step1.ToList();
+                }
+                else
+                {
+                    var step1 = from x in context.ProgramCourses
+                                where x.ProgramID == programid
+                                select x.NaitCourse;
+                    return step1.ToList();
+                }
+
+
+
+            }
+        }
+
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Program> Program_List()
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.Programs.ToList();
+            }
+        }
+
+        //public void AddCourse(NaitCours item)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
+        //        NaitCours added = null;
+        //        added = context.NaitCourses.Add(item);
+        //        context.SaveChanges();
+        //    }
+        //}
         #endregion
 
         //Method that will get all of the highschool courses and their relevant details
@@ -69,27 +231,6 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        //Method returns the list of course ids in a given category
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public int[] GetParentCategory(int courseCode)
-        //{
-        //    List<int> returnArray = new List<int>();
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //        string results = (from program in context.HighSchoolCourses
-        //                      where program.HighSchoolCourseID == courseCode
-        //                      select program.CourseGroup).FirstOrDefault();
-
-        //        var returnArrayTemp = from x in context.HighSchoolCourses
-        //                          where x.CourseGroup == results
-        //                          select x.HighSchoolCourseID;
-        //        foreach(int item in returnArrayTemp)
-        //        {
-        //            returnArray.Add(item);
-        //        }
-        //        return returnArray.ToArray();
-        //    }
-        //}
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<int> GetHighestCourseLevel(List<GetHSCourses> courses)
         {
@@ -224,77 +365,6 @@ namespace CrystalBallSystem.BLL
         }
         #endregion
 
-
-
-        #region do we need these?
-        
-
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public List<int> GetCourseIDs(string[] courseCodes)
-        //{
-        //    List<int> intList = new List<int>();
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //        for (int i = 0; i < courseCodes.Length; i++)
-        //        {
-        //            var results = (from course in context.NaitCourses
-        //                           where course.CourseCode == courseCodes[i]
-        //                           select course.CourseID).First();
-        //            intList.Add(results);
-        //        }
-        //        return intList;
-        //    }
-        //}
-
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public int GetEntranceList(int courseID, int mark)
-        //{
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //        var results = (from entrance in context.EntranceRequirements
-        //                       orderby entrance.EntranceRequirementID
-        //                       where entrance.HighSchoolCourseID == courseID && mark >= entrance.RequiredMark
-        //                       select entrance.EntranceRequirementID).FirstOrDefault();
-        //        return results;
-        //    }
-        //}
-        //this is used in the reporting section
-        
-
-        //Method will return a list of program ids and credits for each program returned based on the user course selection
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public List<GetCourseCredits> GetCourseCredits(List<int> courseid, List<int> programid)
-        //{
-        //    using (var context = new CrystalBallContext())
-        //    {
-        //          var result = from p in context.Programs
-        //                     where programid.Contains(p.ProgramID)
-        //                     select new GetCourseCredits
-        //                     {
-        //                         ProgramID = p.ProgramID,
-        //                         ProgramName = p.ProgramName,
-        //                         ProgramDescription = p.ProgramDescription,
-        //                         ProgramLink = p.ProgramLink,
-        //                         CredType = (from d in context.CredentialTypes
-        //                                         where p.CredentialTypeID == d.CredentialTypeID
-        //                                         select d.CredentialTypeName).FirstOrDefault(),
-        //                         Credits = (from x in
-        //                                        (from ce in context.CourseEquivalencies
-        //                                         from c in p.ProgramCourses
-        //                                         where courseid.Contains(c.CourseID) || courseid.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
-        //                                         select c.NaitCourse).Distinct()
-        //                                    select (double?)x.CourseCredits).Sum()
-
-        //                     };
-
-
-        //        return result.ToList();
-        //    }
-        //}
-        //This is used in student preferences
-        
-
-        #endregion
     }
 }
 

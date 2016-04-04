@@ -73,7 +73,7 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
         programPreference.Answer = Convert.ToInt32(answer.SelectedValue);
 
 
-        sysmr.UpdateProgramPreferenceQuestion(programPreference);
+        //sysmr.UpdateProgramPreferenceQuestion(programPreference);
         QuestionListView.EditIndex = -1;
 
         BindList();
@@ -112,7 +112,7 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
             
         if (questionId != 0)
         {
-            sysmr.AddProgramPreferenceQuestion(newQuestion);
+            //sysmr.AddProgramPreferenceQuestion(newQuestion);
         }
         else
         {

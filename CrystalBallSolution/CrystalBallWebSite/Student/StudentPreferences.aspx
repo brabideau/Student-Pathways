@@ -214,11 +214,11 @@
     </div>
 
         <asp:ObjectDataSource ID="SelectProgramODB" runat="server" 
-            SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
+            SelectMethod="GetProgram" TypeName="CrystalBallSystem.BLL.StudentController" 
             OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
         <asp:ObjectDataSource ID="NaitCourseODB" runat="server" 
             OldValuesParameterFormatString="original_{0}" SelectMethod="SearchNaitCourses"
-             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController">
+             TypeName="CrystalBallSystem.BLL.StudentController">
             <SelectParameters>
                 <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="ProgramDropDownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
@@ -226,7 +226,7 @@
         </asp:ObjectDataSource>
         <asp:ObjectDataSource ID="SelectedCourseODB" 
             runat="server" SelectMethod="SelectedNaitCourses"
-             TypeName="CrystalBallSystem.BLL.SelectNaitCourseController" 
+             TypeName="CrystalBallSystem.BLL.StudentController" 
             OldValuesParameterFormatString="original_{0}">
             <SelectParameters>
                 <asp:ControlParameter ControlID="CourseGridView" Name="courseID" PropertyName="SelectedValue" Type="Int32" />

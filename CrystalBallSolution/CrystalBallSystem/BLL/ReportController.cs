@@ -210,68 +210,10 @@ namespace CrystalBallSystem.BLL
             }
 
         }
-
-
-        //[DataObjectMethod(DataObjectMethodType.Select, false)]
-        //public List<StudentPreferenceSummary> Get_Summary_Data(List<CurrentStudentData> myData)
-        //{
-        //    using (CrystalBallContext context = new CrystalBallContext())
-        //    {
-        //        var questions = from q in context.PreferenceQuestions
-        //                        select q;
-
-        //        //var results = (from p in myMatches
-        //        //               from s in myPrefs
-        //        //               where s.ProgramID == p.ProgramID
-        //        //               select p).Distinct();
-
-        //        //return results.ToList();
-
-        //        List<StudentPreferenceSummary> summaries = new List<StudentPreferenceSummary> { };
-        //        string quest;
-        //        int yes;
-        //        int no;
-
-        //        foreach (var x in questions)
-        //        {
-        //            quest = x.Description;
-        //            yes = (from n in myData
-        //                   where n.StudentAnswer && n.QuestionID == x.QuestionID
-        //                   select n).Count();
-        //            no = (from n in myData
-        //                  where !n.StudentAnswer && n.QuestionID == x.QuestionID
-        //                  select n).Count();
-
-        //            summaries.Add(new StudentPreferenceSummary
-        //            {
-        //                Question = quest,
-        //                Yes = yes,
-        //                No = no
-        //            });
-        //        }
-
-        //        return summaries;
-        //    }
-
-        //}
-
         
     #endregion
 
         #region program
-
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<ProgramData> Get_ProgramData()
-        {
-            using (CrystalBallContext context = new CrystalBallContext())
-            {
-                var results = from x in context.ProgramDatas
-                              select x;
-
-                return results.ToList();
-            }
-        }
-
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<StudentsDroppingSummary> StudentsDropping_by_Program(int? year, int? month)

@@ -252,7 +252,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         else
         {
             ProgramMetrics.Visible = false;
-            SelectNaitCourseController course = new SelectNaitCourseController();
+            StudentController course = new StudentController();
             int programID, semester;
             List<NAITCourse> courses = new List<NAITCourse>();
             //run the search for for the program automatically and fill the basket based on prefill results
@@ -423,7 +423,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             rptCourse.DataSource = CoursesSelected;
             rptCourse.DataBind();
         }
-        SelectNaitCourseController course = new SelectNaitCourseController();
+        StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
         CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue));
         CourseGridView.DataBind();
@@ -450,7 +450,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     //Will search for courses and populate the gridview based on what the user inputs into the textbox
     protected void Search_Click(object sender, EventArgs e)
     {
-        SelectNaitCourseController course = new SelectNaitCourseController();
+        StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
         CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, 0);
         CourseGridView.DataBind();
@@ -466,7 +466,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
-        SelectNaitCourseController course = new SelectNaitCourseController();
+        StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
         CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, 0);
         CourseGridView.DataBind();
@@ -479,7 +479,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     //Automatically searches for courses based on what the user selects in the drop down list
     protected void List_Change(object sender, EventArgs e)
     {
-        SelectNaitCourseController course = new SelectNaitCourseController();
+        StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
         CourseGridView.DataSource = course.SearchNaitCourses(null, Convert.ToInt32(ProgramDropDownList.SelectedValue));
         CourseGridView.DataBind();
