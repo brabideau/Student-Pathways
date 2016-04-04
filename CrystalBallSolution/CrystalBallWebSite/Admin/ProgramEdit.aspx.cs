@@ -73,6 +73,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         //Populate_DER(programID);
 
         // show the appropriate info
+        Add_Program_Button.Visible = true;
         ProgramEditDiv.Visible = true;
         Buttons.Visible = true;
         ProgramInfo_Show(sender, e);
@@ -692,6 +693,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         CourseEquivalencies.Visible = false;
         ProgramPreferences.Visible = false;
         Add_Program_Button.Visible = false;
+        Tab_Labels.Visible = false;
 
         ProgramNameLabel.Text = "";
         ProgramIDLabel.Text = "";
@@ -703,6 +705,8 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         TB_CompetitiveAdvantage.Text = "";
         CB_Active.Checked = false;
         TB_Link.Text = "";
+
+        CB_Categories.DataBind();
 
     }
 
