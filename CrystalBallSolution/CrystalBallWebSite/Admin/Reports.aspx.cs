@@ -25,42 +25,48 @@ public partial class Admin_Reports : System.Web.UI.Page
         if (!IsPostBack)
         {
             List<StudentPreferenceSummary> leftData = new List<StudentPreferenceSummary> { };
-            ViewState["leftData"] = leftData;
+            Session["leftData"] = leftData;
             List<StudentPreferenceSummary> rightData = new List<StudentPreferenceSummary> { };
-            ViewState["rightData"] = rightData;
+            Session["rightData"] = rightData;
+
+            //Fills out the program data with current month/year on first page load
+
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+
+            DL_Year.SelectedValue = year.ToString();
+            DL_Month.SelectedValue = month.ToString();
+
+            Program_Year_Label.Text = year.ToString();
+            Program_Month_Label.Text = DL_Month.SelectedItem.Text;
+
+            ReportController sysmgr = new ReportController();
+
+            List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
+
+            GV_Program_Dropping.DataSource = dropping;
+            GV_Program_Dropping.DataBind();
+
+            Session["StudentsDropping"] = dropping;
+
+
+
+            List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
+
+            Session["ProgramFrequency"] = frequency;
+
+            GV_ProgramFrequency.DataSource = frequency;
+            GV_ProgramFrequency.DataBind();
 
         }
     }
-
+/*
     protected void Page_Init()
     {
-        //Fills out the program data with current month/year on first page load
+        
 
-        int year = DateTime.Now.Year;
-        int month = DateTime.Now.Month;
-
-        DL_Year.SelectedValue = year.ToString();
-        DL_Month.SelectedValue = month.ToString();
-
-        Program_Year_Label.Text = year.ToString();
-        Program_Month_Label.Text = DL_Month.SelectedItem.Text;
-
-        ReportController sysmgr = new ReportController();
-
-        List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
-
-        GV_Program_Dropping.DataSource = dropping;
-        GV_Program_Dropping.DataBind();
-
-        ViewState["StudentsDropping"] = dropping;
-
-        List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
-
-        GV_ProgramFrequency.DataSource = frequency;
-        GV_ProgramFrequency.DataBind();
-
-        ViewState["ProgramFrequency"] = frequency;
-    }
+        
+    } */
     protected void Change_Tab(object sender, EventArgs e)
     {
         string value = Tab_Labels.SelectedValue;
@@ -113,18 +119,22 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
+        Session["ProgramFrequency"] = frequency;
+
         LV_ProgramFrequency.DataSource = frequency;
         LV_ProgramFrequency.DataBind();
-        ViewState["ProgramFrequency"] = frequency;
+
+        
         
 
         List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
+        Session["StudentsDropping"] = dropping;
+
         GV_Program_Dropping.DataSource = dropping;
         GV_Program_Dropping.DataBind();
 
-        ViewState["StudentsDropping"] = dropping;
-
+       
 
     }
 
@@ -134,8 +144,8 @@ public partial class Admin_Reports : System.Web.UI.Page
     protected void Submit_Click(object sender, EventArgs e)
     {
         //retrieve stored data
-       List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)ViewState["leftData"];
-       List<StudentPreferenceSummary> rightData = (List<StudentPreferenceSummary>)ViewState["rightData"];
+       List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)Session["leftData"];
+       List<StudentPreferenceSummary> rightData = (List<StudentPreferenceSummary>)Session["rightData"];
 
         
         
@@ -145,7 +155,7 @@ public partial class Admin_Reports : System.Web.UI.Page
             leftData = Get_Data();
             GV_PreferenceSummaries_Left.DataSource = leftData;
             GV_PreferenceSummaries_Left.DataBind();
-            ViewState["leftData"] = leftData;
+            Session["leftData"] = leftData;
 
             //fill out filter info
             Year_Left.Text = DL_Year.SelectedItem.Text;
@@ -159,7 +169,7 @@ public partial class Admin_Reports : System.Web.UI.Page
             rightData = Get_Data();
             GV_PreferenceSummaries_Right.DataSource = rightData;
             GV_PreferenceSummaries_Right.DataBind();
-            ViewState["rightData"] = rightData;
+            Session["rightData"] = rightData;
 
             //fill out filter info
             Year_Right.Text = DL_Year.SelectedItem.Text;
@@ -388,7 +398,7 @@ public partial class Admin_Reports : System.Web.UI.Page
         programFreq.AddCell(secondHeader2);
 
         // Get data to put in this table
-        List<ProgramFrequency> frequency = (List<ProgramFrequency>)ViewState["ProgramFrequency"];
+        List<ProgramFrequency> frequency = (List<ProgramFrequency>)Session["ProgramFrequency"];
 
         //align paragraph.Alignment = Element.ALIGN_CENTER
         //iterate through the data and put it in the table
