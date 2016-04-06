@@ -16,15 +16,8 @@
 
 
         <div class="search-bar col-6">
-         Year:
-        <asp:DropDownList ID="DL_Year" runat="server">
-            <asp:ListItem Text="Any Year" Value="-1"/>
-            <asp:ListItem Text="2015" Value="2015" />
-            <asp:ListItem Text="2016" Value="2016" />
-            <asp:ListItem Text="2017" Value="2017" />
-        </asp:DropDownList>
 
-        Month:
+             Month:
         <asp:DropDownList ID="DL_Month" runat="server">
             <asp:ListItem Text="Any Month" Value="-1"/>
             <asp:ListItem Text="January" Value="1" />
@@ -40,6 +33,15 @@
             <asp:ListItem Text="November" Value="11" />
             <asp:ListItem Text="December" Value="12" />
         </asp:DropDownList>
+
+         Year:
+        <asp:DropDownList ID="DL_Year" runat="server">
+            <asp:ListItem Text="Any Year" Value="-1"/>
+            <asp:ListItem Text="2015" Value="2015" />
+            <asp:ListItem Text="2016" Value="2016" />
+            <asp:ListItem Text="2017" Value="2017" />
+        </asp:DropDownList>
+
 
     </div><%-- end search bar--%>
 
@@ -70,14 +72,15 @@
                         </tr>
                 </ItemTemplate>
             </asp:ListView>
-            <asp:GridView ID="GV_ProgramFrequency" runat="server"></asp:GridView>
+
         </div>
 
         <div class="col-6 nait-courses">
             <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
         </div>
-
-           <asp:LinkButton ID="Program_Pdf_Button" runat="server" OnClick="Program_PDF_Download">Download PDF</asp:LinkButton>
+        <div class="col-12">
+           <asp:LinkButton ID="Program_Pdf_Button" runat="server" OnClick="Program_PDF_Download">Get PDF of results</asp:LinkButton>
+            </div>
 
      </div><%-- end ProgramData--%>
             

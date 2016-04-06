@@ -15,10 +15,7 @@ using System.IO;
 
 public partial class Admin_Reports : System.Web.UI.Page
 {
-
-
-
-
+    #region general stuff
     protected void Page_Load(object sender, EventArgs e)
     {
         
@@ -49,24 +46,16 @@ public partial class Admin_Reports : System.Web.UI.Page
 
             Session["StudentsDropping"] = dropping;
 
-
-
             List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
             Session["ProgramFrequency"] = frequency;
 
-            GV_ProgramFrequency.DataSource = frequency;
-            GV_ProgramFrequency.DataBind();
+            LV_ProgramFrequency.DataSource = frequency;
+            LV_ProgramFrequency.DataBind();
 
         }
     }
-/*
-    protected void Page_Init()
-    {
-        
 
-        
-    } */
     protected void Change_Tab(object sender, EventArgs e)
     {
         string value = Tab_Labels.SelectedValue;
@@ -94,11 +83,12 @@ public partial class Admin_Reports : System.Web.UI.Page
         ProgramData.Visible = false;
         StudentData.Visible = true;
     }
+    #endregion
+
 
     #region program data
     protected void Program_Submit_Click(object sender, EventArgs e)
     {
-
         Program_Year_Label.Text = DL_Year.SelectedItem.Text;
         Program_Month_Label.Text = DL_Month.SelectedItem.Text;
 
@@ -115,7 +105,9 @@ public partial class Admin_Reports : System.Web.UI.Page
             month = null;
         }
 
+
         ReportController sysmgr = new ReportController();
+
 
         List<ProgramFrequency> frequency = sysmgr.Get_Program_Frequency(year, month);
 
@@ -125,16 +117,12 @@ public partial class Admin_Reports : System.Web.UI.Page
         LV_ProgramFrequency.DataBind();
 
         
-        
-
         List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
         Session["StudentsDropping"] = dropping;
 
         GV_Program_Dropping.DataSource = dropping;
         GV_Program_Dropping.DataBind();
-
-       
 
     }
 
@@ -354,8 +342,11 @@ public partial class Admin_Reports : System.Web.UI.Page
     #region pdf
     protected void Program_PDF_Download(object sender, EventArgs e)
     {
+        
+
+
         Document myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
-        //Document myPdf = new Document(PageSize.A4, 36, 72, 108, 180);
+
         Font h1 = FontFactory.GetFont("Arial", 28);
 
         Font h2 = FontFactory.GetFont("Arial", 18);
@@ -434,8 +425,10 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         // Add the table to the pdf
         myPdf.Add(programFreq);
-        
 
+        string now = DateTime.Now.ToString("MMM d, yyyy h:mm tt");
+
+        myPdf.Add(new Paragraph("Report generated on " + now));
         // Close the pdf when you are finished with it
         myPdf.Close();
         Response.Redirect("../PDFs/myPdf.pdf");
