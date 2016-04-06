@@ -22,13 +22,7 @@
     background-color: rgba(41,128,185,.3);
     border: 1px solid #2980b9;
     margin: 15px;
-    padding: 5px;
-    background-image: url("../images/clippy.png");
-    background-repeat: no-repeat;
-    background-position: center left;
-    padding-left: 150px;
-    height: 130px;
-   
+    padding: 5px;   
 }
 
 

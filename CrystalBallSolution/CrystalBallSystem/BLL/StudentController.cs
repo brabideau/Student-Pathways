@@ -274,6 +274,13 @@ namespace CrystalBallSystem.BLL
                               where x.Active
                               select x).Count();
 
+                programids = (from p in context.Programs.AsEnumerable()
+                              from mp in myPrefs
+                              where programids.Contains(p.ProgramID) && 
+                              !p.ProgramPreferences.Any(y => y.QuestionID == mp.QuestionID && Math.Abs(y.Answer - mp.Answer) ==4)
+                              select p.ProgramID).ToList();
+
+
                 var initialresults = (from p in context.Programs.AsEnumerable()
                                       where programids.Contains(p.ProgramID)
                                       select new ProgramResult
@@ -292,10 +299,10 @@ namespace CrystalBallSystem.BLL
                                                           select c.NaitCourse).Distinct()
                                                      select (double?)x.CourseCredits).Sum(),
 
-                                          MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
+                                          MatchPercent = (int)(10 * ((from q in p.ProgramPreferences
                                                                        from mp in myPrefs
                                                                        where q.QuestionID == mp.QuestionID
-                                                                       select Math.Pow(1 + Math.Abs(q.Answer - mp.Answer), 2) - 1)).Sum() / qCount / .24)
+                                                                       select 10 - Math.Pow(Math.Abs(q.Answer - mp.Answer), 2)).Sum()) / qCount) 
 
                                       }).ToList();
 
