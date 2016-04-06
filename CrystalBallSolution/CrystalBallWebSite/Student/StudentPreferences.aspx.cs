@@ -26,8 +26,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             DataColumn CourseName;
             DataColumn CourseCredits;
             CoursesSelected = new DataTable();
-            if (Session["CoursesSelected"] == null)
-            {
+            //if (ViewState["CoursesSelected"] == null)
+            //{
                 CourseID = new DataColumn();
                 CourseID.DataType = System.Type.GetType("System.Int32");
                 CourseID.ColumnName = "CourseID";
@@ -58,12 +58,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 ViewState["CoursesSelected"] = CoursesSelected;
 
                 ViewState["BackupTable"] = CoursesSelected;
-            }
-            else
-            {
-                CoursesSelected = (DataTable)Session["CoursesSelected"];
-                ViewState["CoursesSelected"] = CoursesSelected;
-            }
+            //}
+            //else
+            //{
+                //CoursesSelected = (DataTable)Session["CoursesSelected"];
+                //ViewState["CoursesSelected"] = CoursesSelected;
+            //}
 
             int count = 0;
             foreach (DataRow row1 in CoursesSelected.Rows)
@@ -261,7 +261,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 programID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 semester = Convert.ToInt32(SemesterDropDown.SelectedValue);
                 courses = StudentController.Prefill_Courses(programID, semester);
-
+                CoursesSelected = (DataTable)ViewState["CoursesSelected"];
                 foreach (var item in courses)
                 {
                     //add items to the basket
@@ -270,7 +270,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     double CCredits = item.CourseCredits;
                     string CCode = item.CourseCode, CName = item.CourseName;
                     DataRow dr;
-                    CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+                    
                     dr = CoursesSelected.NewRow();
                     dr["CourseID"] = id;
                     dr["CourseCode"] = CCode;
@@ -286,10 +286,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     //ViewState["CoursesSelected"] = CoursesSelected;
                     ViewState["CoursesSelected"] = CoursesSelected;
 
-                    rptCourse.DataSource = CoursesSelected;
-                    rptCourse.DataBind();
+                    
 
                 }
+                rptCourse.DataSource = CoursesSelected;
+                rptCourse.DataBind();
                 //set drop down list to programid
                 //filter search results based on programid
                 ProgramDropDownList.DataBind();
@@ -298,7 +299,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 CourseGridView.DataSource = course.SearchNaitCourses(null, programID);
                 CourseGridView.DataBind();
                 CourseGridView.Visible = true;
-                CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+                //CoursesSelected = (DataTable)ViewState["CoursesSelected"];
                 int count = 0;
                 foreach (DataRow row1 in CoursesSelected.Rows)
                 {
@@ -330,7 +331,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         //clear the repeater
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
-        Session["CoursesSelected"] = BackupTable;
+        //Session["CoursesSelected"] = BackupTable;
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
@@ -346,7 +347,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         //clear the repeater
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
-        Session["CoursesSelected"] = BackupTable;
+        //Session["CoursesSelected"] = BackupTable;
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
@@ -462,7 +463,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     protected void reset_Click(object sender, EventArgs e)
     {
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
-        Session["CoursesSelected"] = BackupTable;
+        //Session["CoursesSelected"] = BackupTable;
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;

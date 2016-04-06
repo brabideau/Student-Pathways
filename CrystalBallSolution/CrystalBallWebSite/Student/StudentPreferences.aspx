@@ -101,10 +101,18 @@
                         </p>
                         <p>
                         </p>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
                     </p>
                 </div>
                 <asp:LinkButton ID="goToNaitCourses" runat="server" CssClass="button next" OnClick="Goto_NAITCourse">Next</asp:LinkButton>
                 <asp:LinkButton ID="MetricsToHSCourse" runat="server" CssClass="button back" OnClick="Show_HSCourses">Previous</asp:LinkButton>
+                <p>
+                </p>
+                <p>
+                </p>
                 <p>
                 </p>
                 <p>
@@ -303,9 +311,12 @@
                             <table>
                                 <tr id="itemPlaceholder" runat="server"></tr>
                             </table>
-                            <asp:DataPager runat="server" ID="DataPager" PageSize="4">
+                            <asp:DataPager runat="server" ID="DataPager" PageSize="8">
                                 <Fields>
-                                    <asp:NextPreviousPagerField />
+                                    <asp:NextPreviousPagerField ButtonType="Link" ShowFirstPageButton="false" ShowPreviousPageButton="true"
+                            ShowNextPageButton="false" />
+                        <asp:NumericPagerField ButtonType="Link" />
+                        <asp:NextPreviousPagerField ButtonType="Link" ShowNextPageButton="true" ShowLastPageButton="false" ShowPreviousPageButton = "false" />
                                 </Fields>
                             </asp:DataPager>
                         </LayoutTemplate>
@@ -327,4 +338,3 @@
                         <td>
                             <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank">
                 <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></div></ContentTemplate></asp:UpdatePanel></asp:Content>
-
