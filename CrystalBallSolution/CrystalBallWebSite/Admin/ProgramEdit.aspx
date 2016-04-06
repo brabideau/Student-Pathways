@@ -6,9 +6,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server" >
 
     <h1>Manage Programs</h1>
+
     <asp:UpdatePanel runat="server">
-        
-        <ContentTemplate>
+    <ContentTemplate>
+
 
         <%-- ----------------------------- BUTTONS ---------------------------------------%>
    <div runat="server" id="Buttons" visible="false" >
@@ -26,9 +27,11 @@
        <uc1:MessageUserControl runat="server" id="MessageUserControl" />
     </div>
 
+
+
     <div runat="server" id="ProgramEditDiv" visible="false">         
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
-       <div runat="server" id="ProgramInfo" visible="false" class="clearfix">
+       <div runat="server" id="BasicProgramInfo" visible="false" class="clearfix">
        <asp:Label ID="ProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
     
        <p class="clearfix"><span class="label col-3">Program Name:</span> <asp:TextBox ID="TB_ProgramName" runat="server" CssClass="col-4"/></p> 
@@ -60,7 +63,7 @@
 
         <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="Link to the main program page on the NAIT website" />Program Link: </span><asp:TextBox ID="TB_Link" runat="server"  CssClass="col-4"/></p>
         <asp:LinkButton ID="Program_Save" runat="server" OnClick="Save_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-        <asp:LinkButton ID="Program_Add" runat="server" OnClick="Add_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
+        <%--<asp:LinkButton ID="Program_Add" runat="server" OnClick="Add_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>--%>
       
     </div>
 
@@ -76,7 +79,8 @@
 
     <%-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------%>
      
-    <div runat="server" id="EntranceRequirements" class="clearfix">
+    <div runat="server" id="EntranceRequirements" visible="false" class="clearfix">
+       
        <h3>High School</h3> 
         <p>Please indicate which high school classes a student must have to enter this program.</p>
         <div runat="server" id="HighSchoolentReqs" class="entreqcss">
@@ -585,7 +589,7 @@
         <ItemTemplate>
                 <tr>
                     <td>
-                        <asp:LinkButton ID="EditButton" runat="server" CommandArgument='<%#Eval("ProgramID") %>' OnClick="Populate_Program_Info" Text="Edit" CssClass="admin_button" />
+                        <asp:LinkButton ID="EditButton" runat="server" CommandArgument='<%#Eval("ProgramID") %>' OnClick="Get_Program_Info" Text="Edit" CssClass="admin_button" />
                     </td>
                     <td>
                         <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
@@ -604,7 +608,9 @@
     </asp:ListView>
     </div>
 
-             </ContentTemplate>
+     
+        
+    </ContentTemplate>
     </asp:UpdatePanel>
 
 
@@ -635,7 +641,7 @@
         </SelectParameters>
     </asp:ObjectDataSource>
 
-    <asp:ObjectDataSource ID="ODS_SubjectRequirement" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_SubjectRequirements" TypeName="CrystalBallSystem.BLL.testController"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ODS_SubjectRequirement" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Get_SubjectRequirements" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
     
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController"></asp:ObjectDataSource>
 </asp:Content>

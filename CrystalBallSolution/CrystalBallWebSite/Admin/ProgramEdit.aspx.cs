@@ -38,12 +38,30 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         Add_Program_Button.Visible = true;
     }
 
-    protected void Populate_Program_Info(object sender, EventArgs e)
+    protected void Get_Program_Info(object sender, EventArgs e)
     {
         // Get the program
         LinkButton button = (LinkButton)(sender);
 
         int programID = Convert.ToInt32(button.CommandArgument);
+       
+
+        // show the appropriate info
+        Add_Program_Button.Visible = true;
+        ProgramEditDiv.Visible = true;
+        Buttons.Visible = true;
+        
+        ProgramList.Visible = false;
+        Tab_Labels.SelectedValue = "1";
+
+        Populate_Program_Info(programID);
+
+        ProgramInfo_Show(sender, e);
+    }
+
+
+    protected void Populate_Program_Info(int programID)
+    {
         AdminController sysmgr = new AdminController();
         Program myProgram = sysmgr.Get_Program(programID);
 
@@ -54,7 +72,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         DL_CredentialType.SelectedValue = myProgram.CredentialTypeID.ToString();
         TB_Description.Text = myProgram.ProgramDescription;
         TB_Credits.Text = myProgram.TotalCredits.ToString();
-        TB_Length.Text = myProgram.ProgramLength;
+       // TB_Length.Text = myProgram.ProgramLength;
         TB_CompetitiveAdvantage.Text = myProgram.CompetitiveAdvantage.ToString();
         CB_Active.Checked = myProgram.Active;
         TB_Link.Text = myProgram.ProgramLink;
@@ -71,51 +89,42 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
         Populate_EntranceReqs(programID);
         //Populate_DER(programID);
-
-        // show the appropriate info
-        Add_Program_Button.Visible = true;
-        ProgramEditDiv.Visible = true;
-        Buttons.Visible = true;
-        ProgramInfo_Show(sender, e);
-        ProgramList.Visible = false;
-        Tab_Labels.SelectedValue = "1";
     }
-
     #endregion
+
+    #region navigation
     protected void Change_Tab(object sender, EventArgs e)
     {
         string value = Tab_Labels.SelectedValue;
 
-        switch (value)
-        {
-            case "1":
-                ProgramInfo_Show(sender, e);
-                break;
-            case "2":
-                Categories_Show(sender, e);
-                break;
-            case "3":
-                EntranceReq_Show(sender, e);
-                break;
-            case "4":
-                Courses_Show(sender, e);
-                break;
-            case "5":
-                CourseEquivalencies_Show(sender, e);
-                break;
-            case "6":
-                ProgramPreferences_Show(sender, e);
-                break;
-        }
+            switch (value)
+            {
+                case "1":
+                    ProgramInfo_Show(sender, e);
+                    break;
+                case "2":
+                    Categories_Show(sender, e);
+                    break;
+                case "3":
+                    EntranceReq_Show(sender, e);
+                    break;
+                case "4":
+                    Courses_Show(sender, e);
+                    break;
+                case "5":
+                    CourseEquivalencies_Show(sender, e);
+                    break;
+                case "6":
+                    ProgramPreferences_Show(sender, e);
+                    break;
+            }
     }
 
 
-    /* -----------------------------------PROGRAM INFO --------------------*/
-    #region program info
     protected void ProgramInfo_Show(object sender, EventArgs e)
     {
-        Program_Add.Visible = false;
-        ProgramInfo.Visible = true;
+        //Program_Add.Visible = false;
+        BasicProgramInfo.Visible = true;
         Categories.Visible = false;
         EntranceRequirements.Visible = false;
         ProgramCourses.Visible = false;
@@ -124,68 +133,10 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         Tab_Labels.SelectedValue = "1";
     }
 
-    protected void Save_Program(object sender, EventArgs e)
-    {
-        AdminController sysmr = new AdminController();
 
-        var program = new Program();
-        program.ProgramID = int.Parse(ProgramIDLabel.Text);
-        program.CredentialTypeID = int.Parse(DL_CredentialType.SelectedValue);
-        program.ProgramName = TB_ProgramName.Text;
-        program.ProgramDescription = TB_Description.Text;
-        string credits = TB_Credits.Text;
-
-        if (string.IsNullOrEmpty(credits))
-        {
-            program.TotalCredits = null;
-
-        }
-        else
-        {
-            program.TotalCredits = double.Parse(credits);
-        }
-
-        string length = TB_Length.SelectedValue;
-        if (length != "0")
-        {
-            program.ProgramLength = length;
-        }
-        
-        string competitiveAdvantage = TB_CompetitiveAdvantage.Text;
-        if (string.IsNullOrEmpty(competitiveAdvantage))
-        {
-            program.CompetitiveAdvantage = null;
-        }
-        else
-        {
-            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
-        }
-
-        program.Active = CB_Active.Checked;
-        program.ProgramLink = TB_Link.Text;
-
-        if (string.IsNullOrEmpty(TB_ProgramName.Text))
-        {
-            MessageUserControl.ShowInfo("The Program Name is required.");
-        }
-        else if(TB_Length.SelectedValue == "0")
-        {
-            MessageUserControl.ShowInfo("The program length is required.");
-        }
-        else
-        {
-            MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You uppdated the program");
-            Categories_Show(sender, e);
-        }
-        
-    }
-    #endregion
-    /*-- ----------------------------- CATEGORIES ---------------------------------------*/
-
-    #region categories
     protected void Categories_Show(object sender, EventArgs e)
     {
-        ProgramInfo.Visible = false;
+        BasicProgramInfo.Visible = false;
         Categories.Visible = true;
         EntranceRequirements.Visible = false;
         ProgramCourses.Visible = false;
@@ -194,6 +145,145 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         Tab_Labels.SelectedValue = "2";
 
     }
+
+
+    protected void EntranceReq_Show(object sender, EventArgs e)
+    {
+        BasicProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = true;
+        ProgramCourses.Visible = false;
+        CourseEquivalencies.Visible = false;
+        ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "3";
+    }
+
+
+    protected void CourseEquivalencies_Show(object sender, EventArgs e)
+    {
+        Add_Program_Button.Visible = false;
+        BasicProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = false;
+        ProgramCourses.Visible = false;
+        CourseEquivalencies.Visible = true;
+        ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "5";
+
+        //reset add equivalency screen
+        EmptyCurrentDropdown.Items.Clear();
+        EmptyCurrentDropdown.DataBind();
+        EmptyEquivalentProgram.Items.Clear();
+        EmptyEquivalentProgram.DataBind();
+        EquivalentCourseID.Items.Clear();
+        EquivalentCourseID.DataBind();
+    }
+
+
+    protected void Courses_Show(object sender, EventArgs e)
+    {
+        Add_Program_Button.Visible = false;
+        BasicProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = false;
+        ProgramCourses.Visible = true;
+        CourseEquivalencies.Visible = false;
+        ProgramPreferences.Visible = false;
+        Tab_Labels.SelectedValue = "4";
+    }
+
+
+    protected void ProgramPreferences_Show(object sender, EventArgs e)
+    {
+        Add_Program_Button.Visible = false;
+        BasicProgramInfo.Visible = false;
+        Categories.Visible = false;
+        EntranceRequirements.Visible = false;
+        ProgramCourses.Visible = false;
+        CourseEquivalencies.Visible = false;
+        ProgramPreferences.Visible = true;
+        Tab_Labels.SelectedValue = "6";
+    }
+
+    #endregion
+
+
+    /* -----------------------------------PROGRAM INFO --------------------*/
+    #region program info
+
+
+    protected void Save_Program(object sender, EventArgs e)
+    {
+        AdminController sysmr = new AdminController();
+
+
+        if ( ProgramIDLabel.Text!= "") 
+        {
+            var program = new Program();
+            program.ProgramID = int.Parse(ProgramIDLabel.Text);
+            program.CredentialTypeID = int.Parse(DL_CredentialType.SelectedValue);
+            program.ProgramName = TB_ProgramName.Text;
+            program.ProgramDescription = TB_Description.Text;
+            string credits = TB_Credits.Text;
+
+            if (string.IsNullOrEmpty(credits))
+            {
+                program.TotalCredits = null;
+
+            }
+            else
+            {
+                program.TotalCredits = double.Parse(credits);
+            }
+
+            string length = TB_Length.SelectedValue;
+            if (length != "0")
+            {
+                program.ProgramLength = length;
+            }
+        
+            string competitiveAdvantage = TB_CompetitiveAdvantage.Text;
+            if (string.IsNullOrEmpty(competitiveAdvantage))
+            {
+                program.CompetitiveAdvantage = null;
+            }
+            else
+            {
+                program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+            }
+
+            program.Active = CB_Active.Checked;
+            program.ProgramLink = TB_Link.Text;
+
+            if (string.IsNullOrEmpty(TB_ProgramName.Text))
+            {
+                MessageUserControl.ShowInfo("The Program Name is required.");
+            }
+            else if(TB_Length.SelectedValue == "0")
+            {
+                MessageUserControl.ShowInfo("The program length is required.");
+            }
+            else
+            {
+                MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You uppdated the program");
+                Categories_Show(sender, e);
+            }
+
+         }
+        else
+        {
+            Add_Program(sender, e);
+        }
+        
+
+
+        
+    }
+    #endregion
+    /*-- ----------------------------- CATEGORIES ---------------------------------------*/
+
+    #region categories
+  
 
     protected void Populate_Categories(int programID)
     {
@@ -237,18 +327,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     #endregion
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
-     #region entrance requirements
-      protected void EntranceReq_Show(object sender, EventArgs e)
-    {
-        ProgramInfo.Visible = false;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = true;
-        ProgramCourses.Visible = false;
-        CourseEquivalencies.Visible = false;
-        ProgramPreferences.Visible = false;
-        Tab_Labels.SelectedValue = "3";
-    }
-    #endregion
+
+
+    
 
 
     #region high schoolentrance requirements
@@ -414,17 +495,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
     /*-- ----------------------------- COURSES ---------------------------------------*/
     #region courses
-    protected void Courses_Show(object sender, EventArgs e)
-    {
-        Add_Program_Button.Visible = false;
-        ProgramInfo.Visible = false;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = false;
-        ProgramCourses.Visible = true;
-        CourseEquivalencies.Visible = false;
-        ProgramPreferences.Visible = false;
-        Tab_Labels.SelectedValue = "4";
-    }
 
     protected void Populate_Courses(int programID)
     {
@@ -518,25 +588,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     #endregion
     /*-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------*/
     #region equivalencies
-    protected void CourseEquivalencies_Show(object sender, EventArgs e)
-    {
-        Add_Program_Button.Visible = false;
-        ProgramInfo.Visible = false;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = false;
-        ProgramCourses.Visible = false;
-        CourseEquivalencies.Visible = true;
-        ProgramPreferences.Visible = false;
-        Tab_Labels.SelectedValue = "5";
-
-        //reset add equivalency screen
-        EmptyCurrentDropdown.Items.Clear();
-        EmptyCurrentDropdown.DataBind();
-        EmptyEquivalentProgram.Items.Clear();
-        EmptyEquivalentProgram.DataBind();
-        EquivalentCourseID.Items.Clear();
-        EquivalentCourseID.DataBind();
-    }
 
     protected void Populate_Equivalencies(int programID)
     {
@@ -598,17 +649,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     #endregion
     /*-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------*/
     #region preferences
-    protected void ProgramPreferences_Show(object sender, EventArgs e)
-    {
-        Add_Program_Button.Visible = false;
-        ProgramInfo.Visible = false;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = false;
-        ProgramCourses.Visible = false;
-        CourseEquivalencies.Visible = false;
-        ProgramPreferences.Visible = true;
-        Tab_Labels.SelectedValue = "6";
-    }
 
     protected void Populate_Preferences(int programID)
     {
@@ -684,16 +724,16 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         ProgramEditDiv.Visible = true;
         Buttons.Visible = true;
         ProgramList.Visible = false;
-        Program_Save.Visible = false;
-        Program_Add.Visible = true;
-        ProgramInfo.Visible = true;
-        Categories.Visible = false;
-        EntranceRequirements.Visible = false;
-        ProgramCourses.Visible = false;
-        CourseEquivalencies.Visible = false;
-        ProgramPreferences.Visible = false;
-        Add_Program_Button.Visible = false;
-        Tab_Labels.Visible = false;
+        //Program_Save.Visible = false;
+        //Program_Add.Visible = true;
+        BasicProgramInfo.Visible = true;
+        //Categories.Visible = false;
+        //EntranceRequirements.Visible = false;
+        //ProgramCourses.Visible = false;
+        //CourseEquivalencies.Visible = false;
+        //ProgramPreferences.Visible = false;
+        //Add_Program_Button.Visible = false;
+        //Tab_Labels.Visible = false;
 
         ProgramNameLabel.Text = "";
         ProgramIDLabel.Text = "";
@@ -706,7 +746,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         CB_Active.Checked = false;
         TB_Link.Text = "";
 
-        CB_Categories.DataBind();
+       // CB_Categories.DataBind();
 
     }
 
@@ -737,8 +777,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             program.ProgramLength = length;
         }
         
-
-
         if (string.IsNullOrEmpty(competitiveAdvantage))
         {
             program.CompetitiveAdvantage = null;
@@ -757,21 +795,38 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
         AdminController sysmr = new AdminController();
 
+        string errors = "";
+
         if (string.IsNullOrEmpty(TB_ProgramName.Text))
         {
-            MessageUserControl.ShowInfo("The Program Name is required.");
+            errors += "The Program Name is required.\n";
         }
-        else if(TB_Length.SelectedValue == "0")
+        if(TB_Length.SelectedValue == "0")
         {
-            MessageUserControl.ShowInfo("The program length is required.");
+            errors += "The program length is required.\n";
         }
-        else
+        
+
+        if (errors == "")
         {
             MessageUserControl.TryRun(() => sysmr.AddProgram(NewProgram), "Add Success.", "You added new program");
             Categories_Show(sender, e);
             ProgramNameLabel.Text = TB_ProgramName.Text;
+
+
+
+            int programid = sysmr.GetProgramIDByName(TB_ProgramName.Text);
+
+            Populate_Program_Info(programid);
+        }
+        else
+        {
+            MessageUserControl.ShowInfo(errors);
         }
 
+        
+
+        
 
 
     }
