@@ -7,7 +7,15 @@
     <div runat="server">
         <h1>Manage High School Courses</h1>
         <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-    <asp:ListView ID="HighSchoolCoursesList" runat="server" DataSourceID="ODSHighSchoolCourses" InsertItemPosition="LastItem">
+    <asp:ListView ID="HighSchoolCoursesList" 
+        runat="server" 
+  
+        InsertItemPosition="LastItem"
+        ItemType="CrystalBallSystem.DAL.Entities.HighSchoolCours"
+        OnItemCanceling="HighSchoolCoursesList_ItemCanceling" 
+        OnItemEditing="HighSchoolCoursesList_ItemEditing" 
+        OnItemUpdating="HighSchoolCoursesList_ItemUpdating" 
+        OnItemInserting="HighSchoolCoursesList_ItemInserting">
 
         <EditItemTemplate>
             <tr style="">
@@ -32,10 +40,18 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Course GroupID:
+                                    Course Group:
                                 </th>
                                 <td>
-                                    <asp:DropDownList ID="DDL_CourseGroup_Edit" runat="server" DataSourceID="ODSCourseGroup" DataValueField="CourseGroupID" DataTextField="CourseGroupDescription"></asp:DropDownList>
+                                    <asp:DropDownList ID="DDL_CourseGroup_Edit" runat="server" 
+                                                                                DataSourceID="ODSCourseGroup" 
+                                                                                DataValueField="CourseGroupID" 
+                                                                                DataTextField="CourseGroupDescription"
+                                                                                 AppendDataBoundItems="true" 
+                                                                                >
+                                        <asp:ListItem Value="0">Select Course Group</asp:ListItem>
+
+                                    </asp:DropDownList>
                                 </td>
                             </tr>
                             <tr>
@@ -44,6 +60,7 @@
                                 </th>
                                 <td>
                                     <asp:DropDownList ID="DDL_CourseLevel_Edit" runat="server">
+                                        <asp:ListItem Value="0">Select Course Level</asp:ListItem>
                                         <asp:ListItem Value ="1">1</asp:ListItem>
                                         <asp:ListItem Value ="2">2</asp:ListItem>
                                         <asp:ListItem Value ="3">3</asp:ListItem>
@@ -146,9 +163,9 @@
 
 
 
-    </asp:ListView>
+        </asp:ListView>
         </div>
-    <asp:ObjectDataSource ID="ODSHighSchoolCourses" runat="server" SelectMethod="HighSchoolCourse_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.HighSchoolCours" InsertMethod="AddHighSchoolCourse" OldValuesParameterFormatString="original_{0}" UpdateMethod="HighSchoolCourse_Update" OnInserted="CheckForException" OnUpdated="CheckForException"></asp:ObjectDataSource>
+    <%--<asp:ObjectDataSource ID="ODSHighSchoolCourses" runat="server" SelectMethod="HighSchoolCourse_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.HighSchoolCours" InsertMethod="AddHighSchoolCourse" OldValuesParameterFormatString="original_{0}" UpdateMethod="HighSchoolCourse_Update" OnInserted="CheckForException" OnUpdated="CheckForException"></asp:ObjectDataSource>--%>
     <asp:ObjectDataSource ID="ODSCourseGroup" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="CourseGroup_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
 </asp:Content>
 

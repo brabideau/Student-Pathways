@@ -151,7 +151,6 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
         TextBox ProgramNameBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramNameTextBox");
         TextBox EntranceRequirementBox = (TextBox)ProgramListView.InsertItem.FindControl("EntranceRequirementTextBox");
         TextBox TotalCreditsBox = (TextBox)ProgramListView.InsertItem.FindControl("TotalCreditsTextBox");
-        //TextBox ProgramLengthBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramLengthTextBox");
         DropDownList ProgramLength = (DropDownList)ProgramListView.InsertItem.FindControl("lengthDropDownList");
         string length = ProgramLength.SelectedValue.ToString();
         TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.InsertItem.FindControl("CompetiveAdvantageTextBox");
