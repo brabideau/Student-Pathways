@@ -28,5 +28,6 @@ namespace CrystalBallSystem.DAL.Entities
         public int CourseLevel { get; set; }
 
         public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
+        //public virtual ICollection<CourseGroup> CourseGroups { get; set; }
     }
 }

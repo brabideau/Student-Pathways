@@ -32,10 +32,10 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Gourse GroupID:
+                                    Course GroupID:
                                 </th>
                                 <td>
-                                    <asp:TextBox ID="CourseGroupIDTextBox" runat="server" Text='<%# Bind("CourseGroupID") %>' />
+                                    <asp:DropDownList ID="DDL_CourseGroup_Edit" runat="server" DataSourceID="ODSCourseGroup" DataValueField="CourseGroupID" DataTextField="CourseGroupDescription"></asp:DropDownList>
                                 </td>
                             </tr>
                             <tr>
@@ -43,7 +43,11 @@
                                     CourseLevel:
                                 </th>
                                 <td>
-                                    <asp:TextBox ID="CourseLevelTextBox" runat ="server" Text='<%# Bind("CourseLevel") %>' />
+                                    <asp:DropDownList ID="DDL_CourseLevel_Edit" runat="server">
+                                        <asp:ListItem Value ="1">1</asp:ListItem>
+                                        <asp:ListItem Value ="2">2</asp:ListItem>
+                                        <asp:ListItem Value ="3">3</asp:ListItem>
+                                    </asp:DropDownList>
                                 </td>
                             </tr>
                             <tr>
@@ -79,10 +83,14 @@
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
                 </td>
                 <td>
-                    <asp:TextBox ID="CourseGroupIDTextBox" runat="server" Text='<%# Bind("CourseGroupID") %>' />
+                    <asp:DropDownList ID="DDL_CourseGroup_Insert" runat="server" DataSourceID="ODSCourseGroup" DataValueField="CourseGroupID" DataTextField="CourseGroupDescription"></asp:DropDownList>
                 </td>
                 <td>
-                     <asp:TextBox ID="CourseLevelTextBox" runat ="server" Text='<%# Bind("CourseLevel") %>' />
+                     <asp:DropDownList ID="DDL_CourseLevel_Insert" runat="server">
+                            <asp:ListItem Value ="1">1</asp:ListItem>
+                            <asp:ListItem Value ="2">2</asp:ListItem>
+                            <asp:ListItem Value ="3">3</asp:ListItem>
+                     </asp:DropDownList>
                 </td>
             </tr>
         </InsertItemTemplate>
@@ -141,5 +149,6 @@
     </asp:ListView>
         </div>
     <asp:ObjectDataSource ID="ODSHighSchoolCourses" runat="server" SelectMethod="HighSchoolCourse_List" TypeName="CrystalBallSystem.BLL.AdminController" DataObjectTypeName="CrystalBallSystem.DAL.Entities.HighSchoolCours" InsertMethod="AddHighSchoolCourse" OldValuesParameterFormatString="original_{0}" UpdateMethod="HighSchoolCourse_Update" OnInserted="CheckForException" OnUpdated="CheckForException"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ODSCourseGroup" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="CourseGroup_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
 </asp:Content>
 

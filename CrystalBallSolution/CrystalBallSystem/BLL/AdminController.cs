@@ -378,6 +378,14 @@ namespace CrystalBallSystem.BLL
 
         #region do we need these?
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<CourseGroup> CourseGroup_List()
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                return context.CourseGroups.OrderBy(x => x.CourseGroupID).ToList();
+            }
+        }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all categories

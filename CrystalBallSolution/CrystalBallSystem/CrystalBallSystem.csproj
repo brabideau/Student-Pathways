@@ -64,6 +64,7 @@
     <Compile Include="BLL\Security\ApplicationDbContext.cs" />
     <Compile Include="BLL\Security\RoleManager.cs" />
     <Compile Include="DAL\Entities\Administrator.cs" />
+    <Compile Include="DAL\Entities\CourseGroup.cs" />
     <Compile Include="DAL\Entities\Security\ApplicationUser.cs" />
     <Compile Include="BLL\Security\UserManager.cs" />
     <Compile Include="BLL\StudentController.cs" />

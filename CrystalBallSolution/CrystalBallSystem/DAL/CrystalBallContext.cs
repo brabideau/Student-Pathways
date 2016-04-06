@@ -30,6 +30,7 @@ namespace CrystalBallSystem.DAL
         public virtual DbSet<NewStudentData> NewStudentDatas { get; set; }
         public virtual DbSet<CurrentStudentData> CurrentStudentDatas { get; set; }
         public virtual DbSet<ProgramData> ProgramDatas { get; set; }
+        public virtual DbSet<CourseGroup> CourseGroups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
