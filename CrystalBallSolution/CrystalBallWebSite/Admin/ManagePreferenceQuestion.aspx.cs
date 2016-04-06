@@ -25,100 +25,100 @@ public partial class Admin_ManagePreferenceQuestion : System.Web.UI.Page
         MessageUserControl.HandleDataBoundException(e);
     }
 
-    protected void ProgramList_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
-    {
-        ProgramList.SelectedIndex = e.NewSelectedIndex;
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
-        AdminController sysmr = new AdminController();
-        var questionData = sysmr.GetQuestionsByProgram(proId);
-        QuestionListView.DataSource = questionData;
-        QuestionListView.Visible = true;
-        QuestionListView.DataBind();
-    }
+    //protected void ProgramList_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+    //{
+    //    ProgramList.SelectedIndex = e.NewSelectedIndex;
+    //    string pid = ProgramList.SelectedDataKey.Value.ToString();
+    //    int proId = Convert.ToInt32(pid);
+    //    AdminController sysmr = new AdminController();
+    //    var questionData = sysmr.GetQuestionsByProgram(proId);
+    //    QuestionListView.DataSource = questionData;
+    //    QuestionListView.Visible = true;
+    //    QuestionListView.DataBind();
+    //}
 
-    private void BindList()
-    {
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
-        AdminController sysmr = new AdminController();
-        var questionData = sysmr.GetQuestionsByProgram(proId);
+    //private void BindList()
+    //{
+    //    string pid = ProgramList.SelectedDataKey.Value.ToString();
+    //    int proId = Convert.ToInt32(pid);
+    //    AdminController sysmr = new AdminController();
+    //    var questionData = sysmr.GetQuestionsByProgram(proId);
 
-        QuestionListView.DataSource = questionData;
-        QuestionListView.DataBind();
-    }
+    //    QuestionListView.DataSource = questionData;
+    //    QuestionListView.DataBind();
+    //}
 
-    protected void SearchButton_Click(object sender, EventArgs e)
-    {
-        QuestionListView.DataSource = null;
-        QuestionListView.Visible = false;
-    }
+    //protected void SearchButton_Click(object sender, EventArgs e)
+    //{
+    //    QuestionListView.DataSource = null;
+    //    QuestionListView.Visible = false;
+    //}
 
-    protected void QuestionListView_ItemUpdating(object sender, ListViewUpdateEventArgs e)
-    {
-        AdminController sysmr = new AdminController();
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
+    //protected void QuestionListView_ItemUpdating(object sender, ListViewUpdateEventArgs e)
+    //{
+    //    AdminController sysmr = new AdminController();
+    //    string pid = ProgramList.SelectedDataKey.Value.ToString();
+    //    int proId = Convert.ToInt32(pid);
 
-        Label questionId = (Label)QuestionListView.EditItem.FindControl("QuestionIDTextLabel");
-        RadioButtonList answer = (RadioButtonList)QuestionListView.EditItem.FindControl("AnswerRadioButtons");
-        Label question = (Label)QuestionListView.EditItem.FindControl("QuestionTextLabel");
+    //    Label questionId = (Label)QuestionListView.EditItem.FindControl("QuestionIDTextLabel");
+    //    RadioButtonList answer = (RadioButtonList)QuestionListView.EditItem.FindControl("AnswerRadioButtons");
+    //    Label question = (Label)QuestionListView.EditItem.FindControl("QuestionTextLabel");
 
-        var programPreference = new GetProgramPreferenceQuestions();
+    //    var programPreference = new GetProgramPreferenceQuestions();
 
-        programPreference.ProgramID = proId;
-        programPreference.QuestionID = int.Parse(questionId.Text);
-        programPreference.Question = question.Text;
+    //    programPreference.ProgramID = proId;
+    //    programPreference.QuestionID = int.Parse(questionId.Text);
+    //    programPreference.Question = question.Text;
       
-        programPreference.Answer = Convert.ToInt32(answer.SelectedValue);
+    //    programPreference.Answer = Convert.ToInt32(answer.SelectedValue);
 
 
-        //sysmr.UpdateProgramPreferenceQuestion(programPreference);
-        QuestionListView.EditIndex = -1;
+    //    //sysmr.UpdateProgramPreferenceQuestion(programPreference);
+    //    QuestionListView.EditIndex = -1;
 
-        BindList();
-    }
+    //    BindList();
+    //}
 
-    protected void QuestionListView_ItemEditing(object sender, ListViewEditEventArgs e)
-    {
-       QuestionListView.EditIndex = e.NewEditIndex;
-        BindList();
-    }
+    //protected void QuestionListView_ItemEditing(object sender, ListViewEditEventArgs e)
+    //{
+    //   QuestionListView.EditIndex = e.NewEditIndex;
+    //    BindList();
+    //}
 
-    protected void QuestionListView_ItemCanceling(object sender, ListViewCancelEventArgs e)
-    {
+    //protected void QuestionListView_ItemCanceling(object sender, ListViewCancelEventArgs e)
+    //{
         
-        QuestionListView.EditIndex = -1;
-        BindList();
-    }
+    //    QuestionListView.EditIndex = -1;
+    //    BindList();
+    //}
 
-    protected void QuestionListView_ItemInserting(object sender, ListViewInsertEventArgs e)
-    {
+    //protected void QuestionListView_ItemInserting(object sender, ListViewInsertEventArgs e)
+    //{
 
-        AdminController sysmr = new AdminController();
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
+    //    AdminController sysmr = new AdminController();
+    //    string pid = ProgramList.SelectedDataKey.Value.ToString();
+    //    int proId = Convert.ToInt32(pid);
 
-        DropDownList questionList = (DropDownList)QuestionListView.InsertItem.FindControl("QuestionDropDownList");
-        int questionId = int.Parse(questionList.SelectedValue);
-        RadioButtonList answer = (RadioButtonList)QuestionListView.InsertItem.FindControl("AnswerRadioButtons");
+    //    DropDownList questionList = (DropDownList)QuestionListView.InsertItem.FindControl("QuestionDropDownList");
+    //    int questionId = int.Parse(questionList.SelectedValue);
+    //    RadioButtonList answer = (RadioButtonList)QuestionListView.InsertItem.FindControl("AnswerRadioButtons");
 
-        var newQuestion = new ProgramPreference();
+    //    var newQuestion = new ProgramPreference();
 
-        newQuestion.QuestionID = questionId;
-        newQuestion.ProgramID = proId;
-        newQuestion.Answer= Convert.ToInt32(answer.SelectedValue);
+    //    newQuestion.QuestionID = questionId;
+    //    newQuestion.ProgramID = proId;
+    //    newQuestion.Answer= Convert.ToInt32(answer.SelectedValue);
        
             
-        if (questionId != 0)
-        {
-            //sysmr.AddProgramPreferenceQuestion(newQuestion);
-        }
-        else
-        {
-            MessageUserControl.ShowInfo("Please select a question before clicking Add.");
-        }
+    //    if (questionId != 0)
+    //    {
+    //        //sysmr.AddProgramPreferenceQuestion(newQuestion);
+    //    }
+    //    else
+    //    {
+    //        MessageUserControl.ShowInfo("Please select a question before clicking Add.");
+    //    }
 
-        BindList();
-    }
+    //    BindList();
+    //}
 }
