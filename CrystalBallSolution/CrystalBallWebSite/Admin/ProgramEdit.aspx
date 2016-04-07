@@ -469,27 +469,27 @@
    
         <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
             <Columns>
-                <asp:TemplateField HeaderText="CourseEquivalencyID">
+                <asp:TemplateField HeaderText="CourseEquivalencyID" Visible="false">
                     <ItemTemplate>
                         <asp:Label ID="CourseEquivalencyID" runat="server" Text='<%# Item.CourseEquivalencyID %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="CourseCode">
+                <asp:TemplateField HeaderText="Program Course Code">
                     <ItemTemplate>
                         <asp:Label ID="CourseCode" runat="server" Text='<%# Item.CourseCode %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="CourseName">
+                <asp:TemplateField HeaderText="Program Course Name">
                     <ItemTemplate>
                         <asp:Label ID="CourseName" runat="server" Text='<%# Item.CourseName %>' />
                     </ItemTemplate>
                 </asp:TemplateField>    
-                <asp:TemplateField HeaderText="DestinationCourseCode">
+                <asp:TemplateField HeaderText="Transfer Course Code">
                     <ItemTemplate>
                         <asp:Label ID="DestinationCourseCode" runat="server" Text='<%# Item.DestinationCourseCode %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="DestinationCourseName">
+                <asp:TemplateField HeaderText="Transfer Course">
                     <ItemTemplate>
                         <asp:Label ID="DestinationCourseName" runat="server" Text='<%# Item.DestinationCourseName %>' />
                     </ItemTemplate>
@@ -504,24 +504,34 @@
                        
         </asp:GridView>    
 
-        <div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block">
-            <asp:Label ID="EmptyCurrent" runat="server" Text="Program course "></asp:Label>
+        <div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block clearfix">
+            <div class="clearfix">
+            <asp:Label ID="EmptyCurrent" runat="server" Text="Program course " CssClass="col-4 label"></asp:Label>
         
             <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
-                DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True">
+                DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-5">
                  <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-            </asp:DropDownList>
+            </asp:DropDownList> 
+            <div class="clearfix">
+            <asp:Label ID="EmptyEquivalent" runat="server" Text="--Gets Credit From--" CssClass="col-7 label"></asp:Label>  
+                </div>
+                     
+                <div class="clearfix">     
+            <asp:Label ID="ProgEquivalent" runat="server" Text="Program: " CssClass="col-4 label"></asp:Label>
 
-            <asp:Label ID="EmptyEquivalent" runat="server" Text=" will take equivalencies from "></asp:Label>        
-            <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true">
+            <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
                 <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
             </asp:DropDownList>
+                    </div>
+                     
+                <div class="clearfix"> 
 
-            <asp:Label ID="EquivalentCourseName" runat="server" Text=" "></asp:Label>
-            <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true">
+            <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label>
+            <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
                 <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
             </asp:DropDownList>
-            <br />
+            </div></div>
+
             <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="admin_button submit">Add Equivalency</asp:LinkButton>
         </div>
 
