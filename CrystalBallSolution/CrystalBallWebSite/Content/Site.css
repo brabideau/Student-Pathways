@@ -274,6 +274,11 @@ textarea, .textarea {
     color: #ebf3f9;
 }
 
+.admin_button_centered {
+    display: block;
+    width: 120px;
+    text-align: center;
+}
 .admin_button{
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
@@ -341,6 +346,13 @@ textarea, .textarea {
     display: inline;
     text-align: right;
     vertical-align: top;
+}
+
+.center-bold {
+    display: inline;
+    text-align: center;
+    vertical-align: top;
+    font-weight: bold;
 }
 
 .tooltip {

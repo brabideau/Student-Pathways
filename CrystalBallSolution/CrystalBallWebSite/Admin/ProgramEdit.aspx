@@ -506,36 +506,39 @@
 
         <div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block clearfix">
             <div class="clearfix">
-            <asp:Label ID="EmptyCurrent" runat="server" Text="Program course " CssClass="col-4 label"></asp:Label>
+                <asp:Label ID="EmptyCurrent" runat="server" Text="Program course " CssClass="col-4 label"></asp:Label>
         
-            <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
-                DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-5">
-                 <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-            </asp:DropDownList> 
-            <div class="clearfix">
-            <asp:Label ID="EmptyEquivalent" runat="server" Text="--Gets Credit From--" CssClass="col-7 label"></asp:Label>  
+                <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
+                    DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-5">
+                     <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
+                </asp:DropDownList> 
+                <div class="clearfix">
+                    <asp:Label ID="EmptyEquivalent" runat="server" Text="--Gets Credit From--" CssClass="col-12 center-bold"></asp:Label>  
                 </div>
                      
                 <div class="clearfix">     
-            <asp:Label ID="ProgEquivalent" runat="server" Text="Program: " CssClass="col-4 label"></asp:Label>
+                    <asp:Label ID="ProgEquivalent" runat="server" Text="Program: " CssClass="col-4 label"></asp:Label>
 
-            <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
-                <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
-            </asp:DropDownList>
-                    </div>
+                    <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
+                        <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
                      
                 <div class="clearfix"> 
 
-            <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label>
-            <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
-                <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-            </asp:DropDownList>
-            </div></div>
+                    <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label>
+                    <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
+                        <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
 
-            <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click"  CssClass="admin_button submit">Add Equivalency</asp:LinkButton>
+                <div class="col-12">
+                    <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button admin_button_centered submit">Add Equivalency</asp:LinkButton>
+                </div>
+            </div>
         </div>
 
-         <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>
+        <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>
     </div>
     
 
