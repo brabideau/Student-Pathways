@@ -53,22 +53,46 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
         AdminController sysmr = new AdminController();
 
         DropDownList courseGroup = (DropDownList)HighSchoolCoursesList.InsertItem.FindControl("DDL_CourseGroup_Insert");
-        string courseGroupId = courseGroup.SelectedValue;
+        string courseGroupId = courseGroup.SelectedItem.Value;
         TextBox courseNameText = (TextBox)HighSchoolCoursesList.InsertItem.FindControl("HighSchoolCourseNameTextBox");
         DropDownList courseLevel = (DropDownList)HighSchoolCoursesList.InsertItem.FindControl("DDL_CourseLevel_Insert");
-        string courseLevelId = courseLevel.SelectedValue;
+        string courseLevelId = courseLevel.SelectedItem.Value;
 
         var highschoolCourse = new HighSchoolCours();
 
         highschoolCourse.HighSchoolCourseName = courseNameText.Text;
-        highschoolCourse.CourseLevel = int.Parse(courseLevelId);
-        highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
 
         List<HighSchoolCours> NewHighSchoolCourse = new List<HighSchoolCours>();
-        NewHighSchoolCourse.Add(highschoolCourse);
+        
 
-        sysmr.AddHighSchoolCourse(NewHighSchoolCourse);
-        BindList();
+        if (string.IsNullOrEmpty(courseNameText.Text))
+        {
+            MessageUserControl.ShowInfo("The High School Name is required.");
+        }
+        if (courseLevel.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("Please select a course level.");
+        }
+        else
+        {
+            highschoolCourse.CourseLevel = int.Parse(courseLevelId);
+        }
+
+        if (courseGroup.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("Please select a course Group.");
+        }
+        else
+        {
+            highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
+        }
+
+        if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
+        {
+            NewHighSchoolCourse.Add(highschoolCourse);
+            MessageUserControl.TryRun(() => sysmr.AddHighSchoolCourse(NewHighSchoolCourse), "Add Success.", "You added new course: " + courseNameText.Text);
+            BindList();
+        }
 
 
 
@@ -90,38 +114,34 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
         
         highschoolCourse.HighSchoolCourseName = courseNameText.Text;
 
-        highschoolCourse.CourseLevel = int.Parse(courseLevelId);
-        highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
-        sysmr.HighSchoolCourse_Update(highschoolCourse);
+        if (string.IsNullOrEmpty(courseNameText.Text))
+        {
+            MessageUserControl.ShowInfo("The High School Name is required.");
+        }
+        if (courseLevel.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("Please select a course level.");
+        }
+        else
+        {
+            highschoolCourse.CourseLevel = int.Parse(courseLevelId);
+        }
 
-        //if (string.IsNullOrEmpty(courseNameText.Text))
-        //{
-        //    MessageUserControl.ShowInfo("The High School Name is required.");
-        //}
-        //if (courseLevel.SelectedValue == "0")
-        //{
-        //    MessageUserControl.ShowInfo("Please select a course level.");
-        //}
-        //else
-        //{
-        //    highschoolCourse.CourseLevel = int.Parse(courseLevelId);
-        //}
+        if (courseGroup.SelectedValue == "0")
+        {
+            MessageUserControl.ShowInfo("Please select a course Group.");
+        }
+        else
+        {
+            highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
+        }
 
-        //if (courseGroup.SelectedValue == "0")
-        //{
-        //    MessageUserControl.ShowInfo("Please select a course Group.");
-        //}
-        //else
-        //{
-        //    highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
-        //}
-
-        //if(string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
-        //{
-        //    MessageUserControl.TryRun(() => sysmr.HighSchoolCourse_Update(highschoolCourse), "Update Success.", "You updated the course: " + courseNameText.Text);
-        //    HighSchoolCoursesList.EditIndex = -1;
-        //    BindList();
-        //}
+        if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
+        {
+            MessageUserControl.TryRun(() => sysmr.HighSchoolCourse_Update(highschoolCourse), "Update Success.", "You updated the course: " + courseNameText.Text);
+            HighSchoolCoursesList.EditIndex = -1;
+            BindList();
+        }
        
 
     }

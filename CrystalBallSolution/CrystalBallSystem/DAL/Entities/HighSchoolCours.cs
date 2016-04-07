@@ -17,6 +17,7 @@ namespace CrystalBallSystem.DAL.Entities
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int HighSchoolCourseID { get; set; }
 
         [Required(ErrorMessage = "A High School Course Name is required (5-30 characters)")]

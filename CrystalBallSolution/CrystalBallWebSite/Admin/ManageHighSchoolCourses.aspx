@@ -47,9 +47,9 @@
                                                                                 DataSourceID="ODSCourseGroup" 
                                                                                 DataValueField="CourseGroupID" 
                                                                                 DataTextField="CourseGroupDescription"
-                                                                                 AppendDataBoundItems="true" 
+                                                                                AppendDataBoundItems="true" 
                                                                                 >
-                                        <%--<asp:ListItem Value="0">Select Course Group</asp:ListItem>--%>
+                                        <asp:ListItem Value="0">Select Course Group</asp:ListItem>
 
                                     </asp:DropDownList>
                                 </td>
@@ -59,11 +59,11 @@
                                     CourseLevel:
                                 </th>
                                 <td>
-                                    <asp:DropDownList ID="DDL_CourseLevel_Edit" runat="server">
+                                    <asp:DropDownList ID="DDL_CourseLevel_Edit" runat="server" SelectedValue='<%# Item.CourseLevel %>'>
                                         <asp:ListItem Value="0">Select Course Level</asp:ListItem>
-                                        <asp:ListItem Value ="1">1</asp:ListItem>
-                                        <asp:ListItem Value ="2">2</asp:ListItem>
-                                        <asp:ListItem Value ="3">3</asp:ListItem>
+                                        <asp:ListItem Value ="1">Level 10</asp:ListItem>
+                                        <asp:ListItem Value ="2">Level 20</asp:ListItem>
+                                        <asp:ListItem Value ="3">Level 30</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                             </tr>
@@ -100,13 +100,21 @@
                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
                 </td>
                 <td>
-                    <asp:DropDownList ID="DDL_CourseGroup_Insert" runat="server" DataSourceID="ODSCourseGroup" DataValueField="CourseGroupID" DataTextField="CourseGroupDescription"></asp:DropDownList>
+                    <asp:DropDownList ID="DDL_CourseGroup_Insert" 
+                                      runat="server" 
+                                      DataSourceID="ODSCourseGroup"
+                                      DataValueField="CourseGroupID" 
+                                      DataTextField="CourseGroupDescription"
+                                      AppendDataBoundItems="true">
+                        <asp:ListItem Value="0">Select Course Group</asp:ListItem>
+                    </asp:DropDownList>
                 </td>
                 <td>
                      <asp:DropDownList ID="DDL_CourseLevel_Insert" runat="server">
-                            <asp:ListItem Value ="1">1</asp:ListItem>
-                            <asp:ListItem Value ="2">2</asp:ListItem>
-                            <asp:ListItem Value ="3">3</asp:ListItem>
+                            <asp:ListItem Value="0">Select Course Level</asp:ListItem>
+                            <asp:ListItem Value ="1">Level 10</asp:ListItem>
+                            <asp:ListItem Value ="2">Level 20</asp:ListItem>
+                            <asp:ListItem Value ="3">Level 30</asp:ListItem>
                      </asp:DropDownList>
                 </td>
             </tr>
@@ -149,9 +157,9 @@
                 </tr>
                 <tr runat="server">
                     <td runat="server" >
-                        <asp:DataPager ID="DataPager1" runat="server">
+                        <asp:DataPager ID="DataPager1" runat="server" PageSize="20">
                             <Fields>
-                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="true" ShowPreviousPageButton="False" />
                                 <asp:NumericPagerField />
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
                             </Fields>

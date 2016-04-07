@@ -639,7 +639,7 @@ namespace CrystalBallSystem.BLL
                     {
                         HighSchoolCourseID = newCourseID,
                         HighSchoolCourseName = data.HighSchoolCourseName,
-                        CourseGroup = data.CourseGroup,
+                        CourseGroupID = data.CourseGroupID,
                         CourseLevel = data.CourseLevel
                     });
                 }
