@@ -528,7 +528,8 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     protected void ProgramCourses_Search(object sender, EventArgs e)
     {
         StudentController sysmgr = new StudentController();
-        List<NAITCourse> naitcourses = sysmgr.SearchNaitCourses(TB_ProgramCoursesSearch.Text, 0);
+        List<NAITCourse> naitcourses = sysmgr.SearchNaitCourses(TB_ProgramCoursesSearch.Text, 0,true);
+        //maybe ask for if it is active????
         LV_ProgramCoursesSearch.DataSource = naitcourses;
         LV_ProgramCoursesSearch.DataBind();
     }

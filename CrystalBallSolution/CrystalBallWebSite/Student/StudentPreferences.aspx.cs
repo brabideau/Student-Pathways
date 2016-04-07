@@ -296,7 +296,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 ProgramDropDownList.DataBind();
                 ProgramDropDownList.SelectedValue = programID.ToString();
 
-                CourseGridView.DataSource = course.SearchNaitCourses(null, programID);
+                bool active = true;
+                if (ActiveCheckBox.Checked)
+                {
+                    active = true;
+                }
+                else
+                {
+                    active = false;
+                }
+                CourseGridView.DataSource = course.SearchNaitCourses(null, programID, active);
                 CourseGridView.DataBind();
                 CourseGridView.Visible = true;
                 //CoursesSelected = (DataTable)ViewState["CoursesSelected"];
@@ -462,7 +471,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
-        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, 0);
+        bool active = true;
+        if (ActiveCheckBox.Checked)
+        {
+            active = true;
+        }
+        else
+        {
+            active = false;
+        }
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
         CourseGridView.DataBind();
         CourseGridView.Visible = true;
         SearchTextBox.Text = null;
@@ -478,7 +496,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CoursesSelected = null;
         StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
-        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, 0);
+        bool active = true;
+        if (ActiveCheckBox.Checked)
+        {
+            active = true;
+        }
+        else
+        {
+            active = false;
+        }
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
         CourseGridView.DataBind();
         CourseGridView.Visible = true;
         SearchTextBox.Text = null;
@@ -491,7 +518,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
-        CourseGridView.DataSource = course.SearchNaitCourses(null, Convert.ToInt32(ProgramDropDownList.SelectedValue));
+        bool active = true;
+        if (ActiveCheckBox.Checked)
+        {
+            active = true;
+        }
+        else
+        {
+            active = false;
+        }
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
         CourseGridView.DataBind();
     }
     //Hides/shows the graduated post secondary section of the high school courses page
