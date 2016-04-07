@@ -18,14 +18,15 @@
        <p>Please choose all the high school courses you've taken.</p>
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" CssClass="courseCSS clearfix">
         </asp:CheckBoxList>
-
+        <hr />
           <h3>Post-Secondary Credentials</h3>  
         <p>Have you graduated from a post-secondary institution?</p>
+        <div>
         <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix">
             <asp:ListItem Value="true">Yes</asp:ListItem>
             <asp:ListItem Value="false" Selected="True">No</asp:ListItem>
         </asp:RadioButtonList>
-        
+        </div>
         <div id="graduated" runat="server" visible="false">
 
         <p>What field was your previous program in? <asp:DropDownList ID="DDL_ProgramCategory" runat="server" DataSourceID="ODS_Category" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList></p>
@@ -51,8 +52,7 @@
             <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
 
             <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList>
-                <p>
-                </p>
+
                 <div id="chooseProgram" runat="server" class="clearfix">
                     <p>
                         What field is your NAIT program in?
@@ -84,41 +84,39 @@
                         Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server" CssClass="radiochecks clearfix" RepeatLayout="OrderedList">
                             <asp:ListItem Selected="True" Value="true">Continue</asp:ListItem>
                             <asp:ListItem Value="false">Switch</asp:ListItem>
-                        </asp:RadioButtonList>
+                        </asp:RadioButtonList>                        
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
+                        
                         <p>
                         </p>
-                        <p>
-                        </p>
-                        <p>
-                        </p>
-                        <p>
-                        </p>
+                        
                     </p>
                 </div>
+               <div>
+                <hr />
                 <asp:LinkButton ID="goToNaitCourses" runat="server" CssClass="button next" OnClick="Goto_NAITCourse">Next</asp:LinkButton>
                 <asp:LinkButton ID="MetricsToHSCourse" runat="server" CssClass="button back" OnClick="Show_HSCourses">Previous</asp:LinkButton>
-                <p>
-                </p>
-                <p>
-                </p>
-                <p>
-                </p>
-                <p>
-                </p>
+                </div>
                 <p>
                 </p>
                 <p>
@@ -134,6 +132,7 @@
             </p>
             
         </div>
+             
 
     <!-- step 3 - nait courses -->
     <div id="NaitCourses" runat="server" visible="false">
@@ -156,6 +155,7 @@
             <label >Search by course name or course code</label>
             <br />
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
+            <asp:CheckBox ID="ActiveCheckBox" runat="server" Text="Show active Courses Only"  />
         </div>
     <div class="col-6 nait-courses">
         <h3>Nait Course Search</h3>
@@ -219,6 +219,7 @@
          <p><asp:LinkButton ID="reset" runat="server"  CssClass="button back button-long" OnClick="reset_Click" >Clear Courses</asp:LinkButton></p>
 </div>
 <div class="col-12">
+    <hr />
         
         <asp:LinkButton ID="NAITCourseToMetrics" runat="server" OnClick="Show_StudentPrefs" CssClass="button next button-long" >Next</asp:LinkButton>
         <asp:LinkButton ID="NAITCourseToPrefs" runat="server" OnClick="Goto_Metrics_ClearData" CssClass="button back">Previous</asp:LinkButton>
@@ -234,6 +235,7 @@
             <SelectParameters>
                 <asp:ControlParameter ControlID="SearchTextBox" Name="SearchInfo" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="ProgramDropDownList" Name="programID" PropertyName="SelectedValue" Type="Int32" />
+                <asp:ControlParameter ControlID="ActiveCheckBox" Name="active" PropertyName="Checked" Type="Boolean" />
             </SelectParameters>
         </asp:ObjectDataSource>
         <asp:ObjectDataSource ID="SelectedCourseODB" 
@@ -293,6 +295,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+            <hr />
             <asp:LinkButton ID="PrefsToNAITCourse" runat="server" OnClick="Prefs_To_NAITCourse" CssClass ="button back">Previous</asp:LinkButton>
             <asp:LinkButton ID="PrefsToResults" runat="server" OnClick="Submit_Click" CssClass="button next">Next</asp:LinkButton>
             </div>

@@ -426,7 +426,16 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
         StudentController course = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
-        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue));
+        bool active = true;
+        if(ActiveCheckBox.Checked)
+        {
+            active = true;
+        }
+        else
+        {
+            active = false;
+        }
+        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
         CourseGridView.DataBind();
         int count = 0;
         foreach (DataRow row1 in CoursesSelected.Rows)
@@ -541,5 +550,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         NaitCourses.Visible = false;
         StudentPrefs.Visible = false;
         ResultsList.Visible = true;
+    }
+    protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+    {
+
     }
 }
