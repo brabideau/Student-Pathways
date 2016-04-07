@@ -149,12 +149,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     demoCourses.Add(Convert.ToInt32(item.Value));
             }
             //Get all possible high school courses based on user selection
-            List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
-            hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
+            //List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
+            //hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
             //pass list of high sschool courses to get the final list of ints that will be used to
             //determine potential program options
             List<int> fullCourses = new List<int>();
-            fullCourses = sysmgr.GetHighestCourseLevel(hsCoursesTwo);
+            fullCourses = sysmgr.FindHSCourses(demoCourses);
 
             //step 4 - Determine initial program results and then filter those results based on student preference questions. Display final results
             //send information to BLL for processing and narrow down possible results

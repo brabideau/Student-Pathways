@@ -207,43 +207,65 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<GetHSCourses> FindHSCourses(List<int> courseIDs)
-        {
-            List<GetHSCourses> hsCourses = new List<GetHSCourses>();
-            using (var context = new CrystalBallContext())
-            {
-                foreach (var item in courseIDs)
-                {
-                    var results = (from course in context.HighSchoolCourses
-                                   where course.HighSchoolCourseID == item
-                                   orderby course.HighSchoolCourseName
-                                   select new GetHSCourses
-                                   {
-                                       HighSchoolCourseID = course.HighSchoolCourseID,
-                                       HighSchoolCourseDescription = course.HighSchoolCourseName,
-                                       CourseGroupID = course.CourseGroupID,
-                                       CourseLevel = course.CourseLevel
-                                   }).First();
-                    hsCourses.Add(results);
-                }
-                return hsCourses;
-            }
-        }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<int> GetHighestCourseLevel(List<GetHSCourses> courses)
+        public List<int> FindHSCourses(List<int> courseids)
         {
-            List<int> items = new List<int>();
             using (var context = new CrystalBallContext())
             {
-                var results = (from x in context.HighSchoolCourses.AsEnumerable()
-                               from y in courses
-                               where x.CourseGroupID == y.CourseGroupID && x.CourseLevel == y.CourseLevel
-                               select x.HighSchoolCourseID).Distinct();
-                return results.ToList();
+                var initResults = from h in context.HighSchoolCourses
+                                  where courseids.Contains(h.HighSchoolCourseID)
+                                  select h;
+
+                var result = (from x in initResults
+                              from h in context.HighSchoolCourses
+                              where h.CourseGroupID == x.CourseGroupID && x.CourseLevel >= h.CourseLevel
+                              select h.HighSchoolCourseID).Distinct();
+
+                return result.ToList();
+
+                
             }
+				
         }
+
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<GetHSCourses> FindHSCourses(List<int> courseIDs)
+        //{
+        //    List<GetHSCourses> hsCourses = new List<GetHSCourses>();
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        foreach (var item in courseIDs)
+        //        {
+        //            var results = (from course in context.HighSchoolCourses
+        //                           where course.HighSchoolCourseID == item
+        //                           orderby course.HighSchoolCourseName
+        //                           select new GetHSCourses
+        //                           {
+        //                               HighSchoolCourseID = course.HighSchoolCourseID,
+        //                               HighSchoolCourseDescription = course.HighSchoolCourseName,
+        //                               CourseGroupID = course.CourseGroupID,
+        //                               CourseLevel = course.CourseLevel
+        //                           }).First();
+        //            hsCourses.Add(results);
+        //        }
+        //        return hsCourses;
+        //    }
+        //}
+
+        //[DataObjectMethod(DataObjectMethodType.Select, false)]
+        //public List<int> GetHighestCourseLevel(List<GetHSCourses> courses)
+        //{
+        //    List<int> items = new List<int>();
+        //    using (var context = new CrystalBallContext())
+        //    {
+        //        var results = (from x in context.HighSchoolCourses.AsEnumerable()
+        //                       from y in courses
+        //                       where x.CourseGroupID == y.CourseGroupID && x.CourseLevel == y.CourseLevel
+        //                       select x.HighSchoolCourseID).Distinct();
+        //        return results.ToList();
+        //    }
+        //}
 
         #region briand playspace
 
