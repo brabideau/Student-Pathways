@@ -332,6 +332,16 @@ namespace CrystalBallSystem.BLL
                                            where x.MatchPercent > 60
                                            orderby x.MatchPercent descending
                                            select x).ToList();
+                foreach (var item in finalProgramResults)
+                {
+                    ProgramData data = context.ProgramDatas.Add(new ProgramData()
+                    {
+                        ProgramID = item.ProgramID,
+                        SearchMonth = DateTime.Now.Month,
+                        SearchYear = DateTime.Now.Year
+                    });
+                    context.SaveChanges();
+                }
 
                 return finalProgramResults;
             }
