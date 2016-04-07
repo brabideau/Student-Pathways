@@ -140,41 +140,6 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
              
     }
 
-
-    //protected void NaitCoursesListViewByProgram_ItemCommand(object sender, ListViewCommandEventArgs e)
-    //{
-    //    if (e.CommandName == "Insert")
-    //    {
-    //        TextBox courseCodeBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCodeTextBox");
-    //        TextBox courseNameBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseNameTextBox");
-    //        TextBox courseCreditsBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCreditsTextBox");
-    //        CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.InsertItem.FindControl("ActiveCheckBox");
-
-    //        string courseCodeText = courseCodeBox.Text;
-    //        string courseNameText = courseNameBox.Text;
-    //        string courseCreditsText = courseCreditsBox.Text;
-    //        bool activityTF = activity.Checked;
-
-    //        List<NaitCours> NewCourse = new List<NaitCours>();
-    //        NewCourse.Add(
-    //            new NaitCours()
-    //            {
-    //                CourseCode = courseCodeText,
-    //                CourseName = courseNameText,
-    //                CourseCredits = double.Parse(courseCreditsText),
-    //                Active = activityTF
-    //            });
-
-    //        string pid = ProgramList.SelectedDataKey.Value.ToString();
-    //        int proId = Convert.ToInt32(pid);
-    //        AdminController sysmr = new AdminController();
-    //        sysmr.AddNaitCourse(NewCourse, proId);
-    //        CloseInsert();
-    //        BindList();
-    //    }
-
-    //}
-
     protected void NaitCoursesListViewByProgram_ItemEditing(object sender, ListViewEditEventArgs e)
     {
         CloseInsert();

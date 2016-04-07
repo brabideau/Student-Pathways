@@ -399,11 +399,20 @@ namespace CrystalBallSystem.BLL
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         // Returns all high school courses
-        public List<HighSchoolCours> HighSchoolCourse_List()
+        public List<GetHighSchoolCourses> HighSchoolCourse_List()
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-                return context.HighSchoolCourses.OrderBy(x => x.HighSchoolCourseID).ToList();
+                var results = from row in context.HighSchoolCourses
+                              select new GetHighSchoolCourses()
+                              {
+                                  HighSchoolCourseID = row.HighSchoolCourseID,
+                                  HighSchoolCourseName = row.HighSchoolCourseName,
+                                  CourseGroup = row.CourseGroup.CourseGroupDescription,
+                                  CourseLevel = row.CourseLevel
+                              };
+                return results.ToList();
+               // return context.HighSchoolCourses.OrderBy(x => x.HighSchoolCourseID).ToList();
             }
         }
 
@@ -615,12 +624,26 @@ namespace CrystalBallSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddHighSchoolCourse(HighSchoolCours item)
+        public void AddHighSchoolCourse(List<HighSchoolCours> item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
+                HighSchoolCours added = null;
 
-                var added = context.HighSchoolCourses.Add(item);
+                var newHighShoolCourse = new HighSchoolCours();
+                int newCourseID = newHighShoolCourse.HighSchoolCourseID;
+
+                foreach (var data in item)
+                {
+                    added = context.HighSchoolCourses.Add(new HighSchoolCours()
+                    {
+                        HighSchoolCourseID = newCourseID,
+                        HighSchoolCourseName = data.HighSchoolCourseName,
+                        CourseGroup = data.CourseGroup,
+                        CourseLevel = data.CourseLevel
+                    });
+                }
+
                 context.SaveChanges();
             }
         }

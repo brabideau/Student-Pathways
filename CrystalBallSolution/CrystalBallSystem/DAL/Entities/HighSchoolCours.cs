@@ -27,7 +27,7 @@ namespace CrystalBallSystem.DAL.Entities
         [Required(ErrorMessage = "A CourseLevel is required")]
         public int CourseLevel { get; set; }
 
+        public virtual CourseGroup CourseGroup { get; set; }
         public virtual ICollection<EntranceRequirement> EntranceRequirements { get; set; }
-        //public virtual ICollection<CourseGroup> CourseGroups { get; set; }
     }
 }

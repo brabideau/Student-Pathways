@@ -149,7 +149,16 @@ namespace CrystalBallSystem.DAL
             modelBuilder.Entity<SubjectRequirement>()
                 .HasMany(e => e.EntranceRequirements)
                 .WithRequired(e => e.SubjectRequirement)
-                .WillCascadeOnDelete(false);        
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CourseGroup>()
+                .Property(e => e.CourseGroupDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CourseGroup>()
+                .HasMany(e => e.HighSchoolCourses)
+                .WithRequired(e => e.CourseGroup)
+                .WillCascadeOnDelete(false);
         }
     }
 }

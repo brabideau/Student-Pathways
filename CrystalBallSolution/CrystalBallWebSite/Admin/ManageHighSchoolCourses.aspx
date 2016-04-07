@@ -9,13 +9,13 @@
         <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <asp:ListView ID="HighSchoolCoursesList" 
         runat="server" 
-  
         InsertItemPosition="LastItem"
-        ItemType="CrystalBallSystem.DAL.Entities.HighSchoolCours"
+        ItemType="CrystalBallSystem.DAL.POCOs.GetHighSchoolCourses"
         OnItemCanceling="HighSchoolCoursesList_ItemCanceling" 
         OnItemEditing="HighSchoolCoursesList_ItemEditing" 
         OnItemUpdating="HighSchoolCoursesList_ItemUpdating" 
-        OnItemInserting="HighSchoolCoursesList_ItemInserting">
+        OnItemInserting="HighSchoolCoursesList_ItemInserting" 
+        OnPagePropertiesChanging="HighSchoolCoursesList_PagePropertiesChanging">
 
         <EditItemTemplate>
             <tr style="">
@@ -122,7 +122,7 @@
                     <asp:Label ID="HighSchoolCourseNameLabel" runat="server" Text='<%# Eval("HighSchoolCourseName") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="CourseGroupIDLabel" runat="server" Text='<%# Eval("CourseGroupID") %>' />
+                    <asp:Label ID="CourseGroupIDLabel" runat="server" Text='<%# Eval("CourseGroup") %>' />
                 </td>
                 <td>
                     <asp:Label ID="CourseLevelLabel" runat ="server" Text='<%# Eval("CourseLevel") %>' />
@@ -139,7 +139,7 @@
                             <tr runat="server">
                                 <th runat="server"></th>
                                 <th runat="server">High School Course Name</th>
-                                <th runat="server">Course GroupID</th>
+                                <th runat="server">Course Group</th>
                                 <th runat="server">Course Level</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server">

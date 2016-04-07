@@ -14,6 +14,8 @@ namespace CrystalBallSystem.DAL.Entities
 
         [Key]
         public int CourseGroupID { get; set; }
+        [Required]
+        [StringLength(50)]
         public string CourseGroupDescription { get; set; }
 
         public virtual ICollection<HighSchoolCours> HighSchoolCourses { get; set; }
