@@ -16,7 +16,7 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
             //NO
             Response.Redirect("~/Account/Login.aspx");
         }
-        else
+        if(!IsPostBack)
         {
             BindList();
         }
@@ -80,10 +80,10 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
         AdminController sysmr = new AdminController();
         Label courseId = (Label)HighSchoolCoursesList.EditItem.FindControl("HighSchoolCourseIDLabel");
         DropDownList courseGroup = (DropDownList)HighSchoolCoursesList.EditItem.FindControl("DDL_CourseGroup_Edit");
-        string courseGroupId = courseGroup.SelectedValue;
+        string courseGroupId = courseGroup.SelectedItem.Value;
         TextBox courseNameText = (TextBox)HighSchoolCoursesList.EditItem.FindControl("HighSchoolCourseNameTextBox");
         DropDownList courseLevel = (DropDownList)HighSchoolCoursesList.EditItem.FindControl("DDL_CourseLevel_Edit");
-        string courseLevelId = courseLevel.SelectedValue;
+        string courseLevelId = courseLevel.SelectedItem.Value;
 
         var highschoolCourse = new HighSchoolCours();
         highschoolCourse.HighSchoolCourseID = int.Parse(courseId.Text);

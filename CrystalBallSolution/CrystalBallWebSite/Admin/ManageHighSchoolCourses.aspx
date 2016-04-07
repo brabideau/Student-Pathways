@@ -38,7 +38,7 @@
                                     <asp:TextBox ID="HighSchoolCourseNameTextBox" runat="server" Text='<%# Bind("HighSchoolCourseName") %>' />
                                 </td>
                             </tr>
-                            <tr>
+                            <tr>t
                                 <th>
                                     Course Group:
                                 </th>
@@ -49,7 +49,7 @@
                                                                                 DataTextField="CourseGroupDescription"
                                                                                  AppendDataBoundItems="true" 
                                                                                 >
-                                        <asp:ListItem Value="0">Select Course Group</asp:ListItem>
+                                        <%--<asp:ListItem Value="0">Select Course Group</asp:ListItem>--%>
 
                                     </asp:DropDownList>
                                 </td>
