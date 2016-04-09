@@ -37,6 +37,11 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
         string title = "";
         ShowInfo(title, message);
     }
+    public void ShowInfoPass(string message)
+    {
+        string title = "";
+        ShowInfoPass(title, message);
+    }
     /// <summary>
     /// Displays a message and title in the message panel with a general "info" display
     /// </summary>
@@ -45,6 +50,12 @@ public partial class UserControls_MessageUserControl : System.Web.UI.UserControl
     public void ShowInfo(string title, string message)
     {
         string panelClass = "red-panel";
+        ShowInfo(message, title, panelClass);
+    }
+
+    public void ShowInfoPass(string title, string message)
+    {
+        string panelClass = "blue-panel";
         ShowInfo(message, title, panelClass);
     }
     /// <summary>

@@ -179,8 +179,10 @@ namespace CrystalBallSystem.BLL
                              select new GetDegEntReqs
                              {
                                  DegreeEntranceRequirementID = der.DegreeEntranceReqID,
-                                 CredentialName = der.CredentialType.CredentialTypeName,
-                                 Category = der.Category.CategoryDescription,
+                                 CredentialTypeID = der.CredentialType.CredentialTypeID,
+                                 CredentialTypeName = der.CredentialType.CredentialTypeName,
+                                 CategoryID = der.Category.CategoryID,
+                                 CategoryDescription = der.Category.CategoryDescription,
                                  GPA = der.GPA
                              };
 
@@ -798,6 +800,25 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
 
+        }
+
+        public void Deg_EntranceRequirement_Update(DegreeEntranceRequirement item)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                DegreeEntranceRequirement data = new DegreeEntranceRequirement()
+                {
+                    DegreeEntranceReqID = item.DegreeEntranceReqID,
+                    ProgramID = item.ProgramID,
+                    CredentialTypeID = item.CredentialTypeID,
+                    CategoryID = item.CategoryID,
+                    GPA = item.GPA
+                };
+
+                context.Entry<DegreeEntranceRequirement>(context.DegreeEntranceRequirements.Attach(data)).State = System.Data.Entity.EntityState.Modified;
+
+                context.SaveChanges();
+            }
         }
 
         #endregion

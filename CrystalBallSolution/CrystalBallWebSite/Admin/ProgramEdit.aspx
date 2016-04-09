@@ -121,9 +121,7 @@
                                      <asp:Label ID="EntIDLabel" runat="server" Text='<%# Eval("EntranceRequirementID") %>'></asp:Label>
                                 </td>
                                 <td runat="server">
-                                    <asp:Label ID="Label4" runat="server" ><asp:TextBox ID="Ent_Marks" runat="server" Width="50px" Text='<%# Eval("Mark") %>' /> % in </asp:Label>
-                                
-                                    <asp:DropDownList ID="DL_HS_Course" runat="server" DataSourceID="CourseList"
+                                    <asp:Label ID="Label4" runat="server" ><asp:TextBox ID="Ent_Marks" runat="server" Width="50px" Text='<%# Eval("Mark") %>' /> % in </asp:Label><asp:DropDownList ID="DL_HS_Course" runat="server" DataSourceID="CourseList"
                                                 DataTextField="HighSchoolCourseDescription"
                                                 DataValueField="HighSchoolCourseID"
                                                 SelectedValue='<%# Eval("HSCourseID") %>'>
@@ -131,8 +129,7 @@
                                 </asp:DropDownList>
                                 </td>
                                 <td>
-                                    <asp:LinkButton ID="EditButton" runat="server" Text="Save" CommandArgument="Save" CssClass="admin_button" /> - or -
-                                    <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument="Remove" Text="Remove" CssClass="admin_button" />
+                                    <asp:LinkButton ID="EditButton" runat="server" Text="Save" CommandArgument="Save" CssClass="admin_button" /> - or - <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument="Remove" Text="Remove" CssClass="admin_button" />
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -142,32 +139,23 @@
         </ItemTemplate>
         </asp:ListView>
 
-        <h5>Add a New Entrance Requirement</h5>
-        Subject: 
-        <asp:DropDownList ID="DL_New_Subject" runat="server" DataSourceID="ODS_SubjectRequirement"
+        <h5>Add a New Entrance Requirement</h5>Subject: <asp:DropDownList ID="DL_New_Subject" runat="server" DataSourceID="ODS_SubjectRequirement"
                                                 DataTextField="SubjectDescription"
                                                 DataValueField="SubjectRequirementID">
                                                
                                 </asp:DropDownList>
-        - - - - -
-        <asp:TextBox ID="NewMark" runat="server" Width="50px" /> % in 
-        <asp:DropDownList ID="DL_New_EntReq" runat="server" DataSourceID="CourseList"
+        - - - - - <asp:TextBox ID="NewMark" runat="server" Width="50px" /> % in <asp:DropDownList ID="DL_New_EntReq" runat="server" DataSourceID="CourseList"
                                                 DataTextField="HighSchoolCourseDescription"
                                                 DataValueField="HighSchoolCourseID"
                                                 AppendDataBoundItems="True">
-                                                <asp:ListItem Value="-3">Select a Course</asp:ListItem>
-                                </asp:DropDownList>
-        <asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add" CssClass="admin_button" OnClick ="Add_Ent_Req"/>
+                                                <asp:ListItem Value="-3">Select a Course</asp:ListItem></asp:DropDownList><asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add" CssClass="admin_button" OnClick ="Add_Ent_Req"/>
         </div>
 
         <hr />
         <%--POST SECONDARY ENTRANCE REQUIREMENT--%>
         <uc1:MessageUserControl runat="server" id="PSMessageUserControl" />
-        <h3>Post-Secondary</h3>
-        <p>If this program requires any previous post-secondary credientials, such as a diploma or certificate, add them here.</p>
-        <div runat="server" id="PSRequirements">
-            <h5>Current Entrance Requirements</h5>
-            <asp:GridView ID="GV_DegreeEntranceReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetDegEntReqs" DataKeyNames="DegreeEntranceRequirementID" OnRowDeleting="GV_DegReq_RowDeleting">
+        <h3>Post-Secondary</h3><p>If this program requires any previous post-secondary credientials, such as a diploma or certificate, add them here.</p><div runat="server" id="PSRequirements">
+            <h5>Current Entrance Requirements</h5><asp:GridView ID="GV_DegreeEntranceReq" runat="server" AutoGenerateColumns="False" ItemType="CrystalBallSystem.DAL.POCOs.GetDegEntReqs" DataKeyNames="DegreeEntranceRequirementID" OnRowDeleting="GV_DegReq_RowDeleting" OnRowEditing="GV_DegReq_RowEditing">
                 <Columns>
                     <asp:TemplateField HeaderText="Degree Requirement ID" Visible="false">
                         <ItemTemplate>
@@ -176,59 +164,49 @@
                     </asp:TemplateField> 
                     <asp:TemplateField HeaderText="Credential Name">
                         <ItemTemplate>
-                            <asp:Label ID="CredentialName" runat="server" Text='<%# Item.CredentialName %>' />
+                            <asp:DropDownList ID="CredentialName" runat="server" DataSourceID="ODSCredentialType"
+                                                DataTextField="CredentialTypeName"
+                                                DataValueField="CredentialTypeID" 
+                                                SelectedValue='<%# Eval("CredentialTypeID") %>' />
+                                               
+                            <%--<asp:Label ID="CredentialName" runat="server" Text='<%# Item.CredentialName %>' />--%>
                         </ItemTemplate>  
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Category">
                         <ItemTemplate>
-                            <asp:Label ID="Category" runat="server" Text='<%# Item.Category %>' />
+                            <asp:DropDownList ID="Category" runat="server" DataSourceID="CategoryList"
+                                                DataTextField="CategoryDescription"
+                                                DataValueField="CategoryID" 
+                                                SelectedValue='<%# Eval("CategoryID") %>' />
+                            <%--<asp:Label ID="Category" runat="server" Text='<%# Item.CategoryDescription %>' />--%>
                         </ItemTemplate>  
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="GPA">
                         <ItemTemplate>
-                            <asp:Label ID="GPA" runat="server" Text='<%# Item.GPA %>' />
+                            <asp:Textbox ID="GPA" runat="server" Text='<%# Item.GPA %>' Width="50px" />
                         </ItemTemplate>  
                     </asp:TemplateField>
-                    <asp:ButtonField Text="Remove" CommandName="Delete"/> 
+                    <asp:ButtonField Text="Save" CommandName="Edit" ControlStyle-CssClass="admin_button" /> 
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label runat="server" Text= "- or -"/>
+                        </ItemTemplate>
+                    </asp:TemplateField>                        
+                    <asp:ButtonField Text="Remove" CommandName="Delete" ControlStyle-CssClass="admin_button"/> 
                 </Columns>
 
                 <EmptyDataTemplate>
-                    No Existing Entrance Requirements.
-                </EmptyDataTemplate>
-            </asp:GridView>
-
-            <h5>Add a New Entrance Requirement</h5>
-            <div runat="server" id="AddRequirements" class="clearfix">
-                <p>Credential Type: </p>
-                <asp:DropDownList ID="DL_Credential" runat="server" DataSourceID="CredentialODS" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
-                <p>Industry Category: </p>
-                <asp:DropDownList ID="DL_Category" runat="server" DataSourceID="CategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
-                <p>Overall GPA: </p>
-                <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>        
-        
-                <asp:LinkButton ID="Add_DER" runat="server" CssClass="admin_button2" OnClick="Add_DER_Click">Add Requirement</asp:LinkButton>
-            </div>
-        </div> 
-     </div>
-    
-
-    <%-- ----------------------------- PROGRAM COURSES ---------------------------------------%>
-     
-    <div runat="server" id="ProgramCourses" visible="false" class="clearfix">
-        <p>What courses are part of this program?</p>
-        <h4>Level One</h4>
-        <div class="nait-courses">
+                    No Existing Entrance Requirements.</EmptyDataTemplate></asp:GridView><h5>Add a New Entrance Requirement</h5><div runat="server" id="AddRequirements" class="clearfix">
+                <p>Credential Type: </p><asp:DropDownList ID="DL_Credential" runat="server" DataSourceID="CredentialODS" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
+                <p>Industry Category: </p><asp:DropDownList ID="DL_Category" runat="server" DataSourceID="CategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
+                <p>Overall GPA: </p><asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox><asp:LinkButton ID="Add_DER" runat="server" CssClass="admin_button2" OnClick="Add_DER_Click">Add Requirement</asp:LinkButton></div></div></div><%-- ----------------------------- PROGRAM COURSES ---------------------------------------%><div runat="server" id="ProgramCourses" visible="false" class="clearfix">
+        <p>What courses are part of this program?</p><h4>Level One</h4><div class="nait-courses">
          <asp:ListView ID="LV_ProgramCourses_One" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">Course Code</th>
-                    <th runat="server">Course Name</th>
-                    <th runat="server">Course Credits</th>
-
-                </tr>
-                <tr id="itemPlaceholder" runat="server"></tr>
+                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th></tr><tr id="itemPlaceholder" runat="server"></tr>
             </table>
         </LayoutTemplate>
         <ItemTemplate>
@@ -252,17 +230,13 @@
             </ItemTemplate>
     </asp:ListView>
             </div>
-        <h4>Level Two</h4>
-            <div class="nait-courses">
+        <h4>Level Two</h4><div class="nait-courses">
          <asp:ListView ID="LV_ProgramCourses_Two" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">Course Code</th>
-                    <th runat="server">Course Name</th>
-                    <th runat="server">Course Credits</th>
-                    <th></th>
+                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -288,17 +262,13 @@
             </ItemTemplate>
     </asp:ListView>
             </div>
-        <h4>Level Three</h4>
-        <div class="nait-courses">
+        <h4>Level Three</h4><div class="nait-courses">
         <asp:ListView ID="LV_ProgramCourses_Three" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">Course Code</th>
-                    <th runat="server">Course Name</th>
-                    <th runat="server">Course Credits</th>
-                    <th></th>
+                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -325,17 +295,13 @@
     </asp:ListView>
             </div>
 
-        <h4>Level Four</h4>
-        <div class="nait-courses">
+        <h4>Level Four</h4><div class="nait-courses">
                  <asp:ListView ID="LV_ProgramCourses_Four" runat="server" OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">Course Code</th>
-                    <th runat="server">Course Name</th>
-                    <th runat="server">Course Credits</th>
-                    <th></th>
+                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -362,18 +328,14 @@
     </asp:ListView>
             </div>
 
-        <h4>Other:</h4>
-        <div class="nait-courses">
+        <h4>Other:</h4><div class="nait-courses">
        <asp:ListView ID="LV_ProgramCourses_More" runat="server"
            OnItemCommand="Remove_Program_Course">
         <LayoutTemplate>
             <table>
                 <tr>
                     <th></th>
-                    <th runat="server">Course Code</th>
-                    <th runat="server">Course Name</th>
-                    <th runat="server">Course Credits</th>
-                    <th></th>
+                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
             </table>
@@ -400,10 +362,7 @@
     </asp:ListView>
         </div>
         <div runat="server" class="search-bar">
-            <label>Search for a course to add:</label>
-
-            <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox>
-            <asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
+            <label>Search for a course to add:</label> <asp:TextBox ID="TB_ProgramCoursesSearch" runat="server"></asp:TextBox><asp:LinkButton ID="LinkButton1" runat="server" Text="Search" OnClick="ProgramCourses_Search" />
         </div>
 
 
@@ -415,10 +374,7 @@
             <table class="nait-courses">
                 <tr>
                     <th></th>
-                    <th runat="server">Course Code</th>
-                    <th runat="server">Course Name</th>
-                    <th runat="server">Course Credits</th>
-                    <th></th>
+                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th></th>
                     <th></th>
                 </tr>
                 <tr id="itemPlaceholder" runat="server"></tr>
@@ -440,14 +396,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="DL_Semester" runat="server">
-                            <asp:ListItem Value="-1">---</asp:ListItem>
-                            <asp:ListItem>1</asp:ListItem>
-                            <asp:ListItem>2</asp:ListItem>
-                            <asp:ListItem>3</asp:ListItem>
-                            <asp:ListItem>4</asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                    <td>
+                            <asp:ListItem Value="-1">---</asp:ListItem><asp:ListItem>1</asp:ListItem><asp:ListItem>2</asp:ListItem><asp:ListItem>3</asp:ListItem><asp:ListItem>4</asp:ListItem></asp:DropDownList></td><td>
                         <asp:LinkButton ID="EditButton" runat="server" Text="Add to Program" CssClass="admin_button" />
                     </td>
                  </tr>
@@ -456,18 +405,8 @@
             </div>
 
 
-        <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-    </div>
-
-
-    <%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%>
-     
-    <div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
-        <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p>
-
-        <!--Add new equivalency to empty gridview--> 
-   
-        <asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
+        <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton></div><%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%><div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
+        <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p><!--Add new equivalency to empty gridview--><asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
             <Columns>
                 <asp:TemplateField HeaderText="CourseEquivalencyID" Visible="false">
                     <ItemTemplate>
@@ -499,88 +438,29 @@
             </Columns>          
             
             <EmptyDataTemplate>
-                No Existing Equivalencies.
-            </EmptyDataTemplate>
-                       
-        </asp:GridView>    
-
-        <div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block clearfix">
+                No Existing Equivalencies.</EmptyDataTemplate></asp:GridView><div runat="server" id="addNewEquivalency" visible="true"  class="add-equivalency-block clearfix">
             <div class="clearfix">
-                <asp:Label ID="EmptyCurrent" runat="server" Text="Program course " CssClass="col-4 label"></asp:Label>
-        
-                <asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
+                <asp:Label ID="EmptyCurrent" runat="server" Text="Program course " CssClass="col-4 label"></asp:Label><asp:DropDownList ID="EmptyCurrentDropdown" runat="server" DataSourceID="EmptyCurrentDropdownODS" 
                     DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" CssClass="col-5">
-                     <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-                </asp:DropDownList> 
-                <div class="clearfix">
-                    <asp:Label ID="EmptyEquivalent" runat="server" Text="--Gets Credit From--" CssClass="col-12 center-bold"></asp:Label>  
-                </div>
-                     
-                <div class="clearfix">     
-                    <asp:Label ID="ProgEquivalent" runat="server" Text="Program: " CssClass="col-4 label"></asp:Label>
+                     <asp:ListItem Value="-1">[Select Course]</asp:ListItem></asp:DropDownList><div class="clearfix">
+                    <asp:Label ID="EmptyEquivalent" runat="server" Text="--Gets Credit From--" CssClass="col-12 center-bold"></asp:Label></div><div class="clearfix">     
+                    <asp:Label ID="ProgEquivalent" runat="server" Text="Program: " CssClass="col-4 label"></asp:Label><asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
+                        <asp:ListItem Value="-1">[Select Program]</asp:ListItem></asp:DropDownList></div><div class="clearfix"> 
 
-                    <asp:DropDownList ID="EmptyEquivalentProgram" runat="server" DataSourceID="ProgramODS" DataTextField="ProgramName" DataValueField="ProgramID" OnSelectedIndexChanged="EmptyEquivalentProgram_SelectedIndexChanged" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
-                        <asp:ListItem Value="-1">[Select Program]</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-                     
-                <div class="clearfix"> 
-
-                    <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label>
-                    <asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
-                        <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-
-                <div class="col-12">
-                    <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button admin_button_centered submit">Add Equivalency</asp:LinkButton>
-                </div>
-            </div>
-        </div>
-
-        <asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-    </div>
-    
-
-    <%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%>
-   
-    <div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
-        <p>Answer the questions below so that students can be better matched with this program:</p>
-        <asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
+                    <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label><asp:DropDownList ID="EquivalentCourseID" runat="server" DataSourceID="CourseByProgramODS" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
+                        <asp:ListItem Value="-1">[Select Course]</asp:ListItem></asp:DropDownList></div><div class="col-12">
+                    <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button admin_button_centered submit">Add Equivalency</asp:LinkButton></div></div></div><asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton></div><%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%><div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
+        <p>Answer the questions below so that students can be better matched with this program:</p><asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label>
-                   </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
+                        <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label></ItemTemplate></asp:TemplateField><asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:RadioButtonList ID="RB_Preference" runat="server" RepeatLayout="OrderedList">
-                            <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem>
-                            <asp:ListItem Value="2" Text="No"></asp:ListItem>
-                            <asp:ListItem Value="3" Text="Don't Know" Selected="true"></asp:ListItem>
-                            <asp:ListItem Value="4" Text="Yes"></asp:ListItem>
-                            <asp:ListItem Value="5" Text="Definitely"></asp:ListItem>
-                        </asp:RadioButtonList>
-                        
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
-        <asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-    </div>
-        
-    </div> <%--end program edit div--%>
-      <%-- ----------------------------- SEARCH ---------------------------------------%>
-     <hr />
-    <div runat="server" id="search" class="search-bar" >
-        Program Search: <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox> in
-        <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
-            <asp:ListItem Value="0">[All Subjects]</asp:ListItem>
-        </asp:DropDownList>
-        <asp:LinkButton ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search" CssClass="admin_button2"/>
+                            <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem><asp:ListItem Value="2" Text="No"></asp:ListItem><asp:ListItem Value="3" Text="Don't Know" Selected="true"></asp:ListItem><asp:ListItem Value="4" Text="Yes"></asp:ListItem><asp:ListItem Value="5" Text="Definitely"></asp:ListItem></asp:RadioButtonList></ItemTemplate></asp:TemplateField></Columns></asp:GridView><asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button next button-long">Save & Continue</asp:LinkButton></div></div><%--end program edit div--%><%-- ----------------------------- SEARCH ---------------------------------------%><hr /><div runat="server" id="search" class="search-bar" >
+        Program Search: <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox>in <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
+            <asp:ListItem Value="0">[All Subjects]</asp:ListItem></asp:DropDownList><asp:LinkButton ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search" CssClass="admin_button2"/>
         <asp:LinkButton ID="Add_Program_Button" runat="server" Text="Add New Program" CssClass="admin_button2" OnClick="Add_Program_Button_Click"/>
     </div>
 
@@ -591,12 +471,7 @@
             <table>
                 <tr>
                     <th class="col-1"></th>
-                    <th runat="server">Program Name</th>
-                    <th runat="server">Description</th>
-                    <th runat="server">Active?</th>
-                    <th runat="server">Link</th>
-                </tr>
-                <tr id="itemPlaceholder" runat="server"></tr>
+                    <th runat="server">Program Name</th><th runat="server">Description</th><th runat="server">Active?</th><th runat="server">Link</th></tr><tr id="itemPlaceholder" runat="server"></tr>
             </table>
         </LayoutTemplate>        
         <ItemTemplate>

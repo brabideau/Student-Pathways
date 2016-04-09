@@ -6,10 +6,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Manage Nait Courses</h1>
-    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
 
             <div class="search-bar clearfix">
          

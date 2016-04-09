@@ -4,10 +4,10 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-    
     <asp:UpdatePanel runat="server">
-        <ContentTemplate>        
+        <ContentTemplate> 
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+               
             <div runat="server" align="center">
                 <h4>Manage Preference Questions</h4>
         

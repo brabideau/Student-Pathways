@@ -88,7 +88,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         Populate_Preferences(programID);
 
         Populate_EntranceReqs(programID);
-        //Populate_DER(programID);
+        Populate_DER(programID);
     }
     #endregion
 
@@ -328,10 +328,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
     /*-- ----------------------------- ENTRANCE REQUIREMENTS ---------------------------------------*/
 
-
-    
-
-
     #region high schoolentrance requirements
 
     protected void Populate_EntranceReqs(int programID)
@@ -371,10 +367,12 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         if (arg == "Save")
         {
             Ent_Req_Save(programID, req);
+            MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Saved!");
         }
         else if (arg == "Remove")
         {
             Ent_Req_Remove(programID, req);
+            MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Removed!");
         }
 
     }
@@ -394,8 +392,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
         Populate_EntranceReqs(programID);
     }
- 
-
 
     protected void Add_Ent_Req(object sender, EventArgs e)
     {
@@ -423,6 +419,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             AdminController sysmgr = new AdminController();
 
             sysmgr.AddEntranceRequirement(newReq);
+            MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
 
             Populate_EntranceReqs(programID);
         }
@@ -432,6 +429,50 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     #endregion  
     
     #region post-secondary
+    protected void GV_DegReq_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        decimal gpa;
+
+        AdminController sysmgr = new AdminController();
+        DegreeEntranceRequirement deg = new DegreeEntranceRequirement();
+
+        deg.DegreeEntranceReqID = Convert.ToInt32(GV_DegreeEntranceReq.DataKeys[e.NewEditIndex].Value);
+        deg.ProgramID = Convert.ToInt32(ProgramIDLabel.Text);
+                        
+        string credentialID = (GV_DegreeEntranceReq.Rows[e.NewEditIndex].FindControl("CredentialName") as DropDownList).SelectedValue;
+        deg.CredentialTypeID = Convert.ToInt32(credentialID);
+
+        string categoryID = (GV_DegreeEntranceReq.Rows[e.NewEditIndex].FindControl("Category") as DropDownList).SelectedValue;
+        deg.CategoryID = Convert.ToInt32(categoryID);
+
+        string mark = (GV_DegreeEntranceReq.Rows[e.NewEditIndex].FindControl("GPA") as TextBox).Text;
+        if (mark.Trim() == "")
+        {
+            PSMessageUserControl.ShowInfo("A GPA must be entered to add a post-secondary entrance requirement.");
+        }
+        else if (Decimal.TryParse(mark.Trim(), out gpa))
+        {
+            if (gpa > 4)
+            {
+                PSMessageUserControl.ShowInfo("GPA cannot be greater than 4.0 to add a post-secondary entrance requirement.");
+            }
+            else if (gpa < 0)
+            {
+                PSMessageUserControl.ShowInfo("GPA cannot be less than 0 to add a post-secondary entrance requirement.");
+            }
+            else
+            {
+                deg.GPA = gpa;
+            }
+        }
+        else
+        {
+            PSMessageUserControl.ShowInfo("GPA must be a decimal value to add a post-secondary entrance requirement.");
+        }
+        sysmgr.Deg_EntranceRequirement_Update(deg);
+        MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Updateed!");
+    }
+
     protected void GV_DegReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         AdminController sysmgr = new AdminController();
@@ -439,6 +480,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         int programID = Int32.Parse(ProgramIDLabel.Text);
         sysmgr.DER_Delete(degReqID);
         Populate_DER(programID);
+        MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Removed!");
     }
 
      protected void Populate_DER(int programID)
@@ -447,9 +489,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         GV_DegreeEntranceReq.DataSource = sysmgr.Get_DERByProgram(programID);
         GV_DegreeEntranceReq.DataBind();
     }
-
-  
-
+    
     protected void Add_DER_Click(object sender, EventArgs e)
     {
         AdminController sysmgr = new AdminController();
@@ -480,6 +520,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 req.GPA = decimal.Parse(TB_GPA.Text.Trim());
 
                 sysmgr.AddDER(req);
+                PSMessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
                 Populate_DER(programID);
             }            
         }
@@ -487,8 +528,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         {
             PSMessageUserControl.ShowInfo("GPA must be a decimal value to add a post-secondary entrance requirement.");
         }
-        
-
     }
 
     #endregion
@@ -824,15 +863,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         {
             MessageUserControl.ShowInfo(errors);
         }
-
-        
-
-        
-
-
     }
 
     #endregion
-
-
 }

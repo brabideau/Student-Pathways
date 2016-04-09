@@ -9,8 +9,10 @@ namespace CrystalBallSystem.DAL.POCOs
     public class GetDegEntReqs
     {
         public int DegreeEntranceRequirementID { get; set; }
-        public string CredentialName { get; set; }
-        public string Category { get; set; }
+        public int CredentialTypeID { get; set; }
+        public string CredentialTypeName { get; set; }
+        public int CategoryID { get; set; }
+        public string CategoryDescription { get; set; }
         public decimal GPA { get; set; }
     }
 }

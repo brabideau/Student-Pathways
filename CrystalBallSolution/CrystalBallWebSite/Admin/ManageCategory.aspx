@@ -6,10 +6,11 @@
 
     <h1>Manage Category</h1>
 
-    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
+    
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+    
             <asp:ListView ID="CategoryList" runat="server" DataSourceID="ODSCategoryList" 
                                                            InsertItemPosition="LastItem" 
                                                            OnItemUpdating="CategoryList_ItemUpdating">
