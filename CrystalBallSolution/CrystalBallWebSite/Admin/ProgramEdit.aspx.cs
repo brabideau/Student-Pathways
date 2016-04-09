@@ -470,7 +470,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             PSMessageUserControl.ShowInfo("GPA must be a decimal value to add a post-secondary entrance requirement.");
         }
         sysmgr.Deg_EntranceRequirement_Update(deg);
-        MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Updateed!");
+        PSMessageUserControl.ShowInfoPass("Entrance Requirement Successfully Updateed!");
     }
 
     protected void GV_DegReq_RowDeleting(object sender, GridViewDeleteEventArgs e)
