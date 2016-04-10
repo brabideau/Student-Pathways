@@ -506,7 +506,7 @@
                             </div>
                             <div class="clearfix"> 
                                 <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label>
-                                <asp:DropDownList ID="EquivalentCourseID" runat="server" DataTextField="CourseName" DataValueField="CourseID" AppendDataBoundItems="True" AutoPostBack="true" CssClass="col-5">
+                                <asp:DropDownList ID="EquivalentCourseID" runat="server" DataTextField="CourseName" DataValueField="CourseID" CssClass="col-5">
                                     <asp:ListItem Value="-1">[Select Course]</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
