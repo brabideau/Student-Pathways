@@ -29,8 +29,8 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
-
-                return context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == categoryID)).ToList();
+                var result = context.Programs.Where(p => p.Categories.Any(c => c.CategoryID == categoryID)).ToList();
+                return result;
 
             }
         }

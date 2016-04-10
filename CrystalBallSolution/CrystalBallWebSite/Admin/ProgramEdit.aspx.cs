@@ -639,6 +639,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
     protected void EmptyEquivalentProgram_SelectedIndexChanged(object sender, EventArgs e)
     {
+        AdminController sysmgr = new AdminController();
+        int progID = Convert.ToInt32(EmptyEquivalentProgram.SelectedValue);
+        EquivalentCourseID.DataSource = sysmgr.GetCoursesByProgram(progID);
         EquivalentCourseID.DataBind();
     }
 
