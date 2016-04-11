@@ -531,7 +531,7 @@
                                 <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description"></asp:BoundField>
+                        <asp:BoundField DataField="Description" HeaderText="" SortExpression="Description"></asp:BoundField>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:RadioButtonList ID="RB_Preference" runat="server" RepeatLayout="OrderedList">
