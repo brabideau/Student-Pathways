@@ -135,75 +135,100 @@ public partial class Admin_Reports : System.Web.UI.Page
        List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)Session["leftData"];
        List<StudentPreferenceSummary> rightData = (List<StudentPreferenceSummary>)Session["rightData"];
 
-        
+       //LV_QuestionList.DataBind();
         
 
         if (((LinkButton)sender).ID == "Search_Left")
         {
             leftData = Get_Data();
-            GV_PreferenceSummaries_Left.DataSource = leftData;
-            GV_PreferenceSummaries_Left.DataBind();
+            LV_PreferenceSummaries_Left.DataSource = leftData;
+            LV_PreferenceSummaries_Left.DataBind();
             Session["leftData"] = leftData;
 
             //fill out filter info
             Year_Left.Text = DL_Year.SelectedItem.Text;
             Month_Left.Text = DL_Month.SelectedItem.Text;
-            Program_Left.Text = DL_Program.SelectedItem.Text;
-            Semester_Left.Text = DL_Semester.SelectedItem.Text;
-            Dropping_Left.Text = DL_Change.SelectedItem.Text;
-        }
-        else
-        {
-            rightData = Get_Data();
-            GV_PreferenceSummaries_Right.DataSource = rightData;
-            GV_PreferenceSummaries_Right.DataBind();
-            Session["rightData"] = rightData;
 
-            //fill out filter info
-            Year_Right.Text = DL_Year.SelectedItem.Text;
-            Month_Right.Text = DL_Month.SelectedItem.Text;
-            Program_Right.Text = DL_Program.SelectedItem.Text;
-            Semester_Right.Text = DL_Semester.SelectedItem.Text;
-            Dropping_Right.Text = DL_Change.SelectedItem.Text;
+            if (Convert.ToInt32(DL_Program.SelectedItem.Value) > 0)
+            {
+                Program_Left.Text = "students in " + DL_Program.SelectedItem.Text;
+            }
+            else
+            {
+                Program_Left.Text = DL_Program.SelectedItem.Text;
+            }
+
+            if (DL_Semester.SelectedItem.Value != "0")
+                {
+                    Semester_Left.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
+                }
+
+            if (DL_Program.SelectedItem.Value != "-1")
+            {
+                if (DL_Semester.SelectedItem.Value != "0")
+                {
+                    Semester_Left.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
+                }
+
+                if (DL_Change.SelectedItem.Value == "1")
+                {
+                    Dropping_Left.Text = "Who want to change programs";
+                }
+                else if (DL_Change.SelectedItem.Value == "0")
+                {
+                    Dropping_Left.Text = "Who want to stay in their current program";
+                }
+
+            }
+            
         }
 
-        if (leftData != null && rightData != null)
-        {
-            Compare_Results(leftData, rightData);
-        }
+        //else
+        //{
+        //    rightData = Get_Data();
+        //    LV_PreferenceSummaries_Right.DataSource = rightData;
+        //    LV_PreferenceSummaries_Right.DataBind();
+        //    Session["rightData"] = rightData;
+
+        //    //fill out filter info
+        //    Year_Right.Text = DL_Year.SelectedItem.Text;
+        //    Month_Right.Text = DL_Month.SelectedItem.Text;
+
+        //    if (Convert.ToInt32(DL_Program.SelectedItem.Value) > 0)
+        //    {
+        //        Program_Right.Text = "students in " + DL_Program.SelectedItem.Text;
+        //    }
+        //    else
+        //    {
+        //        Program_Right.Text = DL_Program.SelectedItem.Text;
+        //    }
+
+        //    if (DL_Semester.SelectedItem.Value != "0")
+        //    {
+        //        Semester_Right.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
+        //    }
+
+        //    if (DL_Program.SelectedItem.Value != "-1")
+        //    {
+        //        if (DL_Semester.SelectedItem.Value != "0")
+        //        {
+        //            Semester_Right.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
+        //        }
+
+        //        if (DL_Change.SelectedItem.Value == "1")
+        //        {
+        //            Dropping_Right.Text = "Who want to change programs";
+        //        }
+        //        else if (DL_Change.SelectedItem.Value == "0")
+        //        {
+        //            Dropping_Right.Text = "Who want to stay in their current program";
+        //        }
+
+        //    }
+        //}
     }
 
-    protected void Compare_Results(List<StudentPreferenceSummary> leftData, List<StudentPreferenceSummary> rightData)
-    {
-        if (leftData.Any() && rightData.Any())
-        {
-            DataTable compareData = new DataTable { };
-            int? diff;
-
-            //DataRow dr = compareData.NewRow();
-
-            //compareData.Columns.Add("Difference");
-
-            //for (int i = 0; i < leftData.Count; i++ )
-            //{
-            //    if (leftData[i] != null && rightData[i] != null)
-            //    {
-            //        diff = rightData[i].PercentYes - leftData[i].PercentYes;
-            //    }
-            //    else
-            //    {
-            //        diff = null;
-            //    }
-
-            // //   dr["Difference"] = diff;
-            //    compareData.Rows.Add(compareData.NewRow()["Difference"] = diff);
-                
-            //}
-
-            GV_Compare.DataSource = compareData;
-            GV_Compare.DataBind();
-        }
-    }
+    
 
     protected List<StudentPreferenceSummary> Get_Data() //object sender, EventArgs e
     {
@@ -287,7 +312,7 @@ public partial class Admin_Reports : System.Web.UI.Page
 
         if (programID > -1 && myData.Rows.Count > 0) //only if new students were NOT selected
         {
-            if (sem != -1 && myData.Rows.Count > 0) //if a semester was selected
+            if (sem != 0 && myData.Rows.Count > 0) //if a semester was selected
             {
                 var rows = from x in myData.AsEnumerable()
                            where x.Field<int>("Semester") == sem
