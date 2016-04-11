@@ -31,6 +31,8 @@
      <%-- ----------------------------- PROGRAM INFO ---------------------------------------%>
            <div runat="server" id="BasicProgramInfo" visible="false" class="clearfix">
                <asp:Label ID="ProgramIDLabel" runat="server" Text="" Visible="false"></asp:Label>
+               
+               <p>Update program information.</p>
     
                <p class="clearfix"><span class="label col-3">Program Name:</span> <asp:TextBox ID="TB_ProgramName" runat="server" CssClass="col-4"/></p> 
 
@@ -531,7 +533,12 @@
                                 <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Description" HeaderText="" SortExpression="Description"></asp:BoundField>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                As a graduate of this program, would you expect <asp:Label ID="Description" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+               <%--         <asp:BoundField DataField="Description" HeaderText="" SortExpression="Description"></asp:BoundField>--%>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:RadioButtonList ID="RB_Preference" runat="server" RepeatLayout="OrderedList">

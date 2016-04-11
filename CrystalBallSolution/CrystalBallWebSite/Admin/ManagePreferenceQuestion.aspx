@@ -18,7 +18,7 @@
                                 <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                             </td>
                             <td>
-                                <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
+                                Do you want <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
                             </td>
                             <td>
                                 <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false" />
@@ -39,7 +39,7 @@
                                         <tr>
                                             <th>Question Description: </th>
                                             <td>
-                                                <asp:TextBox ID="QuestionDescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
+                                                Do you want <asp:TextBox ID="QuestionDescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
                                             </td>
                                         </tr>
                                         <tr>
@@ -75,7 +75,7 @@
                                 <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CssClass="admin_button2" />
                             </td>
                             <td>
-                                <asp:TextBox ID="DescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
+                                Do you want <asp:TextBox ID="DescriptionTextBox" runat="server" Text='<%# Bind("Description") %>' />
                             </td>
                             <td>
                                 <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />       
@@ -88,7 +88,7 @@
                                 <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                             </td>
                             <td>
-                                <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
+                                Do you want <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
                             </td>
                             <td>
                                 <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false"/>
@@ -117,7 +117,7 @@
                                 <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
                             </td>
                             <td>
-                                <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />        
+                                Do you want <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />        
                             </td>
                             <td>
                                 <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' Enabled="false"/>

@@ -105,8 +105,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
 
 
-        MessageUserControl.TryRun(() =>
-        {
             //step 2 - Gather the answers to the student preference questions
             List<StudentPreference> myPreferences = new List<StudentPreference>();
             foreach (GridViewRow row in prefGridView.Rows)
@@ -183,7 +181,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ResultsView.DataBind();
 
             Show_Results(sender, e);
-        }, "Success!", "Here are the pathways available to you!");
 
 
     }

@@ -255,14 +255,19 @@
     <!-- get student preference questions -->
         <div runat="server" id="StudentPrefs" visible="false">
         <h1>Select Your Work Preferences</h1>
-            <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False" CssClass="prefQuestionsCSS clearfix">
+            <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False" CssClass="prefQuestionsCSS clearfix" ShowHeader ="false">
                 <Columns>
                     <asp:TemplateField>
                     <ItemTemplate>
                         <asp:Label ID="QuestionID" runat="server" Visible="false" Text='<%# Eval("QuestionID") %>'></asp:Label>
                    </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Description" SortExpression="Description" />
+                    <asp:TemplateField>
+                            <ItemTemplate>
+                               Do you want <asp:Label ID="Description" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    <%--<asp:BoundField DataField="Description" SortExpression="Description" />--%>
                     <asp:TemplateField>
                         <ItemTemplate>
                         <asp:RadioButtonList ID="prefSelection" runat="server" RepeatLayout="OrderedList">
@@ -292,6 +297,7 @@
     <asp:ObjectDataSource ID="CourseList" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseList" TypeName="CrystalBallSystem.BLL.StudentController" ></asp:ObjectDataSource>
         <div id="ResultsList" runat="server" visible="false" >
             <h1>Your Program Matches</h1>
+            <p class="search-bar">Here are the best matches for you based on your responses!</p>
             <asp:LinkButton ID="searchAgain" runat="server" OnClick="searchAgain_Click" CssClass="button submit button-long">Search Again</asp:LinkButton>
             <div class="resultsviewscroll clearfix">
             <asp:ListView ID="ResultsView" runat="server" OnPagePropertiesChanging="ResultsView_PagePropertiesChanged">
