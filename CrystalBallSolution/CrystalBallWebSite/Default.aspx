@@ -5,27 +5,18 @@
 
      <h1>Find Your Academic Pathway</h1>
 
-        <div class="center col-6">
+        <div class="center col-12">
             <div class="circle-button">
                 <a href="Student/StudentPreferences"><img src="images/nait-student5.png" alt="learner pathway" /> </a>
              </div>
  
-                    <h2>Nait Student</h2>
+                    <h2>Find Your Pathway</h2>
                     <p>
                         Answer some quick questions and find the perfect program for you!
                     </p>   
         </div>
 
-        <div class="center col-6">
-            <div class="circle-button">
-                <a href="Admin/MenuCategory.aspx"><img src="images/new-student.png" alt="learner pathway" /></a></div>
-
-                <h2>Administrator</h2>
-                <p>
-                    Log in to access administrator options.
-                </p>
-                
-        </div>
+        
 
 
         
