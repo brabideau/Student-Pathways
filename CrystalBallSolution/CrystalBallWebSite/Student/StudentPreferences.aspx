@@ -11,7 +11,6 @@
     <!-- student course selection section -->
     <div id="HighSchoolCourses" runat="server" visible="true">
     <h1>Your Coursework</h1>
-         <p>This will help us show you programs for which you meet the minimum entrance requirements.</p>
 
         <h3>High School Coursework</h3>
        
@@ -55,7 +54,7 @@
 
                 <div id="chooseProgram" runat="server" class="clearfix">
                     <p>
-                        What field is your NAIT program in?
+                        Select your current or most recent area of study:
                         <asp:DropDownList ID="CategoryDropDown" runat="server" AppendDataBoundItems="True" AutoPostBack="true" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program">
                             <asp:ListItem Selected="True" Value="0">[Select a Category] </asp:ListItem>
                         </asp:DropDownList>
@@ -72,7 +71,7 @@
                         </asp:ObjectDataSource>
                     </p>
                     <p>
-                        What year of studies are you in?
+                        What year of studies did you last complete?
                         <asp:DropDownList ID="SemesterDropDown" runat="server">
                             <asp:ListItem Text="First" Value="1" />
                             <asp:ListItem Text="Second" Value="2" />
@@ -255,30 +254,7 @@
     <!-- step 4 - preference questions -->
     <!-- get student preference questions -->
         <div runat="server" id="StudentPrefs" visible="false">
-        <h1>Your Preferences</h1>
-            <p>This will help us match you with programs you'll enjoy!</p>
-          <asp:RadioButtonList ID="PrefQuestions" 
-              runat="server" 
-              DataSourceID="QuestionDataSource" 
-              DataTextField="Description" 
-              DataValueField="QuestionID"
-              Visible="false">
-              <asp:ListItem Text="1" Value="1">
-
-              </asp:ListItem>
-              <asp:ListItem Text="2" Value="2">
-
-              </asp:ListItem>
-              <asp:ListItem Text="3" Value="3">
-
-              </asp:ListItem>
-              <asp:ListItem Text="4" Value="4">
-
-              </asp:ListItem>
-              <asp:ListItem Text="5" Value="5">
-
-              </asp:ListItem>
-        </asp:RadioButtonList>
+        <h1>Select Your Work Preferences</h1>
             <asp:GridView ID="prefGridView" runat="server" DataSourceID="QuestionDataSource" AutoGenerateColumns="False" CssClass="prefQuestionsCSS clearfix">
                 <Columns>
                     <asp:TemplateField>
@@ -287,7 +263,7 @@
                    </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Description" SortExpression="Description" />
-                    <asp:TemplateField AccessibleHeaderText="Preference">
+                    <asp:TemplateField>
                         <ItemTemplate>
                         <asp:RadioButtonList ID="prefSelection" runat="server" RepeatLayout="OrderedList">
                             <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem>

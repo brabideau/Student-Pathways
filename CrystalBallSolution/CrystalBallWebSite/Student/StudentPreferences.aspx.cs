@@ -217,7 +217,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         else
         {
             Show_Metrics(sender, e);
-            PrefQuestions.DataBind();
         }
     }
     protected void Prefs_To_NAITCourse(object sender, EventArgs e)

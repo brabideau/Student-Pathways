@@ -10,9 +10,9 @@
                 <a href="Student/StudentPreferences"><img src="images/nait-student5.png" alt="learner pathway" /> </a>
              </div>
  
-                    <h2>Find Your Pathway</h2>
+                    <h2>Life is full of choices. Make yours easy.</h2>
                     <p>
-                        Answer some quick questions and find the perfect program for you!
+                        Pathways will help you determine the best NAIT programs for you. We take your personal preferences and academic achievements into account, and show you what programs will lead you to a career you'll love.
                     </p>   
         </div>
 
