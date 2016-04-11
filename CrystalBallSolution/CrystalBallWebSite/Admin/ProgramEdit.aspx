@@ -150,7 +150,7 @@
                                         AppendDataBoundItems="True">
                         <asp:ListItem Value="-3">Select a Course</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add" CssClass="admin_button" OnClick ="Add_Ent_Req"/>
+                    <asp:LinkButton ID="Add_EntReq_Button" runat="server" Text="Add Requirement" CssClass="admin_button2" OnClick ="Add_Ent_Req"/>
                 </div>
                 <hr />
 
@@ -191,14 +191,13 @@
                                 <ItemTemplate>
                                     <asp:Textbox ID="GPA" runat="server" Text='<%# Item.GPA %>' Width="50px" />
                                 </ItemTemplate>  
-                            </asp:TemplateField>
-                            <asp:ButtonField Text="Save" CommandName="Edit" ControlStyle-CssClass="admin_button" /> 
+                            </asp:TemplateField>   
+                                                
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Label runat="server" Text= "- or -"/>
-                                </ItemTemplate>
-                            </asp:TemplateField>                        
-                            <asp:ButtonField Text="Remove" CommandName="Delete" ControlStyle-CssClass="admin_button"/> 
+                                <asp:LinkButton runat="server" Text="Save" CommandName="Edit" CssClass="admin_button" /> - or - <asp:LinkButton runat="server" CommandName="Delete" Text="Remove" CssClass="admin_button" />
+                                    </ItemTemplate>
+                            </asp:TemplateField>                               
                         </Columns>
 
                         <EmptyDataTemplate>
@@ -214,9 +213,11 @@
                         <asp:DropDownList ID="DL_Category" runat="server" DataSourceID="CategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
                         <p>Overall GPA: </p>
                         <asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox>
+                        <p></p>
                         <asp:LinkButton ID="Add_DER" runat="server" CssClass="admin_button2" OnClick="Add_DER_Click">Add Requirement</asp:LinkButton>
                     </div>
                 </div>
+                <asp:LinkButton ID="Requirements_Save" runat="server" OnClick="Save_Categories" CssClass="button next button-long">Save & Continue</asp:LinkButton>
             </div>
             
     <%-- ----------------------------- PROGRAM COURSES ---------------------------------------%>

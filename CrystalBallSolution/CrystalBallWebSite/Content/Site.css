@@ -370,7 +370,7 @@ textarea, .textarea {
   table {
       
       margin: 0 auto;
-      font-size: .94em;
+      /*font-size: .94em;*/
       margin-bottom: 15px;
   }
 
@@ -990,7 +990,7 @@ footer {
 
 
  .entreqcss {
-     width: 65%;
+     width: 75%;
      margin: 0 auto;
 
  }
@@ -1007,7 +1007,6 @@ footer {
  }
 
 
-
 .entreqcss table {
      width: 100%;
      
@@ -1021,6 +1020,10 @@ footer {
 underscored {
    
 }
+
+ .paddingTop {
+     padding: 15px;
+ }
 
 /*.entreqcss td td {
       width: 55%;
