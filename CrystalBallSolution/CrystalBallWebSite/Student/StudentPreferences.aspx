@@ -292,7 +292,7 @@
                         <asp:RadioButtonList ID="prefSelection" runat="server" RepeatLayout="OrderedList">
                             <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem>
                             <asp:ListItem Value="2" Text="No"></asp:ListItem>
-                            <asp:ListItem Value="3" Text="Don't Know" Selected="true"></asp:ListItem>
+                            <asp:ListItem Value="3" Text="Neutral" Selected="true"></asp:ListItem>
                             <asp:ListItem Value="4" Text="Yes"></asp:ListItem>
                             <asp:ListItem Value="5" Text="Definitely"></asp:ListItem>
                         </asp:RadioButtonList>
