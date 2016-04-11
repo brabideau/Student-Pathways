@@ -512,7 +512,7 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-12">
-                                <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button admin_button_centered submit">Add Equivalency</asp:LinkButton>
+                                <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button2 admin_button_centered submit">Add Equivalency</asp:LinkButton>
                             </div>
                         </div>
                     </div>
