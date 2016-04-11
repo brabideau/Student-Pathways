@@ -633,13 +633,13 @@ namespace CrystalBallSystem.BLL
                 HighSchoolCours added = null;
 
                 var newHighShoolCourse = new HighSchoolCours();
-                int newCourseID = newHighShoolCourse.HighSchoolCourseID;
+                //int newCourseID = newHighShoolCourse.HighSchoolCourseID;
 
                 foreach (var data in item)
                 {
                     added = context.HighSchoolCourses.Add(new HighSchoolCours()
                     {
-                        HighSchoolCourseID = newCourseID,
+                        //HighSchoolCourseID = newCourseID,
                         HighSchoolCourseName = data.HighSchoolCourseName,
                         CourseGroupID = data.CourseGroupID,
                         CourseLevel = data.CourseLevel
