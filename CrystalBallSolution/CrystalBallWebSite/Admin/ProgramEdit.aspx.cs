@@ -172,14 +172,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         CourseEquivalencies.Visible = true;
         ProgramPreferences.Visible = false;
         Tab_Labels.SelectedValue = "5";
-
-        //reset add equivalency screen
-        EmptyCurrentDropdown.Items.Clear();
-        EmptyCurrentDropdown.DataBind();
-        EmptyEquivalentProgram.Items.Clear();
-        EmptyEquivalentProgram.DataBind();
-        EquivalentCourseID.Items.Clear();
-        EquivalentCourseID.DataBind();
     }
 
 
@@ -703,14 +695,18 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         var equivalencies = sysmgr.GetEquivalencies(programID);
         GV_Equivalencies.DataSource = equivalencies;
         GV_Equivalencies.DataBind();
+
+        EmptyCurrentDropdown.Items.Clear();
+        EmptyCurrentDropdown.DataBind();
     }
 
     protected void EmptyEquivalentProgram_SelectedIndexChanged(object sender, EventArgs e)
     {
         AdminController sysmgr = new AdminController();
         int progID = Convert.ToInt32(EmptyEquivalentProgram.SelectedValue);
+        EquivalentCourseID.Items.Clear();
         EquivalentCourseID.DataSource = sysmgr.GetCoursesByProgram(progID);
-        EquivalentCourseID.DataBind();
+        EquivalentCourseID.DataBind();      
     }
 
     protected void Enter_Click(object sender, EventArgs e)
@@ -731,14 +727,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
             GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
             GV_Equivalencies.DataBind();
-
-            //reset add equivalency screen
-            EmptyCurrentDropdown.Items.Clear();
-            EmptyCurrentDropdown.DataBind();
-            EmptyEquivalentProgram.Items.Clear();
-            EmptyEquivalentProgram.DataBind();
-            EquivalentCourseID.Items.Clear();
-            EquivalentCourseID.DataBind();
         }
         //}, "", "Equivalency Successfully Added");
     }
