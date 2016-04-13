@@ -93,7 +93,7 @@
        
 
         Program:
-        <asp:DropDownList ID="DL_Program" runat="server" DataSourceID="ProgramListDataSource" DataTextField="ProgramName" DataValueField="ProgramID" AppendDataBoundItems="true">
+        <asp:DropDownList ID="DL_Program" runat="server" DataSourceID="ProgramListDataSource" DataTextField="ProgramName" DataValueField="ProgramID" AppendDataBoundItems="true" OnSelectedIndexChanged="NewStudents_Check" AutoPostBack="true">
             <asp:ListItem  Value=-1>Prospective Students</asp:ListItem>
             <asp:ListItem  Value=0>All Programs</asp:ListItem>
         </asp:DropDownList>
@@ -101,7 +101,7 @@
 
     <div class="search-bar">
        Year of Study:
-       <asp:DropDownList ID="DL_Semester" runat="server">
+       <asp:DropDownList ID="DL_Semester" runat="server" Enabled="false">
             <asp:ListItem Text="Any Year of Study" Value="0" />
             <asp:ListItem Text="1" Value="1" />
             <asp:ListItem Text="2" Value="2" />
@@ -111,7 +111,7 @@
         </asp:DropDownList>
 
         Switching Programs:
-        <asp:DropDownList ID="DL_Change" runat="server">
+        <asp:DropDownList ID="DL_Change" runat="server" Enabled="false">
             <asp:ListItem Text="Unspecified" Value="-1"/>
             <asp:ListItem Text="Yes" Value="1" />
             <asp:ListItem Text="No" Value="0" />
@@ -130,44 +130,7 @@
         <p><asp:Label ID="Semester_Left" runat="server" Text=""></asp:Label></p>
         <p><asp:Label ID="Dropping_Left" runat="server" Text=""></asp:Label></p>
     </div>
-<%-- 
-        <div class="col-4">
-            <asp:LinkButton ID="Search_Right" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
 
-            <p>You are viewing data from: <asp:Label ID="Month_Right" runat="server" Text=""></asp:Label>, <asp:Label ID="Year_Right" runat="server" Text=""></asp:Label></p>
-            <p>For <asp:Label ID="Program_Right" runat="server" Text=""></asp:Label></p>
-        
-            <p><asp:Label ID="Semester_Right" runat="server" Text=""></asp:Label></p>
-            <p><asp:Label ID="Dropping_Right" runat="server" Text=""></asp:Label></p>
-
-        </div>
-    </div>
-        
-
-
-   <div class="col-4">
-           <asp:ListView ID="LV_QuestionList" runat="server" DataSourceID="QuestionDataSource">
-               <LayoutTemplate>
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr id="itemPlaceholder" runat="server"></tr>
-                    </table>
-               </LayoutTemplate>
-               <ItemTemplate>
-                    <tr>
-                        <td runat="server" visible="false">
-                            <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Eval("QuestionID") %>'></asp:Label>
-                        </td>
-                        <td runat="server">
-                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-           </asp:ListView>
-    </div>--%>
 
     <div>
         <asp:ListView ID="LV_PreferenceSummaries_Left" runat="server">
@@ -207,52 +170,9 @@
                     </tr>
                 </ItemTemplate>
            </asp:ListView>
-
-
     </div>
 
-        <%-- 
-
-    <div class="col-4">
-        <asp:ListView ID="LV_PreferenceSummaries_Right" runat="server">
-               <LayoutTemplate>
-                    <table>
-                        <tr>
-                            <th>Definitely Not</th>
-                            <th>No</th>
-                            <th>Neutral</th>
-                            <th>Yes</th>
-                            <th>Definitely</th>
-                        </tr>
-                        <tr id="itemPlaceholder" runat="server"></tr>
-                    </table>
-               </LayoutTemplate>
-               <ItemTemplate>
-                    <tr>
-                        <td runat="server">
-                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("DefinitelyNot") %>'></asp:Label>
-                        </td>
-                        <td runat="server">
-                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("No") %>'></asp:Label>
-                        </td>
-                        <td runat="server">
-                            <asp:Label ID="Label3" runat="server" Text='<%# Eval("DontKnow") %>'></asp:Label>
-                        </td>
-                        <td runat="server">
-                            <asp:Label ID="Label4" runat="server" Text='<%# Eval("Yes") %>'></asp:Label>
-                        </td>
-                        <td runat="server">
-                            <asp:Label ID="Label5" runat="server" Text='<%# Eval("Definitely") %>'></asp:Label>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-           </asp:ListView>
-    </div> 
-
-<%--    <div class="col-2">
-
-        <asp:GridView ID="GV_Compare" runat="server"></asp:GridView>
-    </div>--%>
+      
 </div> <%--end clearfix div--%>
             </div>
 

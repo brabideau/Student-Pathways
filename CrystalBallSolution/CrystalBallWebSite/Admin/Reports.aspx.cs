@@ -23,8 +23,7 @@ public partial class Admin_Reports : System.Web.UI.Page
         {
             List<StudentPreferenceSummary> leftData = new List<StudentPreferenceSummary> { };
             Session["leftData"] = leftData;
-            List<StudentPreferenceSummary> rightData = new List<StudentPreferenceSummary> { };
-            Session["rightData"] = rightData;
+
 
             //Fills out the program data with current month/year on first page load
 
@@ -131,102 +130,69 @@ public partial class Admin_Reports : System.Web.UI.Page
     #region student data
     protected void Submit_Click(object sender, EventArgs e)
     {
-        //retrieve stored data
-       List<StudentPreferenceSummary> leftData = (List<StudentPreferenceSummary>)Session["leftData"];
-       List<StudentPreferenceSummary> rightData = (List<StudentPreferenceSummary>)Session["rightData"];
+ 
+        List<StudentPreferenceSummary> leftData = Get_Data();
+        LV_PreferenceSummaries_Left.DataSource = leftData;
+        LV_PreferenceSummaries_Left.DataBind();
+        Session["leftData"] = leftData;
 
-       //LV_QuestionList.DataBind();
-        
+        //fill out filter info
+        Year_Left.Text = DL_Year.SelectedItem.Text;
+        Month_Left.Text = DL_Month.SelectedItem.Text;
 
-        if (((LinkButton)sender).ID == "Search_Left")
+        if (Convert.ToInt32(DL_Program.SelectedItem.Value) > 0)
         {
-            leftData = Get_Data();
-            LV_PreferenceSummaries_Left.DataSource = leftData;
-            LV_PreferenceSummaries_Left.DataBind();
-            Session["leftData"] = leftData;
+            Program_Left.Text = "students in " + DL_Program.SelectedItem.Text;
+        }
+        else
+        {
+            Program_Left.Text = DL_Program.SelectedItem.Text;
+        }
 
-            //fill out filter info
-            Year_Left.Text = DL_Year.SelectedItem.Text;
-            Month_Left.Text = DL_Month.SelectedItem.Text;
-
-            if (Convert.ToInt32(DL_Program.SelectedItem.Value) > 0)
+        if (DL_Program.SelectedItem.Value != "-1")
+        {
+            if (DL_Semester.SelectedItem.Value != "0")
             {
-                Program_Left.Text = "students in " + DL_Program.SelectedItem.Text;
+                Semester_Left.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
             }
             else
             {
-                Program_Left.Text = DL_Program.SelectedItem.Text;
+                Semester_Left.Text = "In any year of study";
             }
 
-            if (DL_Semester.SelectedItem.Value != "0")
-                {
-                    Semester_Left.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
-                }
-
-            if (DL_Program.SelectedItem.Value != "-1")
+            if (DL_Change.SelectedItem.Value == "1")
             {
-                if (DL_Semester.SelectedItem.Value != "0")
-                {
-                    Semester_Left.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
-                }
-
-                if (DL_Change.SelectedItem.Value == "1")
-                {
-                    Dropping_Left.Text = "Who want to change programs";
-                }
-                else if (DL_Change.SelectedItem.Value == "0")
-                {
-                    Dropping_Left.Text = "Who want to stay in their current program";
-                }
-
+                Dropping_Left.Text = "Who want to change programs";
             }
-            
+            else if (DL_Change.SelectedItem.Value == "0")
+            {
+                Dropping_Left.Text = "Who want to stay in their current program";
+            }
+        }
+        else
+        {
+            Semester_Left.Text = "";
+            Dropping_Left.Text = "";
+        }
+    }
+
+
+
+        protected void NewStudents_Check(object sender, EventArgs e)
+        {
+            if (DL_Program.SelectedValue == "-1")
+            {
+                DL_Semester.Enabled = false;
+                DL_Change.Enabled = false;
+            }
+            else
+            {
+                DL_Semester.Enabled = true;
+                DL_Change.Enabled = true;
+            }
         }
 
-        //else
-        //{
-        //    rightData = Get_Data();
-        //    LV_PreferenceSummaries_Right.DataSource = rightData;
-        //    LV_PreferenceSummaries_Right.DataBind();
-        //    Session["rightData"] = rightData;
-
-        //    //fill out filter info
-        //    Year_Right.Text = DL_Year.SelectedItem.Text;
-        //    Month_Right.Text = DL_Month.SelectedItem.Text;
-
-        //    if (Convert.ToInt32(DL_Program.SelectedItem.Value) > 0)
-        //    {
-        //        Program_Right.Text = "students in " + DL_Program.SelectedItem.Text;
-        //    }
-        //    else
-        //    {
-        //        Program_Right.Text = DL_Program.SelectedItem.Text;
-        //    }
-
-        //    if (DL_Semester.SelectedItem.Value != "0")
-        //    {
-        //        Semester_Right.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
-        //    }
-
-        //    if (DL_Program.SelectedItem.Value != "-1")
-        //    {
-        //        if (DL_Semester.SelectedItem.Value != "0")
-        //        {
-        //            Semester_Right.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
-        //        }
-
-        //        if (DL_Change.SelectedItem.Value == "1")
-        //        {
-        //            Dropping_Right.Text = "Who want to change programs";
-        //        }
-        //        else if (DL_Change.SelectedItem.Value == "0")
-        //        {
-        //            Dropping_Right.Text = "Who want to stay in their current program";
-        //        }
-
-        //    }
-        //}
-    }
+    
 
     
 
@@ -368,8 +334,6 @@ public partial class Admin_Reports : System.Web.UI.Page
     protected void Program_PDF_Download(object sender, EventArgs e)
     {
         
-
-
         Document myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
 
         Font h1 = FontFactory.GetFont("Arial", 28);
@@ -380,7 +344,7 @@ public partial class Admin_Reports : System.Web.UI.Page
 
 
         // Requires 'using System.IO'  -- this allows you to create files
-        PdfWriter.GetInstance(myPdf, new FileStream(path + "/myPdf.pdf", FileMode.Create));
+        PdfWriter.GetInstance(myPdf, new FileStream(path + "/Pathways_ProgramReport.pdf", FileMode.Create));
 
         // Open the pdf so you can start working on it
         myPdf.Open();
@@ -456,7 +420,7 @@ public partial class Admin_Reports : System.Web.UI.Page
         myPdf.Add(new Paragraph("Report generated on " + now));
         // Close the pdf when you are finished with it
         myPdf.Close();
-        Response.Redirect("../PDFs/myPdf.pdf");
+        Response.Redirect("../PDFs/Pathways_ProgramReport.pdf");
 
 
     }
