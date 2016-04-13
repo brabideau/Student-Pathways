@@ -50,7 +50,7 @@
                                                                                             DataSourceID="ODSCourseGroup" 
                                                                                             DataValueField="CourseGroupID" 
                                                                                             DataTextField="CourseGroupDescription"
-                                                                                            AppendDataBoundItems="true">
+                                                                                            SelectedValue='<%# Eval("CourseGroupID") %>'>
                                                     <asp:ListItem Value="0">Select Course Group</asp:ListItem>
                                                 </asp:DropDownList>
                                             </td>

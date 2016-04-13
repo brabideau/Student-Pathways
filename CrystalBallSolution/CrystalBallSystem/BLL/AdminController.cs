@@ -410,10 +410,11 @@ namespace CrystalBallSystem.BLL
                               {
                                   HighSchoolCourseID = row.HighSchoolCourseID,
                                   HighSchoolCourseName = row.HighSchoolCourseName,
+                                  CourseGroupID = row.CourseGroup.CourseGroupID,
                                   CourseGroup = row.CourseGroup.CourseGroupDescription,
                                   CourseLevel = row.CourseLevel
                               };
-                return results.ToList();
+                return results.OrderBy(c => c.CourseGroupID).ThenBy(l => l.CourseLevel).ToList();
                // return context.HighSchoolCourses.OrderBy(x => x.HighSchoolCourseID).ToList();
             }
         }
