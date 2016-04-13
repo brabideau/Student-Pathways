@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> NAIT Crystal Ball</title>
+    <title><%: Page.Title %> Pathways</title>
 
     <link href='https://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
     <asp:PlaceHolder runat="server">
@@ -53,19 +53,20 @@
                         </a>
                     </div>
                     <ul class="left-menu">
-                        <li><a runat="server" href="~/" >Crystal Ball Home</a></li>
+                        <li><a runat="server" href="~/" >Pathways Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="right-menu">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                               <li><a runat="server" href="~/Account/Register">Register</a></li>
                                 <li><a runat="server" href="~/Account/Login" >Log in</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="right-menu">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %>!</a></li>
+                                <li>Hello, <%: Context.User.Identity.GetUserName()  %>!</li>
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Manage Account</a></li>
                                 <li><a runat="server" href="~/Admin/MenuCategory.aspx">Admin Menu</a></li>
                                 <li>
                                     <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />

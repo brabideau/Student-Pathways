@@ -7,7 +7,7 @@
 
         <div class="center col-12">
             <div class="circle-button">
-                <a href="Student/StudentPreferences"><img src="images/nait-student5.png" alt="learner pathway" /> </a>
+                <a href="Student/StudentPreferences"><img src="images/path-button.png" alt="learner pathway" /> </a>
              </div>
  
                     <h2>Life is full of choices. Make yours easy.</h2>
