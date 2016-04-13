@@ -46,7 +46,7 @@
                                             <th>Active:
                                             </th>
                                             <td>
-                                                <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Eval("Active") %>' />
+                                                <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
                                             </td>
                                         </tr>
                                         <tr>
