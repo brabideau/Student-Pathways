@@ -26,8 +26,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             DataColumn CourseName;
             DataColumn CourseCredits;
             CoursesSelected = new DataTable();
-            //if (ViewState["CoursesSelected"] == null)
-            //{
                 CourseID = new DataColumn();
                 CourseID.DataType = System.Type.GetType("System.Int32");
                 CourseID.ColumnName = "CourseID";
@@ -58,12 +56,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 ViewState["CoursesSelected"] = CoursesSelected;
 
                 ViewState["BackupTable"] = CoursesSelected;
-            //}
-            //else
-            //{
-                //CoursesSelected = (DataTable)Session["CoursesSelected"];
-                //ViewState["CoursesSelected"] = CoursesSelected;
-            //}
 
             int count = 0;
             foreach (DataRow row1 in CoursesSelected.Rows)
@@ -148,8 +140,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     demoCourses.Add(Convert.ToInt32(item.Value));
             }
             //Get all possible high school courses based on user selection
-            //List<GetHSCourses> hsCoursesTwo = new List<GetHSCourses>();
-            //hsCoursesTwo = sysmgr.FindHSCourses(demoCourses);
             //pass list of high sschool courses to get the final list of ints that will be used to
             //determine potential program options
             List<int> fullCourses = new List<int>();
@@ -308,7 +298,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 CourseGridView.DataSource = course.SearchNaitCourses(null, programID, active);
                 CourseGridView.DataBind();
                 CourseGridView.Visible = true;
-                //CoursesSelected = (DataTable)ViewState["CoursesSelected"];
                 int count = 0;
                 foreach (DataRow row1 in CoursesSelected.Rows)
                 {
@@ -356,7 +345,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         //clear the repeater
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
-        //Session["CoursesSelected"] = BackupTable;
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
@@ -595,8 +583,4 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         StudentPrefs.Visible = false;
         ResultsList.Visible = true;
     }
-    //protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
-    //{
-
-    //}
 }
