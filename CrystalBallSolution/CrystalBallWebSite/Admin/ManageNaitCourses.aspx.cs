@@ -29,34 +29,45 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 
     private void BindList()
     {
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
-        AdminController sysmr = new AdminController();
-        var courseData = sysmr.GetCoursesByProgram(proId);
+        try
+        {
+            string pid = ProgramList.SelectedDataKey.Value.ToString();
+            int proId = Convert.ToInt32(pid);
+            AdminController sysmr = new AdminController();
+            var courseData = sysmr.GetCoursesByProgram(proId);
 
-        NaitCoursesListViewByProgram.DataSource = courseData;
-        NaitCoursesListViewByProgram.DataBind();
+            NaitCoursesListViewByProgram.DataSource = courseData;
+            NaitCoursesListViewByProgram.DataBind();
+        }
+        catch (Exception e)
+        {
+            MessageUserControl.ShowInfo(e.Message);
+        }
+        
     }
 
     protected void ProgramList_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
     {
-        //NaitCoursesListViewByProgram.DataSourceID = ODSNaitCourses.ID;
-        //ListViewItem item = ProgramList.Items[ProgramList.SelectedIndex];
-        //Label program = (Label)item.FindControl("ProgramIDLabel");
-        ProgramList.SelectedIndex = e.NewSelectedIndex;
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
-        AdminController sysmr = new AdminController();
-        var courseData = sysmr.GetCoursesByProgram(proId);
+        try
+        {
+            ProgramList.SelectedIndex = e.NewSelectedIndex;
+            string pid = ProgramList.SelectedDataKey.Value.ToString();
+            int proId = Convert.ToInt32(pid);
+            AdminController sysmr = new AdminController();
+            var courseData = sysmr.GetCoursesByProgram(proId);
 
-        NaitCoursesListViewByProgram.Visible = true;
-        NaitCoursesListViewByProgram.DataSource = courseData;
-        NaitCoursesListViewByProgram.DataBind();
-        
-        ProgramList.DataBind();
-        NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
-        BindList();
+            NaitCoursesListViewByProgram.Visible = true;
+            NaitCoursesListViewByProgram.DataSource = courseData;
+            NaitCoursesListViewByProgram.DataBind();
 
+            ProgramList.DataBind();
+            NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
+            BindList();
+        }
+        catch (Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }
     }
 
     private void CloseInsert()
@@ -95,60 +106,69 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 
     protected void NaitCoursesListViewByProgram_ItemInserting(object sender, ListViewInsertEventArgs e)
     {
-        //NaitCoursesListViewByProgram.DataSourceID = ODSNaitCourses.ID;
-        //ListViewItem item = NaitCoursesListViewByProgram.InsertItem;
-
-        TextBox courseCodeBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCodeTextBox");
-        TextBox courseNameBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseNameTextBox");
-        TextBox courseCreditsBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCreditsTextBox");
-        CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.InsertItem.FindControl("ActiveCheckBox");
-        
-        double credits;
-        string courseCodeText = courseCodeBox.Text;
-        string courseNameText = courseNameBox.Text;
-        if (courseCreditsBox.Text.Trim() == "")
+        try
         {
-            MessageUserControl.ShowInfo("Course Credits is required.");
-        }
-        else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
-        {
-            string courseCreditsText = courseCreditsBox.Text;
-            bool activityTF = activity.Checked;
+            TextBox courseCodeBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCodeTextBox");
+            TextBox courseNameBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseNameTextBox");
+            TextBox courseCreditsBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCreditsTextBox");
+            CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.InsertItem.FindControl("ActiveCheckBox");
 
-            List<NaitCours> NewCourse = new List<NaitCours>();
-
-            string pid = ProgramList.SelectedDataKey.Value.ToString();
-            int proId = Convert.ToInt32(pid);
-
-            AdminController sysmr = new AdminController();
-            if (string.IsNullOrEmpty(courseCodeText))
+            double credits;
+            string courseCodeText = courseCodeBox.Text;
+            string courseNameText = courseNameBox.Text;
+            if (courseCreditsBox.Text.Trim() == "")
             {
-                MessageUserControl.ShowInfo("The Course Code is required.");
+                MessageUserControl.ShowInfo("Course Credits is required.");
             }
-            else if (string.IsNullOrEmpty(courseNameText))
+            else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
             {
-                MessageUserControl.ShowInfo("The Course Name is required.");
+                if (credits <= 1 || credits > 100)
+                    MessageUserControl.ShowInfo("Credits must be between 1 - 100");
+                else
+                {
+                    string courseCreditsText = courseCreditsBox.Text;
+                    bool activityTF = activity.Checked;
+
+                    List<NaitCours> NewCourse = new List<NaitCours>();
+
+                    string pid = ProgramList.SelectedDataKey.Value.ToString();
+                    int proId = Convert.ToInt32(pid);
+
+                    AdminController sysmr = new AdminController();
+                    if (string.IsNullOrEmpty(courseCodeText))
+                    {
+                        MessageUserControl.ShowInfo("The Course Code is required.");
+                    }
+                    else if (string.IsNullOrEmpty(courseNameText))
+                    {
+                        MessageUserControl.ShowInfo("The Course Name is required.");
+                    }
+                    else
+                    {
+                        NewCourse.Add(
+                            new NaitCours()
+                            {
+                                CourseCode = courseCodeText,
+                                CourseName = courseNameText,
+                                CourseCredits = double.Parse(courseCreditsText),
+                                Active = activityTF
+                            });
+
+                        sysmr.AddNaitCourse(NewCourse, proId);
+                        CloseInsert();
+                        BindList();
+                    }
+                }                
             }
             else
             {
-                NewCourse.Add(
-                    new NaitCours()
-                    {
-                        CourseCode = courseCodeText,
-                        CourseName = courseNameText,
-                        CourseCredits = double.Parse(courseCreditsText),
-                        Active = activityTF
-                    });
-
-                sysmr.AddNaitCourse(NewCourse, proId);
-                CloseInsert();
-                BindList();
+                MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
             }
         }
-        else
+        catch (Exception error)
         {
-            MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
-        }
+            MessageUserControl.ShowInfo(error.Message);
+        }        
     }
 
     protected void NaitCoursesListViewByProgram_ItemEditing(object sender, ListViewEditEventArgs e)
@@ -183,53 +203,61 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
     protected void NaitCoursesListViewByProgram_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
         AdminController sysmr = new AdminController();
-
-        Label courseIDBox = (Label)NaitCoursesListViewByProgram.EditItem.FindControl("CourseIDTextBox");
-        TextBox courseCodeBox = (TextBox)NaitCoursesListViewByProgram.EditItem.FindControl("CourseCodeTextBox");
-        TextBox courseNameBox = (TextBox)NaitCoursesListViewByProgram.EditItem.FindControl("CourseNameTextBox");
-        TextBox courseCreditsBox = (TextBox)NaitCoursesListViewByProgram.EditItem.FindControl("CourseCreditsTextBox");
-        CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.EditItem.FindControl("ActiveCheckBox");
-
-        var course = new NaitCours();
-        double credits;
-
-        //course.CourseID = Convert.ToInt16(NaitCoursesListViewByProgram.SelectedDataKey.Value.ToString());
-        course.CourseID = int.Parse(courseIDBox.Text);
-        course.CourseCode = courseCodeBox.Text;
-        course.CourseName = courseNameBox.Text;
-        if (courseCreditsBox.Text.Trim() == "")
+        try
         {
-            MessageUserControl.ShowInfo("Course Credits is required.");
-        }
-        else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
-        {
-            course.CourseCredits = double.Parse(courseCreditsBox.Text);
-            course.Active = activity.Checked;
+            Label courseIDBox = (Label)NaitCoursesListViewByProgram.EditItem.FindControl("CourseIDTextBox");
+            TextBox courseCodeBox = (TextBox)NaitCoursesListViewByProgram.EditItem.FindControl("CourseCodeTextBox");
+            TextBox courseNameBox = (TextBox)NaitCoursesListViewByProgram.EditItem.FindControl("CourseNameTextBox");
+            TextBox courseCreditsBox = (TextBox)NaitCoursesListViewByProgram.EditItem.FindControl("CourseCreditsTextBox");
+            CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.EditItem.FindControl("ActiveCheckBox");
 
-            if (string.IsNullOrEmpty(courseCodeBox.Text))
+            var course = new NaitCours();
+            double credits;
+
+            //course.CourseID = Convert.ToInt16(NaitCoursesListViewByProgram.SelectedDataKey.Value.ToString());
+            course.CourseID = int.Parse(courseIDBox.Text);
+            course.CourseCode = courseCodeBox.Text;
+            course.CourseName = courseNameBox.Text;
+            if (courseCreditsBox.Text.Trim() == "")
             {
-                MessageUserControl.ShowInfo("The Course Code is required.");
+                MessageUserControl.ShowInfo("Course Credits is required.");
             }
-            else if (string.IsNullOrEmpty(courseNameBox.Text))
+            else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
             {
-                MessageUserControl.ShowInfo("The Course Name is required.");
+                if (credits <= 1 || credits > 100)
+                    MessageUserControl.ShowInfo("Credits must be between 1 - 100");
+                else
+                {
+                    course.CourseCredits = double.Parse(courseCreditsBox.Text);
+                    course.Active = activity.Checked;
+
+                    if (string.IsNullOrEmpty(courseCodeBox.Text))
+                    {
+                        MessageUserControl.ShowInfo("The Course Code is required.");
+                    }
+                    else if (string.IsNullOrEmpty(courseNameBox.Text))
+                    {
+                        MessageUserControl.ShowInfo("The Course Name is required.");
+                    }
+                    else
+                    {
+                        sysmr.UpdateNaitCourse(course);
+                        NaitCoursesListViewByProgram.EditIndex = -1;
+                    }
+
+                    BindList();
+                }                
             }
             else
             {
-                sysmr.UpdateNaitCourse(course);
-                NaitCoursesListViewByProgram.EditIndex = -1;
+                MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
             }
-
-            BindList();
         }
-        else
+        catch (Exception error)
         {
-            MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
-        }
+            MessageUserControl.ShowInfo(error.Message);
+        }        
     }
-
-
-
     protected void NaitCoursesListViewByProgram_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {
         (NaitCoursesListViewByProgram.FindControl("DataPager1") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
