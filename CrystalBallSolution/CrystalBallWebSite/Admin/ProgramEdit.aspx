@@ -407,7 +407,7 @@
                             <table class="nait-courses">
                                 <tr>
                                     <th></th>
-                                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th></th>
+                                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th>Level</th>
                                     <th></th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server"></tr>

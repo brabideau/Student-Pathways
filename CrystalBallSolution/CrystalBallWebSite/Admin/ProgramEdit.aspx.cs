@@ -217,7 +217,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         AdminController sysmr = new AdminController();
 
 
-        if ( ProgramIDLabel.Text!= "") 
+        if (ProgramIDLabel.Text != "")
         {
             var program = new Program();
             program.ProgramID = int.Parse(ProgramIDLabel.Text);
@@ -225,15 +225,20 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             program.ProgramName = TB_ProgramName.Text;
             program.ProgramDescription = TB_Description.Text;
             string credits = TB_Credits.Text;
+            double dCredits;
+            int cAdvantage;
 
             if (string.IsNullOrEmpty(credits))
             {
                 program.TotalCredits = null;
-
+            }
+            else if (double.TryParse(credits, out dCredits))
+            {
+                program.TotalCredits = dCredits;
             }
             else
             {
-                program.TotalCredits = double.Parse(credits);
+                MessageUserControl.ShowInfo("Competitive Advantage must be a number.");
             }
 
             string length = TB_Length.SelectedValue;
@@ -241,35 +246,38 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             {
                 program.ProgramLength = length;
             }
-        
+
             string competitiveAdvantage = TB_CompetitiveAdvantage.Text;
             if (string.IsNullOrEmpty(competitiveAdvantage))
             {
                 program.CompetitiveAdvantage = null;
             }
+            else if (int.TryParse(competitiveAdvantage, out cAdvantage))
+            {
+                program.CompetitiveAdvantage = cAdvantage;
+
+                program.Active = CB_Active.Checked;
+                program.ProgramLink = TB_Link.Text;
+
+                if (string.IsNullOrEmpty(TB_ProgramName.Text))
+                {
+                    MessageUserControl.ShowInfo("The Program Name is required.");
+                }
+                else if (TB_Length.SelectedValue == "0")
+                {
+                    MessageUserControl.ShowInfo("The program length is required.");
+                }
+                else
+                {
+                    MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
+                    Categories_Show(sender, e);
+                }
+            }
             else
             {
-                program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+                MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
             }
-
-            program.Active = CB_Active.Checked;
-            program.ProgramLink = TB_Link.Text;
-
-            if (string.IsNullOrEmpty(TB_ProgramName.Text))
-            {
-                MessageUserControl.ShowInfo("The Program Name is required.");
-            }
-            else if(TB_Length.SelectedValue == "0")
-            {
-                MessageUserControl.ShowInfo("The program length is required.");
-            }
-            else
-            {
-                MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You uppdated the program");
-                Categories_Show(sender, e);
-            }
-
-         }
+        }
         else
         {
             Add_Program(sender, e);
@@ -406,22 +414,30 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         }
         else
         {
+            double mark;
             newReq.ProgramID = programID;
             newReq.HighSchoolCourseID = Convert.ToInt32(DL_New_EntReq.SelectedValue);
             newReq.SubjectRequirementID = Convert.ToInt32(DL_New_Subject.SelectedValue);
 
-            if (NewMark.Text != "")
+            if (NewMark.Text.Trim() == "")
+            {
+                MessageUserControl.ShowInfo("A Mark must be entered.");
+            }
+            else if (double.TryParse(NewMark.Text.Trim(), out mark))
             {
                 newReq.RequiredMark = int.Parse(NewMark.Text);
+                
+                AdminController sysmgr = new AdminController();
+
+                sysmgr.AddEntranceRequirement(newReq);
+                MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
+
+                Populate_EntranceReqs(programID);
             }
-
-
-            AdminController sysmgr = new AdminController();
-
-            sysmgr.AddEntranceRequirement(newReq);
-            MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
-
-            Populate_EntranceReqs(programID);
+            else
+            {
+                MessageUserControl.ShowInfo("Mark must be a number.");
+            }            
         }
         
     }
@@ -580,10 +596,10 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         int programID = Int32.Parse(ProgramIDLabel.Text);
         int courseID = Convert.ToInt32((item.FindControl("CourseIDLabel") as Label).Text);
         int? semester = Convert.ToInt32((item.FindControl("DL_Semester") as DropDownList).SelectedValue);
-        if (semester == -1)
-        {
-            semester = null;
-        }
+        //if (semester == -1)
+        //{
+        //    semester = null;
+        //}
 
         ProgramCourse progCourse = new ProgramCourse()
         {

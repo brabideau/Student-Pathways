@@ -395,7 +395,7 @@ public partial class Admin_Reports : System.Web.UI.Page
         
 
         // Create and add the header and subheader
-        PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results", h1));
+        PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results in " + DL_Month.SelectedItem + " " + DL_Year.SelectedItem, h1));
         header.Padding = 10;
         header.Colspan = 2;
         header.HorizontalAlignment = 1;
