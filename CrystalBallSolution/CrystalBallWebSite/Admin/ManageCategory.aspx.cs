@@ -28,17 +28,22 @@ public partial class Admin_ManageCategory : System.Web.UI.Page
     protected void CategoryList_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
         AdminController sysmr = new AdminController();
+        try
+        {
+            Label CategoryIDBox = (Label)CategoryList.EditItem.FindControl("CategoryIDLabel");
+            TextBox CategoryDescriptionText = (TextBox)CategoryList.EditItem.FindControl("CategoryDescriptionTextBox");
 
-        Label CategoryIDBox = (Label)CategoryList.EditItem.FindControl("CategoryIDLabel");
-        TextBox CategoryDescriptionText = (TextBox)CategoryList.EditItem.FindControl("CategoryDescriptionTextBox");
+            var category = new Category();
 
-        var category = new Category();
+            category.CategoryID = int.Parse(CategoryIDBox.Text);
+            category.CategoryDescription = CategoryDescriptionText.Text;
 
-        category.CategoryID = int.Parse(CategoryIDBox.Text);
-        category.CategoryDescription = CategoryDescriptionText.Text;
-
-        sysmr.UpdateCategory(category);
-        CategoryList.DataBind();
-
+            sysmr.UpdateCategory(category);
+            CategoryList.DataBind();
+        }
+        catch(Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }       
     }
 }

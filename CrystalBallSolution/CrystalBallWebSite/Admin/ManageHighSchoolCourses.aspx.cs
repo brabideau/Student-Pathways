@@ -51,99 +51,107 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
     protected void HighSchoolCoursesList_ItemInserting(object sender, ListViewInsertEventArgs e)
     {
         AdminController sysmr = new AdminController();
-
-        DropDownList courseGroup = (DropDownList)HighSchoolCoursesList.InsertItem.FindControl("DDL_CourseGroup_Insert");
-        string courseGroupId = courseGroup.SelectedItem.Value;
-        TextBox courseNameText = (TextBox)HighSchoolCoursesList.InsertItem.FindControl("HighSchoolCourseNameTextBox");
-        DropDownList courseLevel = (DropDownList)HighSchoolCoursesList.InsertItem.FindControl("DDL_CourseLevel_Insert");
-        string courseLevelId = courseLevel.SelectedItem.Value;
-
-        var highschoolCourse = new HighSchoolCours();
-
-        highschoolCourse.HighSchoolCourseName = courseNameText.Text;
-
-        List<HighSchoolCours> NewHighSchoolCourse = new List<HighSchoolCours>();
-        
-
-        if (string.IsNullOrEmpty(courseNameText.Text))
+        try
         {
-            MessageUserControl.ShowInfo("The High School Name is required.");
-        }
-        if (courseLevel.SelectedValue == "0")
-        {
-            MessageUserControl.ShowInfo("Please select a course level.");
-        }
-        else
-        {
-            highschoolCourse.CourseLevel = int.Parse(courseLevelId);
-        }
+            DropDownList courseGroup = (DropDownList)HighSchoolCoursesList.InsertItem.FindControl("DDL_CourseGroup_Insert");
+            string courseGroupId = courseGroup.SelectedItem.Value;
+            TextBox courseNameText = (TextBox)HighSchoolCoursesList.InsertItem.FindControl("HighSchoolCourseNameTextBox");
+            DropDownList courseLevel = (DropDownList)HighSchoolCoursesList.InsertItem.FindControl("DDL_CourseLevel_Insert");
+            string courseLevelId = courseLevel.SelectedItem.Value;
 
-        if (courseGroup.SelectedValue == "0")
-        {
-            MessageUserControl.ShowInfo("Please select a course Group.");
-        }
-        else
-        {
-            highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
-        }
+            var highschoolCourse = new HighSchoolCours();
 
-        if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
-        {
-            NewHighSchoolCourse.Add(highschoolCourse);
-            MessageUserControl.TryRun(() => sysmr.AddHighSchoolCourse(NewHighSchoolCourse), "Add Success.", "You added new course: " + courseNameText.Text);
-            BindList();
-        }
+            highschoolCourse.HighSchoolCourseName = courseNameText.Text;
+
+            List<HighSchoolCours> NewHighSchoolCourse = new List<HighSchoolCours>();
 
 
+            if (string.IsNullOrEmpty(courseNameText.Text))
+            {
+                MessageUserControl.ShowInfo("The High School Name is required.");
+            }
+            if (courseLevel.SelectedValue == "0")
+            {
+                MessageUserControl.ShowInfo("Please select a course level.");
+            }
+            else
+            {
+                highschoolCourse.CourseLevel = int.Parse(courseLevelId);
+            }
 
+            if (courseGroup.SelectedValue == "0")
+            {
+                MessageUserControl.ShowInfo("Please select a course Group.");
+            }
+            else
+            {
+                highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
+            }
+
+            if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
+            {
+                NewHighSchoolCourse.Add(highschoolCourse);
+                MessageUserControl.TryRun(() => sysmr.AddHighSchoolCourse(NewHighSchoolCourse), "Add Success.", "You added new course: " + courseNameText.Text);
+                BindList();
+            }
+        }
+        catch (Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }
     }
 
 
     protected void HighSchoolCoursesList_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
         AdminController sysmr = new AdminController();
-        Label courseId = (Label)HighSchoolCoursesList.EditItem.FindControl("HighSchoolCourseIDLabel");
-        DropDownList courseGroup = (DropDownList)HighSchoolCoursesList.EditItem.FindControl("DDL_CourseGroup_Edit");
-        string courseGroupId = courseGroup.SelectedItem.Value;
-        TextBox courseNameText = (TextBox)HighSchoolCoursesList.EditItem.FindControl("HighSchoolCourseNameTextBox");
-        DropDownList courseLevel = (DropDownList)HighSchoolCoursesList.EditItem.FindControl("DDL_CourseLevel_Edit");
-        string courseLevelId = courseLevel.SelectedItem.Value;
+        try
+        {
+            Label courseId = (Label)HighSchoolCoursesList.EditItem.FindControl("HighSchoolCourseIDLabel");
+            DropDownList courseGroup = (DropDownList)HighSchoolCoursesList.EditItem.FindControl("DDL_CourseGroup_Edit");
+            string courseGroupId = courseGroup.SelectedItem.Value;
+            TextBox courseNameText = (TextBox)HighSchoolCoursesList.EditItem.FindControl("HighSchoolCourseNameTextBox");
+            DropDownList courseLevel = (DropDownList)HighSchoolCoursesList.EditItem.FindControl("DDL_CourseLevel_Edit");
+            string courseLevelId = courseLevel.SelectedItem.Value;
 
-        var highschoolCourse = new HighSchoolCours();
-        highschoolCourse.HighSchoolCourseID = int.Parse(courseId.Text);
-        
-        highschoolCourse.HighSchoolCourseName = courseNameText.Text;
+            var highschoolCourse = new HighSchoolCours();
+            highschoolCourse.HighSchoolCourseID = int.Parse(courseId.Text);
 
-        if (string.IsNullOrEmpty(courseNameText.Text))
-        {
-            MessageUserControl.ShowInfo("The High School Name is required.");
-        }
-        if (courseLevel.SelectedValue == "0")
-        {
-            MessageUserControl.ShowInfo("Please select a course level.");
-        }
-        else
-        {
-            highschoolCourse.CourseLevel = int.Parse(courseLevelId);
-        }
+            highschoolCourse.HighSchoolCourseName = courseNameText.Text;
 
-        if (courseGroup.SelectedValue == "0")
-        {
-            MessageUserControl.ShowInfo("Please select a course Group.");
-        }
-        else
-        {
-            highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
-        }
+            if (string.IsNullOrEmpty(courseNameText.Text))
+            {
+                MessageUserControl.ShowInfo("The High School Name is required.");
+            }
+            if (courseLevel.SelectedValue == "0")
+            {
+                MessageUserControl.ShowInfo("Please select a course level.");
+            }
+            else
+            {
+                highschoolCourse.CourseLevel = int.Parse(courseLevelId);
+            }
 
-        if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
-        {
-            MessageUserControl.TryRun(() => sysmr.HighSchoolCourse_Update(highschoolCourse), "Update Success.", "You updated the course: " + courseNameText.Text);
-            HighSchoolCoursesList.EditIndex = -1;
-            BindList();
-        }
-       
+            if (courseGroup.SelectedValue == "0")
+            {
+                MessageUserControl.ShowInfo("Please select a course Group.");
+            }
+            else
+            {
+                highschoolCourse.CourseGroupID = int.Parse(courseGroupId);
+            }
 
+            if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
+            {
+                MessageUserControl.TryRun(() => sysmr.HighSchoolCourse_Update(highschoolCourse), "Update Success.", "You updated the course: " + courseNameText.Text);
+                HighSchoolCoursesList.EditIndex = -1;
+                BindList();
+            }
+        }
+        catch (Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }      
     }
     protected void HighSchoolCoursesList_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {
