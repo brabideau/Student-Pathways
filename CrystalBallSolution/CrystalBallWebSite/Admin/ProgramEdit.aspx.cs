@@ -359,9 +359,10 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         AdminController sysmr = new AdminController();
         int programid = sysmr.GetProgramIDByName(TB_ProgramName.Text);
         //int programid = Convert.ToInt32(ProgramIDLabel.Text);
-
-        sysmr.AddProgramInCategories(categories, programid);
-
+        if (categories.Count != 0)
+        {
+            sysmr.AddProgramInCategories(categories, programid);
+        }
         EntranceReq_Show(sender, e);
     }
     #endregion
@@ -446,7 +447,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         }
         else
         {
-            double mark;
+            int mark;
             newReq.ProgramID = programID;
             newReq.HighSchoolCourseID = Convert.ToInt32(DL_New_EntReq.SelectedValue);
             newReq.SubjectRequirementID = Convert.ToInt32(DL_New_Subject.SelectedValue);
@@ -455,21 +456,38 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             {
                 MessageUserControl.ShowInfo("A Mark must be entered.");
             }
-            else if (double.TryParse(NewMark.Text.Trim(), out mark))
-            {
-                newReq.RequiredMark = int.Parse(NewMark.Text);
-                
-                AdminController sysmgr = new AdminController();
-
-                sysmgr.AddEntranceRequirement(newReq);
-                MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
-
-                Populate_EntranceReqs(programID);
-            }
             else
             {
-                MessageUserControl.ShowInfo("Mark must be a number.");
-            }            
+                if (int.TryParse(NewMark.Text.Trim(), out mark))
+                {
+                    if( mark>=50 && mark<=100 )
+                    {
+                        //newReq.RequiredMark = int.Parse(NewMark.Text);
+                        newReq.RequiredMark = mark;
+                        AdminController sysmgr = new AdminController();
+
+                        bool added = sysmgr.AddEntranceRequirement(newReq);
+                        if (added)
+                        {
+                            MessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
+                            Populate_EntranceReqs(programID);
+                        }
+                        else
+                        {
+                            MessageUserControl.ShowInfo("The Entrance Requirement Already Existing.");
+                        }
+                    }
+                    else
+                    {
+                        MessageUserControl.ShowInfo("Mark must be between 50-100.");
+                    }                    
+                }
+                else
+                {
+                    MessageUserControl.ShowInfo("Mark must be a number.");
+                }
+            }
+                        
         }
         
     }

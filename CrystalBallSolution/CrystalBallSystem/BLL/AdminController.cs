@@ -769,13 +769,30 @@ namespace CrystalBallSystem.BLL
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         // Adds the supplied category to the database
-        public void AddEntranceRequirement(EntranceRequirement item)
+        public bool AddEntranceRequirement(EntranceRequirement item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
+                int hsid = item.HighSchoolCourseID;
+                int rid = item.SubjectRequirementID;
+                int? programid = item.ProgramID;
+
+                bool success = false;
+
+                int existing = (from x in context.EntranceRequirements
+                               where x.HighSchoolCourseID==hsid &&
+                               x.SubjectRequirementID == rid && x.ProgramID == programid
+                               select x).Count();
+
                 EntranceRequirement added = null;
-                added = context.EntranceRequirements.Add(item);
-                context.SaveChanges();
+                if (existing == 0)
+                {
+                    added = context.EntranceRequirements.Add(item);
+                    context.SaveChanges();
+                    success = true;
+                }
+
+                return success;
             }
         }
 
