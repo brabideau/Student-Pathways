@@ -356,9 +356,13 @@ namespace CrystalBallSystem.BLL
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
+                bool exists = context.ProgramCourses.Any(x => x.CourseID == item.CourseID && x.ProgramID == item.ProgramID);
 
-                var added = context.ProgramCourses.Add(item);
-                context.SaveChanges();
+                if (!exists)
+                {
+                    var added = context.ProgramCourses.Add(item);
+                    context.SaveChanges();
+                }
             }
         }
         [DataObjectMethod(DataObjectMethodType.Delete, false)]
