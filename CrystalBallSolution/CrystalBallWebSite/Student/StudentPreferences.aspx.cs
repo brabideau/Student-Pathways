@@ -104,7 +104,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             semester = null;
         }
 
-
+        try
+        {
             //step 2 - Gather the answers to the student preference questions
             List<StudentPreference> myPreferences = new List<StudentPreference>();
             foreach (GridViewRow row in prefGridView.Rows)
@@ -181,8 +182,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             ResultsView.DataBind();
 
             Show_Results(sender, e);
-
-
+        }
+        catch (Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }
     }
     //changes student information gathering page to invisible if the user is not a student
     protected void CurrentStudent_CheckedChanged(object sender, EventArgs e)
@@ -476,10 +480,18 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             active = false;
         }
-        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
-        CourseGridView.DataBind();
-        CourseGridView.Visible = true;
-        SearchTextBox.Text = null;
+        try
+        {
+            CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
+            CourseGridView.DataBind();
+            CourseGridView.Visible = true;
+            SearchTextBox.Text = null;
+        }
+        catch (Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }
+        
 
     }
     //Clears the repeater and search options
@@ -583,8 +595,8 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         StudentPrefs.Visible = false;
         ResultsList.Visible = true;
     }
-    protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
-    {
+    //protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+    //{
 
-    }
+    //}
 }
