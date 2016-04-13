@@ -102,42 +102,53 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         TextBox courseNameBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseNameTextBox");
         TextBox courseCreditsBox = (TextBox)NaitCoursesListViewByProgram.InsertItem.FindControl("CourseCreditsTextBox");
         CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.InsertItem.FindControl("ActiveCheckBox");
-
+        
+        double credits;
         string courseCodeText = courseCodeBox.Text;
         string courseNameText = courseNameBox.Text;
-        string courseCreditsText = courseCreditsBox.Text;
-        bool activityTF = activity.Checked;
-
-        List<NaitCours> NewCourse = new List<NaitCours>();
-
-        string pid = ProgramList.SelectedDataKey.Value.ToString();
-        int proId = Convert.ToInt32(pid);
-
-        AdminController sysmr = new AdminController();
-        if (string.IsNullOrEmpty(courseCodeText))
+        if (courseCreditsBox.Text.Trim() == "")
         {
-            MessageUserControl.ShowInfo("The Course Code is required.");
+            MessageUserControl.ShowInfo("Course Credits is required.");
         }
-        else if (string.IsNullOrEmpty(courseNameText))
+        else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
         {
-            MessageUserControl.ShowInfo("The Course Name is required.");
+            string courseCreditsText = courseCreditsBox.Text;
+            bool activityTF = activity.Checked;
+
+            List<NaitCours> NewCourse = new List<NaitCours>();
+
+            string pid = ProgramList.SelectedDataKey.Value.ToString();
+            int proId = Convert.ToInt32(pid);
+
+            AdminController sysmr = new AdminController();
+            if (string.IsNullOrEmpty(courseCodeText))
+            {
+                MessageUserControl.ShowInfo("The Course Code is required.");
+            }
+            else if (string.IsNullOrEmpty(courseNameText))
+            {
+                MessageUserControl.ShowInfo("The Course Name is required.");
+            }
+            else
+            {
+                NewCourse.Add(
+                    new NaitCours()
+                    {
+                        CourseCode = courseCodeText,
+                        CourseName = courseNameText,
+                        CourseCredits = double.Parse(courseCreditsText),
+                        Active = activityTF
+                    });
+
+                sysmr.AddNaitCourse(NewCourse, proId);
+                CloseInsert();
+                BindList();
+            }
         }
         else
         {
-            NewCourse.Add(
-                new NaitCours()
-                {
-                    CourseCode = courseCodeText,
-                    CourseName = courseNameText,
-                    CourseCredits = double.Parse(courseCreditsText),
-                    Active = activityTF
-                });
-
-            sysmr.AddNaitCourse(NewCourse, proId);
-            CloseInsert();
-            BindList();
+            MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
         }
-             
     }
 
     protected void NaitCoursesListViewByProgram_ItemEditing(object sender, ListViewEditEventArgs e)
@@ -180,30 +191,41 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         CheckBox activity = (CheckBox)NaitCoursesListViewByProgram.EditItem.FindControl("ActiveCheckBox");
 
         var course = new NaitCours();
+        double credits;
 
         //course.CourseID = Convert.ToInt16(NaitCoursesListViewByProgram.SelectedDataKey.Value.ToString());
         course.CourseID = int.Parse(courseIDBox.Text);
         course.CourseCode = courseCodeBox.Text;
         course.CourseName = courseNameBox.Text;
-        course.CourseCredits = double.Parse(courseCreditsBox.Text);
-        course.Active = activity.Checked;
-
-        if (string.IsNullOrEmpty(courseCodeBox.Text))
+        if (courseCreditsBox.Text.Trim() == "")
         {
-            MessageUserControl.ShowInfo("The Course Code is required.");
+            MessageUserControl.ShowInfo("Course Credits is required.");
         }
-        else if (string.IsNullOrEmpty(courseNameBox.Text))
+        else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
         {
-            MessageUserControl.ShowInfo("The Course Name is required.");
+            course.CourseCredits = double.Parse(courseCreditsBox.Text);
+            course.Active = activity.Checked;
+
+            if (string.IsNullOrEmpty(courseCodeBox.Text))
+            {
+                MessageUserControl.ShowInfo("The Course Code is required.");
+            }
+            else if (string.IsNullOrEmpty(courseNameBox.Text))
+            {
+                MessageUserControl.ShowInfo("The Course Name is required.");
+            }
+            else
+            {
+                sysmr.UpdateNaitCourse(course);
+                NaitCoursesListViewByProgram.EditIndex = -1;
+            }
+
+            BindList();
         }
         else
         {
-            sysmr.UpdateNaitCourse(course);
-            NaitCoursesListViewByProgram.EditIndex = -1;
+            MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
         }
-        
-        BindList();
-
     }
 
 

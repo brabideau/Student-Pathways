@@ -141,9 +141,9 @@
                                                 </tr>
                                                 <tr>
                                                     <th></th>
-                                                    <td>
-                                                        <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
+                                                    <td>                                                        
                                                         <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" Text="Update" CssClass="admin_button"/>
+                                                        <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" CssClass="admin_button"/>
                                                     </td>
                                                 </tr>
                                             </tbody>
