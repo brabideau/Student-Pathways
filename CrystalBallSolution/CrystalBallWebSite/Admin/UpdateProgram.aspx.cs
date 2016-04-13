@@ -74,65 +74,80 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
 
     protected void ProgramListView_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
-        AdminController sysmr = new AdminController();
-
-        Label programId = (Label)ProgramListView.EditItem.FindControl("ProgramIDLabel");
-        DropDownList CredentialType = (DropDownList)ProgramListView.EditItem.FindControl("CredentialTypeDropdownList");
-        string CredentialTypeId = CredentialType.SelectedValue.ToString();
-
-        TextBox ProgramNameBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramNameTextBox");
-        TextBox EntranceRequirementBox = (TextBox)ProgramListView.EditItem.FindControl("EntranceRequirementTextBox");
-        TextBox TotalCreditsBox = (TextBox)ProgramListView.EditItem.FindControl("TotalCreditsTextBox");
-        DropDownList ProgramLength = (DropDownList)ProgramListView.EditItem.FindControl("lengthDropDownList");
-        string length = ProgramLength.SelectedValue.ToString();
-        //TextBox ProgramLengthBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLengthTextBox");
-        TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.EditItem.FindControl("CompetiveAdvantageTextBox");
-        CheckBox Active = (CheckBox)ProgramListView.EditItem.FindControl("ActiveCheckBox");
-        TextBox ProgramLinkBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLinkTextBox");
-
-        var program = new Program();
-        program.ProgramID = int.Parse(programId.Text);
-        program.CredentialTypeID = int.Parse(CredentialTypeId);
-        program.ProgramName = ProgramNameBox.Text;
-        program.ProgramDescription = EntranceRequirementBox.Text;
-        string credits = TotalCreditsBox.Text;
-
-        if (string.IsNullOrEmpty(credits))
+        try
         {
-            program.TotalCredits = null;
+            AdminController sysmr = new AdminController();
 
-        }
-        else
-        {
-            program.TotalCredits = double.Parse(credits);
-        }
+            Label programId = (Label)ProgramListView.EditItem.FindControl("ProgramIDLabel");
+            DropDownList CredentialType = (DropDownList)ProgramListView.EditItem.FindControl("CredentialTypeDropdownList");
+            string CredentialTypeId = CredentialType.SelectedValue.ToString();
 
-        program.ProgramLength = length;
+            TextBox ProgramNameBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramNameTextBox");
+            TextBox EntranceRequirementBox = (TextBox)ProgramListView.EditItem.FindControl("EntranceRequirementTextBox");
+            TextBox TotalCreditsBox = (TextBox)ProgramListView.EditItem.FindControl("TotalCreditsTextBox");
+            DropDownList ProgramLength = (DropDownList)ProgramListView.EditItem.FindControl("lengthDropDownList");
+            string length = ProgramLength.SelectedValue.ToString();
+            //TextBox ProgramLengthBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLengthTextBox");
+            TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.EditItem.FindControl("CompetiveAdvantageTextBox");
+            CheckBox Active = (CheckBox)ProgramListView.EditItem.FindControl("ActiveCheckBox");
+            TextBox ProgramLinkBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLinkTextBox");
 
-        string competitiveAdvantage = CompetiveAdvantageBox.Text;
-        if (string.IsNullOrEmpty(competitiveAdvantage))
-        {
-            program.CompetitiveAdvantage = null;
-        }
-        else
-        {
-            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
-        }
+            var program = new Program();
+            program.ProgramID = int.Parse(programId.Text);
+            program.CredentialTypeID = int.Parse(CredentialTypeId);
+            program.ProgramName = ProgramNameBox.Text;
+            program.ProgramDescription = EntranceRequirementBox.Text;
+            string credits = TotalCreditsBox.Text;
 
-        program.Active = Active.Checked;
-        program.ProgramLink = ProgramLinkBox.Text;
+            if (string.IsNullOrEmpty(credits))
+            {
+                program.TotalCredits = null;
 
-        if (string.IsNullOrEmpty(ProgramNameBox.Text))
-        {
-            MessageUserControl.ShowInfo("The Program Name is required.");
+            }
+            else if (double.Parse(credits) < 0 || double.Parse(credits) > 9999)
+            {
+                MessageUserControl.ShowInfo("Program credits must be between 0 - 9999");
+            }                
+            else
+            {
+                program.TotalCredits = double.Parse(credits);
+            }
+
+            program.ProgramLength = length;
+
+            string competitiveAdvantage = CompetiveAdvantageBox.Text;
+            if (string.IsNullOrEmpty(competitiveAdvantage))
+            {
+                program.CompetitiveAdvantage = null;
+            }
+            else if (int.Parse(competitiveAdvantage) < 0 || int.Parse(competitiveAdvantage) > 100)
+            {
+                MessageUserControl.ShowInfo("Competitive advantage must be 0 - 100");
+            }
+            else
+            {
+                program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+            }
+
+            program.Active = Active.Checked;
+            program.ProgramLink = ProgramLinkBox.Text;
+
+            if (string.IsNullOrEmpty(ProgramNameBox.Text))
+            {
+                MessageUserControl.ShowInfo("The Program Name is required.");
+            }
+            else
+            {
+                sysmr.Program_Update(program);
+                ProgramListView.EditIndex = -1;
+            }
+
+            BindList();
         }
-        else
+        catch (Exception error)
         {
-            sysmr.Program_Update(program);
-            ProgramListView.EditIndex = -1;
+            MessageUserControl.ShowInfo(error.Message);
         }
-        
-        BindList();
     }
 
     private void CloseInsert()
@@ -144,72 +159,85 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
     protected void ProgramListView_ItemInserting(object sender, ListViewInsertEventArgs e)
     {
 
-
-        DropDownList CredentialType = (DropDownList)ProgramListView.InsertItem.FindControl("CredentialTypeDropdownList");
-        string CredentialTypeId = CredentialType.SelectedValue.ToString();
-
-        TextBox ProgramNameBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramNameTextBox");
-        TextBox EntranceRequirementBox = (TextBox)ProgramListView.InsertItem.FindControl("EntranceRequirementTextBox");
-        TextBox TotalCreditsBox = (TextBox)ProgramListView.InsertItem.FindControl("TotalCreditsTextBox");
-        DropDownList ProgramLength = (DropDownList)ProgramListView.InsertItem.FindControl("lengthDropDownList");
-        string length = ProgramLength.SelectedValue.ToString();
-        TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.InsertItem.FindControl("CompetiveAdvantageTextBox");
-        CheckBox Active = (CheckBox)ProgramListView.InsertItem.FindControl("ActiveCheckBox");
-        TextBox ProgramLinkBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramLinkTextBox");
-
-        var program = new Program();
-        program.CredentialTypeID = int.Parse(CredentialTypeId);
-        program.ProgramName = ProgramNameBox.Text;
-        program.ProgramDescription = EntranceRequirementBox.Text;
-        string credits = TotalCreditsBox.Text;
-
-
-        if (string.IsNullOrEmpty(credits))
+        try
         {
-            program.TotalCredits = null;
+            DropDownList CredentialType = (DropDownList)ProgramListView.InsertItem.FindControl("CredentialTypeDropdownList");
+            string CredentialTypeId = CredentialType.SelectedValue.ToString();
 
+            TextBox ProgramNameBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramNameTextBox");
+            TextBox EntranceRequirementBox = (TextBox)ProgramListView.InsertItem.FindControl("EntranceRequirementTextBox");
+            TextBox TotalCreditsBox = (TextBox)ProgramListView.InsertItem.FindControl("TotalCreditsTextBox");
+            DropDownList ProgramLength = (DropDownList)ProgramListView.InsertItem.FindControl("lengthDropDownList");
+            string length = ProgramLength.SelectedValue.ToString();
+            TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.InsertItem.FindControl("CompetiveAdvantageTextBox");
+            CheckBox Active = (CheckBox)ProgramListView.InsertItem.FindControl("ActiveCheckBox");
+            TextBox ProgramLinkBox = (TextBox)ProgramListView.InsertItem.FindControl("ProgramLinkTextBox");
+
+            var program = new Program();
+            program.CredentialTypeID = int.Parse(CredentialTypeId);
+            program.ProgramName = ProgramNameBox.Text;
+            program.ProgramDescription = EntranceRequirementBox.Text;
+            string credits = TotalCreditsBox.Text;
+
+
+            if (string.IsNullOrEmpty(credits))
+            {
+                program.TotalCredits = null;
+
+            }
+            else if (double.Parse(credits) < 0 || double.Parse(credits) > 9999)
+            {
+                MessageUserControl.ShowInfo("Program credits must be between 0 - 9999");
+            }
+            else
+            {
+                program.TotalCredits = double.Parse(credits);
+            }
+
+            program.ProgramLength = length;
+
+            string competitiveAdvantage = CompetiveAdvantageBox.Text;
+            if (string.IsNullOrEmpty(competitiveAdvantage))
+            {
+                program.CompetitiveAdvantage = null;
+            }
+            else if (int.Parse(competitiveAdvantage) < 0 || int.Parse(competitiveAdvantage) > 100)
+            {
+                MessageUserControl.ShowInfo("Competitive advantage must be 0 - 100");
+            }
+            else
+            {
+                program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
+            }
+
+            program.Active = Active.Checked;
+            program.ProgramLink = ProgramLinkBox.Text;
+
+            List<Program> NewProgram = new List<Program>();
+            NewProgram.Add(program);
+
+            string categoryid = CategoryDropdownList.SelectedValue.ToString();
+            int cateid = Convert.ToInt32(categoryid);
+
+            AdminController sysmr = new AdminController();
+
+            if (string.IsNullOrEmpty(ProgramNameBox.Text))
+            {
+                MessageUserControl.ShowInfo("The Program Name is required.");
+            }
+            else
+            {
+                //MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
+
+                CloseInsert();
+            }
+
+            BindList();
         }
-        else
+        catch (Exception error)
         {
-            program.TotalCredits = double.Parse(credits);
+            MessageUserControl.ShowInfo(error.Message);
         }
-
-        program.ProgramLength = length;
-
-        string competitiveAdvantage = CompetiveAdvantageBox.Text;
-        if (string.IsNullOrEmpty(competitiveAdvantage))
-        {
-            program.CompetitiveAdvantage = null;
-        }
-        else
-        {
-            program.CompetitiveAdvantage = int.Parse(competitiveAdvantage);
-        }
-
-        program.Active = Active.Checked;
-        program.ProgramLink = ProgramLinkBox.Text;
-
-        List<Program> NewProgram = new List<Program>();
-        NewProgram.Add(program);
-
-        string categoryid = CategoryDropdownList.SelectedValue.ToString();
-        int cateid = Convert.ToInt32(categoryid);
-
-        AdminController sysmr = new AdminController();
-
-        if (string.IsNullOrEmpty(ProgramNameBox.Text))
-        {
-            MessageUserControl.ShowInfo("The Program Name is required.");
-        }
-        else
-        {            
-            //MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
-
-            CloseInsert();
-        }
-        
-        BindList();
-
     }
 
     protected void NewButton_Click(object sender, EventArgs e)
