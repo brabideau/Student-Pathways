@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 public partial class Admin_ProgramEdit : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -554,6 +555,8 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     protected void Populate_Courses(int programID)
     {
         AdminController sysmgr = new AdminController();
+
+
         var courseData = sysmgr.GetCoursesByProgramSemester(programID, 1);
 
         LV_ProgramCourses_One.DataSource = courseData;
@@ -600,18 +603,28 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         //{
         //    semester = null;
         //}
+        
+            MessageUserControl.TryRun(() =>
+                {
+                    ProgramCourse progCourse = new ProgramCourse()
+                    {
+                        CourseID = courseID,
+                        ProgramID = programID,
+                        Semester = semester
+                    };
 
-        ProgramCourse progCourse = new ProgramCourse()
-        {
-            CourseID = courseID,
-            ProgramID = programID,
-            Semester = semester
-        };
+                    AdminController sysmgr = new AdminController();
+                    sysmgr.AddProgramCourse(progCourse);
 
-        AdminController sysmgr = new AdminController();
-        sysmgr.AddProgramCourse(progCourse);
+                    Populate_Courses(programID);
+                    MessageUserControl.ShowInfoPass("Added successfully!");
 
-        Populate_Courses(programID);
+                }
+                );
+
+
+
+        
     }
 
 
