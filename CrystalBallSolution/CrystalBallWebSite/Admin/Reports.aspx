@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Reports.aspx.cs" Inherits="Admin_Reports" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Reports</h1>
@@ -7,6 +9,7 @@
 
     <asp:UpdatePanel ID="ButtonsPanel" runat="server">
         <ContentTemplate>
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
 
      <asp:RadioButtonList ID="Tab_Labels" runat="server" RepeatLayout="OrderedList" CssClass="tabs clearfix" OnSelectedIndexChanged="Change_Tab" AutoPostBack="true">
             <asp:ListItem Value="1" Text="Program Data" Selected="true"></asp:ListItem>
