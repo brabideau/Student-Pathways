@@ -72,7 +72,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         ProgramNameLabel.Text = myProgram.ProgramName;
         DL_CredentialType.SelectedValue = myProgram.CredentialTypeID.ToString();
         TB_Description.Text = myProgram.ProgramDescription;
+
         TB_Credits.Text = myProgram.TotalCredits.ToString();
+
        // TB_Length.Text = myProgram.ProgramLength;
         TB_CompetitiveAdvantage.Text = myProgram.CompetitiveAdvantage.ToString();
         CB_Active.Checked = myProgram.Active;
@@ -223,61 +225,98 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             var program = new Program();
             program.ProgramID = int.Parse(ProgramIDLabel.Text);
             program.CredentialTypeID = int.Parse(DL_CredentialType.SelectedValue);
-            program.ProgramName = TB_ProgramName.Text;
             program.ProgramDescription = TB_Description.Text;
+            program.Active = CB_Active.Checked;
+            program.ProgramLink = TB_Link.Text;
             string credits = TB_Credits.Text;
+            //string competitiveAdvantage;
             double dCredits;
             int cAdvantage;
 
-            if (string.IsNullOrEmpty(credits))
+            if (string.IsNullOrEmpty(TB_ProgramName.Text))
             {
-                program.TotalCredits = null;
-            }
-            else if (double.TryParse(credits, out dCredits))
-            {
-                program.TotalCredits = dCredits;
+                MessageUserControl.ShowInfo("The Program Name is required.");
             }
             else
             {
-                MessageUserControl.ShowInfo("Competitive Advantage must be a number.");
-            }
-
-            string length = TB_Length.SelectedValue;
-            if (length != "0")
-            {
-                program.ProgramLength = length;
-            }
-
-            string competitiveAdvantage = TB_CompetitiveAdvantage.Text;
-            if (string.IsNullOrEmpty(competitiveAdvantage))
-            {
-                program.CompetitiveAdvantage = null;
-            }
-            else if (int.TryParse(competitiveAdvantage, out cAdvantage))
-            {
-                program.CompetitiveAdvantage = cAdvantage;
-
-                program.Active = CB_Active.Checked;
-                program.ProgramLink = TB_Link.Text;
-
-                if (string.IsNullOrEmpty(TB_ProgramName.Text))
+                program.ProgramName = TB_ProgramName.Text;
+                if (string.IsNullOrEmpty(credits))
                 {
-                    MessageUserControl.ShowInfo("The Program Name is required.");
-                }
-                else if (TB_Length.SelectedValue == "0")
-                {
-                    MessageUserControl.ShowInfo("The program length is required.");
+                    program.TotalCredits = null;
+                    if (TB_Length.SelectedValue == "0")
+                    {
+                        MessageUserControl.ShowInfo("The program length is required.");
+                    }
+                    else
+                    {
+                        program.ProgramLength = TB_Length.SelectedValue;
+                        if (string.IsNullOrEmpty(TB_CompetitiveAdvantage.Text))
+                        {
+                            program.CompetitiveAdvantage = null;
+                            MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
+                            Categories_Show(sender, e);
+                            //need add things DONE!
+                        }
+                        else
+                        {
+                            if (int.TryParse(TB_CompetitiveAdvantage.Text, out cAdvantage))
+                            {
+                                program.CompetitiveAdvantage = cAdvantage;
+                                MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
+                                Categories_Show(sender, e);
+
+                            }
+                            else
+                            {
+                                MessageUserControl.ShowInfo("Competitive advantage need to be a integer.");
+                            }
+                        }
+                    }
+
+                    //need fill in info.DONE!
                 }
                 else
                 {
-                    MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
-                    Categories_Show(sender, e);
+                    if (!double.TryParse(credits, out dCredits))
+                    {
+                        MessageUserControl.ShowInfo("Credit must be a number.");
+                    }
+                    else
+                    {
+                        program.TotalCredits = dCredits;
+                        if (TB_Length.SelectedValue == "0")
+                        {
+                            MessageUserControl.ShowInfo("The program length is required.");
+                        }
+                        else
+                        {
+                            program.ProgramLength = TB_Length.SelectedValue;
+                            if (string.IsNullOrEmpty(TB_CompetitiveAdvantage.Text))
+                            {
+                                program.CompetitiveAdvantage = null;
+                                MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
+                                Categories_Show(sender, e);
+                                //need add things DONE!
+                            }
+                            else
+                            {
+                                if (int.TryParse(TB_CompetitiveAdvantage.Text, out cAdvantage))
+                                {
+                                    program.CompetitiveAdvantage = cAdvantage;
+                                    MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
+                                    Categories_Show(sender, e);
+
+                                }
+                                else
+                                {
+                                    MessageUserControl.ShowInfo("Competitive advantage need to be a integer.");
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            else
-            {
-                MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
-            }
+
         }
         else
         {
