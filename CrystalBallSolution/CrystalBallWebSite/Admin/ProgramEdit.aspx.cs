@@ -749,9 +749,17 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         }
         else
         {
-            sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
-            GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
-            GV_Equivalencies.DataBind();
+            bool exist = sysmgr.AddEquivalency(programID, courseID, destinationCourseID);
+            if (exist)
+            {
+                MessageUserControl.ShowInfo("Current equivalency is already exist.");
+            }
+            else
+            {
+                GV_Equivalencies.DataSource = sysmgr.GetEquivalencies(programID);
+                GV_Equivalencies.DataBind();
+                MessageUserControl.ShowInfoPass("Equivalency Successfully Added");
+            }
         }
         //}, "", "Equivalency Successfully Added");
     }
