@@ -148,7 +148,7 @@
     <!-- step 3 - nait courses -->
     <div id="NaitCourses" runat="server" visible="false">
         <h1>Your NAIT Courses</h1>
-        <p>Tell us what courses you've taken, so we know what credits you qualify for! We've already filled some in for you.</p>
+        <p>Tell us what courses you've taken, so we know what credits you qualify for! We've already filled in some courses for you.</p>
 
         <div class="search-bar" >
             <label>Filter courses by program</label>

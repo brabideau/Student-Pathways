@@ -36,29 +36,16 @@
 
         <div class="col-4 center">
             <a href="ManageNaitCourses.aspx">
-             <div class="cat-img"><img src="../images/managetwo.png" alt="Manage Nait Courses">   </div> 
+             <div class="cat-img"><img src="../images/geometry.png" alt="Manage Nait Courses">   </div> 
 
              <h5>Manage Nait Courses</h5>
             </a>
        </div>
 
-
-<%--        <div class="col-4 center">
-            <a href="InsertProgram.aspx">
-             <div class="cat-img">
-                 <img src="../images/add.png" alt="add Program">
-             </div>
-             <h5>Add New Program</h5>
-            </a>
-       </div>--%>
-
-
-
-
         <div class="col-4 center">
             <a href="ManageHighSchoolCourses.aspx">
             <div class="cat-img">
-                <img src="../images/course_logo.png" alt="update high shool courses"> 
+                <img src="../images/blackboard.png" alt="update high shool courses"> 
             </div>
             <h5>High School Courses</h5>
             </a>
