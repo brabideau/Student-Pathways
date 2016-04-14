@@ -399,7 +399,8 @@ namespace CrystalBallSystem.BLL
 
 
                 //put ProgramData in the database
-
+                int month = DateTime.Now.Month;
+                int year = DateTime.Now.Year;
 
 
                 foreach (var item in finalProgramResults)
@@ -407,8 +408,8 @@ namespace CrystalBallSystem.BLL
                     ProgramData data = context.ProgramDatas.Add(new ProgramData()
                     {
                         ProgramID = item.ProgramID,
-                        //SearchMonth = DateTime.Now.Month,
-                       // SearchYear = DateTime.Now.Year
+                        SearchMonth = month,
+                        SearchYear = year
                     });
                     context.SaveChanges();
                 }
