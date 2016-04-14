@@ -211,7 +211,7 @@
         
         <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
         <ItemTemplate>    
-            <div class="inner-rpt-div">
+            <div >
                 <span><h6><%# Eval("CourseCode") %></h6></span>
                 <span><%# Eval("CourseName") %></span>
                 <span><asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>'>Remove</asp:LinkButton></span>
