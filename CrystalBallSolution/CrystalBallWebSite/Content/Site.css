@@ -868,8 +868,8 @@ footer {
 }
 
 .desc-box {
-     display: block;
-      max-height: 140px;
+      display: block;
+      max-height: 80px;
       overflow-y: auto;
       overflow-x: hidden;
 }

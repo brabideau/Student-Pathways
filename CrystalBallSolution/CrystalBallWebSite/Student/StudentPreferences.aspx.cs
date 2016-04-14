@@ -205,9 +205,35 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     }
     protected void Goto_Metrics(object sender, EventArgs e)
     {
-        if (RBL_GraduatedPostSecondary.SelectedValue == "true" && TB_GPA.Text == "")
+        double gpa;
+        if (RBL_GraduatedPostSecondary.SelectedValue == "true") 
         {
-            MessageUserControl.ShowInfo("You must enter your GPA.");
+            if (TB_GPA.Text != "")
+            {
+                if (!double.TryParse(TB_GPA.Text, out gpa))
+                {
+                    MessageUserControl.ShowInfo("GPA must be a decimal value");
+                }
+                else
+                {
+                    if (gpa < 0)
+                    {
+                        MessageUserControl.ShowInfo("GPA must be greater than 0.");
+                    }
+                    else if (gpa > 4)
+                    {
+                        MessageUserControl.ShowInfo("GPA cannot be greater than 4.0");
+                    }
+                    else
+                    {
+                        Show_Metrics(sender, e);
+                    }
+                }
+            }
+            else
+            {
+                MessageUserControl.ShowInfo("You must enter your GPA.");
+            }
         }
         else
         {
