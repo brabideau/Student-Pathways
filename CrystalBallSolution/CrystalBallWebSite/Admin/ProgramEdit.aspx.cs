@@ -585,9 +585,16 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 req.CategoryID = int.Parse(DL_Category.SelectedValue);
                 req.GPA = decimal.Parse(TB_GPA.Text.Trim());
 
-                sysmgr.AddDER(req);
-                PSMessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
-                Populate_DER(programID);
+                bool exist = sysmgr.AddDER(req);
+                if (!exist)
+                {
+                    PSMessageUserControl.ShowInfoPass("Entrance Requirement Successfully Added!");
+                    Populate_DER(programID);
+                }
+                else
+                {
+                    PSMessageUserControl.ShowInfo("The Entrance Requirement Already Existing.");
+                }
             }            
         }
         else

@@ -207,13 +207,27 @@ namespace CrystalBallSystem.BLL
 
         #region Add DER
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddDER(DegreeEntranceRequirement item)
+        public bool AddDER(DegreeEntranceRequirement item)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
+                int pID = item.ProgramID;
+                int credentialtID = item.CredentialTypeID;
+                int categroyid = item.CategoryID;
+                int exists = (from x in context.DegreeEntranceRequirements where
+                             x.ProgramID ==pID && x.CredentialTypeID == credentialtID && x.CategoryID == categroyid
+                             select x).Count();
 
-                var added = context.DegreeEntranceRequirements.Add(item);
-                context.SaveChanges();
+                if (exists == 0)
+                {
+                    var added = context.DegreeEntranceRequirements.Add(item);
+                    context.SaveChanges();
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
 
             }
         }
