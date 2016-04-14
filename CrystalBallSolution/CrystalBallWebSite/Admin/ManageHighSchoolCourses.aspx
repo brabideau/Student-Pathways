@@ -114,7 +114,7 @@
                         </tr>
                     </InsertItemTemplate>
                     <ItemTemplate>
-                        <tr>
+                        <tr align="center">
                             <td>
                                 <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button"/>
                             </td>
@@ -145,12 +145,12 @@
                                 </td>
                             </tr>
                             <tr runat="server">
-                                <td runat="server" >
+                                <td runat="server" align="center" >
                                     <asp:DataPager ID="DataPager1" runat="server" PageSize="20">
                                         <Fields>
-                                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="true" ShowPreviousPageButton="False" />
+                                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
                                             <asp:NumericPagerField />
-                                            <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
+                                            <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="False" ShowNextPageButton="True" ShowPreviousPageButton="False" />
                                         </Fields>
                                     </asp:DataPager>
                                 </td>
