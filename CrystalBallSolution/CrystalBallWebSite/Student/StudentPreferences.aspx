@@ -14,12 +14,12 @@
 
         <h3>High School Coursework</h3>
        
-       <p>Please choose all the high school courses you've taken.</p>
+       <p>Please choose all the high school courses you've taken. This will help us find the programs you qualify for.</p>
         <asp:CheckBoxList ID="CB_CourseList" runat="server" DataSourceID="CourseList" DataTextField="HighSchoolCourseDescription" DataValueField="HighSchoolCourseID" CssClass="courseCSS clearfix">
         </asp:CheckBoxList>
         <hr />
           <h3>Post-Secondary Credentials</h3>  
-        <p>Have you graduated from a post-secondary institution?</p>
+        <p>Have you graduated from a post-secondary institution? Some programs may require a diploma or other credential to enter.</p>
         <div>
         <asp:RadioButtonList ID="RBL_GraduatedPostSecondary" runat="server" OnSelectedIndexChanged="RBL_GraduatedPostSecondary_SelectedIndexChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix">
             <asp:ListItem Value="true">Yes</asp:ListItem>
@@ -48,20 +48,22 @@
     <!-- step 2 - metrics / nait student questions -->
     <!--Get student's program information-->
         <div runat="server" id="ProgramMetrics" visible="false" class="clearfix">
-            <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
+            
 
-            <p>Are you a current or former NAIT student?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList>
+            <p>Have you taken any courses at NAIT?<asp:RadioButtonList ID="RBL_NAIT_Student" runat="server" OnSelectedIndexChanged ="CurrentStudent_CheckedChanged" AutoPostBack="True" RepeatLayout="OrderedList" CssClass="radiochecks clearfix"><asp:ListItem Value="1" Selected="True">Yes</asp:ListItem><asp:ListItem Value="0">No</asp:ListItem></asp:RadioButtonList></p>
+
+                <p>If you have taken any courses at NAIT, you may be eligible for advanced or transfer credit to other programs.</p>
 
                 <div id="chooseProgram" runat="server" class="clearfix">
                     <p>
-                        Select your current or most recent area of study:
+                        Select your area of study:
                         <asp:DropDownList ID="CategoryDropDown" runat="server" AppendDataBoundItems="True" AutoPostBack="true" DataSourceID="GetProgramCategory" DataTextField="CategoryDescription" DataValueField="CategoryID" OnSelectedIndexChanged="Populate_Program">
                             <asp:ListItem Selected="True" Value="0">[Select a Category] </asp:ListItem>
                         </asp:DropDownList>
                         <asp:ObjectDataSource ID="GetProgramCategory" runat="server" SelectMethod="Category_List" TypeName="CrystalBallSystem.BLL.AdminController"></asp:ObjectDataSource>
                     </p>
                     <p>
-                        Select your current or most recent program:
+                        Select the program you took classes in:
                         <asp:DropDownList ID="ProgramDropDown" runat="server" DataTextField="ProgramName" DataValueField="ProgramID">
                         </asp:DropDownList>
                         <asp:ObjectDataSource ID="GetProgram" runat="server" SelectMethod="GetProgramByCategory" TypeName="CrystalBallSystem.BLL.AdminController">
@@ -71,7 +73,7 @@
                         </asp:ObjectDataSource>
                     </p>
                     <p>
-                        What year of studies did you last complete?
+                        What is your current or more recent year of studies?
                         <asp:DropDownList ID="SemesterDropDown" runat="server">
                             <asp:ListItem Text="First" Value="1" />
                             <asp:ListItem Text="Second" Value="2" />
@@ -145,7 +147,8 @@
 
     <!-- step 3 - nait courses -->
     <div id="NaitCourses" runat="server" visible="false">
-        <h1>Select NAIT Course</h1>
+        <h1>Your NAIT Courses</h1>
+        <p>Tell us what courses you've taken, so we know what credits you qualify for! We've already filled some in for you.</p>
 
         <div class="search-bar" >
             <label>Filter courses by program</label>
