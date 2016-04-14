@@ -140,13 +140,24 @@ namespace CrystalBallSystem.BLL
 
 
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddEquivalency(int programID, int courseID, int destinationCourseID)
+        public bool AddEquivalency(int programID, int courseID, int destinationCourseID)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
                 CourseEquivalency added = null;
-                added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, ProgramCourseID = courseID, TransferCourseID = destinationCourseID });
-                context.SaveChanges();
+                int exist = (from x in context.CourseEquivalencies
+                            where x.ProgramID == programID && x.ProgramCourseID == courseID && x.TransferCourseID == destinationCourseID
+                            select x).Count();
+                if (exist == 0)
+                {
+                    added = context.CourseEquivalencies.Add(new CourseEquivalency() { ProgramID = programID, ProgramCourseID = courseID, TransferCourseID = destinationCourseID });
+                    context.SaveChanges();
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
 

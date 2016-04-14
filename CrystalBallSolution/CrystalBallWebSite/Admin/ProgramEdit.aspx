@@ -399,7 +399,9 @@
                     </asp:ListView>
                 </div>
 
-                <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton></div><%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%><div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
+                <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton></div>
+            <%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%>
+            <div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
                 <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p><div runat="server" class="entreqcss">
                     <!--Add new equivalency to empty gridview-->
                     <h5>Current Transferable Courses</h5><asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
@@ -444,7 +446,9 @@
                                     <asp:ListItem Value="-1">[Select Program]</asp:ListItem></asp:DropDownList></div><div class="clearfix"> 
                                 <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label><asp:DropDownList ID="EquivalentCourseID" runat="server" DataTextField="CourseName" DataValueField="CourseID" CssClass="col-5">
                                     <asp:ListItem Value="-1">[Select Course]</asp:ListItem></asp:DropDownList></div><div class="col-12">
-                                <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button2 admin_button_centered submit">Add Equivalency</asp:LinkButton></div></div></div></div><asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton></div><%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%><div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
+                                <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button2 admin_button_centered submit">Add Equivalency</asp:LinkButton></div></div></div></div><asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton></div>
+            <%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%>
+            <div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
                 <p>Answer the questions below so that students can be better matched with this program:</p><asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
                     <Columns>
                         <asp:TemplateField>
