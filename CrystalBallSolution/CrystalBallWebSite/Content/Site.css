@@ -386,7 +386,7 @@ textarea, .textarea {
   }
 
   td {
-      padding: 3px 20px;
+      padding: 5px 25px;
   }
 
   th {
@@ -394,6 +394,7 @@ textarea, .textarea {
       font-family: 'Coda', Helvetica, Arial, sans-serif;
       font-weight: bold;
   }
+
 
 
 /*------------------------- HEADER -----------------------------*/
@@ -428,39 +429,28 @@ nav li {
 	float: left;
 	text-align: center;
     margin-top: 18px;
+    margin-left: 5px;
+    line-height: 30px;
+    color: #e8f3fc;
 }
 
-nav a {
+nav li a {
   display: block;
   color: #ebf3f9;
   text-decoration: none;
   padding: 0 10px;
-  line-height: 30px;	
+  border: 1px solid transparent;	
+  border-radius: 3px;
+  transition: .15s;
+  line-height: 28px;
 } 
 
 
-nav a:hover,
-nav a:focus {
+nav li a:hover,
+nav li a:focus {
   color: #ebf3f9;
   background-color: rgba(235,243,249,.25);
-}
-
-
-nav li::after, nav li::before {
-    content: '';
-    display: block;
-    height: 2px;
-    width: 0;
-    margin: 0 auto;
-    background-color: transparent;
-    transition: .25s linear;
-
-}
-
-nav li:hover:after, nav li:hover:before {
-    width: 100%;
-    background-color: #ebf3f9;
-    color: #ebf3f9;
+  border-color: #ffffff;
 }
 
 .navbar-collapse {
@@ -561,11 +551,11 @@ p {
             width: 280px;
             height: 280px;
             line-height: 280px;
-            background: rgba(255, 255, 255, 0.75);
+            background: #ffffff;
             margin: 0 auto;
-            -webkit-box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.3);
-            -moz-box-shadow:    4px 4px 5px 0 rgba(0, 0, 0, 0.3);
-            box-shadow:         4px 4px 5px 0 rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.2);
+            -moz-box-shadow:    3px 3px 5px 0 rgba(0, 0, 0, 0.2);
+            box-shadow:         3px 3px 5px 0 rgba(0, 0, 0, 0.2);
             text-align:center;
             transition: box-shadow .15s linear;
         }
@@ -580,10 +570,9 @@ p {
         
 
         .circle-button:hover {
-            background: rgba(255, 255, 255, 1);
-            -webkit-box-shadow: 0 0 17px 0  rgba(0, 0, 0, 0.75);
-            -moz-box-shadow:    0 0 17px 0 rgba(0, 0, 0, 0.75);
-            box-shadow:         0 0 17px 0 rgba(0, 0, 0, 0.75);
+            -webkit-box-shadow: 4px 6px 13px 0  rgba(0, 0, 0, 0.3);
+            -moz-box-shadow:    4px 6px 13px 0  rgba(0, 0, 0, 0.3);
+            box-shadow:         4px 6px 13px 0  rgba(0, 0, 0, 0.3);
         }
 
         .circle-button:hover img{
@@ -803,7 +792,7 @@ footer {
 
   .nait-courses {
       display: block;
-      max-height: 300px;
+      max-height: 450px;
       overflow-y: auto;
       overflow-x: hidden;
   }
@@ -811,33 +800,29 @@ footer {
   
   .inner-rpt-div {
       display: block;
-      float: left;
-      background-color: #113e68;
-      color: #ebf3f9;
-      font-size: .9em;
-      width: 46%;
-      height: 100px;
-      margin: 2%;
-      padding: 5px 15px;
-      box-sizing: border-box;
-      position: relative;
+      background-color: rgba(41,128,185,.3);
+      margin-bottom: 4px;
+      padding: 0 6px;
+      height: 64px;
+
    }
 
-  .inner-rpt-div span {
-      display: block;
-      margin: 5px 0;
-  }
+.inner-rpt-div span{
+        display: inline;
+        line-height: 22px;
+        float: left;
+}
 
-  .inner-rpt-div h6 {
-      margin-bottom: 0;
-  }
+
 
   .inner-rpt-div a {
-      float: left;
+      float: right;
       background-color: #ebf3f9;
       padding: 3px;
       border-radius: 2px;
+      margin-top: 20px;
   }
+
    .inner-rpt-div a:hover {
        background-color: #ffffff;
    }
@@ -863,7 +848,7 @@ footer {
     width: 45%;
     margin: 2.5%;
     min-width: 300px;
-    height: 350px;
+    height: 400px;
     box-sizing: border-box;
     position: relative;
 }
@@ -881,6 +866,14 @@ footer {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.desc-box {
+     display: block;
+      max-height: 140px;
+      overflow-y: auto;
+      overflow-x: hidden;
+}
+
 
 .program-search-results li {
     font-family: 'Coda', Helvetica, Arial, sans-serif;

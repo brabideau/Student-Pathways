@@ -81,8 +81,8 @@
                     </p>
                     <p>
                         Do you wish to continue in your current field, or are you looking to switch to something new?<span style="margin-right: 15px;"></span><asp:RadioButtonList ID="RBL_SwapPrograms" runat="server" CssClass="radiochecks clearfix" RepeatLayout="OrderedList">
-                            <asp:ListItem Selected="True" Value="true">Continue</asp:ListItem>
-                            <asp:ListItem Value="false">Switch</asp:ListItem>
+                            <asp:ListItem Selected="True" Value="false">Continue</asp:ListItem>
+                            <asp:ListItem Value="true">Switch</asp:ListItem>
                         </asp:RadioButtonList>                        
                         
                         <p>
@@ -166,10 +166,11 @@
             <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
             <asp:CheckBox ID="ActiveCheckBox" runat="server" Text="Show active Courses Only"  />
         </div>
-    <div class="col-6 nait-courses">
+
+    <div class="col-6">
         <h3>Nait Course Search</h3>
+        <div class="nait-courses">
         <asp:GridView ID="CourseGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="CourseID" OnSelectedIndexChanging="SelectCourses">
-            
             
             <Columns>
                 <asp:TemplateField HeaderText="CourseID" Visible ="false">
@@ -205,19 +206,21 @@
             </EmptyDataTemplate>
         </asp:GridView>
    </div>
+</div>
 
-    <div class ="col-6 nait-courses">
+    <div class ="col-6">
         <h3>Your Courses</h3>
-        
+        <div class="nait-courses">
         <asp:Repeater ID="rptCourse" runat="server" OnItemCommand="rptCourse_ItemCommand" >
         <ItemTemplate>    
-            <div >
-                <span><h6><%# Eval("CourseCode") %></h6></span>
-                <span><%# Eval("CourseName") %></span>
-                <span><asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>'>Remove</asp:LinkButton></span>
+            <div class="inner-rpt-div clearfix">
+                <span><h6><%# Eval("CourseCode") %></h6>
+                <%# Eval("CourseName") %></span>
+                <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" CommandArgument='<%# Eval("CourseID") %>'>Remove</asp:LinkButton>
             </div>      
         </ItemTemplate>
         </asp:Repeater>
+            </div>
     </div>
     
      
@@ -331,7 +334,10 @@
                             </ul>
                         </td>
                         <td>
-                            <asp:Label ID="ResultsCreditsLabel" runat="server" Visible=<%# Convert.ToBoolean(Eval("Credits")) %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label></td><td>
+                            <asp:Label ID="ResultsCreditsLabel" runat="server" Visible=<%# Convert.ToBoolean(Eval("Credits")) %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label>
+
+                        </td>
+                        <td class="desc-box">
                            <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
                         </td>
                         <td>

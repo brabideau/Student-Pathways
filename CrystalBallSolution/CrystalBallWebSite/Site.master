@@ -25,7 +25,6 @@
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
-<%--                <asp:ScriptReference Name="bootstrap" />--%>
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
@@ -42,18 +41,14 @@
 
 
                 <nav>
-<%--                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>--%>
+
                     <div class="logo-box">
                         <a href="http://www.nait.ca/">
-                        <img src="/images/nait-logo-small.png" alt="NAIT logo" class="logo"/>
+                            <img src="/images/nait-logo-small.png" alt="NAIT logo" class="logo"/>
                         </a>
                     </div>
                     <ul class="left-menu">
-                        <li><a runat="server" href="~/" >Pathways Home</a></li>
+                        <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">

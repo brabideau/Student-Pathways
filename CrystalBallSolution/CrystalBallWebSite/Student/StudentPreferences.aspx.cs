@@ -121,7 +121,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             {
                 currentProgID = Convert.ToInt32(ProgramDropDown.SelectedValue);
                 currentSemester = Convert.ToInt32(SemesterDropDown.SelectedValue);
-                changeProgram = Convert.ToBoolean(RBL_SwapPrograms.SelectedValue);
+                if (RBL_SwapPrograms.SelectedValue == "false")
+                {
+                    changeProgram = false;
+                }
+
                 report.InsertCurrentStudentMetrics(myPreferences, currentProgID, currentSemester, changeProgram);
             }
             else
