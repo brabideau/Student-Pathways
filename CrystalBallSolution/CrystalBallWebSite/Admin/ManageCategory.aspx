@@ -97,17 +97,6 @@
                                 </table>
                             </td>
                         </tr>
-                        <tr runat="server">
-                            <td runat="server" >
-                                <asp:DataPager ID="DataPager1" runat="server">
-                                    <Fields>
-                                        <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                                        <asp:NumericPagerField />
-                                        <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                                    </Fields>
-                                </asp:DataPager>
-                            </td>
-                        </tr>
                     </table>
                 </LayoutTemplate>
 
