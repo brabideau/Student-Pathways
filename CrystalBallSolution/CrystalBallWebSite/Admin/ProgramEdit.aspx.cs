@@ -1043,6 +1043,8 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 program.TotalCredits = null;
 
             }
+            else if (double.Parse(credits) < 0 || double.Parse(credits) > 100)
+                MessageUserControl.ShowInfo("Credits must be between 0 - 100");
             else
             {
                 program.TotalCredits = double.Parse(credits);
