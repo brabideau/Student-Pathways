@@ -143,6 +143,10 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                 if (item.Selected)
                     demoCourses.Add(Convert.ToInt32(item.Value));
             }
+
+
+            /*
+            
             //Get all possible high school courses based on user selection
             //pass list of high sschool courses to get the final list of ints that will be used to
             //determine potential program options
@@ -165,11 +169,19 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             //send list of courseids and list of programids to the db for final results
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
 
-            finalProgramResults = (from x in finalProgramResults.AsEnumerable()
-                                   where x.MatchPercent > 60
-                                   orderby x.MatchPercent descending
-                                   select x).ToList();
+*/
 
+
+            DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
+            List<int> naitcourseids = new List<int>();
+            foreach (DataRow x in CoursesSelected.Rows)
+            {
+                naitcourseids.Add(Convert.ToInt32(x["CourseID"]));
+            }
+
+
+            //List<StudentPreference> myPrefs, List<int> naitcourseids, List<int> hscourseids
+            List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, naitcourseids, demoCourses);
             Session["finalProgramResults"] = finalProgramResults;
 
             ResultsView.DataSource = finalProgramResults;

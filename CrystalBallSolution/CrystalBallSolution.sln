@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CrystalBallWebSite", "http://localhost:50637", "{B1D3AF56-AF81-4C47-B29E-B6022766D873}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -38,12 +38,15 @@ Global
 		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1D3AF56-AF81-4C47-B29E-B6022766D873}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6AE348-C99E-446A-8F27-B7ECCC76466E}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
