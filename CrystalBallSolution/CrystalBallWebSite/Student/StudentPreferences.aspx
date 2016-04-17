@@ -280,13 +280,13 @@
                         </asp:TemplateField>
                     <%--<asp:BoundField DataField="Description" SortExpression="Description" />--%>
                     <asp:TemplateField>
-                        <ItemTemplate>
+                        <ItemTemplate>qd
                         <asp:RadioButtonList ID="prefSelection" runat="server" RepeatLayout="OrderedList">
-                            <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem>
-                            <asp:ListItem Value="2" Text="No"></asp:ListItem>
-                            <asp:ListItem Value="3" Text="Neutral" Selected="true"></asp:ListItem>
-                            <asp:ListItem Value="4" Text="Yes"></asp:ListItem>
-                            <asp:ListItem Value="5" Text="Definitely"></asp:ListItem>
+                            <asp:ListItem Value="0" Text="Definitely Not"></asp:ListItem>
+                            <asp:ListItem Value="15" Text="No"></asp:ListItem>
+                            <asp:ListItem Value="50" Text="Neutral" Selected="true"></asp:ListItem>
+                            <asp:ListItem Value="85" Text="Yes"></asp:ListItem>
+                            <asp:ListItem Value="100" Text="Definitely"></asp:ListItem>
                         </asp:RadioButtonList>
                         </ItemTemplate>
                     </asp:TemplateField>

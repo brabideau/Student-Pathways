@@ -162,11 +162,11 @@ namespace CrystalBallSystem.BLL
                     quest = x.Description;
                     qid = x.QuestionID;
 
-                    defNo = myData.Select("StudentAnswer = 1 AND QuestionID = " + qid).Count();
-                    no = myData.Select("StudentAnswer = 2 AND QuestionID = " + qid).Count();
-                    noPref = myData.Select("StudentAnswer = 3 AND QuestionID = " + qid).Count();
-                    yes = myData.Select("StudentAnswer = 4 AND QuestionID = " + qid).Count();
-                    defYes = myData.Select("StudentAnswer = 5 AND QuestionID = " + qid).Count();
+                    defNo = myData.Select("StudentAnswer = 0 AND QuestionID = " + qid).Count();
+                    no = myData.Select("StudentAnswer = 15 AND QuestionID = " + qid).Count();
+                    noPref = myData.Select("StudentAnswer = 50 AND QuestionID = " + qid).Count();
+                    yes = myData.Select("StudentAnswer = 85 AND QuestionID = " + qid).Count();
+                    defYes = myData.Select("StudentAnswer = 100 AND QuestionID = " + qid).Count();
 
                     theTotal = myData.Select("QuestionID =" + qid).Count();
 

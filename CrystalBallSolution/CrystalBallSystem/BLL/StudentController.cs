@@ -416,16 +416,16 @@ namespace CrystalBallSystem.BLL
         // preference matching start
 
                 // get total count of preference questions
-                int qCount = (from x in context.PreferenceQuestions
-                              where x.Active
-                              select x).Count();
+                //int qCount = (from x in context.PreferenceQuestions
+                //              where x.Active
+                //              select x).Count();
 
 
                 // filter out programs where the student and program answered at opposite extremes
                 var secondStep = (from p in firstStep.AsEnumerable()
                                       select p).Except((from q in context.ProgramPreferences.AsEnumerable()
                                                         from mp in myPrefs
-                                                        where mp.QuestionID == q.QuestionID && Math.Abs(q.Answer - mp.Answer) == 4
+                                                        where mp.QuestionID == q.QuestionID && Math.Abs(q.Answer - mp.Answer) == 100
                                                         select q.Program)).Distinct();
 
 
@@ -447,10 +447,10 @@ namespace CrystalBallSystem.BLL
                                                           select c.NaitCourse).Distinct()
                                                      select (double?)x.CourseCredits).Sum(),
 
-                                          MatchPercent = (int)(10 * ((from q in p.ProgramPreferences
+                                          MatchPercent = (int)(100 - (from q in p.ProgramPreferences
                                                                       from mp in myPrefs
                                                                       where q.QuestionID == mp.QuestionID
-                                                                      select 10 - (Math.Pow(Math.Abs(q.Answer - mp.Answer), 2))).Sum()) / qCount)
+                                                                      select(Math.Abs(q.Answer - mp.Answer))).Average())
                                       });
 
 

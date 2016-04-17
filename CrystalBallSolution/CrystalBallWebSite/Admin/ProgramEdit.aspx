@@ -458,7 +458,14 @@
                                 After completeing this program, would you expect <asp:Label ID="Description" runat="server" Text='<%# Eval("Description") %>'></asp:Label></ItemTemplate></asp:TemplateField><%--         <asp:BoundField DataField="Description" HeaderText="" SortExpression="Description"></asp:BoundField>--%><asp:TemplateField>
                             <ItemTemplate>
                                 <asp:RadioButtonList ID="RB_Preference" runat="server" RepeatLayout="OrderedList">
-                                    <asp:ListItem Value="1" Text="Definitely Not"></asp:ListItem><asp:ListItem Value="2" Text="No"></asp:ListItem><asp:ListItem Value="3" Text="Neutral" Selected="true"></asp:ListItem><asp:ListItem Value="4" Text="Yes"></asp:ListItem><asp:ListItem Value="5" Text="Definitely"></asp:ListItem></asp:RadioButtonList></ItemTemplate></asp:TemplateField></Columns></asp:GridView><asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button next button-long">Save & Continue</asp:LinkButton></div></div><%--end program edit div--%><%-- ----------------------------- SEARCH ---------------------------------------%><hr /><div runat="server" id="search" class="search-bar" >
+                                    <asp:ListItem Value="0" Text="Definitely Not">
+
+                                    </asp:ListItem><asp:ListItem Value="15" Text="No"></asp:ListItem>
+                                    <asp:ListItem Value="50" Text="Neutral" Selected="true"></asp:ListItem>
+                                    <asp:ListItem Value="85" Text="Yes"></asp:ListItem>
+                                    <asp:ListItem Value="100" Text="Definitely"></asp:ListItem>
+
+                                </asp:RadioButtonList></ItemTemplate></asp:TemplateField></Columns></asp:GridView><asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button next button-long">Save & Continue</asp:LinkButton></div></div><%--end program edit div--%><%-- ----------------------------- SEARCH ---------------------------------------%><hr /><div runat="server" id="search" class="search-bar" >
             Program Search: <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox>in <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
             <asp:ListItem Value="0">[All Subjects]</asp:ListItem></asp:DropDownList><asp:LinkButton ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search" CssClass="admin_button2"/>
             <asp:LinkButton ID="Add_Program_Button" runat="server" Text="Add New Program" CssClass="admin_button2" OnClick="Add_Program_Button_Click"/>
