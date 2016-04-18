@@ -25,7 +25,7 @@
                          
             </div>
 
-            <div class="col-4 center">
+            <div class="col-4">
                 <h4>Programs</h4>
 
                     <asp:ListView ID="ProgramList" runat="server" DataSourceID="ODSProgramByCategory" 
@@ -44,23 +44,16 @@
                                 <td>
                                     <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
                                 </td>
-                                <td>
+                                <td >
                                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                         <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                    </asp:LinkButton>
-                                </td>
-                            </tr>
-                        </ItemTemplate>
-                        <LayoutTemplate>
+                                    </asp:LinkButton></td></tr></ItemTemplate><LayoutTemplate>
                             <table runat="server">
                                 <tr runat="server">
                                     <td runat="server">
                                         <table id="itemPlaceholderContainer" runat="server" border="0" style="width:350px">
                                             <tr runat="server" style="" hidden="hidden">
-                                                <th runat="server">ProgramID</th>
-                                                <th runat="server">ProgramName</th>
-                                            </tr>
-                                            <tr id="itemPlaceholder" runat="server"></tr>
+                                                <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server"></tr>
                                         </table>
                                     </td>
                                 </tr>                                
@@ -71,20 +64,11 @@
                                 <td>
                                     <asp:Label ID="ProgramIDLabel" runat="server" Text='<%# Eval("ProgramID") %>' visible="false"/>
                                 </td>
-                                <td>
-                                    <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
+                                <td class="selected">
+                                    <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server" >
                                         <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
-                                    </asp:LinkButton>
-                                </td>
-                            </tr>
-                        </SelectedItemTemplate>
-                    </asp:ListView>
-
-                </div>
-
-                <div class="col-8 center">
-                    <h4>Courses</h4>       
-                    <div>
+                                    </asp:LinkButton></td></tr></SelectedItemTemplate></asp:ListView></div><div class="col-8 center">
+                      <h4><label id="programName" runat="server" Text=""></label> Courses</h4><div>
                         <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" 
                                       ItemType="CrystalBallSystem.DAL.Entities.NaitCours" 
                                       InsertItemPosition="LastItem" 
@@ -110,32 +94,27 @@
                                         <table>
                                             <tbody>
                                                 <tr>
-                                                    <th>CourseID: </th>
-                                                        <td>
+                                                    <th>CourseID: </th><td>
                                                             <asp:Label ID="CourseIDTextBox" runat="server" Text='<%# Bind("CourseID") %>' />
                                                         </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Course Code: </th>
-                                                    <td>
+                                                    <th>Course Code: </th><td>
                                                         <asp:TextBox ID="CourseCodeTextBox" runat="server" Text='<%# Bind("CourseCode") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Course Name: </th>
-                                                    <td>
+                                                    <th>Course Name: </th><td>
                                                         <asp:TextBox ID="CourseNameTextBox" runat="server" Text='<%# Bind("CourseName") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Course Credits: </th>
-                                                    <td>
+                                                    <th>Course Credits: </th><td>
                                                         <asp:TextBox ID="CourseCreditsTextBox" runat="server" Text='<%# Bind("CourseCredits") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Active: </th>
-                                                    <td>
+                                                    <th>Active: </th><td>
                                                         <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
                                                     </td>
                                                 </tr>
@@ -154,47 +133,35 @@
                             <EmptyDataTemplate>
                                 <table runat="server" style="">
                                     <tr>
-                                        <td>No data was returned.</td>
-                                    </tr>
-                                    <tr runat="server">
+                                        <td>No data was returned.</td></tr><tr runat="server">
                                         <td runat="server" style="text-align:left">
-                                            <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click" CssClass="admin_button2"></asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </EmptyDataTemplate>
-                            <InsertItemTemplate>
+                                            <asp:LinkButton ID="NewButton2" runat="server" Text="Add New" OnClick="NewButton2_Click" CssClass="admin_button2"></asp:LinkButton></td></tr></table></EmptyDataTemplate><InsertItemTemplate>
                                 <tr>
                                     <td colspan="6">
                                         <table>
                                             <tbody>
                                                 <tr>
-                                                    <th>CourseID: </th>
-                                                    <td>
+                                                    <th>CourseID: </th><td>
                                                         <asp:Label ID="CourseIDTextBox" runat="server" Text='<%# Bind("CourseID") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Course Code: </th>
-                                                    <td>
+                                                    <th>Course Code: </th><td>
                                                         <asp:TextBox ID="CourseCodeTextBox" runat="server" Text='<%# Bind("CourseCode") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Course Name: </th>
-                                                    <td>
+                                                    <th>Course Name: </th><td>
                                                         <asp:TextBox ID="CourseNameTextBox" runat="server" Text='<%# Bind("CourseName") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Course Credits: </th>
-                                                    <td>
+                                                    <th>Course Credits: </th><td>
                                                         <asp:TextBox ID="CourseCreditsTextBox" runat="server" Text='<%# Bind("CourseCredits") %>' />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Active: </th>
-                                                    <td>
+                                                    <th>Active: </th><td>
                                                         <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
                                                     </td>
                                                 </tr>
@@ -202,17 +169,8 @@
                                                     <th></th>
                                                     <td>
                                                         <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" CssClass="admin_button" >
-                                                        </asp:LinkButton>
-                                                        <asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button">
-                                                        </asp:LinkButton>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>             
-                            </InsertItemTemplate>
-                            <ItemTemplate>
+                                                        </asp:LinkButton><asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button">
+                                                        </asp:LinkButton></td></tr></tbody></table></td></tr></InsertItemTemplate><ItemTemplate>
                                 <tr>
                                     <td>
                                         <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Edit" CssClass="admin_button" />
@@ -238,24 +196,14 @@
                                             <table id="itemPlaceholderContainer" runat="server">
                                                 <tr runat="server" class="listview-heading align-fix">
                                                     <th></th>
-                                                    <th runat="server">Course Code</th>
-                                                    <th runat="server">Course Name</th>
-                                                    <th runat="server">Course Credits</th>
-                                                    <th runat="server">Active</th>
-                                                </tr>
-                                                <tr id="itemPlaceholder" runat="server"></tr>
+                                                    <th runat="server">Course Code</th><th runat="server">Course Name</th><th runat="server">Course Credits</th><th runat="server">Active</th></tr><tr id="itemPlaceholder" runat="server"></tr>
                                             </table>
                                         </td>
                                     </tr>
                                     <tr runat="server">
                                         <td runat="server">
-                                            <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click" CssClass="admin_button2"></asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr runat="server">
+                                            <asp:LinkButton ID="NewButton" runat="server" Text="Add New" OnClick="NewButton_Click" CssClass="admin_button2"></asp:LinkButton></td></tr><tr>
+                                        <td>&nbsp;</td></tr><tr runat="server">
                                         <td runat="server"> 
                                             <asp:DataPager ID="DataPager1" runat="server" PageSize="10">
                                                 <Fields>

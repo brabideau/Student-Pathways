@@ -717,6 +717,17 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        public string findProgramById(int id)
+        {
+            using (CrystalBallContext context = new CrystalBallContext())
+            {
+                var result = (from p in context.Programs
+                              where p.ProgramID == id
+                              select p.ProgramName).FirstOrDefault();
+                return result;
+            }
+        }
+
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<PreferenceQuestion> Question_List()
         {

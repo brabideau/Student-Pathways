@@ -55,7 +55,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             int proId = Convert.ToInt32(pid);
             AdminController sysmr = new AdminController();
             var courseData = sysmr.GetCoursesByProgram(proId);
-
+            programName.InnerText = (sysmr.findProgramById(proId)).ToString();
             NaitCoursesListViewByProgram.Visible = true;
             NaitCoursesListViewByProgram.DataSource = courseData;
             NaitCoursesListViewByProgram.DataBind();

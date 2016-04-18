@@ -383,6 +383,7 @@ textarea, .textarea {
 
   tbody {
       margin: 0 auto;
+
   }
 
   td {
@@ -1033,7 +1034,10 @@ underscored {
      padding-right: .3em;
  }*/
 
-
+.selected
+{
+    background-color:rgba(0, 102, 255,0.3);
+}
 
 
 
