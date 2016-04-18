@@ -51,6 +51,7 @@ namespace CrystalBallSystem.BLL
                                           CourseCode = Ncourse.CourseCode,
                                           CourseName = Ncourse.CourseName,
                                           CourseCredits = Ncourse.CourseCredits,
+                                          Active = Ncourse.Active
 
                                       };
                         return result1.ToList();
@@ -74,7 +75,7 @@ namespace CrystalBallSystem.BLL
                                           CourseCode = Ncourse.CourseCode,
                                           CourseName = Ncourse.CourseName,
                                           CourseCredits = Ncourse.CourseCredits,
-
+                                          Active = Ncourse.Active
                                       };
                         return result1.ToList();
                     }
@@ -106,7 +107,8 @@ namespace CrystalBallSystem.BLL
                                           CourseID = pc.CourseID,
                                           CourseCode = pc.NaitCourse.CourseCode,
                                           CourseName = pc.NaitCourse.CourseName,
-                                          CourseCredits = pc.NaitCourse.CourseCredits
+                                          CourseCredits = pc.NaitCourse.CourseCredits,
+                                          Active = pc.NaitCourse.Active
                                       };
                         return result2.ToList();
                     }
@@ -134,7 +136,8 @@ namespace CrystalBallSystem.BLL
                                           CourseID = pc.CourseID,
                                           CourseCode = pc.NaitCourse.CourseCode,
                                           CourseName = pc.NaitCourse.CourseName,
-                                          CourseCredits = pc.NaitCourse.CourseCredits
+                                          CourseCredits = pc.NaitCourse.CourseCredits,
+                                          Active = pc.NaitCourse.Active
                                       };
                         return result2.ToList();
                     }

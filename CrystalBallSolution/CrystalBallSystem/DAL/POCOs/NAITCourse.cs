@@ -12,5 +12,6 @@ namespace CrystalBallSystem.DAL.POCOs
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public double CourseCredits { get; set; }
+        public bool Active { get; set; }
     }
 }

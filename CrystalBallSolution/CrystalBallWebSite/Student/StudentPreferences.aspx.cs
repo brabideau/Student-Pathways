@@ -1,4 +1,5 @@
 ﻿using CrystalBallSystem.BLL;
+using CrystalBallSystem.DAL.Entities;
 using CrystalBallSystem.DAL.POCOs;
 using System;
 using System.Collections.Generic;
@@ -554,7 +555,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     //Automatically searches for courses based on what the user selects in the drop down list
     protected void List_Change(object sender, EventArgs e)
     {
-        StudentController course = new StudentController();
+        StudentController sysmgr = new StudentController();
         List<NAITCourse> courses = new List<NAITCourse>();
         bool active = true;
         if (ActiveCheckBox.Checked)
@@ -565,7 +566,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         {
             active = false;
         }
-        CourseGridView.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
+        CourseGridView.DataSource = sysmgr.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
         CourseGridView.DataBind();
     }
     //Hides/shows the graduated post secondary section of the high school courses page

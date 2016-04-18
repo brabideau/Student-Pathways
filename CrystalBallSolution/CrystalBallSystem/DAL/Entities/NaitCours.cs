@@ -11,7 +11,6 @@ namespace CrystalBallSystem.DAL.Entities
     [Table("NaitCourses")]
     public partial class NaitCours
     {
-        
 
         [Key]
         public int CourseID { get; set; }

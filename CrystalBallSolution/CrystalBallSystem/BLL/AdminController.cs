@@ -576,46 +576,102 @@ namespace CrystalBallSystem.BLL
             }
         }
 
+        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
+        //public void AddNaitCourse(List<NaitCours> courses, int programid)
+        //{
+        //    using (CrystalBallContext context = new CrystalBallContext())
+        //    {
+        //        NaitCours added = null;
+        //        ProgramCourse addedprogramlink = null;
+
+        //        var newCourse = new NaitCours();
+        //        int newCourseID = newCourse.CourseID;
+
+        //        //added = context.NaitCourses.Add(item);
+        //        foreach (var item in courses)
+        //        {
+        //            added = context.NaitCourses.Add(new NaitCours()
+        //            {
+        //                CourseID = newCourseID,
+        //                CourseCode = item.CourseCode,
+        //                CourseName = item.CourseName,
+        //                CourseCredits = item.CourseCredits,
+        //                Active = item.Active
+        //            });
+
+
+        //        }
+
+        //        foreach (var item in courses)
+        //        {
+        //            addedprogramlink = context.ProgramCourses.Add(new ProgramCourse()
+        //            {
+        //                ProgramID = programid,
+        //                CourseID = newCourseID,
+        //                Semester = 1
+        //            });
+        //        }
+
+        //        context.SaveChanges();
+        //    }
+        //}
+
+
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
-        public void AddNaitCourse(List<NaitCours> courses, int programid)
+        public void AddNaitCourse(NAITCourse course)
         {
+           
             using (CrystalBallContext context = new CrystalBallContext())
             {
+                NaitCours item = new NaitCours();
+
+                item.CourseCode = course.CourseCode;
+                item.CourseName = course.CourseName;
+                item.CourseCredits = course.CourseCredits;
+                item.Active = course.Active;
+
                 NaitCours added = null;
-                ProgramCourse addedprogramlink = null;
-
-                var newCourse = new NaitCours();
-                int newCourseID = newCourse.CourseID;
-
-                //added = context.NaitCourses.Add(item);
-                foreach (var item in courses)
-                {
-                    added = context.NaitCourses.Add(new NaitCours()
-                    {
-                        CourseID = newCourseID,
-                        CourseCode = item.CourseCode,
-                        CourseName = item.CourseName,
-                        CourseCredits = item.CourseCredits,
-                        Active = item.Active
-                    });
-
-
-                }
-
-                foreach (var item in courses)
-                {
-                    addedprogramlink = context.ProgramCourses.Add(new ProgramCourse()
-                    {
-                        ProgramID = programid,
-                        CourseID = newCourseID,
-                        Semester = 1
-                    });
-                }
-
+                added = context.NaitCourses.Add(item);
                 context.SaveChanges();
             }
         }
+        
+            //using (CrystalBallContext context = new CrystalBallContext())
+            //{
+            //    NaitCours added = null;
+            //    ProgramCourse addedprogramlink = null;
 
+            //    var newCourse = new NaitCours();
+            //    int newCourseID = newCourse.CourseID;
+
+            //    //added = context.NaitCourses.Add(item);
+            //    foreach (var item in courses)
+            //    {
+            //        added = context.NaitCourses.Add(new NaitCours()
+            //        {
+            //            CourseID = newCourseID,
+            //            CourseCode = item.CourseCode,
+            //            CourseName = item.CourseName,
+            //            CourseCredits = item.CourseCredits,
+            //            Active = item.Active
+            //        });
+
+
+            //    }
+
+            //    foreach (var item in courses)
+            //    {
+            //        addedprogramlink = context.ProgramCourses.Add(new ProgramCourse()
+            //        {
+            //            ProgramID = programid,
+            //            CourseID = newCourseID,
+            //            Semester = 1
+            //        });
+            //    }
+
+            //    context.SaveChanges();
+            //}
+        
         [DataObjectMethod(DataObjectMethodType.Update, false)]
         public void UpdateNaitCourse(NaitCours item)
         {
@@ -880,5 +936,8 @@ namespace CrystalBallSystem.BLL
         }
 
         #endregion
+
+
+
     }
 }

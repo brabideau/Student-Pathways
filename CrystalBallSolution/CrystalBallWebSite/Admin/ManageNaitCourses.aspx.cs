@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 using CrystalBallSystem.BLL;
 using CrystalBallSystem.DAL.Entities;
+using CrystalBallSystem.DAL.POCOs;
 
 public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 {
@@ -27,16 +28,47 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         MessageUserControl.HandleDataBoundException(e);
     }
 
+
+    protected void List_Change(object sender, EventArgs e)
+    {
+        try
+        {
+            StudentController course = new StudentController();
+            List<NAITCourse> courses = new List<NAITCourse>();
+            bool active = true;
+            if (ActiveCheckBox.Checked)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            NaitCoursesListViewByProgram.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
+            NaitCoursesListViewByProgram.DataBind();
+        }
+        catch (Exception er)
+        {
+            MessageUserControl.ShowInfo(er.Message);
+        }
+
+    }
     private void BindList()
     {
         try
         {
-            string pid = ProgramList.SelectedDataKey.Value.ToString();
-            int proId = Convert.ToInt32(pid);
-            AdminController sysmr = new AdminController();
-            var courseData = sysmr.GetCoursesByProgram(proId);
-
-            NaitCoursesListViewByProgram.DataSource = courseData;
+            StudentController course = new StudentController();
+            List<NAITCourse> courses = new List<NAITCourse>();
+            bool active = true;
+            if (ActiveCheckBox.Checked)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            NaitCoursesListViewByProgram.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
             NaitCoursesListViewByProgram.DataBind();
         }
         catch (Exception e)
@@ -46,29 +78,6 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         
     }
 
-    protected void ProgramList_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
-    {
-        try
-        {
-            ProgramList.SelectedIndex = e.NewSelectedIndex;
-            string pid = ProgramList.SelectedDataKey.Value.ToString();
-            int proId = Convert.ToInt32(pid);
-            AdminController sysmr = new AdminController();
-            var courseData = sysmr.GetCoursesByProgram(proId);
-            programName.InnerText = (sysmr.findProgramById(proId)).ToString();
-            NaitCoursesListViewByProgram.Visible = true;
-            NaitCoursesListViewByProgram.DataSource = courseData;
-            NaitCoursesListViewByProgram.DataBind();
-
-            ProgramList.DataBind();
-            NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
-            BindList();
-        }
-        catch (Exception error)
-        {
-            MessageUserControl.ShowInfo(error.Message);
-        }
-    }
 
     private void CloseInsert()
     {
@@ -98,8 +107,8 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
         NaitCoursesListViewByProgram.DataSource = null;
         NaitCoursesListViewByProgram.Visible=false;
-        if (CategoryDropdownList.SelectedIndex == 0)
-            MessageUserControl.ShowInfo("Please select a category before clicking Search.");
+        //if (CategoryDropdownList.SelectedIndex == 0)
+        //    MessageUserControl.ShowInfo("Please select a category before clicking Search.");
         
     }
 
@@ -123,15 +132,17 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
             {
                 if (credits <= 1 || credits > 100)
+                {
                     MessageUserControl.ShowInfo("Credits must be between 1 - 100");
+                }
                 else
                 {
                     string courseCreditsText = courseCreditsBox.Text;
                     bool activityTF = activity.Checked;
 
-                    List<NaitCours> NewCourse = new List<NaitCours>();
+                    NAITCourse NewCourse = new NAITCourse();
 
-                    string pid = ProgramList.SelectedDataKey.Value.ToString();
+                    string pid = ProgramDropDownList.SelectedValue.ToString();
                     int proId = Convert.ToInt32(pid);
 
                     AdminController sysmr = new AdminController();
@@ -145,16 +156,13 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
                     }
                     else
                     {
-                        NewCourse.Add(
-                            new NaitCours()
-                            {
-                                CourseCode = courseCodeText,
-                                CourseName = courseNameText,
-                                CourseCredits = double.Parse(courseCreditsText),
-                                Active = activityTF
-                            });
+                                NewCourse.CourseCode = courseCodeText;
+                                NewCourse.CourseName = courseNameText;
+                                NewCourse.CourseCredits = double.Parse(courseCreditsText);
+                                NewCourse.Active = activityTF;
 
-                        sysmr.AddNaitCourse(NewCourse, proId);
+
+                        sysmr.AddNaitCourse(NewCourse);
                         CloseInsert();
                         BindList();
                     }
@@ -199,6 +207,37 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         NaitCoursesListViewByProgram.SelectedIndex = e.NewSelectedIndex;
 
     }
+
+
+
+    protected void Search_Click(object sender, EventArgs e)
+    {
+        StudentController course = new StudentController();
+        List<NAITCourse> courses = new List<NAITCourse>();
+        bool active = true;
+        if (ActiveCheckBox.Checked)
+        {
+            active = true;
+        }
+        else
+        {
+            active = false;
+        }
+        try
+        {
+            NaitCoursesListViewByProgram.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
+            NaitCoursesListViewByProgram.DataBind();
+
+            SearchTextBox.Text = null;
+        }
+        catch (Exception error)
+        {
+            MessageUserControl.ShowInfo(error.Message);
+        }
+
+
+    }
+
 
     protected void NaitCoursesListViewByProgram_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
