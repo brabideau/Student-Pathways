@@ -59,7 +59,7 @@
            <asp:LinkButton ID="Program_Pdf_Button" runat="server" CssClass="button next button-long" OnClick="Program_PDF_Download"><img src="../images/printer-icon.png" /> Get PDF of results</asp:LinkButton>
 
 
-     </div>
+     
             <p>You are viewing data for: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label>, <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
 
         </div>
@@ -110,6 +110,7 @@
             </asp:ListView>
 
         </div>
+   </div>
 
 
 <%-- end ProgramData--%>
@@ -154,7 +155,7 @@
 
         <asp:LinkButton ID="Search_Left" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
 
-           <asp:LinkButton ID="Student_PDF_Button" runat="server" CssClass="pdf-button" OnClick="Student_PDF_Download"><img src="../images/printer-icon.png" /> Get PDF of results</asp:LinkButton>
+           <asp:LinkButton ID="Student_PDF_Button" runat="server" CssClass="button next button-long" OnClick="Student_PDF_Download"><img src="../images/printer-icon.png" /> Get PDF of results</asp:LinkButton>
 
         <p>You are viewing data from: <asp:Label ID="LB_Date" runat="server" Text=""></asp:Label></p>
         <p><asp:Label ID="Program_Left" runat="server" Text=""></asp:Label></p>
