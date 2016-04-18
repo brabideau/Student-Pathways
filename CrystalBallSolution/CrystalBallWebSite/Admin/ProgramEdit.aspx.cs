@@ -113,7 +113,8 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     protected void Change_Tab(object sender, EventArgs e)
     {
         string value = Tab_Labels.SelectedValue;
-
+        if (!string.IsNullOrEmpty(ProgramIDLabel.Text))
+        {
             switch (value)
             {
                 case "1":
@@ -135,6 +136,14 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                     ProgramPreferences_Show(sender, e);
                     break;
             }
+           
+        }
+        else
+        {
+            ProgramInfo_Show(sender, e);
+            MessageUserControl.ShowInfo("Program does not found, please add new program first.");
+        }
+            
     }
 
 
@@ -390,6 +399,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 sysmr.AddProgramInCategories(categories, programid);
             }
             EntranceReq_Show(sender, e);
+            MessageUserControl.ShowInfoPass("Category save success.");
         }
         catch (Exception error)
         {
@@ -1000,7 +1010,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         ProgramList.Visible = false;
         //Program_Save.Visible = false;
         //Program_Add.Visible = true;
-        BasicProgramInfo.Visible = true;
+        //BasicProgramInfo.Visible = true;
         //Categories.Visible = false;
         //EntranceRequirements.Visible = false;
         //ProgramCourses.Visible = false;
@@ -1008,6 +1018,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         //ProgramPreferences.Visible = false;
         //Add_Program_Button.Visible = false;
         //Tab_Labels.Visible = false;
+        ProgramInfo_Show(sender, e);
 
         ProgramNameLabel.Text = "";
         ProgramIDLabel.Text = "";
