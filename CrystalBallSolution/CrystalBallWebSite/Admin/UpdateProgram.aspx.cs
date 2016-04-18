@@ -33,17 +33,6 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
     protected void ProgramListView_ItemEditing(object sender, ListViewEditEventArgs e)
     {
         ProgramListView.EditIndex = e.NewEditIndex;
-        //DropDownList ProgramLength = (DropDownList)ProgramListView.EditItem.FindControl("lengthDropDownList");
-
-        //ListItem item = ProgramLength.Items.FindByText(ProgramLength.SelectedValue.ToString());
-        //if (item != null)
-        //{
-        //    ProgramLength.Items.FindByText(ProgramLength.SelectedValue.ToString()).Selected = true;
-        //}
-        //else
-        //{
-        //    ProgramLength.Items.FindByText(ProgramLength.SelectedValue.ToString()).Selected = false;
-        //}
 
         CloseInsert();
         BindList();
@@ -87,7 +76,6 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             TextBox TotalCreditsBox = (TextBox)ProgramListView.EditItem.FindControl("TotalCreditsTextBox");
             DropDownList ProgramLength = (DropDownList)ProgramListView.EditItem.FindControl("lengthDropDownList");
             string length = ProgramLength.SelectedValue.ToString();
-            //TextBox ProgramLengthBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLengthTextBox");
             TextBox CompetiveAdvantageBox = (TextBox)ProgramListView.EditItem.FindControl("CompetiveAdvantageTextBox");
             CheckBox Active = (CheckBox)ProgramListView.EditItem.FindControl("ActiveCheckBox");
             TextBox ProgramLinkBox = (TextBox)ProgramListView.EditItem.FindControl("ProgramLinkTextBox");
@@ -227,7 +215,6 @@ public partial class Admin_UpdateProgram : System.Web.UI.Page
             }
             else
             {
-                //MessageUserControl.TryRun(()=>sysmr.AddProgram(NewProgram, cateid),"Add Success.","You added new program");
 
                 CloseInsert();
             }
