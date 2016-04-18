@@ -239,6 +239,11 @@ textarea, .textarea {
     margin-bottom: 5px;   
 }
 
+.button img {
+    line-height: 40px;
+    vertical-align: middle;
+}
+
 .button::after {
     content: '';
     display: block;
