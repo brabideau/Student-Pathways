@@ -107,8 +107,6 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
         NaitCoursesListViewByProgram.DataSource = null;
         NaitCoursesListViewByProgram.Visible=false;
-        //if (CategoryDropdownList.SelectedIndex == 0)
-        //    MessageUserControl.ShowInfo("Please select a category before clicking Search.");
         
     }
 
@@ -253,7 +251,6 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             var course = new NaitCours();
             double credits;
 
-            //course.CourseID = Convert.ToInt16(NaitCoursesListViewByProgram.SelectedDataKey.Value.ToString());
             course.CourseID = int.Parse(courseIDBox.Text);
             course.CourseCode = courseCodeBox.Text;
             course.CourseName = courseNameBox.Text;
