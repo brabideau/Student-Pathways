@@ -341,7 +341,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     {
         //clear the repeater
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
-        //Session["CoursesSelected"] = BackupTable;
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
@@ -383,7 +382,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         dtrow["CourseName"] = CName;
         dtrow["CourseCredits"] = CCredits;
 
-        //how to delete duplicate value
         DataRow findRow = CoursesSelected.Rows.Find(id);
         if (findRow == null)
         {
@@ -498,7 +496,6 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
     protected void reset_Click(object sender, EventArgs e)
     {
         DataTable BackupTable = (DataTable)ViewState["BackupTable"];
-        //Session["CoursesSelected"] = BackupTable;
         ViewState["CoursesSelected"] = BackupTable;
 
         CoursesSelected = null;
