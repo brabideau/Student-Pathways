@@ -14,6 +14,7 @@ namespace CrystalBallSystem.BLL
     public class ReportController
     {
         #region Metrics
+        //This method will insert data to the new student metrics table when a pathways search is performed.
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void InsertNewStudentMetrics(List<StudentPreference> prefs)
         {
@@ -33,6 +34,7 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
+        //This method will insert data to the current student metrics table when a pathways search is performed.
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void InsertCurrentStudentMetrics(List<StudentPreference> prefs, int programID, int semester, bool changeProgram)
         {
@@ -55,6 +57,7 @@ namespace CrystalBallSystem.BLL
                 context.SaveChanges();
             }
         }
+        //This method will add to the program data table to log the amount of times a program is a result.
         [DataObjectMethod(DataObjectMethodType.Insert, false)]
         public void InsertProgramResults(List<GetCourseCredits> programs)
         {
@@ -192,18 +195,6 @@ namespace CrystalBallSystem.BLL
                     });
                 }
 
-                //yes = 0;
-
-                //if (myData.Columns.Contains("ChangePrograms")) {
-                //    yes = 100 * myData.Select("ChangePrograms = true").Count() / myData.AsEnumerable().Count();
-                //}
-
-                //summaries.Add(new StudentPreferenceSummary
-                //{
-                //    Question = "Do you want to change programs?",
-                //    PercentYes = yes,
-                //});
-
                 return summaries;
 
                 
@@ -214,7 +205,7 @@ namespace CrystalBallSystem.BLL
     #endregion
 
         #region program
-
+        //This method is used to find students who are planning on switching programs
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<StudentsDroppingSummary> StudentsDropping_by_Program(int? year, int? month)
         {
@@ -252,7 +243,7 @@ namespace CrystalBallSystem.BLL
             }
         }
 
-        
+        //This method returns the frequency of a program turning up in the results page
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<ProgramFrequency> Get_Program_Frequency(int? year, int? month)
         {
