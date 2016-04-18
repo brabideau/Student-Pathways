@@ -416,9 +416,9 @@ namespace CrystalBallSystem.BLL
         // preference matching start
 
                 // get total count of preference questions
-                //int qCount = (from x in context.PreferenceQuestions
-                //              where x.Active
-                //              select x).Count();
+                int qCount = (from x in context.PreferenceQuestions
+                              where x.Active
+                              select x).Count();
 
 
                 // filter out programs where the student and program answered at opposite extremes
@@ -447,15 +447,15 @@ namespace CrystalBallSystem.BLL
                                                           select c.NaitCourse).Distinct()
                                                      select (double?)x.CourseCredits).Sum(),
 
-                                          MatchPercent = (int)(100 - (from q in p.ProgramPreferences
-                                                                      from mp in myPrefs
-                                                                      where q.QuestionID == mp.QuestionID
-                                                                      select(Math.Abs(q.Answer - mp.Answer))).Average())
+                                          MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
+                                                                       from mp in myPrefs
+                                                                       where q.QuestionID == mp.QuestionID
+                                                                       select (Math.Abs(q.Answer - mp.Answer))).Sum() / qCount))
                                       });
 
 
                 var finalProgramResults = from x in thirdStep
-                                          where x.MatchPercent >= 60
+                                          where x.MatchPercent >= 50
                                           orderby x.MatchPercent descending
                                           select x;
 
