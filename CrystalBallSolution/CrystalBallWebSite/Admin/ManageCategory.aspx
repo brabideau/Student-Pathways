@@ -19,7 +19,7 @@
                         <td colspan="2">
                             <table>
                                 <tbody>
-                                    <tr>
+                                    <tr hidden="hidden">
                                         <th>
                                             CategroyID:
                                         </th>

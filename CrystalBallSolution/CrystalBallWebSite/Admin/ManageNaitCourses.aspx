@@ -48,10 +48,10 @@
                                     <asp:LinkButton ID="SelectButton" CommandName="Select" runat="server">
                                         <asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' />
                                     </asp:LinkButton></td></tr></ItemTemplate><LayoutTemplate>
-                            <table runat="server">
+                            <table runat="server" style="width:100%">
                                 <tr runat="server">
                                     <td runat="server">
-                                        <table id="itemPlaceholderContainer" runat="server" border="0" style="width:350px">
+                                        <table id="itemPlaceholderContainer" runat="server" border="0">
                                             <tr runat="server" style="" hidden="hidden">
                                                 <th runat="server">ProgramID</th><th runat="server">ProgramName</th></tr><tr id="itemPlaceholder" runat="server"></tr>
                                         </table>

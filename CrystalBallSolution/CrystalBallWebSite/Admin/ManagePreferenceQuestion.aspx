@@ -30,7 +30,7 @@
                             <td colspan="2">
                                 <table>
                                     <tbody>
-                                        <tr>
+                                        <tr hidden="hidden">
                                             <th>QuestionID: </th>
                                             <td>
                                                 <asp:Label ID="QuestionIDLabel" runat="server" Text='<%# Bind("QuestionID") %>' />
