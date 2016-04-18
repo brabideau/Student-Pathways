@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 public partial class Student_StudentPreferences : System.Web.UI.Page
 {
     DataTable CoursesSelected;
+    GetDegEntReqs degree = new GetDegEntReqs();
 
     /*
      * On page load create the session, view, and repeater that will house the select NAIT courses view
@@ -151,7 +152,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
             {
                 naitcourseids.Add(Convert.ToInt32(x["CourseID"]));
             }
-            List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, naitcourseids, demoCourses);
+            List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, naitcourseids, demoCourses, degree);
             Session["finalProgramResults"] = finalProgramResults;
 
             ResultsView.DataSource = finalProgramResults;
@@ -208,6 +209,9 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     }
                     else
                     {
+                        degree.CategoryID = Convert.ToInt32(DDL_ProgramCategory.SelectedValue);
+                        degree.CredentialTypeID = Convert.ToInt32(DDL_CredentialType.SelectedValue);
+                        degree.GPA = decimal.Parse(TB_GPA.Text);
                         Show_Metrics(sender, e);
                     }
                 }
@@ -219,8 +223,11 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         }
         else
         {
+            //empty degree variable
+            degree = null;
             Show_Metrics(sender, e);
         }
+            
     }
     protected void Prefs_To_NAITCourse(object sender, EventArgs e)
     {
@@ -363,6 +370,7 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
         CourseGridView.DataBind();
         rptCourse.DataBind();
         TotalCourseLabel.Text = "Total courses : 0";
+        //Show first page
         Show_HSCourses(sender, e);
     }
     //Populates the select NAIT course page and sets the session view

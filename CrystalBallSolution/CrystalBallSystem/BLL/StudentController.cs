@@ -387,28 +387,34 @@ namespace CrystalBallSystem.BLL
 
         #region it is faster now
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        static public List<ProgramResult> EntranceReq_Pref_Match(List<StudentPreference> myPrefs, List<int> naitcourseids, List<int> hscourseids)
+        static public List<ProgramResult> EntranceReq_Pref_Match(List<StudentPreference> myPrefs, List<int> naitcourseids, List<int> hscourseids, GetDegEntReqs myDeg)
         {
             using (CrystalBallContext context = new CrystalBallContext())
             {
 
-        //get all hs courses
+                //get all hs courses
                 var initHsCourses = from h in context.HighSchoolCourses
                                     where hscourseids.Contains(h.HighSchoolCourseID)
-                                  select h;
+                                    select h;
 
                 var totalHsCourses = (from x in initHsCourses
                                       from h in context.HighSchoolCourses
                                       where h.CourseGroupID == x.CourseGroupID && x.CourseLevel >= h.CourseLevel
                                       select h.HighSchoolCourseID).Distinct();
 
-        // entrance req matching
+                // entrance req matching
 
                 // check for required high school courses
                 var firstStep = from p in context.Programs
-                                      where p.Active == true && p.EntranceRequirements.All(e => e.SubjectRequirement.EntranceRequirements.Any(er => totalHsCourses.Contains(er.HighSchoolCourseID)))
-                                      select p;
+                                where p.Active == true && p.EntranceRequirements.All(e => e.SubjectRequirement.EntranceRequirements.Any(er => totalHsCourses.Contains(er.HighSchoolCourseID)))
+                                select p;
 
+
+                var stepOneB = from p in firstStep
+                               where !p.DegreeEntranceRequirements.Any() || (p.DegreeEntranceRequirements.Any(x => x.CredentialTypeID == myDeg.CredentialTypeID &&
+                               x.CategoryID == myDeg.CategoryID &&
+                               x.GPA <= myDeg.GPA))
+                               select p;
                 // TODO: check for degree entrance requirements
 
 
@@ -416,7 +422,7 @@ namespace CrystalBallSystem.BLL
 
 
 
-        // preference matching start
+                // preference matching start
 
                 // get total count of preference questions
                 int qCount = (from x in context.PreferenceQuestions
@@ -425,36 +431,36 @@ namespace CrystalBallSystem.BLL
 
 
                 // filter out programs where the student and program answered at opposite extremes
-                var secondStep = (from p in firstStep.AsEnumerable()
-                                      select p).Except((from q in context.ProgramPreferences.AsEnumerable()
-                                                        from mp in myPrefs
-                                                        where mp.QuestionID == q.QuestionID && Math.Abs(q.Answer - mp.Answer) == 100
-                                                        select q.Program)).Distinct();
+                var secondStep = (from p in stepOneB.AsEnumerable()
+                                  select p).Except((from q in context.ProgramPreferences.AsEnumerable()
+                                                    from mp in myPrefs
+                                                    where mp.QuestionID == q.QuestionID && Math.Abs(q.Answer - mp.Answer) == 100
+                                                    select q.Program)).Distinct();
 
 
                 var thirdStep = (from p in secondStep.AsEnumerable()
-                                      //   where firstprograms.Contains(p.ProgramID)
-                                      select new ProgramResult
-                                      {
-                                          ProgramID = p.ProgramID,
-                                          ProgramName = p.ProgramName,
-                                          ProgramDescription = p.ProgramDescription,
-                                          ProgramLink = p.ProgramLink,
-                                          CredType = (from d in context.CredentialTypes
-                                                      where p.CredentialTypeID == d.CredentialTypeID
-                                                      select d.CredentialTypeName).FirstOrDefault(),
-                                          Credits = (from x in
-                                                         (from ce in context.CourseEquivalencies.AsEnumerable()
-                                                          from c in p.ProgramCourses
-                                                          where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
-                                                          select c.NaitCourse).Distinct()
-                                                     select (double?)x.CourseCredits).Sum(),
+                                 //   where firstprograms.Contains(p.ProgramID)
+                                 select new ProgramResult
+                                 {
+                                     ProgramID = p.ProgramID,
+                                     ProgramName = p.ProgramName,
+                                     ProgramDescription = p.ProgramDescription,
+                                     ProgramLink = p.ProgramLink,
+                                     CredType = (from d in context.CredentialTypes
+                                                 where p.CredentialTypeID == d.CredentialTypeID
+                                                 select d.CredentialTypeName).FirstOrDefault(),
+                                     Credits = (from x in
+                                                    (from ce in context.CourseEquivalencies.AsEnumerable()
+                                                     from c in p.ProgramCourses
+                                                     where naitcourseids.Contains(c.CourseID) || naitcourseids.Contains(ce.TransferCourseID) && c.CourseID == ce.ProgramCourseID
+                                                     select c.NaitCourse).Distinct()
+                                                select (double?)x.CourseCredits).Sum(),
 
-                                          MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
-                                                                       from mp in myPrefs
-                                                                       where q.QuestionID == mp.QuestionID
-                                                                       select (Math.Abs(q.Answer - mp.Answer))).Sum() / qCount))
-                                      });
+                                     MatchPercent = (int)(100 - ((from q in p.ProgramPreferences
+                                                                  from mp in myPrefs
+                                                                  where q.QuestionID == mp.QuestionID
+                                                                  select (Math.Abs(q.Answer - mp.Answer))).Sum() / qCount))
+                                 });
 
 
                 var finalProgramResults = from x in thirdStep
@@ -485,10 +491,10 @@ namespace CrystalBallSystem.BLL
 
                 return finalProgramResults.ToList();
 
-     
+
             }
         }
-                       
+
 
         #endregion
     }
