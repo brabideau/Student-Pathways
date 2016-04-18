@@ -145,43 +145,12 @@ public partial class Student_StudentPreferences : System.Web.UI.Page
                     demoCourses.Add(Convert.ToInt32(item.Value));
             }
 
-
-            /*
-            
-            //Get all possible high school courses based on user selection
-            //pass list of high sschool courses to get the final list of ints that will be used to
-            //determine potential program options
-            List<int> fullCourses = new List<int>();
-            fullCourses = sysmgr.FindHSCourses(demoCourses);
-
-            //step 4 - Determine initial program results and then filter those results based on student preference questions. Display final results
-            //send information to BLL for processing and narrow down possible results
-            List<int> programResults = new List<int>();
-            programResults = StudentController.FindProgramMatches(fullCourses);
-
-            //send list of course codes to the db and retrieve courseids
-            DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
-            List<int> courseIDs = new List<int>();
-            foreach (DataRow x in CoursesSelected.Rows)
-            {
-                courseIDs.Add(Convert.ToInt32(x["CourseID"]));
-            }
-
-            //send list of courseids and list of programids to the db for final results
-            List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, programResults, courseIDs);
-
-*/
-
-
             DataTable CoursesSelected = (DataTable)ViewState["CoursesSelected"];
             List<int> naitcourseids = new List<int>();
             foreach (DataRow x in CoursesSelected.Rows)
             {
                 naitcourseids.Add(Convert.ToInt32(x["CourseID"]));
             }
-
-
-            //List<StudentPreference> myPrefs, List<int> naitcourseids, List<int> hscourseids
             List<ProgramResult> finalProgramResults = StudentController.EntranceReq_Pref_Match(myPreferences, naitcourseids, demoCourses);
             Session["finalProgramResults"] = finalProgramResults;
 
