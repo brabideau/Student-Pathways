@@ -21,12 +21,12 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
             BindList();
         }
     }
-
+    //Handle any expections that occur
     protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
     {
         MessageUserControl.HandleDataBoundException(e);
     }
-
+    //Render data
     private void BindList()
     {
       
@@ -36,7 +36,6 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
         HighSchoolCoursesList.DataSource = highSchoolCourseData;
         HighSchoolCoursesList.DataBind();
     }
-
     protected void HighSchoolCoursesList_ItemEditing(object sender, ListViewEditEventArgs e)
     {
         HighSchoolCoursesList.EditIndex = e.NewEditIndex;
@@ -47,7 +46,6 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
         HighSchoolCoursesList.EditIndex = -1;
         BindList();
     }
-
     protected void HighSchoolCoursesList_ItemInserting(object sender, ListViewInsertEventArgs e)
     {
         AdminController sysmr = new AdminController();
@@ -100,7 +98,6 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
             MessageUserControl.ShowInfo(error.Message);
         }
     }
-
 
     protected void HighSchoolCoursesList_ItemUpdating(object sender, ListViewUpdateEventArgs e)
     {
