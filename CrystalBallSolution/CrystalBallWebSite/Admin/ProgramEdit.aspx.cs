@@ -280,7 +280,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                                 {
                                     program.CompetitiveAdvantage = cAdvantage;
                                     MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
-                                    Categories_Show(sender, e);
+                                    
 
                                 }
                                 else
@@ -312,7 +312,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                                 {
                                     program.CompetitiveAdvantage = null;
                                     MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
-                                    Categories_Show(sender, e);
+                      
                                     //need add things DONE!
                                 }
                                 else
@@ -342,7 +342,21 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         }
         catch (Exception error)
         {
+            
             MessageUserControl.ShowInfo(error.Message);
+           
+        }
+    }
+
+    protected void Next_Button(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(TB_ProgramName.Text))
+        {
+            Categories_Show(sender, e);
+        }
+        else
+        {
+            MessageUserControl.ShowInfo("Please Save program before click Next button.");
         }
     }
     #endregion
@@ -398,7 +412,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             {
                 sysmr.AddProgramInCategories(categories, programid);
             }
-            EntranceReq_Show(sender, e);
+            
             MessageUserControl.ShowInfoPass("Category save success.");
         }
         catch (Exception error)
@@ -406,6 +420,11 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             MessageUserControl.ShowInfo(error.Message);
         }
         
+    }
+
+    protected void Category_Next(object sender, EventArgs e)
+    {
+        EntranceReq_Show(sender, e);
     }
     #endregion
 
@@ -419,6 +438,11 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         var entReq = sysmgr.Get_Subject_Requirement_Details(programID);
         LV_SubjectReq.DataSource = entReq;
         LV_SubjectReq.DataBind();
+    }
+
+    protected void Ent_Req_Next(object sender, EventArgs e)
+    {
+        Courses_Show(sender, e);
     }
 
     protected void Ent_Req_Commands(object sender, ListViewCommandEventArgs args)
@@ -470,6 +494,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     {
         try
         {
+            
             AdminController sysmgr = new AdminController();
             sysmgr.EntranceRequirement_Update(req);
 
@@ -516,18 +541,22 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 newReq.HighSchoolCourseID = Convert.ToInt32(DL_New_EntReq.SelectedValue);
                 newReq.SubjectRequirementID = Convert.ToInt32(DL_New_Subject.SelectedValue);
 
-                if (NewMark.Text.Trim() == "")
+                
+                if (int.TryParse(NewMark.Text.Trim(), out mark) || string.IsNullOrEmpty(NewMark.Text))
                 {
-                    MessageUserControl.ShowInfo("A Mark must be entered.");
-                }
-                else
-                {
-                    if (int.TryParse(NewMark.Text.Trim(), out mark))
-                    {
-                        if (mark >= 50 && mark <= 100)
+
+                        if ((mark >= 50 && mark <= 100) || string.IsNullOrEmpty(NewMark.Text))
                         {
+                            if (string.IsNullOrEmpty(NewMark.Text))
+                            {
+                                newReq.RequiredMark = null;
+                            }
+                            else
+                            {
+                                newReq.RequiredMark = mark;
+                            }
                             //newReq.RequiredMark = int.Parse(NewMark.Text);
-                            newReq.RequiredMark = mark;
+                            
                             AdminController sysmgr = new AdminController();
 
                             bool added = sysmgr.AddEntranceRequirement(newReq);
@@ -550,7 +579,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                     {
                         MessageUserControl.ShowInfo("Mark must be a number.");
                     }
-                }
+               
 
             }
         }
@@ -592,21 +621,23 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 {
                     PSMessageUserControl.ShowInfo("GPA cannot be greater than 4.0 to add a post-secondary entrance requirement.");
                 }
-                else if (gpa < 0)
+                else if (gpa < 2)
                 {
-                    PSMessageUserControl.ShowInfo("GPA cannot be less than 0 to add a post-secondary entrance requirement.");
+                    PSMessageUserControl.ShowInfo("GPA cannot be less than 2 to add a post-secondary entrance requirement.");
                 }
                 else
                 {
                     deg.GPA = gpa;
+                    sysmgr.Deg_EntranceRequirement_Update(deg);
+                    PSMessageUserControl.ShowInfoPass("Entrance Requirement Successfully Updated!");
                 }
+
             }
             else
             {
                 PSMessageUserControl.ShowInfo("GPA must be a decimal value to add a post-secondary entrance requirement.");
             }
-            sysmgr.Deg_EntranceRequirement_Update(deg);
-            PSMessageUserControl.ShowInfoPass("Entrance Requirement Successfully Updated!");
+            
         }
         catch (Exception error)
         {
@@ -658,9 +689,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 {
                     PSMessageUserControl.ShowInfo("GPA cannot be greater than 4.0 to add a post-secondary entrance requirement.");
                 }
-                else if (Decimal.Parse(TB_GPA.Text.Trim()) < 0)
+                else if (Decimal.Parse(TB_GPA.Text.Trim()) < 2)
                 {
-                    PSMessageUserControl.ShowInfo("GPA cannot be less than 0 to add a post-secondary entrance requirement.");
+                    PSMessageUserControl.ShowInfo("GPA cannot be less than 2 to add a post-secondary entrance requirement.");
                 }
                 else
                 {
@@ -821,7 +852,6 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
 
     protected void Save_Courses(object sender, EventArgs e)
     {
-
 
         CourseEquivalencies_Show(sender, e);
     }
@@ -996,6 +1026,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             }
 
             sysmgr.UpdateProgramPreferences(prefs);
+            MessageUserControl.ShowInfoPass("Preference questions saved.");
         }
         catch (Exception error)
         {
@@ -1122,4 +1153,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
         }        
     }
     #endregion
+
+
+    
 }

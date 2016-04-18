@@ -62,8 +62,9 @@
                 <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="Active programs will show up in student's search results" />Check if Active: </span> <asp:Checkbox ID="CB_Active" runat="server" CssClass="col-1"/></p> 
 
                 <p class="clearfix"><span class="label col-3"><asp:Label runat="server" CssClass="tooltip" ToolTip="Link to the main program page on the NAIT website" />Program Link: </span><asp:TextBox ID="TB_Link" runat="server"  CssClass="col-4"/></p>
-                <asp:LinkButton ID="Program_Save" runat="server" OnClick="Save_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>
-                <%--<asp:LinkButton ID="Program_Add" runat="server" OnClick="Add_Program" CssClass="button next button-long">Save & Continue</asp:LinkButton>--%>
+               <asp:LinkButton ID="Program_Next" runat="server" OnClick="Next_Button" CssClass="button next">Next</asp:LinkButton>
+                <asp:LinkButton ID="Program_Save" runat="server" OnClick="Save_Program" CssClass="button button-long submit">Save</asp:LinkButton>
+                
       
             </div>
 
@@ -73,7 +74,8 @@
                 <p>Select the categories that this program belongs to:</p>
                 <asp:CheckBoxList ID="CB_Categories" runat="server" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID"  CssClass="radiochecks" >
                 </asp:CheckBoxList>
-                <asp:LinkButton ID="Categories_Save" runat="server" OnClick="Save_Categories" CssClass="button next button-long">Save & Continue</asp:LinkButton>
+                <asp:LinkButton ID="Categories_Next" runat="server" OnClick="Category_Next" CssClass="button next">Next</asp:LinkButton>
+                <asp:LinkButton ID="Categories_Save" runat="server" OnClick="Save_Categories" CssClass="button button-long submit">Save</asp:LinkButton>
             </div>
 
 
@@ -120,25 +122,22 @@
                                                      <asp:Label ID="EntIDLabel" runat="server" Text='<%# Eval("EntranceRequirementID") %>'></asp:Label>
                                                 </td>
                                                 <td runat="server">
-                                                    <asp:Label ID="Label4" runat="server" ><asp:TextBox ID="Ent_Marks" runat="server" Width="50px" Text='<%# Eval("Mark") %>' /> % in </asp:Label><asp:DropDownList ID="DL_HS_Course" runat="server" DataSourceID="CourseList"
+                                                    <asp:Label ID="Label4" runat="server" >
+                                                        <asp:TextBox ID="Ent_Marks" runat="server" Width="50px" Text='<%# Eval("Mark") %>' /> % in </asp:Label><asp:DropDownList ID="DL_HS_Course" runat="server" DataSourceID="CourseList"
                                                                 DataTextField="HighSchoolCourseDescription"
                                                                 DataValueField="HighSchoolCourseID"
                                                                 SelectedValue='<%# Eval("HSCourseID") %>'>
                                                
                                                 </asp:DropDownList>
+                                                
                                                 </td>
                                                 <td>
                                                     <asp:LinkButton ID="EditButton" runat="server" Text="Update" CommandArgument="Save" CssClass="admin_button" /> - or - <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument="Remove" Text="Remove" CssClass="admin_button" />
                                                 </td>
                                             </tr>
-                                        </ItemTemplate>
-                                    </asp:ListView>
-                                </td>
-                            </tr>
-                        </ItemTemplate>
-                    </asp:ListView>
-
-                    <h5>Add a New Entrance Requirement</h5>Subject: <asp:DropDownList ID="DL_New_Subject" runat="server" DataSourceID="ODS_SubjectRequirement"
+                                            <tr>
+                                                <td colspan="3">
+                                                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please enter a valid number between 50 and 100" ControlToValidate="Ent_Marks" Type="Integer" MinimumValue="50" MaximumValue="100" ForeColor="Red"></asp:RangeValidator></td></tr></ItemTemplate></asp:ListView></td></tr></ItemTemplate></asp:ListView><h5>Add a New Entrance Requirement</h5>Subject: <asp:DropDownList ID="DL_New_Subject" runat="server" DataSourceID="ODS_SubjectRequirement"
                                                             DataTextField="SubjectDescription"
                                                             DataValueField="SubjectRequirementID">
                                                
@@ -199,7 +198,7 @@
                         <p>Credential Type: </p><asp:DropDownList ID="DL_Credential" runat="server" DataSourceID="CredentialODS" DataTextField="CredentialTypeName" DataValueField="CredentialTypeID"></asp:DropDownList>
                         <p>Industry Category: </p><asp:DropDownList ID="DL_Category" runat="server" DataSourceID="CategoryODS" DataTextField="CategoryDescription" DataValueField="CategoryID"></asp:DropDownList>
                         <p>Overall GPA: </p><asp:TextBox ID="TB_GPA" runat="server"></asp:TextBox><p></p>
-                        <asp:LinkButton ID="Add_DER" runat="server" CssClass="admin_button2" OnClick="Add_DER_Click">Add Requirement</asp:LinkButton></div></div><asp:LinkButton ID="Requirements_Save" runat="server" OnClick="Save_Categories" CssClass="button next button-long">Save & Continue</asp:LinkButton></div><%-- ----------------------------- PROGRAM COURSES ---------------------------------------%><div runat="server" id="ProgramCourses" visible="false" class="clearfix">
+                        <asp:LinkButton ID="Add_DER" runat="server" CssClass="admin_button2" OnClick="Add_DER_Click">Add Requirement</asp:LinkButton></div></div><asp:LinkButton ID="Requirements_Save" runat="server" OnClick="Ent_Req_Next" CssClass="button next">Next</asp:LinkButton></div><%-- ----------------------------- PROGRAM COURSES ---------------------------------------%><div runat="server" id="ProgramCourses" visible="false" class="clearfix">
                 <p>What courses are part of this program?</p><h4>Level One</h4><div class="nait-courses">
                     <asp:ListView ID="LV_ProgramCourses_One" runat="server" OnItemCommand="Remove_Program_Course">
                         <LayoutTemplate>
@@ -392,16 +391,14 @@
                                 <td>
                                     <asp:DropDownList ID="DL_Semester" runat="server">
                                         <asp:ListItem Value="-1">---</asp:ListItem><asp:ListItem>1</asp:ListItem><asp:ListItem>2</asp:ListItem><asp:ListItem>3</asp:ListItem><asp:ListItem>4</asp:ListItem></asp:DropDownList></td><td>
-                                    <asp:LinkButton ID="EditButton" runat="server" Text="Add to Program" CssClass="admin_button" />
+                                    <asp:LinkButton ID="EditButton" runat="server" Text="Add" CssClass="admin_button" />
                                 </td>
                             </tr>
                         </ItemTemplate>
                     </asp:ListView>
                 </div>
 
-                <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next button-long">Save & Continue</asp:LinkButton></div>
-            <%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%>
-            <div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
+                <asp:LinkButton ID="Courses_Save" runat="server" OnClick="Save_Courses" CssClass="button next">Next</asp:LinkButton></div><%-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------%><div runat="server" id="CourseEquivalencies" visible="false" class="clearfix">
                 <p>Does this program accept transfer credit/advanced credit for any other NAIT courses?</p><div runat="server" class="entreqcss">
                     <!--Add new equivalency to empty gridview-->
                     <h5>Current Transferable Courses</h5><asp:GridView ID="GV_Equivalencies" runat="server" AutoGenerateColumns="False"  OnRowDeleting="EquivalenciesGrid_RowDeleting" CssClass="equivalency-grid clearfix" ItemType="CrystalBallSystem.DAL.POCOs.GetEquivalencyNames" ShowFooter="True" DataKeyNames="CourseEquivalencyID">
@@ -446,9 +443,7 @@
                                     <asp:ListItem Value="-1">[Select Program]</asp:ListItem></asp:DropDownList></div><div class="clearfix"> 
                                 <asp:Label ID="CourseEquivalent" runat="server" Text="Course: " CssClass="col-4 label"></asp:Label><asp:DropDownList ID="EquivalentCourseID" runat="server" DataTextField="CourseName" DataValueField="CourseID" CssClass="col-5">
                                     <asp:ListItem Value="-1">[Select Course]</asp:ListItem></asp:DropDownList></div><div class="col-12">
-                                <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button2 admin_button_centered submit">Add Equivalency</asp:LinkButton></div></div></div></div><asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next button-long">Save & Continue</asp:LinkButton></div>
-            <%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%>
-            <div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
+                                <asp:LinkButton ID="Enter" runat="server" OnClick="Enter_Click" CssClass="admin_button2 admin_button_centered submit">Add Equivalency</asp:LinkButton></div></div></div></div><asp:LinkButton ID="CourseEquivalencies_Save" runat="server" OnClick="Save_CourseEquivalencies" CssClass="button next">Next</asp:LinkButton></div><%-- ----------------------------- PROGRAM PREFERENCES ---------------------------------------%><div runat="server" id="ProgramPreferences" visible="false" class="clearfix">
                 <p>Answer the questions below so that students can be better matched with this program:</p><asp:GridView ID="GV_Questions" DataSourceID="QuestionsList" runat="server" AutoGenerateColumns="False" CssClass="prefQuestionsCSS">
                     <Columns>
                         <asp:TemplateField>
@@ -460,12 +455,7 @@
                                 <asp:RadioButtonList ID="RB_Preference" runat="server" RepeatLayout="OrderedList">
                                     <asp:ListItem Value="0" Text="Definitely Not">
 
-                                    </asp:ListItem><asp:ListItem Value="15" Text="No"></asp:ListItem>
-                                    <asp:ListItem Value="50" Text="Neutral" Selected="true"></asp:ListItem>
-                                    <asp:ListItem Value="85" Text="Yes"></asp:ListItem>
-                                    <asp:ListItem Value="100" Text="Definitely"></asp:ListItem>
-
-                                </asp:RadioButtonList></ItemTemplate></asp:TemplateField></Columns></asp:GridView><asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button next button-long">Save & Continue</asp:LinkButton></div></div><%--end program edit div--%><%-- ----------------------------- SEARCH ---------------------------------------%><hr /><div runat="server" id="search" class="search-bar" >
+                                    </asp:ListItem><asp:ListItem Value="15" Text="No"></asp:ListItem><asp:ListItem Value="50" Text="Neutral" Selected="true"></asp:ListItem><asp:ListItem Value="85" Text="Yes"></asp:ListItem><asp:ListItem Value="100" Text="Definitely"></asp:ListItem></asp:RadioButtonList></ItemTemplate></asp:TemplateField></Columns></asp:GridView><asp:LinkButton ID="Questions_Save" runat="server" OnClick="Save_Questions" CssClass="button button-long submit">Save</asp:LinkButton></div></div><%--end program edit div--%><%-- ----------------------------- SEARCH ---------------------------------------%><hr /><div runat="server" id="search" class="search-bar" >
             Program Search: <asp:TextBox ID="Search_Box" runat="server" Width="200px"></asp:TextBox>in <asp:DropDownList ID="CategoryDropDowList" runat="server" Height="32px" DataSourceID="CategoryList" DataTextField="CategoryDescription" DataValueField="CategoryID" AppendDataBoundItems="true">
             <asp:ListItem Value="0">[All Subjects]</asp:ListItem></asp:DropDownList><asp:LinkButton ID="Search_Button" runat="server" Text="Search" OnClick="Program_Search" CssClass="admin_button2"/>
             <asp:LinkButton ID="Add_Program_Button" runat="server" Text="Add New Program" CssClass="admin_button2" OnClick="Add_Program_Button_Click"/>

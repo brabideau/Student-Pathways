@@ -20,7 +20,8 @@ namespace CrystalBallSystem.DAL.Entities
         public int SubjectRequirementID { get; set; }
 
         public int? ProgramID { get; set; }
-        
+
+        [Range(50, 100)]
         public int? RequiredMark { get; set; }
 
         public virtual Program Program { get; set; }
