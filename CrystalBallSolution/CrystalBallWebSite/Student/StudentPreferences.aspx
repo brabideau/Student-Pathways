@@ -327,22 +327,25 @@
                         </LayoutTemplate>
                 <ItemTemplate>
                     <tr class="program-search-results">
-                        <td>
+                        <td class="resultsheader">
                            <h3><asp:Label ID="ProgramNameLabel" runat="server" Text='<%# Eval("ProgramName") %>' /></h3>
                         </td>
-                        <td class="clearfix">
+                        <td class="clearfix results-line">
                             <ul>
                                 <li><asp:Label ID="MatchPercentLabel" runat="server" Text='<%# Eval("MatchPercent") %>' />% Match to your preferences</li>
                                 <li><asp:Label ID="CredentialTypeLabel" runat="server" Text='<%# Eval("CredType") %>' /></li>
                             </ul>
                         </td>
-                        <td>
-                            <asp:Label ID="ResultsCreditsLabel" runat="server" Visible=<%# Convert.ToBoolean(Eval("Credits")) %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label>
-
-                        </td>
+                        
                         <td class="desc-box">
+                            <asp:Label ID="ResultsCreditsLabel" runat="server" Visible=<%# Convert.ToBoolean(Eval("Credits")) %>> <p>You may qualify for <asp:Label ID="Label3" runat="server" Text='<%# Eval("Credits") %>' /> credits towards this program</p></asp:Label>
                            <p><asp:Label ID="ProgramDescriptionLabel" runat="server" Text='<%# Eval("ProgramDescription") %>' /></p>
+                           
+                            
                         </td>
-                        <td>
+            
+
+                      
+                        <td class="results-button">
                             <asp:HyperLink ID="ProgramLinkButton" NavigateUrl='<%# Eval("ProgramLink") %>' runat="server" Target="_blank">
                 <span class="button submit button-long">Learn More</span></asp:HyperLink></td></tr></ItemTemplate></asp:ListView></div></div></ContentTemplate></asp:UpdatePanel></asp:Content>

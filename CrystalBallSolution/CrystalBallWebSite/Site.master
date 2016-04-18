@@ -44,7 +44,7 @@
 
                     <div class="logo-box">
                         <a href="http://www.nait.ca/">
-                            <img src="/images/nait-logo-small.png" alt="NAIT logo" class="logo"/>
+                            <span class="logo"></span>
                         </a>
                     </div>
                     <ul class="left-menu">

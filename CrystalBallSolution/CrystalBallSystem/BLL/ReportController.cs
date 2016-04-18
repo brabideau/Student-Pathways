@@ -145,7 +145,7 @@ namespace CrystalBallSystem.BLL
                 List<StudentPreferenceSummary> summaries = new List<StudentPreferenceSummary> { };
                 string quest;
                 int qid;
-                int theCount;
+                //int theCount;
                 int theTotal;
                 int defYes;
                 int yes;
