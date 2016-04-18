@@ -50,8 +50,17 @@
 
        <div id="ProgramData" runat="server" class="clearfix" visible="true">
         <div class="col-12">
+            <p>This page shows the number of times each program showed up in the search results, and the percentage of students in each program who want to switch out of their current program. To view more, select a month and year and click "Search"</p>
+
+        
        <asp:LinkButton ID="Program_Search_Button" runat="server" OnClick="Program_Submit_Click" CssClass="button submit">Search</asp:LinkButton>
-            <p></td>You are viewing data for: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label>, <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
+
+
+           <asp:LinkButton ID="Program_Pdf_Button" runat="server" CssClass="button next button-long" OnClick="Program_PDF_Download"><img src="../images/printer-icon.png" /> Get PDF of results</asp:LinkButton>
+
+
+     </div>
+            <p>You are viewing data for: <asp:Label ID="Program_Month_Label" runat="server" Text=""></asp:Label>, <asp:Label ID="Program_Year_Label" runat="server" Text=""></asp:Label></p>
 
         </div>
  
@@ -79,13 +88,31 @@
         </div>
 
         <div class="col-6 nait-courses">
-            <asp:GridView ID="GV_Program_Dropping" runat="server"></asp:GridView>
-        </div>
-        <div class="col-12">
-           <asp:LinkButton ID="Program_Pdf_Button" runat="server" OnClick="Program_PDF_Download">Get PDF of results</asp:LinkButton>
-            </div>
 
-     </div><%-- end ProgramData--%>
+            <asp:ListView ID="LV_Program_Dropping" runat="server">
+                <LayoutTemplate>
+                    <table>
+                        <thead>
+                            <th>Program</th>
+                            <th>% Switching</th>
+                        </thead>
+                        <tbody>
+                        <tr id="itemPlaceholder" runat="server"></tr>
+                        </tbody>
+                    </table>
+                </LayoutTemplate>        
+                <ItemTemplate>
+                        <tr>
+                            <td><asp:Label ID="ProgramLabel" runat="server" Text='<%# Eval("Program") %>' /></td>
+                            <td><asp:Label ID="FrequencyLabel" runat="server" Text='<%# Eval("PercentDropping") %>' />%</td>
+                        </tr>
+                </ItemTemplate>
+            </asp:ListView>
+
+        </div>
+
+
+<%-- end ProgramData--%>
             
      
 
@@ -110,7 +137,6 @@
             <asp:ListItem Text="2" Value="2" />
             <asp:ListItem Text="3" Value="3" />
             <asp:ListItem Text="4" Value="4" />
-            <asp:ListItem Text="Graduated" Value="-1" />
         </asp:DropDownList>
 
         Switching Programs:
@@ -124,11 +150,14 @@
 
  <%----------------------------------- DATA -------------------------------------%>
     <div class="clearfix">        
-        
+        <p>This page shows how students have been answering the preference questions. To see more, chose your options from the available dropdown menus and click "Search"</p>
+
         <asp:LinkButton ID="Search_Left" runat="server" OnClick="Submit_Click" CssClass="button submit">Search</asp:LinkButton>
 
-        <p>You are viewing data from: <asp:Label ID="Month_Left" runat="server" Text=""></asp:Label>, <asp:Label ID="Year_Left" runat="server" Text=""></asp:Label></p>
-        <p>For <asp:Label ID="Program_Left" runat="server" Text=""></asp:Label></p>
+           <asp:LinkButton ID="Student_PDF_Button" runat="server" CssClass="pdf-button" OnClick="Student_PDF_Download"><img src="../images/printer-icon.png" /> Get PDF of results</asp:LinkButton>
+
+        <p>You are viewing data from: <asp:Label ID="LB_Date" runat="server" Text=""></asp:Label></p>
+        <p><asp:Label ID="Program_Left" runat="server" Text=""></asp:Label></p>
         
         <p><asp:Label ID="Semester_Left" runat="server" Text=""></asp:Label></p>
         <p><asp:Label ID="Dropping_Left" runat="server" Text=""></asp:Label></p>
@@ -173,6 +202,8 @@
                     </tr>
                 </ItemTemplate>
            </asp:ListView>
+
+        
     </div>
 
       

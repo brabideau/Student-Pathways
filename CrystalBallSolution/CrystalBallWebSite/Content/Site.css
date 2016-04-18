@@ -188,6 +188,7 @@ textarea, .textarea {
 
 
 .next {
+    display: inline-block;
     float: right;
 }
 
@@ -197,7 +198,9 @@ textarea, .textarea {
 
 
 .submit {
+    display: block;
     margin: 0 auto;
+    
 }
 
 
@@ -207,6 +210,7 @@ textarea, .textarea {
 
 
 .back {
+    display: inline-block;
     float: left;
 }
 
@@ -222,7 +226,7 @@ textarea, .textarea {
 
 
 .button {
-    display: block;
+
     height: 40px;
     width: 100px;
     background-color: #ffffff;
@@ -365,6 +369,7 @@ textarea, .textarea {
 
 }
 
+
    /* ----------------------------------- GENERAL TABLE STYLING -------------------------------------  */
 
   table {
@@ -441,7 +446,7 @@ nav li a {
   text-decoration: none;
   padding: 0 10px;
   border: 1px solid transparent;	
-  border-radius: 3px;
+  border-radius: 4px;
   transition: .15s;
   line-height: 28px;
 } 

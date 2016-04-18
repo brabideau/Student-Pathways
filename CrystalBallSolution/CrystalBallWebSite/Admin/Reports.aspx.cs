@@ -41,8 +41,8 @@ public partial class Admin_Reports : System.Web.UI.Page
 
                 List<StudentsDroppingSummary> dropping = sysmgr.StudentsDropping_by_Program(year, month);
 
-                GV_Program_Dropping.DataSource = dropping;
-                GV_Program_Dropping.DataBind();
+                LV_Program_Dropping.DataSource = dropping;
+                LV_Program_Dropping.DataBind();
 
                 Session["StudentsDropping"] = dropping;
 
@@ -128,8 +128,8 @@ public partial class Admin_Reports : System.Web.UI.Page
 
             Session["StudentsDropping"] = dropping;
 
-            GV_Program_Dropping.DataSource = dropping;
-            GV_Program_Dropping.DataBind();
+            LV_Program_Dropping.DataSource = dropping;
+            LV_Program_Dropping.DataBind();
         }
         catch (Exception error)
         {
@@ -151,23 +151,23 @@ public partial class Admin_Reports : System.Web.UI.Page
         //fill out filter info
         try
         {
-            Year_Left.Text = DL_Year.SelectedItem.Text;
-            Month_Left.Text = DL_Month.SelectedItem.Text;
+            LB_Date.Text = DL_Month.SelectedItem.Text + ", " + DL_Year.SelectedItem.Text;
+
 
             if (Convert.ToInt32(DL_Program.SelectedItem.Value) > 0)
             {
-                Program_Left.Text = "students in " + DL_Program.SelectedItem.Text;
+                Program_Left.Text = "For students in " + DL_Program.SelectedItem.Text;
             }
             else
             {
-                Program_Left.Text = DL_Program.SelectedItem.Text;
+                Program_Left.Text = "For " + DL_Program.SelectedItem.Text;
             }
 
             if (DL_Program.SelectedItem.Value != "-1")
             {
                 if (DL_Semester.SelectedItem.Value != "0")
                 {
-                    Semester_Left.Text = "In their " + DL_Semester.SelectedItem.Value + " year of study";
+                    Semester_Left.Text = "In year " + DL_Semester.SelectedItem.Value + " of their program";
                 }
                 else
                 {
@@ -361,9 +361,11 @@ public partial class Admin_Reports : System.Web.UI.Page
         
         Document myPdf = new Document(); // Default size is 8.5" x 11" (standard printer paper size)
 
-        Font h1 = FontFactory.GetFont("Arial", 28);
+        Font h1 = FontFactory.GetFont("Arial", 18);
 
-        Font h2 = FontFactory.GetFont("Arial", 18);
+        Font h2 = FontFactory.GetFont("Arial", 16, Font.BOLD);
+
+        Font f1 = FontFactory.GetFont("Arial", 12);
 
         string path = Server.MapPath("../PDFs");
 
@@ -374,33 +376,34 @@ public partial class Admin_Reports : System.Web.UI.Page
         // Open the pdf so you can start working on it
         myPdf.Open();
 
+
+        myPdf.Add(new Paragraph("Frequency of programs being displayed in results in " + DL_Month.SelectedItem + " " + DL_Year.SelectedItem, h1));
+
+
         // Table designed for pdfs. Value in () is number of columns.
         PdfPTable programFreq = new PdfPTable(2);
-        programFreq.WidthPercentage = 80;//a4 paper width is 595.0 and 80% of it is 476f
+        programFreq.WidthPercentage = 88;//a4 paper width is 595.0 and 80% of it is 476f
         float[] cellWidth = new float[2];
         cellWidth[0] = 375f;
         cellWidth[1] = 119f;
         programFreq.SetWidths(cellWidth);
-        
 
-        // Create and add the header and subheader
-        PdfPCell header = new PdfPCell(new Phrase("Frequency of programs being displayed in results in " + DL_Month.SelectedItem + " " + DL_Year.SelectedItem, h1));
-        header.Padding = 10;
-        header.Colspan = 2;
-        header.HorizontalAlignment = 1;
+        programFreq.SpacingBefore = 15f;
+        programFreq.SpacingAfter = 45f;
+
         //the PdfPTable doesn't support that natively. However, the PdfPCell supports a property that takes a custom implementation of IPdfPCellEvent which will get called whenever a cell layout happens.
         //http://stackoverflow.com/questions/10231770/itextsharp-table-cell-spacing-possible 
-        programFreq.DefaultCell.Padding = 10;
-        programFreq.AddCell(header);
+
+
+        programFreq.DefaultCell.PaddingLeft = 10;
+        programFreq.DefaultCell.PaddingRight = 10;
+        programFreq.DefaultCell.PaddingTop = 4;
+        programFreq.DefaultCell.PaddingBottom = 6;
+
         //pdf cell guideline http://www.coderanch.com/how-to/javadoc/itext-2.1.7/com/lowagie/text/pdf/PdfCell.html
-        PdfPCell secondHeader1 = new PdfPCell(new Phrase("Program Name", h2));
-        secondHeader1.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-        secondHeader1.Padding = 5;
-        programFreq.AddCell(secondHeader1);
-        PdfPCell secondHeader2 = new PdfPCell(new Phrase("# of times shown", h2));
-        secondHeader2.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
-        secondHeader2.Padding = 5;
-        programFreq.AddCell(secondHeader2);
+
+        programFreq.AddCell(new Phrase("Program Name", h2));
+        programFreq.AddCell(new Phrase("# of times shown", h2));
 
         // Get data to put in this table
         List<ProgramFrequency> frequency = (List<ProgramFrequency>)Session["ProgramFrequency"];
@@ -409,36 +412,55 @@ public partial class Admin_Reports : System.Web.UI.Page
         //iterate through the data and put it in the table
         foreach(var item in frequency)
         {
-            PdfPCell cell1 = new PdfPCell(new Phrase(item.Program.ToString()));
-            //cell1.HorizontalAlignment = Element.ALIGN_CENTER;
-            cell1.Padding = 5;
-            programFreq.AddCell(cell1);
-            PdfPCell cell2 = new PdfPCell(new Phrase(item.Frequency.ToString()));
-            cell2.HorizontalAlignment = Element.ALIGN_CENTER;
-            cell2.Padding = 5;
-            programFreq.AddCell(cell2);
-            //------------how to set up cell-------------------------------------
-            //PdfPTable table = new PdfPTable(3);
-            //table.AddCell("Cell 1");
-            //PdfPCell cell = new PdfPCell(new Phrase("Cell 2", new Font(Font.HELVETICA, 8f, Font.NORMAL, Color.YELLOW)));
-            //cell.BackgroundColor = new Color(0, 150, 0);
-            //cell.BorderColor = new Color(255, 242, 0);
-            //cell.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER;
-            //cell.BorderWidthBottom = 3f;
-            //cell.BorderWidthTop = 3f;
-            //cell.PaddingBottom = 10f;
-            //cell.PaddingLeft = 20f;
-            //cell.PaddingTop = 4f;
-            //table.AddCell(cell);
-            //table.AddCell("Cell 3");
-            //doc.Add(table);
-
+            programFreq.AddCell(new Phrase(item.Program.ToString()));
+            programFreq.AddCell(new Phrase(item.Frequency.ToString()));
         }
 
         
-
         // Add the table to the pdf
         myPdf.Add(programFreq);
+
+
+
+//Students Dropping Table
+        myPdf.Add(new Paragraph("Percent of students in each program considering switching in " + DL_Month.SelectedItem + " " + DL_Year.SelectedItem, h1));
+
+
+        // Table designed for pdfs. Value in () is number of columns.
+        PdfPTable studentsdropping = new PdfPTable(2);
+        studentsdropping.WidthPercentage = 88;//a4 paper width is 595.0 and 80% of it is 476f
+
+        studentsdropping.SetWidths(cellWidth);
+
+        studentsdropping.SpacingBefore = 15f;
+        studentsdropping.SpacingAfter = 45f;
+
+        //the PdfPTable doesn't support that natively. However, the PdfPCell supports a property that takes a custom implementation of IPdfPCellEvent which will get called whenever a cell layout happens.
+        //http://stackoverflow.com/questions/10231770/itextsharp-table-cell-spacing-possible 
+
+
+        studentsdropping.DefaultCell.PaddingLeft = 10;
+        studentsdropping.DefaultCell.PaddingRight = 10;
+        studentsdropping.DefaultCell.PaddingTop = 4;
+        studentsdropping.DefaultCell.PaddingBottom = 6;
+
+        studentsdropping.AddCell(new Phrase("Program Name", h2));
+        studentsdropping.AddCell(new Phrase("% Students Switching", h2));
+        List<StudentsDroppingSummary> dropping = (List<StudentsDroppingSummary>)Session["StudentsDropping"];
+
+
+        foreach (var item in dropping)
+        {
+            studentsdropping.AddCell(new Phrase(item.Program.ToString()));
+            studentsdropping.AddCell(new Phrase(item.PercentDropping.ToString() + " %"));
+        }
+
+
+
+        // Add the table to the pdf
+        myPdf.Add(studentsdropping);
+
+
 
         string now = DateTime.Now.ToString("MMM d, yyyy h:mm tt");
 
@@ -450,6 +472,79 @@ public partial class Admin_Reports : System.Web.UI.Page
 
     }
 
+
+
+    protected void Student_PDF_Download(object sender, EventArgs e)
+    {
+        Document myPdf = new Document(PageSize.A4.Rotate()); // Default size is 8.5" x 11" (standard printer paper size)
+
+        Font h1 = FontFactory.GetFont("Arial", 18);
+        Font h2 = FontFactory.GetFont("Arial", 12, Font.BOLD);
+        Font f1 = FontFactory.GetFont("Arial", 12);
+
+        string path = Server.MapPath("../PDFs");
+
+        PdfWriter.GetInstance(myPdf, new FileStream(path + "/Pathways_StudentReport.pdf", FileMode.Create));
+
+        myPdf.Open();
+
+        myPdf.Add(new Paragraph("Summary of Student Preferences", h1));
+        myPdf.Add(new Paragraph("Data from " + LB_Date.Text, f1));
+        myPdf.Add(new Paragraph(Program_Left.Text, f1));
+        myPdf.Add(new Paragraph(Semester_Left.Text, f1));
+        myPdf.Add(new Paragraph(Dropping_Left.Text, f1));
+
+
+
+     
+
+        PdfPTable studentPrefs = new PdfPTable(6);
+        studentPrefs.WidthPercentage = 92;
+
+        float[] cellWidth = new float[] { 20f, 7f, 4f, 5f, 4f, 6f };
+
+        studentPrefs.SetWidths(cellWidth);
+
+        //declare defaults for table
+        studentPrefs.DefaultCell.PaddingLeft = 10;
+        studentPrefs.DefaultCell.PaddingRight = 10;
+        studentPrefs.DefaultCell.PaddingTop = 4;
+        studentPrefs.DefaultCell.PaddingBottom = 6;
+
+        studentPrefs.SpacingBefore = 15f;
+        studentPrefs.SpacingAfter = 45f;
+
+        //add headers
+        studentPrefs.AddCell(new Phrase("Question", h2));
+        studentPrefs.AddCell(new Phrase("Definitely Not", h2));
+        studentPrefs.AddCell(new Phrase("No", h2));
+        studentPrefs.AddCell(new Phrase("Neutral", h2));
+        studentPrefs.AddCell(new Phrase("Yes", h2));
+        studentPrefs.AddCell(new Phrase("Definitely", h2));
+
+        List<StudentPreferenceSummary> studentData = (List<StudentPreferenceSummary>)Session["leftData"];
+
+        foreach (var item in studentData)
+        {
+            studentPrefs.AddCell(new Phrase("Do you want " + item.Question.ToString()));
+            studentPrefs.AddCell(new Phrase(item.DefinitelyNot.ToString() + " %"));
+            studentPrefs.AddCell(new Phrase(item.No.ToString() + " %"));
+            studentPrefs.AddCell(new Phrase(item.DontKnow.ToString() + " %"));
+            studentPrefs.AddCell(new Phrase(item.Yes.ToString() + " %"));
+            studentPrefs.AddCell(new Phrase(item.Definitely.ToString() + " %"));
+        }
+
+        myPdf.Add(studentPrefs);
+
+
+
+        string now = DateTime.Now.ToString("MMM d, yyyy h:mm tt");
+
+        myPdf.Add(new Paragraph("Report generated on " + now));
+        // Close the pdf when you are finished with it
+        myPdf.Close();
+        Response.Redirect("../PDFs/Pathways_StudentReport.pdf");
+    }
 
     #endregion
 }
