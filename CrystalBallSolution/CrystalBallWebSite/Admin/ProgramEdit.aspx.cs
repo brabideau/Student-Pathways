@@ -94,7 +94,7 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
             Populate_Categories(programID);
 
             Populate_Courses(programID);
-            Populate_Equivalencies(programID);
+            Populate_Equivalencies();
 
             GV_Questions.DataBind();
             Populate_Preferences(programID);
@@ -780,6 +780,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                 Populate_Courses(programID);
                 MessageUserControl.ShowInfoPass("Added successfully!");
 
+                EmptyCurrentDropdown.Items.Clear();
+                EmptyCurrentDropdown.DataBind();
+
             }
                 );
         }
@@ -827,12 +830,12 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
     /*-- ----------------------------- COURSE EQUIVALENCIES ---------------------------------------*/
     #region equivalencies
 
-    protected void Populate_Equivalencies(int programID)
+    protected void Populate_Equivalencies()
     {
         try
         {
             AdminController sysmgr = new AdminController();
-            var equivalencies = sysmgr.GetEquivalencies(programID);
+            var equivalencies = sysmgr.GetEquivalencies(Int32.Parse(ProgramIDLabel.Text));
             GV_Equivalencies.DataSource = equivalencies;
             GV_Equivalencies.DataBind();
 
