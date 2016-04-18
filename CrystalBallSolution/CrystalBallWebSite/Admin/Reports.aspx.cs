@@ -215,7 +215,7 @@ public partial class Admin_Reports : System.Web.UI.Page
 
     
 
-    protected List<StudentPreferenceSummary> Get_Data() //object sender, EventArgs e
+    protected List<StudentPreferenceSummary> Get_Data()
     {
         DataTable myData = new DataTable();
 
