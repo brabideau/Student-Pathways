@@ -25,12 +25,11 @@
         <div class="search-bar">
             <label >Search by course name or course code</label>
             <br />
-            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
-            <asp:CheckBox ID="ActiveCheckBox" runat="server" Text="Show active Courses Only"  />
+            <asp:TextBox ID="SearchTextBox" runat="server" Width="200px"></asp:TextBox><asp:LinkButton ID="Search" runat="server" Text="Search" OnClick="Search_Click" CssClass="admin_button2 space"/>
+            <br /><asp:CheckBox ID="ActiveCheckBox" runat="server" Text="Show active Courses Only"  />
         </div>
 
     <div>
-        <h3>Nait Courses Search</h3>
        
         <asp:ListView ID="NaitCoursesListViewByProgram" runat="server" 
                                       ItemType="CrystalBallSystem.DAL.POCOs.NAITCourse" 
@@ -55,7 +54,7 @@
                                     <td colspan="6">
                                         <table>
                                             <tbody>
-                                                <tr>
+                                                <tr hidden="hidden">
                                                     <th>CourseID: </th><td>
                                                             <asp:Label ID="CourseIDTextBox" runat="server" Text='<%# Bind("CourseID") %>' />
                                                         </td>
@@ -102,7 +101,7 @@
                                     <td colspan="6">
                                         <table>
                                             <tbody>
-                                                <tr>
+                                                <tr hidden="hidden">
                                                     <th>CourseID: </th><td>
                                                         <asp:Label ID="CourseIDTextBox" runat="server" Text='<%# Bind("CourseID") %>' />
                                                     </td>
@@ -131,7 +130,7 @@
                                                     <th></th>
                                                     <td>
                                                         <asp:LinkButton ID="InsertButton" CommandName="Insert" runat="server" Text="Save" CssClass="admin_button" >
-                                                        </asp:LinkButton><asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button">
+                                                        </asp:LinkButton><asp:LinkButton ID="CancelButton" CommandName="Cancel" runat="server" Text="Cancel" CssClass="admin_button space">
                                                         </asp:LinkButton></td></tr></tbody></table></td></tr></InsertItemTemplate><ItemTemplate>
                                 <tr>
                                     <td>

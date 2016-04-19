@@ -917,12 +917,14 @@ footer {
 }*/
 
 /* ------------------Management Menu -----------------------*/
+.admin-menu {
+    padding-top: 30px;
+}
+
+
 
 .admin-menu .col-4 {
     height: 265px;
-    padding: 20px 0;
-    margin: 10px 0;
-    display: block;
 }
 
 .cat-img {
@@ -1033,8 +1035,6 @@ footer {
         padding: 3px 7px;
     }
 
-underscored {
-}
 
 .paddingTop {
     padding: 15px;
@@ -1057,4 +1057,8 @@ underscored {
 
 .selected {
     background-color: rgba(0, 102, 255,0.3);
+}
+
+.space{
+    margin-left:20px;
 }

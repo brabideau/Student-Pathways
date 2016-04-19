@@ -46,6 +46,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             }
             NaitCoursesListViewByProgram.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
             NaitCoursesListViewByProgram.DataBind();
+            CloseInsert();
         }
         catch (Exception er)
         {
@@ -129,9 +130,9 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             }
             else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
             {
-                if (credits <= 1 || credits > 100)
+                if (credits < 1)
                 {
-                    MessageUserControl.ShowInfo("Credits must be between 1 - 100");
+                    MessageUserControl.ShowInfo("Credits must be higher than 1");
                 }
                 else
                 {
@@ -163,6 +164,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
                         sysmr.AddNaitCourse(NewCourse);
                         CloseInsert();
                         BindList();
+                        MessageUserControl.ShowInfoPass("Add new course success.");
                     }
                 }                
             }
@@ -183,6 +185,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         NaitCoursesListViewByProgram.EditIndex = e.NewEditIndex;
 
         BindList();
+
     }
 
     protected void NaitCoursesListViewByProgram_ItemCanceling(object sender, ListViewCancelEventArgs e)
@@ -224,9 +227,9 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
         try
         {
             NaitCoursesListViewByProgram.DataSource = course.SearchNaitCourses(SearchTextBox.Text, int.Parse(ProgramDropDownList.SelectedValue), active);
+            NaitCoursesListViewByProgram.InsertItemPosition = InsertItemPosition.None;
             NaitCoursesListViewByProgram.DataBind();
-
-            SearchTextBox.Text = null;
+           // SearchTextBox.Text = null;
         }
         catch (Exception error)
         {
@@ -279,15 +282,17 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
                     {
                         sysmr.UpdateNaitCourse(course);
                         NaitCoursesListViewByProgram.EditIndex = -1;
+                        MessageUserControl.ShowInfoPass("Update course success.");
                     }
 
-                    BindList();
+                    
                 }                
             }
             else
             {
                 MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
             }
+            BindList();
         }
         catch (Exception error)
         {

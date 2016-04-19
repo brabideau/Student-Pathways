@@ -15,9 +15,6 @@ public partial class Admin_MenuCategory : System.Web.UI.Page
             //NO
             Response.Redirect("~/Account/Login.aspx");
         }
-        else
-        {
-            currentLogin.Text = User.Identity.GetUserName();
-        }
+        
     }
 }
