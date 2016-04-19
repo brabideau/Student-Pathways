@@ -298,6 +298,8 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                         {
                             MessageUserControl.ShowInfo("Credit must be a number.");
                         }
+                        else if (double.Parse(credits) < 1 || double.Parse(credits) > 100)
+                            MessageUserControl.ShowInfo("Credits must be between 1 - 100");
                         else
                         {
                             program.TotalCredits = dCredits;
@@ -317,7 +319,9 @@ public partial class Admin_ProgramEdit : System.Web.UI.Page
                                 }
                                 else
                                 {
-                                    if (int.TryParse(TB_CompetitiveAdvantage.Text, out cAdvantage))
+                                    if (int.Parse(TB_CompetitiveAdvantage.Text) < 0 || int.Parse(TB_CompetitiveAdvantage.Text) > 100)
+                                        MessageUserControl.ShowInfo("Competitive advantage must be between 0 - 100");
+                                    else if (int.TryParse(TB_CompetitiveAdvantage.Text, out cAdvantage))
                                     {
                                         program.CompetitiveAdvantage = cAdvantage;
                                         MessageUserControl.TryRun(() => sysmr.Program_Update(program), "Updated Success.", "You updated the program");
