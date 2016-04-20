@@ -66,7 +66,7 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
 
             if (string.IsNullOrEmpty(courseNameText.Text))
             {
-                MessageUserControl.ShowInfo("The High School Name is required.");
+                MessageUserControl.ShowInfo("High school name is required.");
             }
             if (courseLevel.SelectedValue == "0")
             {
@@ -79,7 +79,7 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
 
             if (courseGroup.SelectedValue == "0")
             {
-                MessageUserControl.ShowInfo("Please select a course Group.");
+                MessageUserControl.ShowInfo("Please select a course group.");
             }
             else
             {
@@ -89,7 +89,7 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
             if (string.IsNullOrEmpty(courseNameText.Text) == false && courseLevelId != "0" && courseGroupId != "0")
             {
                 NewHighSchoolCourse.Add(highschoolCourse);
-                MessageUserControl.TryRun(() => sysmr.AddHighSchoolCourse(NewHighSchoolCourse), "Add Success.", "You added new course: " + courseNameText.Text);
+                MessageUserControl.TryRun(() => sysmr.AddHighSchoolCourse(NewHighSchoolCourse), "Add Success", "You added new course: " + courseNameText.Text);
                 BindList();
             }
         }
@@ -118,7 +118,7 @@ public partial class Admin_ManageHighSchoolCourses : System.Web.UI.Page
 
             if (string.IsNullOrEmpty(courseNameText.Text))
             {
-                MessageUserControl.ShowInfo("The High School Name is required.");
+                MessageUserControl.ShowInfo("High school name is required.");
             }
             if (courseLevel.SelectedValue == "0")
             {

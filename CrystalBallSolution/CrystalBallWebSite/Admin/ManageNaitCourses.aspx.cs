@@ -126,7 +126,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             string courseNameText = courseNameBox.Text;
             if (courseCreditsBox.Text.Trim() == "")
             {
-                MessageUserControl.ShowInfo("Course Credits is required.");
+                MessageUserControl.ShowInfo("Course credits is required.");
             }
             else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
             {
@@ -147,11 +147,11 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
                     AdminController sysmr = new AdminController();
                     if (string.IsNullOrEmpty(courseCodeText))
                     {
-                        MessageUserControl.ShowInfo("The Course Code is required.");
+                        MessageUserControl.ShowInfo("Course code is required.");
                     }
                     else if (string.IsNullOrEmpty(courseNameText))
                     {
-                        MessageUserControl.ShowInfo("The Course Name is required.");
+                        MessageUserControl.ShowInfo("Course name is required.");
                     }
                     else
                     {
@@ -164,13 +164,13 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
                         sysmr.AddNaitCourse(NewCourse);
                         CloseInsert();
                         BindList();
-                        MessageUserControl.ShowInfoPass("Add new course success.");
+                        MessageUserControl.ShowInfoPass("New Course Successfully Added!");
                     }
                 }                
             }
             else
             {
-                MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
+                MessageUserControl.ShowInfo("Course credits must be a decimal value.");
             }
         }
         catch (Exception error)
@@ -259,7 +259,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             course.CourseName = courseNameBox.Text;
             if (courseCreditsBox.Text.Trim() == "")
             {
-                MessageUserControl.ShowInfo("Course Credits is required.");
+                MessageUserControl.ShowInfo("Course credits is required.");
             }
             else if (double.TryParse(courseCreditsBox.Text.Trim(), out credits))
             {
@@ -272,17 +272,17 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
 
                     if (string.IsNullOrEmpty(courseCodeBox.Text))
                     {
-                        MessageUserControl.ShowInfo("The Course Code is required.");
+                        MessageUserControl.ShowInfo("Course code is required.");
                     }
                     else if (string.IsNullOrEmpty(courseNameBox.Text))
                     {
-                        MessageUserControl.ShowInfo("The Course Name is required.");
+                        MessageUserControl.ShowInfo("Course name is required.");
                     }
                     else
                     {
                         sysmr.UpdateNaitCourse(course);
                         NaitCoursesListViewByProgram.EditIndex = -1;
-                        MessageUserControl.ShowInfoPass("Update course success.");
+                        MessageUserControl.ShowInfoPass("Course Successfully Updated!");
                     }
 
                     
@@ -290,7 +290,7 @@ public partial class Admin_ManageNaitCourses : System.Web.UI.Page
             }
             else
             {
-                MessageUserControl.ShowInfo("Course Credits must be a decimal value.");
+                MessageUserControl.ShowInfo("Course credits must be a decimal value.");
             }
             BindList();
         }

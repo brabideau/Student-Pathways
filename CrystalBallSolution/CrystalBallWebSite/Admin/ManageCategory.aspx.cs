@@ -40,7 +40,7 @@ public partial class Admin_ManageCategory : System.Web.UI.Page
 
             sysmr.UpdateCategory(category);
             CategoryList.DataBind();
-            MessageUserControl.ShowInfoPass("Category update success!");
+            MessageUserControl.ShowInfoPass("Category Successfully Updated!");
         }
         catch(Exception error)
         {
